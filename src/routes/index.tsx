@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { type ComponentType, useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -15,7 +15,7 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
-type IconType = (props: { className?: string }) => JSX.Element;
+type IconType = ComponentType<{ className?: string }>;
 
 
 
