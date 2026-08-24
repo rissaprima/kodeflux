@@ -15,6 +15,10 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
+type IconType = (props: { className?: string }) => JSX.Element;
+
+
+
 
 
 function TikTokIcon({ className }: { className?: string }) {
