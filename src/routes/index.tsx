@@ -387,28 +387,19 @@ function Landing() {
               building.
             </p>
             <div className="mt-10 flex items-center justify-center gap-4">
-              {[
-                {
-                  icon: Instagram,
-                  href: "https://www.instagram.com/kode.flux",
-                  label: "Instagram",
-                },
-                {
-                  icon: MessageCircle,
-                  href: "https://wa.me/6282299988720",
-                  label: "WhatsApp",
-                },
-                {
-                  icon: Mail,
-                  href: "mailto:hello@kodeflux.com",
-                  label: "Email",
-                },
-              ].map((s) => (
+              {(
+                [
+                  { icon: Instagram, href: "#", label: "Instagram" },
+                  { icon: TikTokIcon, href: "#", label: "TikTok" },
+                  { icon: ThreadsIcon, href: "#", label: "Threads" },
+                  { icon: TelegramIcon, href: "#", label: "Telegram" },
+                  { icon: DiscordIcon, href: "#", label: "Discord" },
+                  { icon: Linkedin, href: "#", label: "LinkedIn" },
+                ] as { icon: IconType; href: string; label: string }[]
+              ).map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label={s.label}
                   className="rounded-xl border border-border bg-secondary/50 p-3 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-border-strong hover:text-primary"
                 >
