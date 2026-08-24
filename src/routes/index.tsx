@@ -12,7 +12,6 @@ import {
   UserRound,
   Users,
 } from "lucide-react";
-import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
 type IconType = (props: { className?: string }) => JSX.Element;
