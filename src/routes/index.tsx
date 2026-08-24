@@ -103,7 +103,7 @@ const programs = [
   },
   {
     icon: UserRound,
-    title: "Private 1-on-1",
+    title: "Private Mentoring",
     desc: "Direct mentoring for your specific business situation.",
   },
   {
@@ -296,7 +296,7 @@ function Landing() {
       {/* MORE PROGRAMS */}
       <section className="px-5 py-20 sm:py-24">
         <div className="mx-auto max-w-6xl">
-          <SectionHeader eyebrow="Also Coming" headline="Go deeper, one-on-one." />
+          <SectionHeader eyebrow="Also Coming" headline="Go deeper, together." />
           <ul className="mt-12 grid gap-4 md:grid-cols-3">
             {programs.map((item, i) => (
               <Reveal
@@ -326,16 +326,15 @@ function Landing() {
               Series
             </span>
             <p className="text-sm text-muted-foreground">
-              Fluxman — a faceless content series on building businesses solo.
+              Fluxman — stories every entrepreneur, founder and hustler can
+              relate to.
             </p>
           </div>
           <a
-            href="https://www.instagram.com/kode.flux"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            Follow on Instagram →
+            Watch on YouTube →
           </a>
         </Reveal>
       </section>
