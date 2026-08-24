@@ -285,7 +285,16 @@ function Landing() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {tool.desc}
                 </p>
-                <div className="tool-screenshot mt-5" />
+                <div className="tool-screenshot mt-5">
+                  <img
+                    src={tool.img}
+                    alt={`${tool.name} dashboard screenshot`}
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover object-top"
+                  />
+                </div>
+
                 <a
                   href={tool.href}
                   target="_blank"
