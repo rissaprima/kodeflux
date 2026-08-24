@@ -383,7 +383,8 @@ function Landing() {
           <Reveal className="relative mx-auto max-w-2xl text-center">
             <h2 className="text-3xl sm:text-5xl">Join the community!</h2>
             <p className="mt-4 text-base text-muted-foreground">
-              Tutorials, e-courses &amp; industry playbooks — coming soon!
+              Real systems, real numbers, real lessons — from someone still
+              building.
             </p>
             <div className="mt-10 flex items-center justify-center gap-4">
               {[
