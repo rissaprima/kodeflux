@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import type { SVGProps } from "react";
 import {
   ArrowRight,
   BookOpen,
   GraduationCap,
   Handshake,
   Instagram,
-  Mail,
-  MessageCircle,
+  Linkedin,
   PlayCircle,
   Presentation,
   UserRound,
@@ -15,6 +15,41 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
+
+type IconType = (props: { className?: string }) => React.ReactElement;
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.6c-1.2.1-2.4-.3-3.5-.9v5.9c0 3-2.4 5.5-5.5 5.5S5.5 17 5.5 14s2.4-5.5 5.5-5.5c.3 0 .7 0 1 .1v2.7c-.3-.1-.7-.2-1-.2-1.5 0-2.8 1.3-2.8 2.9 0 1.5 1.3 2.8 2.8 2.8s2.9-1.3 2.9-2.8V3h3.1z" />
+    </svg>
+  );
+}
+
+function ThreadsIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M12 3c-4.4 0-7.5 3.1-7.5 7.5 0 5.2 3.1 8 7.5 8 4 0 6.5-2.4 6.7-5.6.1-1.5-.4-3-1.5-4" />
+      <path d="M12.7 8.3c.3 2.3 1 3.5 2.6 3.5 1.2 0 2-.8 2-2 0-1.9-1.6-3.2-3.9-3.2-2.9 0-4.8 2.2-4.8 5.1 0 2.7 1.7 4.5 4.2 4.5 1.1 0 2-.3 2.8-.9" />
+    </svg>
+  );
+}
+
+function TelegramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M21.7 4.3 18.6 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 9-8.1c.4-.3-.1-.5-.6-.2L6.5 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.8c.8-.3 1.5.2 1.2 1.5z" />
+    </svg>
+  );
+}
+
+function DiscordIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M19.3 5.3A17 17 0 0 0 15 4l-.2.4a13 13 0 0 1 3.6 1.8 13.5 13.5 0 0 0-13 .1A13 13 0 0 1 9 4.4L8.8 4a17 17 0 0 0-4.3 1.3C1.7 9.4 1 13.4 1.3 17.3a17 17 0 0 0 5.2 2.6l.4-.6c-.8-.3-1.6-.7-2.3-1.2l.6-.4a12 12 0 0 0 10.4 0l.6.4c-.7.5-1.5.9-2.3 1.2l.4.6a17 17 0 0 0 5.2-2.6c.4-4.5-.6-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2z" />
+    </svg>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
