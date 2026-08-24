@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import type { SVGProps } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -16,7 +15,7 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
-type IconType = (props: { className?: string }) => React.ReactElement;
+
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
