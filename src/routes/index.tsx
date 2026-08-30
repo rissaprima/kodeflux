@@ -70,7 +70,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Six tools, one ecosystem. Systems built from real experience in hospitality, agencies, rentals and trading.",
+          "Six tools, one ecosystem. Systems built from real experience in hospitality, agencies, rentals and event operations.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -84,37 +84,31 @@ const tools = [
     name: "Kapsule Tools",
     desc: "For agencies, freelancers, and content creators who manage multiple clients.",
     href: "https://social-io.netlify.app/",
-    img: "/tools/kapsule.jpg",
   },
   {
     name: "Kashflow Tools",
     desc: "For multi-income earners who want to know where the money actually goes.",
     href: "https://budget-tools.netlify.app/",
-    img: "/tools/kashflow.jpg",
   },
   {
     name: "Kluster Tools",
     desc: "For rental owners and side hustlers turning assets into steady income.",
     href: "https://rental-io.netlify.app/",
-    img: "/tools/kluster.jpg",
   },
   {
     name: "Konsole Tools",
-    desc: "For active traders in forex or crypto who want discipline over noise.",
+    desc: "For party planners and hosts coordinating vendors, timelines, budgets, and guest lists.",
     href: "https://trader-tools.netlify.app/",
-    img: "/tools/konsole.jpg",
   },
   {
     name: "Kubicle Tools",
     desc: "For coaches, trainers and mentors running structured programs.",
     href: "https://mentor-io.netlify.app/",
-    img: "/tools/kubicle.jpg",
   },
   {
     name: "Kruise Tools",
     desc: "For travelers, guides and tour operators planning trips, itineraries and experiences.",
     href: "https://travel-tools.netlify.app/",
-    img: "/tools/kruise.jpg",
   },
 ];
 
@@ -158,6 +152,47 @@ const programs = [
   },
 ];
 
+/**
+ * kodeflux-logo-placeholder
+ * Swap ONLY the inner markup of this component for an uploaded logo image:
+ *   <img src={logo} alt="Kodeflux" className="h-7 w-auto" />
+ * Keep the wrapper <a> and its footprint so navbar height stays unchanged.
+ */
+function KodefluxLogo() {
+  return (
+    <a
+      href="#top"
+      aria-label="Kodeflux home"
+      data-slot="kodeflux-logo-placeholder"
+      className="flex h-8 items-center"
+    >
+      <span className="text-lg font-extrabold tracking-tight">
+        Kodeflux<span className="text-primary">.</span>
+      </span>
+    </a>
+  );
+}
+
+/**
+ * kodeflux-bg-placeholder
+ * Global decorative background layer. Currently a CSS-generated dark abstract
+ * multicolor blurred-gradient wash. To use an uploaded image later, replace the
+ * inner div's className `kodeflux-bg-layer` with an <img> or a background image
+ * on the same absolutely-positioned element — no page restructuring needed.
+ */
+function KodefluxBackground() {
+  return (
+    <div
+      data-slot="kodeflux-bg-placeholder"
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    >
+      <div className="kodeflux-bg-layer absolute inset-0 blur-[80px] saturate-125" />
+      <div className="dot-grid absolute inset-0 opacity-25" />
+    </div>
+  );
+}
+
 function Nav() {
   const [solid, setSolid] = useState(false);
 
@@ -173,14 +208,12 @@ function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         solid
-          ? "border-b border-border bg-background/85 backdrop-blur-xl"
+          ? "border-b border-border bg-background/70 backdrop-blur-xl"
           : "border-b border-transparent",
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="#top" className="text-lg font-extrabold tracking-tight">
-          Kodeflux<span className="text-primary">.</span>
-        </a>
+        <KodefluxLogo />
         <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
           <a href="#tools" className="transition-colors hover:text-foreground">
             Tools
@@ -194,7 +227,7 @@ function Nav() {
         </div>
         <a
           href="#tools"
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          className="glass-button rounded-lg px-4 py-2 text-sm font-semibold"
         >
           Try the tools
         </a>
@@ -222,12 +255,12 @@ function SectionHeader({
 
 function Landing() {
   return (
-    <div id="top" className="dark min-h-screen bg-background text-foreground">
+    <div id="top" className="dark relative min-h-screen bg-background text-foreground">
+      <KodefluxBackground />
       <Nav />
 
       {/* HERO */}
       <section className="glow-hero relative overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-32">
-        <div className="dot-grid pointer-events-none absolute inset-0 opacity-60" />
         <div className="relative mx-auto max-w-4xl px-5 text-center">
           <Reveal>
             <p className="mono-label">Micro-SaaS Lab</p>
@@ -241,21 +274,21 @@ function Landing() {
           <Reveal delay={160}>
             <p className="mx-auto mt-7 max-w-2xl text-base text-muted-foreground sm:text-lg">
               Built on real experience across hospitality, creative agencies,
-              rentals, and trading. Not theory — systems that actually run
-              businesses.
+              rentals, and event operations. Not theory — systems that actually
+              run businesses.
             </p>
           </Reveal>
           <Reveal delay={240}>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href="#tools"
-                className="w-full rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
+                className="glass-button w-full rounded-xl px-6 py-3 text-sm font-semibold sm:w-auto"
               >
                 Explore the tools
               </a>
               <a
                 href="#community"
-                className="w-full rounded-xl border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-border-strong hover:bg-secondary sm:w-auto"
+                className="glass-ghost w-full rounded-xl px-6 py-3 text-sm font-semibold text-foreground sm:w-auto"
               >
                 Join the community
               </a>
@@ -285,14 +318,14 @@ function Landing() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {tool.desc}
                 </p>
-                <div className="tool-screenshot mt-5">
-                  <img
-                    src={tool.img}
-                    alt={`${tool.name} dashboard screenshot`}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-full object-cover object-top"
-                  />
+                {/* screenshot slot — glass placeholder until images are added */}
+                <div
+                  className="tool-screenshot mt-5 flex items-end justify-start p-4"
+                  aria-hidden="true"
+                >
+                  <span className="font-mono text-[0.6rem] tracking-[0.18em] text-muted-foreground/70 uppercase">
+                    Preview soon
+                  </span>
                 </div>
 
                 <a
@@ -359,7 +392,7 @@ function Landing() {
                 delay={i * 70}
                 className="surface-card flex items-start gap-4 p-5"
               >
-                <span className="rounded-lg border border-border bg-secondary p-2.5">
+                <span className="glass-ghost rounded-lg p-2.5">
                   <item.icon className="size-5 text-primary" />
                 </span>
                 <span>
@@ -374,7 +407,7 @@ function Landing() {
 
       {/* FLUXMAN */}
       <section className="px-5 py-10">
-        <Reveal className="mx-auto flex max-w-6xl flex-col gap-3 rounded-xl border border-border bg-secondary/40 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <Reveal className="glass-surface mx-auto flex max-w-6xl flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
             <span className="font-mono text-[0.65rem] tracking-[0.18em] text-muted-foreground uppercase">
               Series
@@ -417,7 +450,7 @@ function Landing() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="rounded-xl border border-border bg-secondary/50 p-3 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-border-strong hover:text-primary"
+                  className="glass-ghost rounded-xl p-3 text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-foreground"
                 >
                   <s.icon className="size-5" />
                 </a>
