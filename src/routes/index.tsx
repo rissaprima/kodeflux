@@ -392,7 +392,7 @@ function Landing() {
                 delay={i * 70}
                 className="surface-card flex items-start gap-4 p-5"
               >
-                <span className="rounded-lg border border-border bg-secondary p-2.5">
+                <span className="glass-ghost rounded-lg p-2.5">
                   <item.icon className="size-5 text-primary" />
                 </span>
                 <span>
@@ -407,7 +407,7 @@ function Landing() {
 
       {/* FLUXMAN */}
       <section className="px-5 py-10">
-        <Reveal className="mx-auto flex max-w-6xl flex-col gap-3 rounded-xl border border-border bg-secondary/40 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <Reveal className="glass-surface mx-auto flex max-w-6xl flex-col gap-3 rounded-xl px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
             <span className="font-mono text-[0.65rem] tracking-[0.18em] text-muted-foreground uppercase">
               Series
@@ -450,7 +450,7 @@ function Landing() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="rounded-xl border border-border bg-secondary/50 p-3 text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-border-strong hover:text-primary"
+                  className="glass-ghost rounded-xl p-3 text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-foreground"
                 >
                   <s.icon className="size-5" />
                 </a>
