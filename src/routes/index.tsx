@@ -152,6 +152,47 @@ const programs = [
   },
 ];
 
+/**
+ * kodeflux-logo-placeholder
+ * Swap ONLY the inner markup of this component for an uploaded logo image:
+ *   <img src={logo} alt="Kodeflux" className="h-7 w-auto" />
+ * Keep the wrapper <a> and its footprint so navbar height stays unchanged.
+ */
+function KodefluxLogo() {
+  return (
+    <a
+      href="#top"
+      aria-label="Kodeflux home"
+      data-slot="kodeflux-logo-placeholder"
+      className="flex h-8 items-center"
+    >
+      <span className="text-lg font-extrabold tracking-tight">
+        Kodeflux<span className="text-primary">.</span>
+      </span>
+    </a>
+  );
+}
+
+/**
+ * kodeflux-bg-placeholder
+ * Global decorative background layer. Currently a CSS-generated dark abstract
+ * multicolor blurred-gradient wash. To use an uploaded image later, replace the
+ * inner div's className `kodeflux-bg-layer` with an <img> or a background image
+ * on the same absolutely-positioned element — no page restructuring needed.
+ */
+function KodefluxBackground() {
+  return (
+    <div
+      data-slot="kodeflux-bg-placeholder"
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    >
+      <div className="kodeflux-bg-layer absolute inset-0 blur-[80px] saturate-125" />
+      <div className="dot-grid absolute inset-0 opacity-25" />
+    </div>
+  );
+}
+
 function Nav() {
   const [solid, setSolid] = useState(false);
 
@@ -167,14 +208,12 @@ function Nav() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         solid
-          ? "border-b border-border bg-background/85 backdrop-blur-xl"
+          ? "border-b border-border bg-background/70 backdrop-blur-xl"
           : "border-b border-transparent",
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="#top" className="text-lg font-extrabold tracking-tight">
-          Kodeflux<span className="text-primary">.</span>
-        </a>
+        <KodefluxLogo />
         <div className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
           <a href="#tools" className="transition-colors hover:text-foreground">
             Tools
@@ -188,7 +227,7 @@ function Nav() {
         </div>
         <a
           href="#tools"
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          className="glass-button rounded-lg px-4 py-2 text-sm font-semibold"
         >
           Try the tools
         </a>
