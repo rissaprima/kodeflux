@@ -255,12 +255,12 @@ function SectionHeader({
 
 function Landing() {
   return (
-    <div id="top" className="dark min-h-screen bg-background text-foreground">
+    <div id="top" className="dark relative min-h-screen bg-background text-foreground">
+      <KodefluxBackground />
       <Nav />
 
       {/* HERO */}
       <section className="glow-hero relative overflow-hidden pt-36 pb-24 sm:pt-44 sm:pb-32">
-        <div className="dot-grid pointer-events-none absolute inset-0 opacity-60" />
         <div className="relative mx-auto max-w-4xl px-5 text-center">
           <Reveal>
             <p className="mono-label">Micro-SaaS Lab</p>
@@ -274,21 +274,21 @@ function Landing() {
           <Reveal delay={160}>
             <p className="mx-auto mt-7 max-w-2xl text-base text-muted-foreground sm:text-lg">
               Built on real experience across hospitality, creative agencies,
-              rentals, and trading. Not theory — systems that actually run
-              businesses.
+              rentals, and event operations. Not theory — systems that actually
+              run businesses.
             </p>
           </Reveal>
           <Reveal delay={240}>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href="#tools"
-                className="w-full rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
+                className="glass-button w-full rounded-xl px-6 py-3 text-sm font-semibold sm:w-auto"
               >
                 Explore the tools
               </a>
               <a
                 href="#community"
-                className="w-full rounded-xl border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-border-strong hover:bg-secondary sm:w-auto"
+                className="glass-ghost w-full rounded-xl px-6 py-3 text-sm font-semibold text-foreground sm:w-auto"
               >
                 Join the community
               </a>
