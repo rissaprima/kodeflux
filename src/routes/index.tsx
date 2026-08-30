@@ -70,7 +70,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Six tools, one ecosystem. Systems built from real experience in hospitality, agencies, rentals and trading.",
+          "Six tools, one ecosystem. Systems built from real experience in hospitality, agencies, rentals and event operations.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
