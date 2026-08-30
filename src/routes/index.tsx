@@ -318,14 +318,14 @@ function Landing() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {tool.desc}
                 </p>
-                <div className="tool-screenshot mt-5">
-                  <img
-                    src={tool.img}
-                    alt={`${tool.name} dashboard screenshot`}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-full object-cover object-top"
-                  />
+                {/* screenshot slot — glass placeholder until images are added */}
+                <div
+                  className="tool-screenshot mt-5 flex items-end justify-start p-4"
+                  aria-hidden="true"
+                >
+                  <span className="font-mono text-[0.6rem] tracking-[0.18em] text-muted-foreground/70 uppercase">
+                    Preview soon
+                  </span>
                 </div>
 
                 <a
