@@ -325,15 +325,21 @@ function Landing() {
                   </span>
                 </div>
 
-                <a
-                  href={tool.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary"
-                >
-                  Try it free
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                {tool.href ? (
+                  <a
+                    href={tool.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                  >
+                    Try it free
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                ) : (
+                  <span className="mt-5 inline-flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.16em] text-muted-foreground/70 uppercase">
+                    Coming soon
+                  </span>
+                )}
               </Reveal>
             ))}
           </ul>
