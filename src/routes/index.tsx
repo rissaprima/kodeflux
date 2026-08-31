@@ -462,9 +462,8 @@ function Landing() {
           </Reveal>
         </div>
         <div className="border-t border-border px-5 py-6">
-          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 font-mono text-xs text-muted-foreground sm:flex-row">
+          <div className="mx-auto flex max-w-6xl items-center justify-center font-mono text-xs text-muted-foreground">
             <span>© Kodeflux 2026. All rights reserved.</span>
-            <span>Made in Bali</span>
           </div>
         </div>
       </footer>
