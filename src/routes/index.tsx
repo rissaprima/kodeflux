@@ -14,6 +14,10 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
+import kodefluxLogo from "@/assets/kodeflux-logo.png.asset.json";
+import kapsuleShot from "@/assets/kapsule.jpg.asset.json";
+import klusterShot from "@/assets/kluster.jpg.asset.json";
+import kruiserShot from "@/assets/kruiser.jpg.asset.json";
 
 type IconType = ComponentType<{ className?: string }>;
 
@@ -171,9 +175,11 @@ function KodefluxLogo() {
       data-slot="kodeflux-logo-placeholder"
       className="flex h-8 items-center"
     >
-      <span className="text-lg font-extrabold tracking-tight">
-        Kodeflux<span className="text-primary">.</span>
-      </span>
+      <img
+        src={kodefluxLogo.url}
+        alt="Kodeflux"
+        className="h-8 w-auto object-contain"
+      />
     </a>
   );
 }
@@ -324,14 +330,25 @@ function Landing() {
                   {tool.desc}
                 </p>
                 {/* screenshot slot — glass placeholder until images are added */}
-                <div
-                  className="tool-screenshot mt-5 flex items-end justify-start p-4"
-                  aria-hidden="true"
-                >
-                  <span className="font-mono text-[0.6rem] tracking-[0.18em] text-muted-foreground/70 uppercase">
-                    Preview soon
-                  </span>
-                </div>
+                {tool.img ? (
+                  <div className="tool-screenshot mt-5 overflow-hidden">
+                    <img
+                      src={tool.img}
+                      alt={`${tool.name} dashboard screenshot`}
+                      loading="lazy"
+                      className="h-full w-full object-cover object-top"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="tool-screenshot mt-5 flex items-end justify-start p-4"
+                    aria-hidden="true"
+                  >
+                    <span className="font-mono text-[0.6rem] tracking-[0.18em] text-muted-foreground/70 uppercase">
+                      Preview soon
+                    </span>
+                  </div>
+                )}
 
                 {tool.href ? (
                   <a
