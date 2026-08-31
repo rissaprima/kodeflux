@@ -173,12 +173,12 @@ function KodefluxLogo() {
       href="#top"
       aria-label="Kodeflux home"
       data-slot="kodeflux-logo-placeholder"
-      className="flex h-8 items-center"
+      className="flex items-center"
     >
       <img
         src={kodefluxLogo.url}
         alt="Kodeflux"
-        className="h-8 w-auto object-contain"
+        className="h-[3.4rem] w-auto object-contain"
       />
     </a>
   );
