@@ -79,21 +79,29 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const tools = [
+const tools: {
+  name: string;
+  desc: string;
+  href?: string;
+  img?: string;
+}[] = [
   {
     name: "Kapsule Tools",
     desc: "For agencies, freelancers, and content creators who manage multiple clients.",
     href: "https://social-io.netlify.app",
+    img: kapsuleShot.url,
   },
   {
     name: "Kluster Tools",
     desc: "For rental owners and side hustlers turning assets into steady income.",
     href: "https://rental-io.netlify.app",
+    img: klusterShot.url,
   },
   {
     name: "Kruiser Tools",
     desc: "For travelers, guides and tour operators planning trips, itineraries and experiences.",
     href: "https://travel-tools.netlify.app",
+    img: kruiserShot.url,
   },
   {
     name: "Kashflow Tools",
