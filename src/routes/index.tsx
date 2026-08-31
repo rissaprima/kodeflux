@@ -83,32 +83,29 @@ const tools = [
   {
     name: "Kapsule Tools",
     desc: "For agencies, freelancers, and content creators who manage multiple clients.",
-    href: "https://social-io.netlify.app/",
-  },
-  {
-    name: "Kashflow Tools",
-    desc: "For multi-income earners who want to know where the money actually goes.",
-    href: "https://budget-tools.netlify.app/",
+    href: "https://social-io.netlify.app",
   },
   {
     name: "Kluster Tools",
     desc: "For rental owners and side hustlers turning assets into steady income.",
-    href: "https://rental-io.netlify.app/",
+    href: "https://rental-io.netlify.app",
+  },
+  {
+    name: "Kruiser Tools",
+    desc: "For travelers, guides and tour operators planning trips, itineraries and experiences.",
+    href: "https://travel-tools.netlify.app",
+  },
+  {
+    name: "Kashflow Tools",
+    desc: "For multi-income earners who want to know where the money actually goes.",
   },
   {
     name: "Konsole Tools",
     desc: "For party planners and hosts coordinating vendors, timelines, budgets, and guest lists.",
-    href: "https://trader-tools.netlify.app/",
   },
   {
     name: "Kubicle Tools",
     desc: "For coaches, trainers and mentors running structured programs.",
-    href: "https://mentor-io.netlify.app/",
-  },
-  {
-    name: "Kruise Tools",
-    desc: "For travelers, guides and tour operators planning trips, itineraries and experiences.",
-    href: "https://travel-tools.netlify.app/",
   },
 ];
 
@@ -328,15 +325,21 @@ function Landing() {
                   </span>
                 </div>
 
-                <a
-                  href={tool.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary"
-                >
-                  Try it free
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                {tool.href ? (
+                  <a
+                    href={tool.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                  >
+                    Try it free
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                ) : (
+                  <span className="mt-5 inline-flex items-center gap-2 font-mono text-[0.65rem] tracking-[0.16em] text-muted-foreground/70 uppercase">
+                    Coming soon
+                  </span>
+                )}
               </Reveal>
             ))}
           </ul>
@@ -459,9 +462,8 @@ function Landing() {
           </Reveal>
         </div>
         <div className="border-t border-border px-5 py-6">
-          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 font-mono text-xs text-muted-foreground sm:flex-row">
+          <div className="mx-auto flex max-w-6xl items-center justify-center font-mono text-xs text-muted-foreground">
             <span>© Kodeflux 2026. All rights reserved.</span>
-            <span>Made in Bali</span>
           </div>
         </div>
       </footer>
