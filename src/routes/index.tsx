@@ -83,32 +83,29 @@ const tools = [
   {
     name: "Kapsule Tools",
     desc: "For agencies, freelancers, and content creators who manage multiple clients.",
-    href: "https://social-io.netlify.app/",
-  },
-  {
-    name: "Kashflow Tools",
-    desc: "For multi-income earners who want to know where the money actually goes.",
-    href: "https://budget-tools.netlify.app/",
+    href: "https://social-io.netlify.app",
   },
   {
     name: "Kluster Tools",
     desc: "For rental owners and side hustlers turning assets into steady income.",
-    href: "https://rental-io.netlify.app/",
+    href: "https://rental-io.netlify.app",
+  },
+  {
+    name: "Kruiser Tools",
+    desc: "For travelers, guides and tour operators planning trips, itineraries and experiences.",
+    href: "https://travel-tools.netlify.app",
+  },
+  {
+    name: "Kashflow Tools",
+    desc: "For multi-income earners who want to know where the money actually goes.",
   },
   {
     name: "Konsole Tools",
     desc: "For party planners and hosts coordinating vendors, timelines, budgets, and guest lists.",
-    href: "https://trader-tools.netlify.app/",
   },
   {
     name: "Kubicle Tools",
     desc: "For coaches, trainers and mentors running structured programs.",
-    href: "https://mentor-io.netlify.app/",
-  },
-  {
-    name: "Kruise Tools",
-    desc: "For travelers, guides and tour operators planning trips, itineraries and experiences.",
-    href: "https://travel-tools.netlify.app/",
   },
 ];
 
