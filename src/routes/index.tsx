@@ -57,6 +57,7 @@ function DiscordIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+const URL = "https://kodeflux.web.id/";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -76,10 +77,12 @@ export const Route = createFileRoute("/")({
         content:
           "Six tools, one ecosystem. Systems built from real experience in hospitality, agencies, rentals and event operations.",
       },
+      { property: "og:url", content: URL },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  links: [{ rel: "canonical", href: URL }],
   component: Landing,
 });
 
