@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://kodeflux.web.id/sitemap.xml
