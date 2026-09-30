@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kodeflux — Micro SaaS Lab + Learning Hub untuk solo founder</title>
+<meta name="description" content="Kodeflux adalah Micro SaaS Lab + Learning Hub untuk self-made entrepreneurs, solo founders, dan side-hustlers: belajar bisnis lewat diskusi, eksperimen, dan tools yang bisa langsung dicoba.">
+<meta name="theme-color" content="#0e0c12">
+<meta property="og:title" content="Kodeflux — Micro SaaS Lab + Learning Hub">
+<meta property="og:description" content="Untuk self-made entrepreneurs, solo founders, dan side-hustlers. Belajar bisnis bareng, coba tools-nya langsung.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kodeflux.web.id/">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://kodeflux.web.id/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kodeflux — Micro SaaS Lab + Learning Hub">
+<meta name="twitter:title" content="Kodeflux — Micro SaaS Lab + Learning Hub">
+<meta name="twitter:description" content="Untuk self-made entrepreneurs, solo founders, dan side-hustlers. Belajar bisnis bareng, coba tools-nya langsung.">
+<meta name="twitter:image" content="https://kodeflux.web.id/og-image.png">
+<link rel="canonical" href="https://kodeflux.web.id/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23737373'/%3E%3Cstop offset='1' stop-color='%23ffffff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%231f1f1f'/%3E%3Cpath d='M20 14h7v14l11-14h9L34 30l14 20h-9L29 36l-2 3v11h-7z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+
+<!--
+  TODO — LINKS TO UPDATE LATER
+  Semua tombol "Join the Hub", "Watch Fluxman", dan ikon sosial/email masih mengarah ke #join
+  (section di halaman ini). Cari href="#join" lalu ganti dengan link komunitas / akun sosial / mailto: yang asli.
+  Link demo sudah final: rental-io, tour-io, party-io, mentor-io (netlify.app).
+-->
+
+<style>
+:root{
+  --bg:#0e0c12;
+  --fg:#f4f1ea;
+  --muted:#a29eab;
+  --dim:#6f6b78;
+  --line:rgba(255,255,255,.09);
+  --line2:rgba(255,255,255,.2);
+  --amber:#e7b565;
+  --magenta:#c8578f;
+  --violet:#7b4fd8;
+  --blue:#4f70de;
+  --teal:#3fa6ad;
+  --r:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --logo:"Rajdhani","Arial Narrow",ui-sans-serif,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1152px,100% - 40px);margin-inline:auto}
+.ic{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic-fill{fill:currentColor;stroke:none}
+
+/* ---------- page-wide backdrop ---------- */
+.page-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(50% 40% at 12% 8%,rgba(123,79,216,.16),transparent 70%),
+    radial-gradient(45% 40% at 90% 30%,rgba(200,87,143,.10),transparent 70%),
+    radial-gradient(50% 45% at 30% 95%,rgba(79,112,222,.12),transparent 70%),
+    var(--bg)}
+.page-bg::after{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);
+  background-size:28px 28px;opacity:.22;
+  -webkit-mask-image:radial-gradient(70% 55% at 50% 25%,#000,transparent);
+  mask-image:radial-gradient(70% 55% at 50% 25%,#000,transparent)}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.nav.solid{background:rgba(14,12,18,.9);border-color:var(--line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.nav-in{height:66px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.logo{font-family:var(--logo);font-weight:700;font-size:1.85rem;line-height:1;letter-spacing:.01em;text-transform:uppercase;display:inline-flex;align-items:center;user-select:none}
+.logo .la{color:#737373}.logo .lb{color:#b4b4b4}.logo .lc{color:#fff}
+.logo{position:relative}
+.logo::after{content:attr(data-text);position:absolute;inset:0;display:flex;align-items:center;white-space:nowrap;pointer-events:none;
+  color:transparent;-webkit-background-clip:text;background-clip:text;
+  background-image:linear-gradient(105deg,transparent 38%,rgba(160,120,255,.6) 46%,#fff 50%,rgba(232,120,170,.6) 54%,transparent 62%);
+  background-size:300% 100%;background-position:100% 0;background-repeat:no-repeat;
+  animation:logoshine 6s ease-in-out infinite 1.2s}
+@keyframes logoshine{0%,30%{background-position:100% 0}62%,100%{background-position:0% 0}}
+.links{display:flex;gap:38px;font-size:.92rem;color:#c9c4d2}
+.links-l{justify-self:end;padding-right:56px}
+.links-r{justify-self:start;padding-left:56px}
+.links a{transition:color .2s}.links a:hover{color:var(--fg)}
+.nav-right{display:none;align-items:center;gap:10px}
+.burger{display:none;width:42px;height:42px;place-items:center;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--fg);cursor:pointer}
+.mobile-menu{display:none}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:.8rem 1.35rem;border-radius:13px;font-weight:600;font-size:.94rem;border:1px solid transparent;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s,background .3s;white-space:nowrap}
+.btn .ic{width:1.1em;height:1.1em;transition:transform .35s var(--ease)}
+.btn:hover .ic{transform:translateX(3px)}
+.btn-primary{color:#fff;background:linear-gradient(135deg,#7b4fd8 0%,#a84fb0 60%,#c8578f 100%);box-shadow:0 10px 30px -12px rgba(123,79,216,.8),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(168,79,176,.9),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-glass{color:var(--fg);background:rgba(255,255,255,.05);border-color:var(--line2);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.btn-glass:hover{transform:translateY(-2px);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.32)}
+.btn-sm{padding:.6rem 1.05rem;font-size:.86rem;border-radius:11px}
+.btn-lg{min-width:210px;padding:.95rem 2.2rem;font-size:1rem;line-height:1.5;border-radius:14px}
+
+/* ---------- hero (centered) ---------- */
+.hero{position:relative;overflow:hidden;min-height:min(100svh,880px);display:flex;align-items:center;padding:150px 0 100px}
+.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-bg::after{content:"";position:absolute;inset:auto 0 0 0;height:200px;background:linear-gradient(180deg,transparent,var(--bg))}
+.blob{position:absolute;border-radius:50%;will-change:transform}
+.b1{width:min(70vw,860px);aspect-ratio:1;left:-14%;top:-30%;background:radial-gradient(circle,rgba(123,79,216,.6),transparent 66%);animation:drift1 20s ease-in-out infinite alternate}
+.b2{width:min(56vw,700px);aspect-ratio:1;right:-12%;top:-12%;background:radial-gradient(circle,rgba(200,87,143,.38),transparent 66%);animation:drift2 25s ease-in-out infinite alternate}
+.b3{width:min(60vw,760px);aspect-ratio:1;left:24%;bottom:-46%;background:radial-gradient(circle,rgba(79,112,222,.4),transparent 66%);animation:drift3 28s ease-in-out infinite alternate}
+.b4{width:min(30vw,380px);aspect-ratio:1;right:14%;bottom:8%;background:radial-gradient(circle,rgba(231,181,101,.16),transparent 66%);animation:drift2 18s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate3d(9vw,7vh,0) scale(1.18)}}
+@keyframes drift2{to{transform:translate3d(-8vw,9vh,0) scale(1.12)}}
+@keyframes drift3{to{transform:translate3d(-10vw,-6vh,0) scale(1.2)}}
+.gridlines{position:absolute;inset:0;overflow:hidden;
+  -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 25%,transparent 78%);
+  mask-image:radial-gradient(ellipse 75% 65% at 50% 40%,#000 25%,transparent 78%)}
+.gridlines::before{content:"";position:absolute;inset:-56px 0 0 0;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:56px 56px;animation:gridmove 7s linear infinite}
+@keyframes gridmove{to{transform:translateY(56px)}}
+.sweep{position:absolute;inset:0;overflow:hidden}
+.sweep::before{content:"";position:absolute;top:-20%;bottom:-20%;left:-40%;width:40%;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.055) 50%,transparent 70%);
+  transform:translateX(-100%) skewX(-12deg);animation:sweep 11s ease-in-out infinite 2s}
+@keyframes sweep{0%{transform:translateX(-100%) skewX(-12deg)}55%,100%{transform:translateX(420%) skewX(-12deg)}}
+
+.hero-copy{width:100%;max-width:52rem;margin-inline:auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-copy>*{animation:up .95s var(--ease) both;animation-delay:calc(var(--k,0)*90ms + 120ms)}
+@keyframes up{from{opacity:0;transform:translateY(22px)}}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:.45rem 1.05rem .45rem .85rem;border-radius:99px;border:1px solid var(--line2);background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font-size:.86rem;color:#d8d3e0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(63,166,173,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(63,166,173,0)}100%{box-shadow:0 0 0 0 rgba(63,166,173,0)}}
+h1{font-size:clamp(2.5rem,6.6vw,5rem);line-height:1.02;letter-spacing:-.04em;font-weight:800;margin-top:24px;text-wrap:balance}
+.lead{margin-top:26px;max-width:40rem;color:var(--muted);font-size:1.1rem}
+.lead strong{color:var(--fg);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+.built{margin-top:46px;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--dim);font-size:.85rem}
+.built ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.built li{display:inline-flex;align-items:center;gap:8px;padding:.42rem .95rem;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--muted);font-size:.86rem;animation:lit 6s ease-in-out infinite;animation-delay:calc(var(--n)*1.5s)}
+.built .ic{color:var(--amber);width:1.1em;height:1.1em}
+
+/* ---------- sections ---------- */
+section{padding:clamp(4.5rem,9vw,7.5rem) 0}
+.sh{max-width:44rem;margin-inline:auto;text-align:center}
+.sh h2{font-size:clamp(1.95rem,4.3vw,3.05rem);line-height:1.05;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+.sh p{margin:18px auto 0;color:var(--muted);font-size:1.04rem;max-width:38rem}
+
+/* cards */
+.card{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--r);border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);transition:transform .5s var(--ease),border-color .35s,box-shadow .4s}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .4s;background:radial-gradient(440px circle at var(--mx,50%) var(--my,0%),rgba(123,79,216,.26),transparent 62%)}
+.card::after{content:"";position:absolute;left:14%;right:14%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);opacity:.5;transition:opacity .4s}
+.card:hover{transform:translateY(-7px);border-color:rgba(255,255,255,.22);box-shadow:0 30px 70px -32px rgba(123,79,216,.7)}
+.card:hover::before{opacity:1}.card:hover::after{opacity:1}
+@media (hover:none){.card:active{transform:scale(.985);border-color:rgba(255,255,255,.22)}.card:active::before{opacity:1}}
+.ico{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:13px;border:1px solid var(--line2);background:linear-gradient(140deg,rgba(123,79,216,.35),rgba(200,87,143,.18));color:#fff;transition:transform .5s var(--ease),box-shadow .4s}
+.ico .ic{width:22px;height:22px}
+.card:hover .ico{transform:rotate(-6deg) scale(1.08);box-shadow:0 10px 26px -8px rgba(168,79,176,.8)}
+.tag{margin-left:auto;font-size:.74rem;padding:.25rem .7rem;border-radius:99px;border:1px solid var(--line2);color:var(--muted);white-space:nowrap}
+.tag.live{color:#8fe0e6;border-color:rgba(63,166,173,.5);background:rgba(63,166,173,.1)}
+
+/* equal-height card grids */
+.steps>li,.pg>.rv,.stack>.rv,.later>.rv{display:flex}
+.steps>li>.card,.pg>.rv>.card,.stack>.rv>.card,.later>.rv>.card{flex:1;min-width:0}
+
+/* lab steps */
+.steps{list-style:none;padding:0;margin:52px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{padding:26px 24px 28px}
+.step h3{margin-top:22px;font-size:1.25rem;letter-spacing:-.02em}
+.step p{margin-top:8px;color:var(--muted);font-size:.93rem;min-height:calc(3*1.6em)}
+@keyframes lit{0%{color:var(--muted);border-color:var(--line);background:rgba(255,255,255,.03);box-shadow:none}
+  6%,16%{color:#fff;border-color:rgba(231,181,101,.7);background:rgba(231,181,101,.13);box-shadow:0 0 22px -6px rgba(231,181,101,.6)}
+  24%,100%{color:var(--muted);border-color:var(--line);background:rgba(255,255,255,.03);box-shadow:none}}
+
+/* hub */
+.prompts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+.prompts>.rv{display:flex}
+.prompts>.rv>.card{flex:1;min-width:0}
+.prompt{display:flex;flex-direction:column;gap:18px;align-items:flex-start;padding:24px;animation:edge 3.6s ease-in-out infinite;animation-delay:var(--fd,0s)}
+@keyframes edge{0%{border-color:var(--line);box-shadow:none}
+  6%,20%{border-color:rgba(231,181,101,.8);box-shadow:0 0 0 1px rgba(231,181,101,.22),0 0 30px -8px rgba(231,181,101,.6)}
+  30%,100%{border-color:var(--line);box-shadow:none}}
+@keyframes float{50%{transform:translateY(-9px)}}
+.prompt q{quotes:none;display:block;font-size:1.05rem;font-weight:600;letter-spacing:-.015em;line-height:1.35}
+.prompt small{display:block;margin-top:8px;font-size:.78rem;color:var(--dim)}
+
+/* playgrounds */
+.pg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:52px}
+.play{display:flex;flex-direction:column;padding:22px}
+.play-h{display:flex;align-items:center;gap:14px}
+.play h3{font-family:var(--logo);font-size:1.85rem;font-weight:700;letter-spacing:.01em;line-height:1;white-space:nowrap}
+.play .for{margin-top:14px;color:var(--muted);font-size:.93rem;min-height:calc(3*1.6em)}
+.stat{display:flex;flex-wrap:wrap;gap:8px 16px;margin:18px 0 22px;font-size:.8rem;color:var(--muted)}
+.stat span{display:inline-flex;align-items:center;gap:7px}
+.stat i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--dim)}
+.stat .on i{background:var(--teal);border-color:var(--teal);box-shadow:0 0 10px rgba(63,166,173,.7)}
+.stat .on{color:var(--fg)}
+.play .btn{margin-top:auto;align-self:flex-start}
+@media (min-width:1280px){
+  #playgrounds .wrap{width:min(1280px,100% - 40px)}
+  .pg{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .pg .play{padding:20px}
+  .pg .play-h{gap:10px}
+  .pg .ico{width:38px;height:38px;border-radius:11px}
+  .pg .ico .ic{width:19px;height:19px}
+  .pg .play h3{font-size:1.35rem}
+  .pg .play .tag{font-size:.68rem;padding:.2rem .55rem}
+  .pg .play .for{min-height:calc(4*1.6em)}
+}
+
+/* animated tool previews */
+.pv{margin-top:18px;height:192px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(10,8,14,.62));overflow:hidden;display:flex;flex-direction:column;transition:border-color .4s,box-shadow .4s}
+.play:hover .pv{border-color:rgba(123,79,216,.55);box-shadow:0 18px 40px -26px rgba(123,79,216,.8)}
+.pv-bar{flex:none;display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);font-size:.68rem;color:var(--muted)}
+.pv-bar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18)}
+.pv-bar b{font-weight:600;margin-left:6px;color:var(--fg)}
+.pv-bar em{margin-left:auto;font-style:normal;font-size:.62rem;padding:.08rem .5rem;border-radius:99px;border:1px solid var(--line2);color:var(--dim)}
+.pv-body{flex:1;min-height:0;padding:12px;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+@keyframes pop{0%{opacity:0;transform:scale(.3)}7%{opacity:1;transform:scale(1.1)}10%,82%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(.3)}}
+@keyframes fill{0%,4%{transform:scaleX(0)}55%,88%{transform:scaleX(1)}96%,100%{transform:scaleX(0)}}
+@keyframes okf{0%,55%{opacity:0}62%,88%{opacity:1}96%,100%{opacity:0}}
+
+/* rental: fleet board */
+.r1{--pc:#7b4fd8}.r2{--pc:#c8578f}.r3{--pc:#3fa6ad}
+.fleet{display:grid;gap:6px}
+.fleet .fr{display:grid;grid-template-columns:58px 1fr;gap:8px;align-items:center}
+.fleet .nm{font-size:.6rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fleet .dh{display:grid;grid-template-columns:repeat(7,1fr);font-size:.58rem;color:var(--dim);text-align:center}
+.fleet .tl{position:relative;height:20px;border-radius:6px;background-color:rgba(255,255,255,.045);background-image:repeating-linear-gradient(90deg,transparent 0 calc(100%/7 - 1px),rgba(255,255,255,.07) calc(100%/7 - 1px) calc(100%/7))}
+.fleet .bk{position:absolute;top:3px;bottom:3px;left:var(--l);width:var(--w);border-radius:5px;background:var(--pc);box-shadow:0 4px 12px -4px var(--pc);transform-origin:left;animation:fill 9s ease-in-out infinite;animation-delay:var(--d)}
+
+/* tour: route + cost */
+.route{display:block;width:100%;height:50px}
+.route .base{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1.5;stroke-dasharray:3 5}
+.route .path{fill:none;stroke:url(#rg);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:400;animation:draw 9s ease-in-out infinite}
+.route .pin{transform-box:fill-box;transform-origin:center;animation:pop 9s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes draw{0%,4%{stroke-dashoffset:400}40%,88%{stroke-dashoffset:0}96%,100%{stroke-dashoffset:400}}
+.days{display:flex;gap:6px}
+.days span{flex:1;text-align:center;font-size:.62rem;padding:.18rem 0;border-radius:7px;border:1px solid var(--line);color:var(--muted);animation:daylit 9s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes daylit{0%,2%{color:var(--muted);border-color:var(--line);background:transparent}
+  8%,30%{color:#fff;border-color:rgba(231,181,101,.7);background:rgba(231,181,101,.14)}
+  38%,100%{color:var(--muted);border-color:var(--line);background:transparent}}
+.cost{display:flex;flex-direction:column;gap:6px}
+.seg{display:flex;height:7px;gap:2px}
+.seg i{display:block;height:100%;border-radius:9px;transform-origin:left;animation:fill 9s ease-in-out infinite;animation-delay:var(--d)}
+.seg i:nth-child(1){flex:45;background:#4f70de}.seg i:nth-child(2){flex:35;background:#7b4fd8}.seg i:nth-child(3){flex:20;background:#c8578f}
+.lg{display:flex;justify-content:space-between;gap:6px;font-size:.62rem;color:var(--muted)}
+.lg .tot{color:var(--amber);font-weight:600;animation:okf 9s ease-in-out infinite}
+
+/* party: run of show + budget */
+.ros{display:grid;gap:5px}
+.ros .rw{display:grid;grid-template-columns:40px 1fr;align-items:center;gap:8px;padding:.18rem .5rem;border-radius:8px;border:1px solid var(--line);font-size:.64rem;color:var(--muted);animation:cue 9s ease-in-out infinite;animation-delay:var(--d)}
+.ros .rw b{font-family:var(--logo);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--dim)}
+@keyframes cue{0%,2%{color:var(--muted);border-color:var(--line);background:transparent}
+  8%,30%{color:#fff;border-color:rgba(200,87,143,.75);background:rgba(200,87,143,.15)}
+  38%,100%{color:var(--muted);border-color:var(--line);background:transparent}}
+.bud{display:flex;flex-direction:column;gap:5px}
+.bud .bar{height:6px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden}
+.bud .bar i{display:block;height:100%;width:64%;border-radius:inherit;background:linear-gradient(90deg,#7b4fd8,#c8578f);transform-origin:left;animation:fill 9s ease-in-out infinite;animation-delay:.3s}
+
+/* mentor: program tracker */
+.mn{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:center}
+.ring{position:relative;width:64px;height:64px}
+.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:rgba(255,255,255,.08)}
+.ring .fg{stroke:url(#mg);stroke-linecap:round;stroke-dasharray:163.4;stroke-dashoffset:41;animation:ring 9s ease-in-out infinite}
+@keyframes ring{0%,4%{stroke-dashoffset:163.4}50%,88%{stroke-dashoffset:41}96%,100%{stroke-dashoffset:163.4}}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--logo);font-size:1.15rem;font-weight:700;color:#fff}
+.chk{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:.68rem;color:var(--muted)}
+.chk li{display:flex;align-items:center;gap:8px}
+.chk i{flex:none;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--teal);background:var(--teal);display:grid;place-items:center;animation:tick 9s ease-in-out infinite;animation-delay:var(--d)}
+.chk i svg{width:8px;height:8px;fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;animation:tickic 9s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes tick{0%{background:transparent;border-color:var(--dim)}8%,86%{background:var(--teal);border-color:var(--teal)}94%,100%{background:transparent;border-color:var(--dim)}}
+@keyframes tickic{0%{opacity:0}8%,86%{opacity:1}94%,100%{opacity:0}}
+.mm{display:grid;gap:6px}
+.mm .rw{display:flex;align-items:center;gap:8px;font-size:.64rem;color:var(--muted)}
+.mm .av{width:16px;height:16px;border-radius:50%;background:var(--pc);display:grid;place-items:center;font-size:.5rem;font-weight:700;color:#fff}
+.mm .bar{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:9px;overflow:hidden}
+.mm .bar i{display:block;height:100%;width:var(--w);background:var(--pc);border-radius:inherit;transform-origin:left;animation:fill 9s ease-in-out infinite;animation-delay:var(--d)}
+
+
+/* learn / stack */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.sk{padding:28px 26px 26px;display:flex;flex-direction:column;align-items:flex-start}
+.sk h3{margin-top:22px;font-family:var(--logo);font-size:2.1rem;font-weight:700;line-height:1}
+.sk .what{margin-top:6px;font-size:.88rem;color:var(--amber)}
+.sk p{margin-top:12px;color:var(--muted);font-size:.93rem}
+.sk .tag{margin:auto 0 0;display:inline-block}
+.sk p{margin-bottom:20px;min-height:calc(3*1.6em)}
+.sk.on{border-color:rgba(123,79,216,.55);background:linear-gradient(150deg,rgba(123,79,216,.2),rgba(200,87,143,.08) 60%,rgba(255,255,255,.02))}
+
+
+.later{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:16px}
+.deeper{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.deeper .sh{grid-column:2;grid-row:1;margin:0;text-align:left}
+.deeper .sh p{margin-left:0}
+.deeper .later{grid-column:1;grid-row:1}
+.lt{padding:20px;display:flex;gap:16px;align-items:flex-start;min-height:118px}
+.lt h3{font-size:1.02rem;letter-spacing:-.01em}
+.lt p{margin-top:4px;color:var(--muted);font-size:.9rem}
+
+/* fluxman */
+.flux{padding:0}
+.fluxbar{display:flex;align-items:center;gap:20px;padding:20px 24px}
+.fluxbar h3{font-size:1rem;letter-spacing:-.01em}
+.fluxbar p{color:var(--muted);font-size:.9rem}
+.fluxbar .btn{margin-left:auto}
+
+
+/* behind the lab: code editor */
+.loop{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.loop .sh{margin:0;text-align:left}
+.loop .sh p{margin-left:0}
+.loop-art{position:relative;padding-bottom:26px}
+.window{position:relative;border-radius:16px;border:1px solid var(--line2);background:rgba(20,17,27,.66);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 40px 90px -40px rgba(123,79,216,.75),inset 0 1px 0 rgba(255,255,255,.14);overflow:hidden}
+.win-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.74rem;color:var(--dim)}
+.win-bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.16)}
+.win-bar i:nth-child(1){background:#e8646a}.win-bar i:nth-child(2){background:#e7b565}.win-bar i:nth-child(3){background:#5fc28a}
+.win-bar b{font-weight:400;margin-left:10px}
+pre.code{margin:0;padding:18px 18px 22px 12px;font-family:var(--mono);font-size:.8rem;line-height:1.85;color:#d9d5e2;overflow-x:auto;counter-reset:ln}
+pre.code code{display:block;font-family:inherit}
+.ln{display:block;white-space:pre;counter-increment:ln;padding-left:2.6em;position:relative}
+.ln::before{content:counter(ln);position:absolute;left:0;width:1.8em;text-align:right;color:var(--dim)}
+.k{color:#b28cff}.f{color:#69c4cb}.s{color:var(--amber)}.cm{color:#6f6b78;font-style:italic}
+.caret{display:inline-block;width:.55em;height:1.05em;margin-left:3px;vertical-align:-.18em;background:var(--amber);animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+html.js .type .ln{clip-path:inset(0 100% 0 0)}
+html.js .type.go .ln{animation:type .9s steps(30,end) both;animation-delay:calc(var(--i)*.5s + .3s)}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.chip{position:absolute;right:-8px;bottom:0;display:flex;align-items:center;gap:10px;padding:.7rem 1rem;border-radius:14px;border:1px solid var(--line2);background:rgba(23,20,29,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);font-size:.84rem;box-shadow:0 20px 50px -20px rgba(0,0,0,.8);animation:float 7s ease-in-out infinite}
+.chip .ic{color:var(--teal)}
+
+/* join */
+.join{position:relative;isolation:isolate;overflow:hidden;text-align:center;padding:clamp(3rem,7vw,5.5rem) 24px;border-radius:26px;border:1px solid var(--line2);background:rgba(20,17,27,.6);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.join::before{content:"";position:absolute;inset:-50%;z-index:-1;background:conic-gradient(from 0deg at 50% 50%,rgba(123,79,216,.34),rgba(200,87,143,.22),rgba(79,112,222,.3),rgba(123,79,216,.34));filter:blur(70px);animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.join h2{font-size:clamp(2.1rem,5.4vw,3.8rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
+.join p{margin:18px auto 0;max-width:32rem;color:#cfcad8;font-size:1.05rem}
+.join .cta{justify-content:center}
+.socials{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
+.socials a{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--muted);transition:transform .35s var(--ease),color .25s,border-color .25s,background .25s}
+.socials a:hover{transform:translateY(-4px);color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--dim);font-size:.85rem}
+
+/* ---------- reveal (cards only) ---------- */
+html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
+.rv.in{animation:rise .85s var(--ease) var(--d,0ms) backwards}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1020px){
+  .deeper{grid-template-columns:1fr;gap:44px}
+  .deeper .sh{grid-column:auto;grid-row:auto;margin-inline:auto;text-align:center}
+  .deeper .sh p{margin-inline:auto}
+  .deeper .later{grid-column:auto;grid-row:auto}
+  .loop{grid-template-columns:1fr;gap:44px}
+  .loop .sh{margin-inline:auto;text-align:center}
+  .loop .sh p{margin-inline:auto}
+  .loop-art{max-width:520px;width:100%;margin-inline:auto}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .prompts{grid-template-columns:1fr}
+  .prompt{flex-direction:row;gap:16px}
+}
+@media (max-width:900px){
+  .pg,.stack{grid-template-columns:1fr}
+  .pg .play,.stack .sk{max-width:560px;margin-inline:auto;width:100%}
+  .pg>.rv,.stack>.rv{justify-content:center}
+}
+@media (max-width:820px){
+  .nav-in{display:flex;justify-content:space-between}
+  .links{display:none}
+  .nav-right{display:flex}
+  .burger{display:grid}
+  .mobile-menu{position:absolute;inset:66px 0 auto 0;padding:10px 20px 20px;background:rgba(14,12,18,.985);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);flex-direction:column}
+  .nav.open .mobile-menu{display:flex}
+  .nav.open{background:rgba(14,12,18,.985)}
+  .mobile-menu a{padding:14px 4px;border-bottom:1px solid var(--line);color:var(--muted);font-size:1rem;text-align:right}
+  .mobile-menu a:last-child{border:0}
+}
+@media (max-width:640px){
+  .later{grid-template-columns:1fr}
+  .hero{padding:118px 0 76px}
+  .steps{grid-template-columns:1fr}
+  .fluxbar{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 22px}
+  .fluxbar .btn{margin-left:0}
+  .chip{right:10px}
+  .cta .btn{flex:1 1 auto}
+  .nav-right .btn{padding:.55rem .9rem;font-size:.82rem}
+  .play h3{font-size:1.6rem}
+  .socials{flex-wrap:nowrap;gap:10px;margin-top:30px}
+  .socials a{width:42px;height:42px;border-radius:12px}
+  .socials .ic{width:18px;height:18px}
+  .logo{font-size:1.6rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  html.js .rv:not(.in){opacity:1;transform:none}
+  .type .ln{clip-path:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.5L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17.5 14c2.5 0 4 1.7 4 4.5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10"/><path d="M18 10c0 4-6 3-12 7"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8z"/></symbol>
+    <symbol id="i-term" viewBox="0 0 24 24"><path d="m4 17 6-5-6-5"/><path d="M12 19h8"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2.4 5.6L20 11l-5.6 2.4L12 19l-2.4-5.6L4 11l5.6-2.4z"/><path d="M19 3v3M17.5 4.5h3"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 8-2 6-6 2 2-6z"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 17H3v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0H9m-6-6h15m-6 0V6"/></symbol>
+    <symbol id="i-mentor" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/><path d="M10 21v-3h4v3"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4z"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v9H5v-9"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.500-5a2.500 2.500 0 0 1 0 5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.6c-1.2.1-2.4-.3-3.5-.9v5.9c0 3-2.4 5.5-5.5 5.5S5.5 17 5.5 14s2.4-5.5 5.5-5.5c.3 0 .7 0 1 .1v2.7c-.3-.1-.7-.2-1-.2-1.5 0-2.8 1.3-2.8 2.9 0 1.5 1.3 2.8 2.8 2.8s2.9-1.3 2.9-2.8V3h3.1z"/></symbol>
+    <symbol id="i-th" viewBox="0 0 24 24"><path d="M12 3c-4.4 0-7.5 3.1-7.5 7.5 0 5.2 3.1 8 7.5 8 4 0 6.5-2.4 6.7-5.6.1-1.5-.4-3-1.5-4"/><path d="M12.7 8.3c.3 2.3 1 3.5 2.6 3.5 1.2 0 2-.8 2-2 0-1.9-1.6-3.2-3.9-3.2-2.9 0-4.8 2.2-4.8 5.1 0 2.7 1.7 4.5 4.2 4.5 1.1 0 2-.3 2.8-.9"/></symbol>
+    <symbol id="i-dc" viewBox="0 0 24 24"><path d="M19.3 5.3A17 17 0 0 0 15 4l-.2.4a13 13 0 0 1 3.6 1.8 13.5 13.5 0 0 0-13 .1A13 13 0 0 1 9 4.4L8.8 4a17 17 0 0 0-4.3 1.3C1.7 9.4 1 13.4 1.3 17.3a17 17 0 0 0 5.2 2.6l.4-.6c-.8-.3-1.6-.7-2.3-1.2l.6-.4a12 12 0 0 0 10.4 0l.6.4c-.7.5-1.5.9-2.3 1.2l.4.6a17 17 0 0 0 5.2-2.6c.4-4.5-.6-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2z"/></symbol>
+  </defs>
+</svg>
+
+<div class="page-bg" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <nav class="links links-l" aria-label="Utama kiri">
+      <a href="#lab">The Lab</a>
+      <a href="#hub">The Hub</a>
+    </nav>
+    <a class="logo" href="#top" aria-label="Kodeflux — kembali ke atas" data-text="KOD3FLUX+"><span class="la">KOD3</span><span class="lb">FL</span><span class="lc">UX</span><span class="lb">+</span></a>
+    <nav class="links links-r" aria-label="Utama kanan">
+      <a href="#playgrounds">The Tools</a>
+      <a href="#join">Reach Us</a>
+    </nav>
+    <div class="nav-right">
+      <a class="btn btn-glass btn-sm" href="#join">Join the Hub</a>
+      <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false" aria-controls="mmenu"><svg class="ic"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mmenu">
+    <a href="#lab">The Lab</a>
+    <a href="#hub">The Hub</a>
+    <a href="#playgrounds">The Tools</a>
+    <a href="#join">Reach Us</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i>
+    <div class="gridlines"></div>
+    <div class="sweep"></div>
+  </div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="pill" style="--k:0"><i class="dot"></i>Micro SaaS Lab + Learning Hub</span>
+      <h1 style="--k:1">What are you building right now?</h1>
+      <p class="lead" style="--k:2">Untuk <strong>self-made entrepreneurs, solo founders, dan <span style="white-space:nowrap">side-hustlers</span></strong>. Kodeflux bukan kelas yang nyuruh kamu duduk, catat, lalu pulang. Ini ruang belajar bisnis lewat diskusi, eksperimen, dan tools yang bisa langsung kamu coba. Free to try, no signup required.</p>
+      <div class="cta" style="--k:3">
+        <a class="btn btn-primary btn-lg" href="#join">Join the Hub</a>
+        <a class="btn btn-glass btn-lg" href="#playgrounds">Try the tools</a>
+      </div>
+      <div class="built" style="--k:3">
+        <span>Sectors we cover</span>
+        <ul>
+          <li style="--n:0"><svg class="ic"><use href="#i-compass"/></svg>Travel</li>
+          <li style="--n:1"><svg class="ic"><use href="#i-mentor"/></svg>Coach</li>
+          <li style="--n:2"><svg class="ic"><use href="#i-car"/></svg>Rental</li>
+          <li style="--n:3"><svg class="ic"><use href="#i-cal"/></svg>Event</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAB -->
+<section id="lab">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Learn before you scale.</h2>
+      <p>Banyak bisnis buru-buru cari growth sebelum ngerti apa yang sebenarnya perlu diperbaiki. Di Lab, kita mulai dari problem, belajar sistem di baliknya, lalu uji solusi kecil sebelum dibesarkan.</p>
+    </div>
+    <ol class="steps">
+      <li class="rv" style="--d:0ms"><div class="card step">
+        <span class="ico"><svg class="ic"><use href="#i-search"/></svg></span>
+        <h3>Problem</h3>
+        <p>Mulai dari masalah nyata di bisnismu, bukan dari tools atau tren.</p>
+      </div></li>
+      <li class="rv" style="--d:90ms"><div class="card step">
+        <span class="ico"><svg class="ic"><use href="#i-book"/></svg></span>
+        <h3>Learn</h3>
+        <p>Pahami sistem di balik sektornya lewat diskusi, playbook, dan pengalaman langsung.</p>
+      </div></li>
+      <li class="rv" style="--d:180ms"><div class="card step">
+        <span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span>
+        <h3>Test</h3>
+        <p>Uji satu perubahan kecil, lihat hasilnya, baru putuskan.</p>
+      </div></li>
+      <li class="rv" style="--d:270ms"><div class="card step">
+        <span class="ico"><svg class="ic"><use href="#i-box"/></svg></span>
+        <h3>Apply</h3>
+        <p>Terapkan yang berhasil di bisnismu, lalu bagikan hasilnya ke komunitas.</p>
+      </div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- HUB -->
+<section id="hub">
+  <div class="wrap">
+    <div class="sh">
+        <h2>Build in public. Learn together.</h2>
+        <p>Nggak semua jawaban harus datang dari expert. Kadang insight terbaik justru muncul saat founder, freelancer, operator, dan creator saling bongkar proses yang benar-benar mereka pakai.</p>
+      </div>
+    <div class="prompts">
+      <div class="rv" style="--d:0ms"><div class="card prompt" style="--fd:0s">
+        <span class="ico"><svg class="ic"><use href="#i-share"/></svg></span>
+        <div><q>Share one thing you learned the hard way.</q><small>Peer learning</small></div>
+      </div></div>
+      <div class="rv" style="--d:110ms"><div class="card prompt" style="--fd:1.2s">
+        <span class="ico"><svg class="ic"><use href="#i-search"/></svg></span>
+        <div><q>What task do you repeat every week?</q><small>Systems</small></div>
+      </div></div>
+      <div class="rv" style="--d:220ms"><div class="card prompt" style="--fd:2.4s">
+        <span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span>
+        <div><q>What are you testing this week?</q><small>Experiments</small></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYGROUNDS -->
+<section id="playgrounds">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Choose your playground.</h2>
+      <p>Rental, travel, event, mentoring — industrinya beda, tapi problemnya sering mirip: workflow berantakan, keputusan tanpa data, dan knowledge yang nggak terdokumentasi. Di situlah kita mulai belajar.</p>
+    </div>
+
+    <div class="pg">
+
+      <!-- RENTAL I/O -->
+      <div class="rv" style="--d:0ms"><article class="card play">
+        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-car"/></svg></span><h3>Rental I/O</h3><span class="tag live">Demo live</span></div>
+        <p class="for">Buat pemilik rental kendaraan dan peralatan yang mau serah terima lebih aman dan rapi.</p>
+        <div class="pv" aria-hidden="true">
+          <div class="pv-bar"><i></i><i></i><i></i><b>Fleet board</b><em>Preview</em></div>
+          <div class="pv-body">
+            <div class="fleet">
+              <div class="fr"><span></span><div class="dh"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></div>
+              <div class="fr r1"><span class="nm">Brio RS</span><div class="tl"><span class="bk" style="--l:0%;--w:28.57%;--d:0s"></span><span class="bk" style="--l:42.86%;--w:42.86%;--d:2.2s"></span></div></div>
+              <div class="fr r2"><span class="nm">Vario 160</span><div class="tl"><span class="bk" style="--l:14.29%;--w:57.14%;--d:.6s"></span></div></div>
+              <div class="fr r3"><span class="nm">Genset 5K</span><div class="tl"><span class="bk" style="--l:0%;--w:42.86%;--d:1.2s"></span><span class="bk" style="--l:71.43%;--w:28.57%;--d:3s"></span></div></div>
+            </div>
+            <div class="days"><span style="--d:0s">KTP ✓</span><span style="--d:3s">Agreement</span><span style="--d:6s">Handover</span></div>
+          </div>
+        </div>
+        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
+        <a class="btn btn-glass btn-sm" href="https://rental-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article></div>
+
+      <!-- TOUR I/O -->
+      <div class="rv" style="--d:110ms"><article class="card play">
+        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-compass"/></svg></span><h3>Tour I/O</h3><span class="tag live">Demo live</span></div>
+        <p class="for">Buat traveler, guide, dan tour operator yang menyusun trip dan itinerary dengan rapi.</p>
+        <div class="pv" aria-hidden="true">
+          <div class="pv-bar"><i></i><i></i><i></i><b>Trip planner</b><em>Preview</em></div>
+          <div class="pv-body">
+            <svg class="route" viewBox="0 0 300 50" preserveAspectRatio="xMidYMid meet">
+              <defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#4f70de"/><stop offset=".55" stop-color="#7b4fd8"/><stop offset="1" stop-color="#e7b565"/></linearGradient></defs>
+              <path class="base" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
+              <path class="path" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
+              <circle class="pin" style="--d:.4s" cx="24" cy="36" r="5" fill="#4f70de"/>
+              <circle class="pin" style="--d:1.9s" cx="150" cy="24" r="5" fill="#7b4fd8"/>
+              <circle class="pin" style="--d:3.4s" cx="276" cy="30" r="5" fill="#e7b565"/>
+            </svg>
+            <div class="days"><span style="--d:0s">Day 1</span><span style="--d:3s">Day 2</span><span style="--d:6s">Day 3</span></div>
+            <div class="cost">
+              <div class="seg"><i style="--d:.2s"></i><i style="--d:.8s"></i><i style="--d:1.4s"></i></div>
+              <div class="lg"><span>Flight</span><span>Stay</span><span>Activities</span><span class="tot">≈ Rp 4,8 jt</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
+        <a class="btn btn-glass btn-sm" href="https://tour-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article></div>
+
+      <!-- PARTY I/O -->
+      <div class="rv" style="--d:220ms"><article class="card play">
+        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-spark"/></svg></span><h3>Party I/O</h3><span class="tag live">Demo live</span></div>
+        <p class="for">Buat event organizer yang mengatur vendor, budget, dan rundown acara di satu tempat.</p>
+        <div class="pv" aria-hidden="true">
+          <div class="pv-bar"><i></i><i></i><i></i><b>Run of show</b><em>Preview</em></div>
+          <div class="pv-body">
+            <div class="ros">
+              <div class="rw" style="--d:.2s"><b>17:30</b><span>Registrasi tamu</span></div>
+              <div class="rw" style="--d:2.4s"><b>18:30</b><span>Makan malam &amp; hiburan</span></div>
+              <div class="rw" style="--d:4.6s"><b>20:30</b><span>Acara utama</span></div>
+            </div>
+            <div class="bud">
+              <div class="bar"><i></i></div>
+              <div class="lg"><span>Vendor booked 3/4</span><span class="tot">Budget 64%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
+        <a class="btn btn-glass btn-sm" href="https://party-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article></div>
+
+      <!-- MENTOR I/O -->
+      <div class="rv" style="--d:330ms"><article class="card play">
+        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-mentor"/></svg></span><h3>Mentor I/O</h3><span class="tag live">Demo live</span></div>
+        <p class="for">Buat coach, trainer, dan mentor yang menjalankan program klien secara terstruktur.</p>
+        <div class="pv" aria-hidden="true">
+          <div class="pv-bar"><i></i><i></i><i></i><b>Program tracker</b><em>Preview</em></div>
+          <div class="pv-body">
+            <div class="mn">
+              <div class="ring">
+                <svg viewBox="0 0 64 64">
+                  <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b4fd8"/><stop offset="1" stop-color="#c8578f"/></linearGradient></defs>
+                  <circle class="bg" cx="32" cy="32" r="26"/><circle class="fg" cx="32" cy="32" r="26"/>
+                </svg>
+                <span>4/6</span>
+              </div>
+              <ul class="chk">
+                <li><i style="--d:.6s"><svg viewBox="0 0 12 12" style="--d:.6s"><path d="m2.500 6.200 2.400 2.400 4.600-5"/></svg></i>Kickoff session</li>
+                <li><i style="--d:1.8s"><svg viewBox="0 0 12 12" style="--d:1.8s"><path d="m2.500 6.200 2.400 2.400 4.600-5"/></svg></i>Set goals</li>
+                <li><i style="--d:3s"><svg viewBox="0 0 12 12" style="--d:3s"><path d="m2.500 6.200 2.400 2.400 4.600-5"/></svg></i>Weekly review</li>
+              </ul>
+            </div>
+            <div class="mm">
+              <div class="rw" style="--pc:#c8578f"><span class="av">A</span><span class="bar"><i style="--w:82%;--d:.4s"></i></span></div>
+              <div class="rw" style="--pc:#3fa6ad"><span class="av">B</span><span class="bar"><i style="--w:56%;--d:1.2s"></i></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
+        <a class="btn btn-glass btn-sm" href="https://mentor-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </article></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section id="learn">
+  <div class="wrap">
+    <div class="sh">
+      <h2>More than just a software or app.</h2>
+    </div>
+
+    <div class="stack">
+      <div class="rv" style="--d:0ms"><div class="card sk">
+        <span class="ico"><svg class="ic"><use href="#i-video"/></svg></span>
+        <h3>Learn it</h3>
+        <div class="what">E-minicourse</div>
+        <p>Short, focused video lessons on running each business type. Practical, no fluff.</p>
+        <span class="tag">Coming soon</span>
+      </div></div>
+      <div class="rv" style="--d:110ms"><div class="card sk on">
+        <span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span>
+        <h3>Try it</h3>
+        <div class="what">Tools &amp; demo</div>
+        <p>Sentuh sistemnya sendiri lewat demo dan lihat workflow-nya jalan. Free to try, no signup required.</p>
+        <span class="tag live">Demo live</span>
+      </div></div>
+      <div class="rv" style="--d:220ms"><div class="card sk">
+        <span class="ico"><svg class="ic"><use href="#i-book"/></svg></span>
+        <h3>Apply it</h3>
+        <div class="what">E-playbook</div>
+        <p>Industry-specific written guides — pricing, operations, and growth frameworks you can apply today.</p>
+        <span class="tag">Coming soon</span>
+      </div></div>
+    </div>
+
+    </div>
+</section>
+
+<!-- GO DEEPER -->
+<section id="deeper">
+  <div class="wrap deeper">
+    <div class="sh">
+      <h2>Go deeper, together.</h2>
+      <p>Setelah dasarnya kuat, saatnya naik level. Beberapa lapisan baru sedang kami siapkan: cara belajar yang lebih dalam, masukan yang pas untukmu, dan ruang buat tumbuh bareng orang-orang yang searah.</p>
+    </div>
+    <div class="later">
+      <div class="rv" style="--d:0ms"><div class="card lt">
+        <span class="ico"><svg class="ic"><use href="#i-users"/></svg></span>
+        <div><h3>Membership</h3><p>Private community, live sessions, and early tool access.</p></div>
+      </div></div>
+      <div class="rv" style="--d:100ms"><div class="card lt">
+        <span class="ico"><svg class="ic"><use href="#i-video"/></svg></span>
+        <div><h3>Webinar Mastery</h3><p>Live group sessions on specific business challenges.</p></div>
+      </div></div>
+      <div class="rv" style="--d:200ms"><div class="card lt">
+        <span class="ico"><svg class="ic"><use href="#i-mentor"/></svg></span>
+        <div><h3>Private Mentoring</h3><p>Direct mentoring for your specific business situation.</p></div>
+      </div></div>
+      <div class="rv" style="--d:300ms"><div class="card lt">
+        <span class="ico"><svg class="ic"><use href="#i-gift"/></svg></span>
+        <div><h3>Affiliate Program</h3><p>Earn by sharing tools you actually use.</p></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLUXMAN -->
+<section class="flux" aria-label="Fluxman">
+  <div class="wrap">
+    <div class="rv"><div class="card fluxbar">
+      <span class="ico" aria-hidden="true"><svg class="ic"><use href="#i-play"/></svg></span>
+      <div>
+        <h3>Fluxman</h3>
+        <p>Stories every entrepreneur, founder and hustler can relate to — starting with why Kodeflux exists.</p>
+      </div>
+      <a class="btn btn-glass btn-sm" href="#join">Watch Fluxman <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div></div>
+  </div>
+</section>
+
+<!-- BEHIND THE LAB -->
+<section id="loop">
+  <div class="wrap loop">
+    <div class="sh">
+      <h2>Behind the Lab.</h2>
+      <p>Kami suka pola yang bisa diulang. Ini kerangka sederhana yang kami pakai setiap kali membedah masalah baru, dari hospitality sampai event.</p>
+    </div>
+    <div class="loop-art" aria-hidden="true">
+      <div class="window">
+        <div class="win-bar"><i></i><i></i><i></i><b>lab.config.ts</b></div>
+        <pre class="code type"><code><span class="ln" style="--i:0"><span class="cm">// the kodeflux loop</span></span><span class="ln" style="--i:1"><span class="k">const</span> <span class="f">lab</span> = {</span><span class="ln" style="--i:2">  problem: <span class="s">"messy workflow"</span>,</span><span class="ln" style="--i:3">  learn: [<span class="s">"discuss"</span>, <span class="s">"playbook"</span>],</span><span class="ln" style="--i:4">  test: <span class="s">"small hypothesis"</span>,</span><span class="ln" style="--i:5">  apply: () =&gt; <span class="f">growTogether</span>(),</span><span class="ln" style="--i:6">};</span><span class="ln" style="--i:7"> </span><span class="ln" style="--i:8"><span class="k">await</span> lab.<span class="f">run</span>();<span class="caret"></span></span></code></pre>
+      </div>
+      <div class="chip"><svg class="ic"><use href="#i-term"/></svg>3 playgrounds open</div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join">
+  <div class="wrap">
+    <div class="join rv">
+      <h2>Join the Hub.</h2>
+      <p>Real systems, real numbers, real lessons — from someone still building. Ceritain bottleneck-mu dan mulai dari satu hal kecil buat dicoba.</p>
+      <div class="cta">
+        <a class="btn btn-primary btn-lg" href="#join">Join the Hub</a>
+        <a class="btn btn-glass btn-lg" href="#playgrounds">Try the tools</a>
+      </div>
+      <div class="socials">
+        <a href="#join" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
+        <a href="#join" aria-label="Threads"><svg class="ic"><use href="#i-th"/></svg></a>
+        <a href="#join" aria-label="TikTok"><svg class="ic ic-fill"><use href="#i-tt"/></svg></a>
+        <a href="#join" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a>
+        <a href="#join" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">© Kodeflux 2026. All rights reserved.</div>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var burger=document.getElementById('burger');
+  function onScroll(){nav.classList.toggle('solid',window.scrollY>24)}
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  function setMenu(open){
+    nav.classList.toggle('open',open);
+    burger.setAttribute('aria-expanded',open?'true':'false');
+    burger.setAttribute('aria-label',open?'Tutup menu':'Buka menu');
+    burger.innerHTML='<svg class="ic"><use href="#'+(open?'i-x':'i-menu')+'"/></svg>';
+  }
+  burger.addEventListener('click',function(){setMenu(!nav.classList.contains('open'))});
+  document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false)});
+
+  // reveal cards as they enter the viewport
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}});
+    },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){io.observe(el)});
+  }else{els.forEach(function(el){el.classList.add('in')})}
+
+  // code editor: type the lines, hold, clear, repeat (only while visible)
+  var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function typer(el){
+    var t1,t2,on=false;
+    function run(){
+      el.classList.add('go');
+      t1=setTimeout(function(){el.classList.remove('go')},8800);
+      t2=setTimeout(run,9800);
+    }
+    return {
+      start:function(){if(!on){on=true;run()}},
+      stop:function(){on=false;clearTimeout(t1);clearTimeout(t2);el.classList.remove('go')}
+    };
+  }
+  var types=document.querySelectorAll('.type');
+  if(reduceMotion||!('IntersectionObserver' in window)){
+    types.forEach(function(el){el.classList.add('go')});
+  }else{
+    var tio=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var t=en.target._typer||(en.target._typer=typer(en.target));
+        if(en.isIntersecting){t.start()}else{t.stop()}
+      });
+    },{threshold:.35});
+    types.forEach(function(el){tio.observe(el)});
+  }
+
+  // cursor-following glow on cards (desktop)
+  document.querySelectorAll('.card').forEach(function(card){
+    card.addEventListener('pointermove',function(e){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      card.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  });
+})();
+</script>
+</body>
+</html>
