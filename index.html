@@ -564,7 +564,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fact-pillar{margin-top:26px;font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--amber)}
 .fact-question{margin-top:8px;font-size:clamp(1.45rem,3vw,2.05rem);line-height:1.2;letter-spacing:-.025em}
 .fact-options{display:grid;gap:10px;margin-top:24px}
-.fact-option{width:100%;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;text-align:left;padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);color:var(--fg);cursor:pointer;transition:.22s}
+.fact-option{width:100%;display:grid;grid-template-columns:1fr;gap:0;align-items:start;text-align:left;padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);color:var(--fg);cursor:pointer;transition:.22s}
 .fact-option:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.055);transform:translateY(-1px)}
 .fact-option.selected{border-color:rgba(231,181,101,.72);background:rgba(231,181,101,.08);box-shadow:0 0 0 1px rgba(231,181,101,.1)}
 .fact-option .n{width:28px;height:28px;border-radius:8px;border:1px solid var(--line2);display:grid;place-items:center;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
@@ -617,32 +617,55 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fact-result-actions .btn{min-width:148px}
 
 .corp-sec{padding-top:clamp(3.8rem,7vw,6rem)}
-.corp-shell{display:grid;grid-template-columns:minmax(0,.82fr) minmax(420px,1.18fr);gap:44px;align-items:stretch;border:1px solid var(--line2);border-radius:28px;background:linear-gradient(145deg,rgba(79,112,222,.11),rgba(123,79,216,.08) 45%,rgba(200,87,143,.05));overflow:hidden}
-.corp-head{padding:48px 10px 48px 48px;align-self:center}
-.corp-head h2{font-size:clamp(2rem,4vw,3.35rem);line-height:1.02;letter-spacing:-.04em;max-width:11ch}
-.corp-head p{margin-top:18px;color:var(--muted);max-width:34rem}
-.corp-quiz{padding:34px;background:rgba(8,7,12,.36);border-left:1px solid var(--line);min-height:390px;display:flex;align-items:center}
-.corp-step,.corp-result{display:none;width:100%}
-.corp-step.active,.corp-result.active{display:block}
+.corp-shell{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.72fr);gap:34px;align-items:center;border:1px solid var(--line2);border-radius:28px;background:linear-gradient(145deg,rgba(79,112,222,.11),rgba(123,79,216,.08) 45%,rgba(200,87,143,.05));overflow:hidden;padding:48px}
+.corp-head{max-width:640px}
+.corp-head h2{font-size:clamp(2rem,4vw,3.35rem);line-height:1.02;letter-spacing:-.04em;max-width:12ch}
+.corp-head p{margin-top:18px;color:var(--muted);max-width:36rem}
+.corp-head .cta{justify-content:flex-start;margin-top:26px}
+.corp-visual{position:relative;min-height:250px;display:grid;place-items:center}
+.corp-visual::before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;border:1px dashed rgba(113,219,224,.18);animation:corpVisualPulse 5s ease-in-out infinite}
+.corp-visual::after{content:"";position:absolute;width:128px;height:128px;border-radius:50%;border:1px solid rgba(200,87,143,.22);box-shadow:0 0 60px rgba(123,79,216,.10) inset;animation:factOrbit 18s linear infinite}
+.corp-core{width:58px;height:58px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:linear-gradient(135deg,rgba(123,79,216,.38),rgba(63,166,173,.18));display:grid;place-items:center;box-shadow:0 16px 48px -24px rgba(123,79,216,.8);font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:#fff}
+@keyframes corpVisualPulse{0%,100%{transform:scale(.86);opacity:.22}50%{transform:scale(1.08);opacity:.72}}
+
+.corp-modal{position:fixed;inset:0;z-index:1300;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(5,4,9,.76);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.corp-modal.active{display:flex}
+.corp-modal-card{position:relative;width:min(100%,760px);max-height:min(88svh,820px);overflow:auto;border:1px solid var(--line2);border-radius:24px;background:rgba(15,13,20,.985);box-shadow:0 28px 90px rgba(0,0,0,.55);padding:32px}
+.corp-close{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--muted);font-size:1.2rem;cursor:pointer}
+.corp-close:hover,.corp-close:focus-visible{color:var(--fg);border-color:var(--line2);outline:none}
+.corp-step,.corp-lead,.corp-success{display:none;width:100%}
+.corp-step.active,.corp-lead.active,.corp-success.active{display:block}
 .corp-count{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--amber)}
-.corp-step h3,.corp-result h3{margin-top:10px;font-size:1.55rem;letter-spacing:-.025em}
-.corp-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
-.corp-options button{min-height:74px;padding:14px 15px;text-align:left;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--muted);font:inherit;font-weight:600;cursor:pointer;transition:.25s ease}
-.corp-options button:hover,.corp-options button:focus-visible{border-color:rgba(113,219,224,.42);background:rgba(113,219,224,.075);color:var(--fg);outline:none;transform:translateY(-1px)}
-.corp-options button.selected{border-color:rgba(113,219,224,.55);background:rgba(113,219,224,.11);color:var(--fg)}
-.corp-qcopy{display:block;margin-top:6px;color:var(--dim);font-size:.86rem;font-weight:500;line-height:1.45}
-.corp-nav{display:flex;align-items:center;justify-content:flex-start;margin-top:18px}
+.corp-step h3,.corp-lead h3,.corp-success h3{margin-top:10px;padding-right:46px;font-size:clamp(1.45rem,3vw,2rem);line-height:1.18;letter-spacing:-.025em}
+.corp-qcopy{display:block;margin-top:7px;color:var(--muted);font-size:.88rem;font-weight:500;line-height:1.45}
+.corp-options{display:grid;gap:10px;margin-top:24px}
+.corp-options button{width:100%;min-height:66px;display:grid;grid-template-columns:1fr;gap:0;align-items:start;text-align:left;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--fg);font:inherit;cursor:pointer;transition:.22s ease}
+.corp-options button:hover,.corp-options button:focus-visible{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.055);transform:translateY(-1px);outline:none}
+.corp-options button.selected{border-color:rgba(231,181,101,.72);background:rgba(231,181,101,.08);box-shadow:0 0 0 1px rgba(231,181,101,.1)}
+.corp-opt-copy b{display:block;font-size:.92rem;line-height:1.35}.corp-opt-copy small{display:block;margin-top:3px;color:var(--muted);font-size:.78rem;line-height:1.4;font-weight:400}
+.corp-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px}
 .corp-back{appearance:none;border:0;background:transparent;color:var(--dim);font:600 .82rem var(--sans);padding:8px 0;cursor:pointer;transition:.2s ease}
 .corp-back:hover,.corp-back:focus-visible{color:var(--fg);outline:none}
 .corp-back::before{content:'←';margin-right:7px}
-.corp-result p{margin-top:16px;color:var(--muted);line-height:1.65}
-.corp-result .cta{justify-content:flex-start;margin-top:24px}
+.corp-next{min-width:118px}
+.corp-next:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.corp-summary-box{margin-top:18px;padding:14px 15px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025);color:var(--muted);font-size:.84rem;line-height:1.55}
+.corp-lead p,.corp-success p{margin-top:10px;color:var(--muted);line-height:1.6}
+.corp-success{padding:24px 0 6px}
 
 @media (max-width:900px){
-  .corp-shell{grid-template-columns:1fr}
-  .corp-head{padding:36px 28px 6px}
+  .corp-shell{grid-template-columns:1fr;padding:36px 28px}
   .corp-head h2{max-width:none}
-  .corp-quiz{border-left:0;border-top:1px solid var(--line);min-height:340px}
+  .corp-visual{min-height:180px}
+}
+@media (max-width:640px){
+  .corp-shell{padding:30px 22px;border-radius:22px}
+  .corp-visual{display:none}
+  .corp-modal{padding:12px}
+  .corp-modal-card{padding:28px 18px 22px;border-radius:20px;max-height:92svh}
+  .corp-step h3,.corp-lead h3,.corp-success h3{padding-right:38px}
+  .corp-options button{min-height:62px;padding:12px}
+  .corp-nav{margin-top:18px}
 }
 
 /* iPhone/WebKit stability: keep the visual language, drop expensive compositing layers */
@@ -1158,105 +1181,103 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
         <div class="section-kicker">CORP · FOR BUSINESS</div>
         <h2>Need help solving your problem?</h2>
         <p>Mulai dari masalahnya dulu. Kami bantu identifikasi pendekatan yang tepat sebelum menentukan solusi teknologi yang dibutuhkan.</p>
+        <div class="cta"><button class="btn btn-primary" id="corpStart" type="button">Start here <svg class="ic"><use href="#i-arrow"/></svg></button></div>
       </div>
-      <div class="corp-quiz" id="corpQuiz">
-        <div class="corp-step active" data-step="0">
-          <span class="corp-count">01 / 05</span>
-          <h3>Where’s the problem showing up?<span class="corp-qcopy">Masalahnya paling terasa di bagian mana?</span></h3>
-          <div class="corp-options">
-            <button type="button" data-value="Manual workflow">Manual workflow <span class="corp-qcopy">Proses masih banyak manual</span></button>
-            <button type="button" data-value="Reporting & data">Reporting &amp; data <span class="corp-qcopy">Data sulit dirapikan atau dipantau</span></button>
-            <button type="button" data-value="Customer journey">Customer journey <span class="corp-qcopy">Alur customer belum mulus</span></button>
-            <button type="button" data-value="Disconnected tools">Disconnected tools <span class="corp-qcopy">Tools yang dipakai belum saling terhubung</span></button>
-            <button type="button" data-value="Other">Other <span class="corp-qcopy">Masalah lainnya</span></button>
-          </div>
-        </div>
-
-        <div class="corp-step" data-step="1">
-          <span class="corp-count">02 / 05</span>
-          <h3>What’s the impact?<span class="corp-qcopy">Dampaknya paling terasa apa?</span></h3>
-          <div class="corp-options">
-            <button type="button" data-value="Wastes time">Wastes time <span class="corp-qcopy">Makan terlalu banyak waktu</span></button>
-            <button type="button" data-value="Causes mistakes">Causes mistakes <span class="corp-qcopy">Rawan error atau pekerjaan ulang</span></button>
-            <button type="button" data-value="Hard to track">Hard to track <span class="corp-qcopy">Sulit dipantau dengan jelas</span></button>
-            <button type="button" data-value="Costs too much">Costs too much <span class="corp-qcopy">Biaya jadi terlalu besar</span></button>
-            <button type="button" data-value="Slows growth">Slows growth <span class="corp-qcopy">Menghambat perkembangan bisnis</span></button>
-          </div>
-          <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button></div>
-        </div>
-
-        <div class="corp-step" data-step="2">
-          <span class="corp-count">03 / 05</span>
-          <h3>How are you handling it today?<span class="corp-qcopy">Sekarang biasanya ditangani dengan cara apa?</span></h3>
-          <div class="corp-options">
-            <button type="button" data-value="Spreadsheet">Spreadsheet</button>
-            <button type="button" data-value="Multiple apps">Multiple apps <span class="corp-qcopy">Mengandalkan beberapa aplikasi sekaligus</span></button>
-            <button type="button" data-value="Manual chat & follow-up">Manual chat &amp; follow-up <span class="corp-qcopy">Banyak koordinasi manual</span></button>
-            <button type="button" data-value="Existing system">Existing system <span class="corp-qcopy">Sudah ada sistem yang digunakan</span></button>
-            <button type="button" data-value="Nothing structured yet">Nothing structured yet <span class="corp-qcopy">Belum ada proses yang benar-benar terstruktur</span></button>
-          </div>
-          <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button></div>
-        </div>
-
-        <div class="corp-step" data-step="3">
-          <span class="corp-count">04 / 05</span>
-          <h3>Who feels it most?<span class="corp-qcopy">Siapa yang paling terdampak?</span></h3>
-          <div class="corp-options">
-            <button type="button" data-value="Internal team">Internal team <span class="corp-qcopy">Tim internal</span></button>
-            <button type="button" data-value="Customers">Customers <span class="corp-qcopy">Customer atau pengguna</span></button>
-            <button type="button" data-value="Management">Management <span class="corp-qcopy">Owner atau management</span></button>
-            <button type="button" data-value="Everyone">Everyone <span class="corp-qcopy">Semua pihak terdampak</span></button>
-          </div>
-          <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button></div>
-        </div>
-
-        <div class="corp-step" data-step="4">
-          <span class="corp-count">05 / 05</span>
-          <h3>What would make things better first?<span class="corp-qcopy">Kalau dibenahi satu hal lebih dulu, hasil apa yang paling dibutuhkan?</span></h3>
-          <div class="corp-options">
-            <button type="button" data-value="Save time">Save time <span class="corp-qcopy">Proses lebih cepat dan efisien</span></button>
-            <button type="button" data-value="Reduce errors">Reduce errors <span class="corp-qcopy">Mengurangi error dan pekerjaan ulang</span></button>
-            <button type="button" data-value="See data clearly">See data clearly <span class="corp-qcopy">Data lebih mudah dilihat dan dipahami</span></button>
-            <button type="button" data-value="Connect existing tools">Connect existing tools <span class="corp-qcopy">Tools yang ada bisa bekerja lebih terhubung</span></button>
-            <button type="button" data-value="Scale easier">Scale easier <span class="corp-qcopy">Lebih siap berkembang tanpa menambah kerumitan</span></button>
-          </div>
-          <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button></div>
-        </div>
-
-        <div class="corp-lead" id="corpLead">
-          <span class="corp-count">LET’S CONTINUE</span>
-          <h3>Where should we follow up?</h3>
-          <p>Isi kontak di bawah. Jawabanmu akan ikut terkirim supaya diskusinya bisa langsung mulai dari konteks yang tepat.</p>
-          <div class="corp-summary-box" id="corpSummary"></div>
-          <form name="kodeflux-corp" id="corpLeadForm" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="kodeflux-corp">
-            <input type="hidden" name="problem_area" id="corpProblemArea">
-            <input type="hidden" name="impact" id="corpImpact">
-            <input type="hidden" name="current_setup" id="corpCurrentSetup">
-            <input type="hidden" name="affected" id="corpAffected">
-            <input type="hidden" name="priority" id="corpPriority">
-            <input type="hidden" name="summary" id="corpSummaryField">
-            <div class="form-grid two">
-              <div class="form-field"><label for="corpName">Name</label><input id="corpName" name="name" type="text" autocomplete="name" required></div>
-              <div class="form-field"><label for="corpEmail">Email</label><input id="corpEmail" name="email" type="email" autocomplete="email" required></div>
-              <div class="form-field"><label for="corpWhatsApp">WhatsApp</label><input id="corpWhatsApp" name="whatsapp" type="tel" autocomplete="tel" required></div>
-              <div class="form-field"><label for="corpCompany">Company / Brand</label><input id="corpCompany" name="company" type="text" autocomplete="organization" required></div>
-            </div>
-            <div class="corp-nav"><button class="corp-back" id="corpLeadBack" type="button">Back</button></div>
-            <div class="cta"><button class="btn btn-primary btn-sm" type="submit">Discuss this <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-            <div class="form-status" id="corpFormStatus" aria-live="polite"></div>
-          </form>
-        </div>
-
-        <div class="corp-success" id="corpSuccess">
-          <span class="corp-count">RECEIVED</span>
-          <h3>Got it.</h3>
-          <p>Terima kasih. Kodeflux sudah menerima konteks dan kontakmu. Kami akan follow up lewat kontak yang kamu kirim.</p>
-        </div>
-      </div>
+      <div class="corp-visual" aria-hidden="true"><div class="corp-core">CORP</div></div>
     </div>
   </div>
 </section>
+
+<div class="corp-modal" id="corpModal" role="dialog" aria-modal="true" aria-labelledby="corpModalTitle">
+  <div class="corp-modal-card" id="corpQuiz">
+    <button class="corp-close" id="corpClose" type="button" aria-label="Close">×</button>
+
+    <div class="corp-step active" data-step="0">
+      <span class="corp-count">01 / 05</span>
+      <h3 id="corpModalTitle">Where’s the problem showing up?<span class="corp-qcopy">Masalahnya paling terasa di bagian mana?</span></h3>
+      <div class="corp-options">
+        <button type="button" data-value="Manual workflow"><span class="corp-opt-copy"><b>Manual workflow</b><small>Proses masih banyak manual</small></span></button>
+        <button type="button" data-value="Reporting & data"><span class="corp-opt-copy"><b>Reporting &amp; data</b><small>Data sulit dirapikan atau dipantau</small></span></button>
+        <button type="button" data-value="Customer journey"><span class="corp-opt-copy"><b>Customer journey</b><small>Alur customer belum mulus</small></span></button>
+        <button type="button" data-value="Disconnected tools"><span class="corp-opt-copy"><b>Disconnected tools</b><small>Tools yang dipakai belum saling terhubung</small></span></button>
+        <button type="button" data-value="Other"><span class="corp-opt-copy"><b>Other</b><small>Masalah lainnya</small></span></button>
+      </div>
+      <div class="corp-nav"><span></span><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+    </div>
+
+    <div class="corp-step" data-step="1">
+      <span class="corp-count">02 / 05</span>
+      <h3>What’s the impact?<span class="corp-qcopy">Dampaknya paling terasa apa?</span></h3>
+      <div class="corp-options">
+        <button type="button" data-value="Wastes time"><span class="corp-opt-copy"><b>Wastes time</b><small>Makan terlalu banyak waktu</small></span></button>
+        <button type="button" data-value="Causes mistakes"><span class="corp-opt-copy"><b>Causes mistakes</b><small>Rawan error atau pekerjaan ulang</small></span></button>
+        <button type="button" data-value="Hard to track"><span class="corp-opt-copy"><b>Hard to track</b><small>Sulit dipantau dengan jelas</small></span></button>
+        <button type="button" data-value="Costs too much"><span class="corp-opt-copy"><b>Costs too much</b><small>Biaya jadi terlalu besar</small></span></button>
+        <button type="button" data-value="Slows growth"><span class="corp-opt-copy"><b>Slows growth</b><small>Menghambat perkembangan bisnis</small></span></button>
+      </div>
+      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+    </div>
+
+    <div class="corp-step" data-step="2">
+      <span class="corp-count">03 / 05</span>
+      <h3>How are you handling it today?<span class="corp-qcopy">Sekarang biasanya ditangani dengan cara apa?</span></h3>
+      <div class="corp-options">
+        <button type="button" data-value="Spreadsheet"><span class="corp-opt-copy"><b>Spreadsheet</b><small>Masih banyak bergantung pada spreadsheet</small></span></button>
+        <button type="button" data-value="Multiple apps"><span class="corp-opt-copy"><b>Multiple apps</b><small>Mengandalkan beberapa aplikasi sekaligus</small></span></button>
+        <button type="button" data-value="Manual chat & follow-up"><span class="corp-opt-copy"><b>Manual chat &amp; follow-up</b><small>Banyak koordinasi manual</small></span></button>
+        <button type="button" data-value="Existing system"><span class="corp-opt-copy"><b>Existing system</b><small>Sudah ada sistem yang digunakan</small></span></button>
+        <button type="button" data-value="Nothing structured yet"><span class="corp-opt-copy"><b>Nothing structured yet</b><small>Belum ada proses yang benar-benar terstruktur</small></span></button>
+      </div>
+      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+    </div>
+
+    <div class="corp-step" data-step="3">
+      <span class="corp-count">04 / 05</span>
+      <h3>Who feels it most?<span class="corp-qcopy">Siapa yang paling terdampak?</span></h3>
+      <div class="corp-options">
+        <button type="button" data-value="Internal team"><span class="corp-opt-copy"><b>Internal team</b><small>Tim internal</small></span></button>
+        <button type="button" data-value="Customers"><span class="corp-opt-copy"><b>Customers</b><small>Customer atau pengguna</small></span></button>
+        <button type="button" data-value="Management"><span class="corp-opt-copy"><b>Management</b><small>Owner atau management</small></span></button>
+        <button type="button" data-value="Everyone"><span class="corp-opt-copy"><b>Everyone</b><small>Semua pihak terdampak</small></span></button>
+      </div>
+      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+    </div>
+
+    <div class="corp-step" data-step="4">
+      <span class="corp-count">05 / 05</span>
+      <h3>What would make things better first?<span class="corp-qcopy">Kalau dibenahi satu hal lebih dulu, hasil apa yang paling dibutuhkan?</span></h3>
+      <div class="corp-options">
+        <button type="button" data-value="Save time"><span class="corp-opt-copy"><b>Save time</b><small>Proses lebih cepat dan efisien</small></span></button>
+        <button type="button" data-value="Reduce errors"><span class="corp-opt-copy"><b>Reduce errors</b><small>Mengurangi error dan pekerjaan ulang</small></span></button>
+        <button type="button" data-value="See data clearly"><span class="corp-opt-copy"><b>See data clearly</b><small>Data lebih mudah dilihat dan dipahami</small></span></button>
+        <button type="button" data-value="Connect existing tools"><span class="corp-opt-copy"><b>Connect existing tools</b><small>Tools yang ada bisa bekerja lebih terhubung</small></span></button>
+        <button type="button" data-value="Scale easier"><span class="corp-opt-copy"><b>Scale easier</b><small>Lebih siap berkembang tanpa menambah kerumitan</small></span></button>
+      </div>
+      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Continue <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+    </div>
+
+    <div class="corp-lead" id="corpLead">
+      <span class="corp-count">LET’S CONTINUE</span>
+      <h3>Where should we follow up?</h3>
+      <p>Isi kontak di bawah. Jawabanmu ikut terkirim supaya diskusinya bisa langsung mulai dari konteks yang tepat.</p>
+      <div class="corp-summary-box" id="corpSummary"></div>
+      <form name="kodeflux-corp" id="corpLeadForm" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="kodeflux-corp">
+        <input type="hidden" name="problem_area" id="corpProblemArea"><input type="hidden" name="impact" id="corpImpact"><input type="hidden" name="current_setup" id="corpCurrentSetup"><input type="hidden" name="affected" id="corpAffected"><input type="hidden" name="priority" id="corpPriority"><input type="hidden" name="summary" id="corpSummaryField">
+        <div class="form-grid two">
+          <div class="form-field"><label for="corpName">Name</label><input id="corpName" name="name" type="text" autocomplete="name" required></div>
+          <div class="form-field"><label for="corpEmail">Email</label><input id="corpEmail" name="email" type="email" autocomplete="email" required></div>
+          <div class="form-field"><label for="corpWhatsApp">WhatsApp</label><input id="corpWhatsApp" name="whatsapp" type="tel" autocomplete="tel" required></div>
+          <div class="form-field"><label for="corpCompany">Company / Brand</label><input id="corpCompany" name="company" type="text" autocomplete="organization" required></div>
+        </div>
+        <div class="corp-nav"><button class="corp-back" id="corpLeadBack" type="button">Back</button><button class="btn btn-primary btn-sm" type="submit">Discuss this <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+        <div class="form-status" id="corpFormStatus" aria-live="polite"></div>
+      </form>
+    </div>
+
+    <div class="corp-success" id="corpSuccess"><span class="corp-count">RECEIVED</span><h3>Got it.</h3><p>Terima kasih. Kodeflux sudah menerima konteks dan kontakmu. Kami akan follow up lewat kontak yang kamu kirim.</p></div>
+  </div>
+</div>
 
 <!-- JOIN -->
 <section id="join">
@@ -1425,9 +1446,12 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     }catch(e){}
   })}
 
-  // CORP: problem-first 5-step business intake + Netlify contact form.
+  // CORP: modal, FACT-like step flow + Netlify contact form.
   var quiz=document.getElementById('corpQuiz');
   if(quiz){
+    var modal=document.getElementById('corpModal');
+    var startBtn=document.getElementById('corpStart');
+    var closeBtn=document.getElementById('corpClose');
     var steps=[].slice.call(quiz.querySelectorAll('.corp-step'));
     var lead=document.getElementById('corpLead');
     var success=document.getElementById('corpSuccess');
@@ -1435,16 +1459,23 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     var form=document.getElementById('corpLeadForm');
     var answers=[];
     var currentStep=0;
+    function openCorp(){modal.classList.add('active');document.body.style.overflow='hidden';showStep(currentStep)}
+    function closeCorp(){modal.classList.remove('active');document.body.style.overflow=''}
+    if(startBtn)startBtn.addEventListener('click',openCorp);
+    if(closeBtn)closeBtn.addEventListener('click',closeCorp);
+    if(modal)modal.addEventListener('click',function(e){if(e.target===modal)closeCorp()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('active'))closeCorp()});
     function showStep(n){
       currentStep=n;
       steps.forEach(function(x,i){x.classList.toggle('active',i===n)});
       lead.classList.toggle('active',n===steps.length);
       success.classList.remove('active');
       if(n<steps.length){
-        steps[n].querySelectorAll('button[data-value]').forEach(function(btn){
-          btn.classList.toggle('selected',btn.getAttribute('data-value')===answers[n]);
-        });
+        var next=steps[n].querySelector('[data-corp-next]');
+        steps[n].querySelectorAll('button[data-value]').forEach(function(btn){btn.classList.toggle('selected',btn.getAttribute('data-value')===answers[n])});
+        if(next)next.disabled=!answers[n];
       }
+      quiz.scrollTop=0;
     }
     function buildSummary(){
       var labels=['Problem area','Impact','Current setup','Affected most','Priority'];
@@ -1458,31 +1489,31 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
       document.getElementById('corpSummaryField').value=text;
     }
     steps.forEach(function(step,idx){
+      var next=step.querySelector('[data-corp-next]');
       step.querySelectorAll('button[data-value]').forEach(function(btn){
         btn.addEventListener('click',function(){
           answers[idx]=btn.getAttribute('data-value');
-          if(idx<steps.length-1){showStep(idx+1)}else{buildSummary();showStep(steps.length)}
+          step.querySelectorAll('button[data-value]').forEach(function(b){b.classList.toggle('selected',b===btn)});
+          if(next)next.disabled=false;
         });
       });
+      if(next)next.addEventListener('click',function(){if(!answers[idx])return;if(idx<steps.length-1)showStep(idx+1);else{buildSummary();showStep(steps.length)}});
       var back=step.querySelector('[data-corp-back]');
-      if(back){back.addEventListener('click',function(){showStep(Math.max(0,idx-1))})}
+      if(back)back.addEventListener('click',function(){showStep(Math.max(0,idx-1))});
     });
     var leadBack=document.getElementById('corpLeadBack');
-    if(leadBack){leadBack.addEventListener('click',function(){showStep(steps.length-1)})}
-    if(form){form.addEventListener('submit',async function(e){
-      e.preventDefault();
-      buildSummary();
-      var status=document.getElementById('corpFormStatus');
-      var btn=form.querySelector('button[type="submit"]');
+    if(leadBack)leadBack.addEventListener('click',function(){showStep(steps.length-1)});
+    if(form)form.addEventListener('submit',async function(e){
+      e.preventDefault();buildSummary();
+      var status=document.getElementById('corpFormStatus');var btn=form.querySelector('button[type="submit"]');
       btn.disabled=true;status.textContent='Sending…';
       var fd=new FormData(form),data={};fd.forEach(function(v,k){data[k]=v});
-      try{
-        var r=await netlifySubmit(form,data);if(!r.ok)throw new Error('submit failed');
-        lead.classList.remove('active');success.classList.add('active');steps.forEach(function(x){x.classList.remove('active')});
-      }catch(err){status.textContent='Couldn’t send this yet. Please try again.';}
+      try{var r=await netlifySubmit(form,data);if(!r.ok)throw new Error('submit failed');lead.classList.remove('active');success.classList.add('active');steps.forEach(function(x){x.classList.remove('active')});}
+      catch(err){status.textContent='Couldn’t send this yet. Please try again.';}
       finally{btn.disabled=false;}
-    })}
+    });
   }
+
 })();
 </script>
 
