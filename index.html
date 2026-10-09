@@ -577,6 +577,49 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 @media(max-width:900px){.fact-intro{grid-template-columns:1fr}.fact-intro .fact-radar-wrap{max-width:360px;margin-inline:auto}.fact-stage.active{grid-template-columns:1fr}.fact-viz{min-height:auto;border-right:0;border-bottom:1px solid var(--line);padding:28px 20px}.fact-radar-wrap{max-width:320px}.fact-quiz,.fact-result{min-height:auto}}
 @media(max-width:640px){.fact-shell{border-radius:22px}.fact-intro{padding:28px 20px}.fact-stage.active{display:block}.fact-viz{padding:24px 10px 20px}.fact-radar-wrap{max-width:270px}.fact-quiz,.fact-result{padding:28px 18px 30px}.fact-option{grid-template-columns:28px 1fr;padding:13px 12px}.fact-bar{grid-template-columns:88px 1fr 30px}.fact-meta{gap:7px}}
 
+
+/* ---------- FACT clean modal refinement ---------- */
+.fact-intro{grid-template-columns:minmax(0,1fr) minmax(230px,.52fr)}
+.fact-intro-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px}
+.fact-intro-orbit{position:relative;width:170px;aspect-ratio:1;border:1px dashed rgba(113,219,224,.22);border-radius:50%;animation:factOrbit 18s linear infinite}
+.fact-intro-orbit::before,.fact-intro-orbit::after{content:"";position:absolute;border:1px solid rgba(255,255,255,.07);border-radius:50%}
+.fact-intro-orbit::before{inset:22px}.fact-intro-orbit::after{inset:52px}
+.fact-intro-orbit span{position:absolute;width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--magenta));box-shadow:0 0 16px rgba(123,79,216,.34)}
+.fact-intro-orbit span:nth-child(1){top:8%;left:48%}.fact-intro-orbit span:nth-child(2){top:31%;right:5%}.fact-intro-orbit span:nth-child(3){bottom:9%;right:24%}.fact-intro-orbit span:nth-child(4){bottom:15%;left:17%}.fact-intro-orbit span:nth-child(5){top:27%;left:4%}
+.fact-intro-orbit i{position:absolute;inset:50% auto auto 50%;width:18px;height:18px;transform:translate(-50%,-50%);border-radius:50%;background:var(--cyan);box-shadow:0 0 24px rgba(113,219,224,.35)}
+.fact-intro-label{margin-top:20px;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+
+.fact-modal{display:none;position:fixed;inset:0;z-index:1250;align-items:center;justify-content:center;padding:20px;background:rgba(5,4,9,.76);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.fact-modal.active{display:flex}
+.fact-modal-card{position:relative;width:min(100%,620px);max-height:min(86svh,760px);overflow:auto;border:1px solid var(--line2);border-radius:22px;background:rgba(16,14,22,.985);box-shadow:0 28px 80px rgba(0,0,0,.48)}
+.fact-modal-close{position:absolute;top:18px;right:18px;z-index:3}
+.fact-quiz{min-height:0;padding:34px 34px 30px;display:flex;flex-direction:column;justify-content:flex-start}
+.fact-topline{padding-right:42px}
+.fact-question{font-size:clamp(1.35rem,4vw,1.9rem);max-width:34rem}
+.fact-options{gap:9px;margin-top:22px}
+.fact-option{display:block;padding:14px 15px;border-radius:13px}
+.fact-option b{font-size:.9rem}
+.fact-option small{font-size:.76rem}
+.fact-result{min-height:0;padding:38px 34px 34px}
+.fact-result.active{display:block}
+.fact-scoreline{padding-right:42px}
+.fact-score{font-size:clamp(4rem,15vw,5.7rem)}
+.fact-result h3{font-size:clamp(2rem,7vw,2.65rem)}
+.fact-bars{gap:10px;margin-top:26px}
+.fact-share{margin-top:22px}
+.fact-result-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.fact-result-actions .btn{width:100%;justify-content:center}
+@media(max-width:640px){
+  .fact-intro{grid-template-columns:1fr}
+  .fact-intro-mark{display:none}
+  .fact-modal{padding:12px}
+  .fact-modal-card{width:100%;max-height:88svh;border-radius:20px}
+  .fact-quiz,.fact-result{padding:30px 20px 24px}
+  .fact-option{display:block;padding:13px}
+  .fact-bar{grid-template-columns:88px 1fr 30px}
+  .fact-result-actions{grid-template-columns:1fr}
+}
+
 /* ---------- 2026.10 polish: compact hero / balanced nav / CORP / mobile stability ---------- */
 @media (min-width:821px){
   .nav-in{grid-template-columns:1fr auto 1fr;}
@@ -897,88 +940,53 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           <div class="fact-meta"><span>10 questions</span><span>± 2 min</span><span>No account</span><span>5 dimensions</span></div>
           <button class="btn btn-primary fact-start" id="factStart" type="button">Start FACT <svg class="ic"><use href="#i-arrow"/></svg></button>
         </div>
-        <div class="fact-radar-wrap" aria-hidden="true">
-          <div class="fact-orbit"></div>
-          <svg class="fact-concentric" viewBox="0 0 420 420" aria-label="Example FACT capability map">
-            <defs>
-              <linearGradient id="factSegFillA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b4fd8" stop-opacity=".46"/><stop offset="1" stop-color="#8d6ce7" stop-opacity=".22"/></linearGradient>
-              <linearGradient id="factSegFillB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5bdd" stop-opacity=".42"/><stop offset="1" stop-color="#c8578f" stop-opacity=".23"/></linearGradient>
-              <linearGradient id="factSegFillC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f70de" stop-opacity=".40"/><stop offset="1" stop-color="#71dbe0" stop-opacity=".22"/></linearGradient>
-              <linearGradient id="factSegFillD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8578f" stop-opacity=".36"/><stop offset="1" stop-color="#7b4fd8" stop-opacity=".20"/></linearGradient>
-              <linearGradient id="factSegFillE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3fa6ad" stop-opacity=".38"/><stop offset="1" stop-color="#7b4fd8" stop-opacity=".20"/></linearGradient>
-              <linearGradient id="factSegStrokeA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4b7ff"/><stop offset="1" stop-color="#9475ea"/></linearGradient>
-              <linearGradient id="factSegStrokeB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7baff"/><stop offset="1" stop-color="#df78aa"/></linearGradient>
-              <linearGradient id="factSegStrokeC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ca1f0"/><stop offset="1" stop-color="#71dbe0"/></linearGradient>
-              <linearGradient id="factSegStrokeD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e58bb8"/><stop offset="1" stop-color="#a98cf1"/></linearGradient>
-              <linearGradient id="factSegStrokeE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#71dbe0"/><stop offset="1" stop-color="#a98cf1"/></linearGradient>
-            </defs>
-            <circle class="grid" cx="210" cy="210" r="154"/><circle class="grid" cx="210" cy="210" r="123"/><circle class="grid" cx="210" cy="210" r="92"/><circle class="grid" cx="210" cy="210" r="61"/><circle class="grid" cx="210" cy="210" r="30"/>
-            <line class="divider" x1="210" y1="210" x2="210" y2="56"/><line class="divider" x1="210" y1="210" x2="356.5" y2="162.4"/><line class="divider" x1="210" y1="210" x2="300.5" y2="334.6"/><line class="divider" x1="210" y1="210" x2="119.5" y2="334.6"/><line class="divider" x1="210" y1="210" x2="63.5" y2="162.4"/>
-            <text class="tick" x="214" y="62">100</text><text class="tick" x="214" y="93">80</text><text class="tick" x="214" y="124">60</text><text class="tick" x="214" y="155">40</text><text class="tick" x="214" y="186">20</text>
-            <path class="seg" style="fill:url(#factSegFillA);stroke:url(#factSegStrokeA)" d="M210 210 L216.9 79.3 A130.9 130.9 0 0 1 332.2 163.1 Z"/><path class="seg" style="fill:url(#factSegFillB);stroke:url(#factSegStrokeB)" d="M210 210 L343.9 174.1 A138.6 138.6 0 0 1 297.2 317.7 Z"/><path class="seg" style="fill:url(#factSegFillC);stroke:url(#factSegStrokeC)" d="M210 210 L272.9 306.9 A115.5 115.5 0 0 1 147.1 306.9 Z"/><path class="seg" style="fill:url(#factSegFillD);stroke:url(#factSegStrokeD)" d="M210 210 L151.9 281.8 A92.4 92.4 0 0 1 120.7 186.1 Z"/><path class="seg" style="fill:url(#factSegFillE);stroke:url(#factSegStrokeE)" d="M210 210 L95.0 165.8 A123.2 123.2 0 0 1 203.6 87.0 Z"/>
-            <text class="lab" x="210" y="30" text-anchor="middle">Mindset</text><text class="val" x="210" y="46" text-anchor="middle">85</text>
-            <text class="lab" x="368" y="114" text-anchor="start">Curiosity</text><text class="val" x="368" y="132" text-anchor="start">90</text>
-            <text class="lab" x="330" y="353" text-anchor="middle">Daily Habit</text><text class="val" x="330" y="370" text-anchor="middle">75</text>
-            <text class="lab" x="90" y="353" text-anchor="middle">Human Touch</text><text class="val" x="90" y="370" text-anchor="middle">60</text>
-            <text class="lab" x="52" y="114" text-anchor="end">Good Impact</text><text class="val" x="52" y="132" text-anchor="end">80</text>
-          </svg>
-        </div>
-      </div>
-
-      <div class="fact-stage" id="factStage">
-        <div class="fact-viz">
-          <div class="fact-viz-title">Your capability map</div>
-          <div class="fact-radar-wrap">
-            <div class="fact-orbit"></div>
-            <svg class="fact-concentric" viewBox="0 0 420 420" aria-label="FACT capability map">
-              <defs>
-              <linearGradient id="factSegFillA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b4fd8" stop-opacity=".46"/><stop offset="1" stop-color="#8d6ce7" stop-opacity=".22"/></linearGradient>
-              <linearGradient id="factSegFillB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5bdd" stop-opacity=".42"/><stop offset="1" stop-color="#c8578f" stop-opacity=".23"/></linearGradient>
-              <linearGradient id="factSegFillC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4f70de" stop-opacity=".40"/><stop offset="1" stop-color="#71dbe0" stop-opacity=".22"/></linearGradient>
-              <linearGradient id="factSegFillD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8578f" stop-opacity=".36"/><stop offset="1" stop-color="#7b4fd8" stop-opacity=".20"/></linearGradient>
-              <linearGradient id="factSegFillE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3fa6ad" stop-opacity=".38"/><stop offset="1" stop-color="#7b4fd8" stop-opacity=".20"/></linearGradient>
-              <linearGradient id="factSegStrokeA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4b7ff"/><stop offset="1" stop-color="#9475ea"/></linearGradient>
-              <linearGradient id="factSegStrokeB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7baff"/><stop offset="1" stop-color="#df78aa"/></linearGradient>
-              <linearGradient id="factSegStrokeC" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ca1f0"/><stop offset="1" stop-color="#71dbe0"/></linearGradient>
-              <linearGradient id="factSegStrokeD" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e58bb8"/><stop offset="1" stop-color="#a98cf1"/></linearGradient>
-              <linearGradient id="factSegStrokeE" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#71dbe0"/><stop offset="1" stop-color="#a98cf1"/></linearGradient>
-            </defs>
-              <circle class="grid" cx="210" cy="210" r="154"/><circle class="grid" cx="210" cy="210" r="123"/><circle class="grid" cx="210" cy="210" r="92"/><circle class="grid" cx="210" cy="210" r="61"/><circle class="grid" cx="210" cy="210" r="30"/>
-              <line class="divider" x1="210" y1="210" x2="210" y2="56"/><line class="divider" x1="210" y1="210" x2="356.5" y2="162.4"/><line class="divider" x1="210" y1="210" x2="300.5" y2="334.6"/><line class="divider" x1="210" y1="210" x2="119.5" y2="334.6"/><line class="divider" x1="210" y1="210" x2="63.5" y2="162.4"/>
-              <text class="tick" x="214" y="62">100</text><text class="tick" x="214" y="93">80</text><text class="tick" x="214" y="124">60</text><text class="tick" x="214" y="155">40</text><text class="tick" x="214" y="186">20</text>
-              <path class="seg" id="factSeg0" style="fill:url(#factSegFillA);stroke:url(#factSegStrokeA)" d="M210 210 L210.5 200.0 A10.0 10.0 0 0 1 219.3 206.4 Z"/><path class="seg" id="factSeg1" style="fill:url(#factSegFillB);stroke:url(#factSegStrokeB)" d="M210 210 L219.7 207.4 A10.0 10.0 0 0 1 216.3 217.8 Z"/><path class="seg" id="factSeg2" style="fill:url(#factSegFillC);stroke:url(#factSegStrokeC)" d="M210 210 L215.4 218.4 A10.0 10.0 0 0 1 204.6 218.4 Z"/><path class="seg" id="factSeg3" style="fill:url(#factSegFillD);stroke:url(#factSegStrokeD)" d="M210 210 L203.7 217.8 A10.0 10.0 0 0 1 200.3 207.4 Z"/><path class="seg" id="factSeg4" style="fill:url(#factSegFillE);stroke:url(#factSegStrokeE)" d="M210 210 L200.7 206.4 A10.0 10.0 0 0 1 209.5 200.0 Z"/>
-              <text class="lab" x="210" y="30" text-anchor="middle">Mindset</text><text class="val" id="factVal0" x="210" y="46" text-anchor="middle">0</text>
-              <text class="lab" x="368" y="114" text-anchor="start">Curiosity</text><text class="val" id="factVal1" x="368" y="132" text-anchor="start">0</text>
-              <text class="lab" x="330" y="353" text-anchor="middle">Daily Habit</text><text class="val" id="factVal2" x="330" y="370" text-anchor="middle">0</text>
-              <text class="lab" x="90" y="353" text-anchor="middle">Human Touch</text><text class="val" id="factVal3" x="90" y="370" text-anchor="middle">0</text>
-              <text class="lab" x="52" y="114" text-anchor="end">Good Impact</text><text class="val" id="factVal4" x="52" y="132" text-anchor="end">0</text>
-            </svg>
-            </div>
-          <div class="fact-levels"><span>Seed</span><span>→</span><b>Grow</b><span>→ Flow → Glow → Rise</span></div>
-        </div>
-
-        <div class="fact-quiz" id="factQuiz">
-          <div class="fact-topline"><span id="factCount">Question 1 of 10</span><span id="factPct">10%</span></div>
-          <div class="fact-progress"><i id="factProgress"></i></div>
-          <div class="fact-pillar" id="factPillar">Mindset</div>
-          <h3 class="fact-question" id="factQuestion"></h3>
-          <div class="fact-options" id="factOptions"></div>
-          <div class="fact-nav"><button class="btn btn-glass btn-sm" id="factPrev" type="button">Back</button><button class="btn btn-primary btn-sm" id="factNext" type="button">Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-        </div>
-
-        <div class="fact-result" id="factResult">
-          <div class="fact-kicker">Your FACT result</div>
-          <div class="fact-scoreline"><div class="fact-score"><span id="factScore">0</span><small>/100</small></div><h3 id="factLevel">Seed</h3></div>
-          <p class="desc" id="factDesc"></p>
-          <div class="fact-bars" id="factBars"></div>
-          <div class="fact-tip"><b id="factTipTitle"></b><p id="factTipCopy"></p></div>
-          <button class="fact-share" id="factShare" type="button" aria-label="Share FACT result"><svg class="ic"><use href="#i-share"/></svg> Share result</button>
-          <div class="cta fact-result-actions"><button class="btn btn-glass btn-sm" id="factRestart" type="button">Retake FACT</button><a class="btn btn-primary btn-sm" href="#fun">Join FUN <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+        <div class="fact-intro-mark" aria-hidden="true">
+          <div class="fact-intro-orbit">
+            <span></span><span></span><span></span><span></span><span></span>
+            <i></i>
+          </div>
+          <div class="fact-intro-label">10 questions · 5 dimensions</div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="fact-modal" id="factStage" aria-hidden="true">
+  <div class="fact-modal-card" role="dialog" aria-modal="true" aria-labelledby="factQuestion">
+    <button class="fact-close fact-modal-close" id="factModalClose" type="button" aria-label="Close FACT">×</button>
+
+    <div class="fact-quiz" id="factQuiz">
+      <div class="fact-topline">
+        <span id="factCount">Question 1 of 10</span>
+        <span id="factPct">10%</span>
+      </div>
+      <div class="fact-progress"><i id="factProgress"></i></div>
+      <div class="fact-pillar" id="factPillar">Mindset</div>
+      <h3 class="fact-question" id="factQuestion"></h3>
+      <div class="fact-options" id="factOptions"></div>
+      <div class="fact-nav">
+        <button class="btn btn-glass btn-sm" id="factPrev" type="button">Back</button>
+        <button class="btn btn-primary btn-sm" id="factNext" type="button" disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+
+    <div class="fact-result" id="factResult">
+      <div class="fact-kicker">Your FACT result</div>
+      <div class="fact-scoreline">
+        <div class="fact-score"><span id="factScore">0</span><small>/100</small></div>
+        <h3 id="factLevel">Seed</h3>
+      </div>
+      <p class="desc" id="factDesc"></p>
+      <div class="fact-bars" id="factBars"></div>
+      <button class="fact-share" id="factShare" type="button" aria-label="Share FACT result"><svg class="ic"><use href="#i-share"/></svg> Share result</button>
+      <div class="cta fact-result-actions">
+        <button class="btn btn-glass btn-sm" id="factRestart" type="button">Retake FACT</button>
+        <a class="btn btn-primary btn-sm" href="#fun" id="factJoinFun">Join FUN <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- LEVELS -->
 <section id="levels" class="levels-sec">
@@ -1372,11 +1380,11 @@ const factQuestions=[
 {pillar:'Good Impact',q:'Saat memilih pakai AI untuk sesuatu, seberapa sering kamu mempertimbangkan efeknya ke orang lain?',opts:[['Jarang.','Aku fokus ke kebutuhanku sendiri.'],['Kadang kalau risikonya kelihatan jelas.','Masih case-by-case.'],['Cukup sering, terutama soal akurasi dan transparansi.','Aku pikirkan konsekuensinya.'],['Selalu bagian dari keputusan.','Manfaat, trust, dan responsibility sama pentingnya dengan efisiensi.']]}
 ];
 const factLevels=[
-{max:20,name:'Seed',copy:'Titik awal. Kamu masih membangun rasa nyaman dan konteks dasar supaya AI terasa relevan, bukan intimidating.',tip:'Mulai dari satu use case',tipCopy:'Pilih satu task mingguan yang paling repetitif. Pakai AI hanya untuk task itu selama 7 hari dan lihat apa yang berubah.'},
-{max:40,name:'Grow',copy:'Fondasinya sudah tumbuh. Kamu mulai paham kapan AI membantu, tapi penggunaannya masih situasional.',tip:'Bikin kebiasaan kecil',tipCopy:'Simpan 2–3 prompt atau cara kerja yang sering berhasil supaya nggak selalu mulai dari nol.'},
-{max:60,name:'Flow',copy:'AI mulai nyatu ke rutinitas. Kamu cukup luwes memilih kapan AI membantu dan kapan judgement manusia harus pegang kendali.',tip:'Ubah penggunaan jadi workflow',tipCopy:'Cari satu proses yang masih manual dan pecah jadi langkah kecil. Lihat bagian mana yang bisa dibantu AI tanpa kehilangan kontrol.'},
-{max:80,name:'Glow',copy:'Kamu sudah punya gaya, judgement, dan pola sendiri. Hasilnya lebih konsisten dan tetap terasa punyamu.',tip:'Dokumentasikan yang works',tipCopy:'Ubah satu workflow terbaikmu menjadi template atau mini playbook yang bisa dipakai ulang.'},
-{max:100,name:'Rise',copy:'AI sudah jadi leverage, bukan gimmick. Kamu memakai sistem dengan sadar dan mulai mengubah efisiensi menjadi dampak.',tip:'Bikin leverage untuk orang lain',tipCopy:'Ubah satu sistem yang sudah terbukti menjadi aset: tool, template, playbook, automation, atau knowledge yang bisa dibagikan.'}
+{max:20,name:'Seed',copy:'Titik awal. Kamu masih membangun rasa nyaman dan konteks dasar supaya AI terasa relevan, bukan intimidating.'},
+{max:40,name:'Grow',copy:'Fondasinya sudah tumbuh. Kamu mulai paham kapan AI membantu, tapi penggunaannya masih situasional.'},
+{max:60,name:'Flow',copy:'AI mulai nyatu ke rutinitas. Kamu cukup luwes memilih kapan AI membantu dan kapan judgement manusia harus pegang kendali.'},
+{max:80,name:'Glow',copy:'Kamu sudah punya gaya, judgement, dan pola sendiri. Hasilnya lebih konsisten dan tetap terasa punyamu.'},
+{max:100,name:'Rise',copy:'AI sudah jadi leverage, bukan gimmick. Kamu memakai sistem dengan sadar dan mulai mengubah efisiensi menjadi dampak.'}
 ];
 const factWeights=[2.5,5,7.5,10],factPillars=['Mindset','Curiosity','Daily Habit','Human Touch','Good Impact'];
 let factCurrent=0,factAnswers=Array(factQuestions.length).fill(null);
@@ -1392,9 +1400,9 @@ function factSectorPath(i,val){
   return `M${cx} ${cy} L${x1.toFixed(1)} ${y1.toFixed(1)} A${r.toFixed(1)} ${r.toFixed(1)} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)} Z`;
 }
 function factUpdateViz(){const vals=factDimensionScores();vals.forEach((v,i)=>{const seg=factEl('factSeg'+i);if(seg)seg.setAttribute('d',factSectorPath(i,v));const lab=factEl('factVal'+i);if(lab)lab.textContent=v;});}
-function factRender(){const item=factQuestions[factCurrent];factEl('factCount').textContent=`Question ${factCurrent+1} of ${factQuestions.length}`;factEl('factPct').textContent=`${Math.round((factCurrent+1)/factQuestions.length*100)}%`;factEl('factProgress').style.width=`${(factCurrent+1)/factQuestions.length*100}%`;factEl('factPillar').textContent=item.pillar;factEl('factQuestion').textContent=item.q;const box=factEl('factOptions');box.innerHTML='';item.opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.className='fact-option'+(factAnswers[factCurrent]===i?' selected':'');b.innerHTML=`<span class="n">${String.fromCharCode(65+i)}</span><span><b>${o[0]}</b><small>${o[1]}</small></span>`;b.onclick=()=>{factAnswers[factCurrent]=i;factRender();factUpdateViz();};box.appendChild(b);});factEl('factPrev').disabled=factCurrent===0;factEl('factNext').disabled=factAnswers[factCurrent]===null;factEl('factNext').innerHTML=factCurrent===factQuestions.length-1?'See my result <svg class="ic"><use href="#i-arrow"/></svg>':'Next <svg class="ic"><use href="#i-arrow"/></svg>';factUpdateViz();}
-function factShowResult(){const raw=factAnswers.reduce((s,a)=>s+factWeights[a],0),score=factNormalize(raw,25,100),level=factLevels.find(l=>score<=l.max)||factLevels[4],vals=factDimensionScores();factEl('factQuiz').style.display='none';factEl('factResult').classList.add('active');factEl('factScore').textContent=score;factEl('factLevel').textContent=level.name;factEl('factDesc').textContent=level.copy;factEl('factTipTitle').textContent=level.tip;factEl('factTipCopy').textContent=level.tipCopy;const bars=factEl('factBars');bars.innerHTML='';factPillars.forEach((p,i)=>{const row=document.createElement('div');row.className='fact-bar';row.innerHTML=`<span>${p}</span><div class="fact-bar-track"><i style="width:${vals[i]}%"></i></div><b>${vals[i]}</b>`;bars.appendChild(row);});factUpdateViz();}
-if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factCapture');cap.classList.add('active');cap.setAttribute('aria-hidden','false');setTimeout(()=>factEl('factName')&&factEl('factName').focus(),60);};factEl('factPrev').onclick=()=>{if(factCurrent>0){factCurrent--;factRender();}};factEl('factNext').onclick=()=>{if(factAnswers[factCurrent]===null)return;if(factCurrent<factQuestions.length-1){factCurrent++;factRender();}else factShowResult();};factEl('factRestart').onclick=()=>{factAnswers.fill(null);factCurrent=0;factEl('factResult').classList.remove('active');factEl('factQuiz').style.display='flex';factRender();};}
+function factRender(){const item=factQuestions[factCurrent];factEl('factCount').textContent=`Question ${factCurrent+1} of ${factQuestions.length}`;factEl('factPct').textContent=`${Math.round((factCurrent+1)/factQuestions.length*100)}%`;factEl('factProgress').style.width=`${(factCurrent+1)/factQuestions.length*100}%`;factEl('factPillar').textContent=item.pillar;factEl('factQuestion').textContent=item.q;const box=factEl('factOptions');box.innerHTML='';item.opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.className='fact-option'+(factAnswers[factCurrent]===i?' selected':'');b.innerHTML=`<b>${o[0]}</b><small>${o[1]}</small>`;b.onclick=()=>{factAnswers[factCurrent]=i;factRender();factUpdateViz();};box.appendChild(b);});factEl('factPrev').disabled=factCurrent===0;factEl('factNext').disabled=factAnswers[factCurrent]===null;factEl('factNext').innerHTML=factCurrent===factQuestions.length-1?'See my result <svg class="ic"><use href="#i-arrow"/></svg>':'Next <svg class="ic"><use href="#i-arrow"/></svg>';factUpdateViz();}
+function factShowResult(){const raw=factAnswers.reduce((s,a)=>s+factWeights[a],0),score=factNormalize(raw,25,100),level=factLevels.find(l=>score<=l.max)||factLevels[4],vals=factDimensionScores();factEl('factQuiz').style.display='none';factEl('factResult').classList.add('active');factEl('factScore').textContent=score;factEl('factLevel').textContent=level.name;factEl('factDesc').textContent=level.copy;const bars=factEl('factBars');bars.innerHTML='';factPillars.forEach((p,i)=>{const row=document.createElement('div');row.className='fact-bar';row.innerHTML=`<span>${p}</span><div class="fact-bar-track"><i style="width:${vals[i]}%"></i></div><b>${vals[i]}</b>`;bars.appendChild(row);});}
+if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factCapture');cap.classList.add('active');cap.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>factEl('factName')&&factEl('factName').focus(),60);};factEl('factPrev').onclick=()=>{if(factCurrent>0){factCurrent--;factRender();}};factEl('factNext').onclick=()=>{if(factAnswers[factCurrent]===null)return;if(factCurrent<factQuestions.length-1){factCurrent++;factRender();}else factShowResult();};factEl('factRestart').onclick=()=>{factAnswers.fill(null);factCurrent=0;factEl('factResult').classList.remove('active');factEl('factQuiz').style.display='flex';factRender();};const closeFactModal=()=>{const modal=factEl('factStage');modal.classList.remove('active');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';};factEl('factModalClose').onclick=closeFactModal;factEl('factStage').addEventListener('click',e=>{if(e.target===factEl('factStage'))closeFactModal();});factEl('factJoinFun').addEventListener('click',closeFactModal);}
 
 </script>
 
@@ -1409,7 +1417,7 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
   var factCapture=document.getElementById('factCapture');
   var factCaptureForm=document.getElementById('factCaptureForm');
   var factClose=document.getElementById('factCaptureClose');
-  function closeFactCapture(){if(factCapture){factCapture.classList.remove('active');factCapture.setAttribute('aria-hidden','true')}}
+  function closeFactCapture(){if(factCapture){factCapture.classList.remove('active');factCapture.setAttribute('aria-hidden','true')}if(!document.getElementById('factStage').classList.contains('active'))document.body.style.overflow=''}
   if(factClose)factClose.addEventListener('click',closeFactCapture);
   if(factCapture)factCapture.addEventListener('click',function(e){if(e.target===factCapture)closeFactCapture()});
   if(factCaptureForm){factCaptureForm.addEventListener('submit',async function(e){
@@ -1421,9 +1429,11 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     try{
       var r=await netlifySubmit(factCaptureForm,data);if(!r.ok)throw new Error('submit failed');
       closeFactCapture();
-      document.getElementById('factIntro').style.display='none';
-      document.getElementById('factStage').classList.add('active');
-      factRender();document.getElementById('fact').scrollIntoView({behavior:'smooth',block:'start'});
+      var factModal=document.getElementById('factStage');
+      factModal.classList.add('active');
+      factModal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      factRender();
     }catch(err){status.textContent='Couldn’t save your details. Please try again.';}
     finally{btn.disabled=false;}
   })}
@@ -1439,6 +1449,13 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
       else if(navigator.clipboard){await navigator.clipboard.writeText(text+' '+location.href.split('#')[0]+'#fact');shareBtn.textContent='Copied ✓';setTimeout(function(){shareBtn.innerHTML='<svg class="ic"><use href="#i-share"/></svg> Share result';},1800);}
     }catch(e){}
   })}
+
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    var fs=document.getElementById('factStage');
+    if(fs&&fs.classList.contains('active')){fs.classList.remove('active');fs.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+    else if(factCapture&&factCapture.classList.contains('active'))closeFactCapture();
+  });
 
   // CORP: modal, FACT-like step flow + Netlify contact form.
   var quiz=document.getElementById('corpQuiz');
