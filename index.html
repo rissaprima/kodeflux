@@ -783,6 +783,14 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .corp-success p{margin-top:12px;color:var(--muted);line-height:1.65}
 @media(max-width:640px){.form-grid.two{grid-template-columns:1fr}.fact-capture-card{padding:22px}.corp-quiz{min-height:420px}}
 
+
+/* ---------- FluxHQ teaser ---------- */
+.fx-teaser .corp-visual{align-items:stretch;min-height:0}
+.fxprev{position:relative;width:100%;border:1px solid var(--line2);border-radius:20px;background:rgba(15,13,20,.55);overflow:hidden}
+.fxprev iframe{display:block;width:100%;height:400px;border:0;color-scheme:dark;background:transparent}
+.fxprev-hit{position:absolute;inset:0;z-index:2;border-radius:inherit}
+.fxprev-hit:focus-visible{outline-offset:-3px}
+@media(max-width:640px){.fx-teaser .corp-visual{margin-top:8px}}
 </style>
 </head>
 <body>
@@ -834,7 +842,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     <a class="logo" href="#top" aria-label="Kodeflux — kembali ke atas" data-text="KOD3FLUX+"><span class="la">KOD3</span><span class="lb">FL</span><span class="lc">UX</span><span class="lb">+</span></a>
     <nav class="links links-r" aria-label="Utama kanan">
       <a href="#playgrounds">PLAY</a>
-      <a href="#corp" title="Custom dashboard, apps & system integration">CORP</a>
+      <a href="/corp" title="FluxHQ & custom build for business">CORP</a>
     </nav>
     <div class="nav-right">
       <a class="btn btn-glass btn-sm" href="#fact">Take FACT</a>
@@ -845,7 +853,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     <a href="#fact">FACT · Flux AI Capability Test</a>
     <a href="#fun">FUN · Flux User Network</a>
     <a href="#playgrounds">PLAY · Playground</a>
-    <a href="#corp">CORP · For Business</a>
+    <a href="/corp">CORP · For Business</a>
   </div>
 </header>
 
@@ -1167,119 +1175,43 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   </div>
 </section>
 
+
+<!-- CUSTOM TOOLS -->
+<section class="custom-tools" aria-label="Custom Tools" style="padding-top:0">
+  <div class="wrap">
+    <div class="card rv" style="padding:28px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap">
+      <div style="max-width:650px">
+        <div class="section-kicker">CUSTOM TOOLS</div>
+        <h3 style="margin-top:8px;font-size:clamp(1.35rem,3vw,1.8rem)">Belum ada tool buat industrimu?</h3>
+        <p style="margin-top:8px;color:var(--muted)">Ceritain workflow yang mau kamu rapihin. Kita bisa bikin tool yang sesuai kebutuhan bisnismu.</p>
+      </div>
+      <a class="btn btn-glass" href="/corp#custom">Request a tool <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
 <!-- CORP -->
-<section id="corp" class="corp-sec">
+<section id="corp" class="corp-sec fx-teaser">
   <div class="wrap">
     <div class="corp-shell rv">
       <div class="corp-head">
         <div class="section-kicker">CORP · FOR BUSINESS</div>
-        <h2>Need help solving your problem?</h2>
-        <p>Mulai dari masalahnya dulu. Kami bantu identifikasi pendekatan yang tepat sebelum menentukan solusi teknologi yang dibutuhkan.</p>
-        <div class="cta"><button class="btn btn-primary" id="corpStart" type="button">Start here <svg class="ic"><use href="#i-arrow"/></svg></button></div>
+        <h2>Meet FluxHQ.</h2>
+        <p>Kantor virtual dengan enam meja: Director, Marketing, Sales, Operation, Production, dan Finance. Hal rutin jalan sendiri, hal penting tetap menunggu persetujuanmu.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="/corp#demo">Try FluxHQ <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-glass" href="/corp#custom">Custom build</a>
+        </div>
       </div>
-      <div class="corp-visual" aria-hidden="true">
-        <div class="loop-art">
-          <div class="window">
-            <div class="win-bar"><i></i><i></i><i></i><b>lab.config.ts</b></div>
-            <pre class="code type"><code><span class="ln" style="--i:0"><span class="cm">// start with the problem</span></span><span class="ln" style="--i:1"><span class="k">const</span> <span class="f">context</span> = {</span><span class="ln" style="--i:2">  friction: <span class="s">"messy workflow"</span>,</span><span class="ln" style="--i:3">  impact: <span class="s">"time + errors"</span>,</span><span class="ln" style="--i:4">  approach: <span class="s">"find the fit first"</span>,</span><span class="ln" style="--i:5">};</span><span class="ln" style="--i:6"> </span><span class="ln" style="--i:7"><span class="k">await</span> <span class="f">solve</span>(context);<span class="caret"></span></span></code></pre>
-          </div>
-          <div class="chip"><svg class="ic"><use href="#i-term"/></svg>problem · map · test · solve</div>
+      <div class="corp-visual">
+        <div class="fxprev">
+          <iframe id="fxPrev" src="/fluxhq.html?mode=preview&amp;bg=transparent" title="Preview FluxHQ" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+          <a class="fxprev-hit" href="/corp#demo" aria-label="Lihat demo FluxHQ"></a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<div class="corp-modal" id="corpModal" role="dialog" aria-modal="true" aria-labelledby="corpModalTitle">
-  <div class="corp-modal-card" id="corpQuiz">
-    <button class="corp-close" id="corpClose" type="button" aria-label="Close">×</button>
-
-    <div class="corp-step active" data-step="0">
-      <span class="corp-count">01 / 05</span>
-      <h3 id="corpModalTitle">Where’s the problem showing up?<span class="corp-qcopy">Masalahnya paling terasa di bagian mana?</span></h3>
-      <div class="corp-options">
-        <button type="button" data-value="Manual workflow"><span class="corp-opt-copy"><b>Manual workflow</b><small>Proses masih banyak manual</small></span></button>
-        <button type="button" data-value="Reporting & data"><span class="corp-opt-copy"><b>Reporting &amp; data</b><small>Data sulit dirapikan atau dipantau</small></span></button>
-        <button type="button" data-value="Customer journey"><span class="corp-opt-copy"><b>Customer journey</b><small>Alur customer belum mulus</small></span></button>
-        <button type="button" data-value="Disconnected tools"><span class="corp-opt-copy"><b>Disconnected tools</b><small>Tools yang dipakai belum saling terhubung</small></span></button>
-        <button type="button" data-value="Other"><span class="corp-opt-copy"><b>Other</b><small>Masalah lainnya</small></span></button>
-      </div>
-      <div class="corp-nav"><span></span><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-    </div>
-
-    <div class="corp-step" data-step="1">
-      <span class="corp-count">02 / 05</span>
-      <h3>What’s the impact?<span class="corp-qcopy">Dampaknya paling terasa apa?</span></h3>
-      <div class="corp-options">
-        <button type="button" data-value="Wastes time"><span class="corp-opt-copy"><b>Wastes time</b><small>Makan terlalu banyak waktu</small></span></button>
-        <button type="button" data-value="Causes mistakes"><span class="corp-opt-copy"><b>Causes mistakes</b><small>Rawan error atau pekerjaan ulang</small></span></button>
-        <button type="button" data-value="Hard to track"><span class="corp-opt-copy"><b>Hard to track</b><small>Sulit dipantau dengan jelas</small></span></button>
-        <button type="button" data-value="Costs too much"><span class="corp-opt-copy"><b>Costs too much</b><small>Biaya jadi terlalu besar</small></span></button>
-        <button type="button" data-value="Slows growth"><span class="corp-opt-copy"><b>Slows growth</b><small>Menghambat perkembangan bisnis</small></span></button>
-      </div>
-      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-    </div>
-
-    <div class="corp-step" data-step="2">
-      <span class="corp-count">03 / 05</span>
-      <h3>How are you handling it today?<span class="corp-qcopy">Sekarang biasanya ditangani dengan cara apa?</span></h3>
-      <div class="corp-options">
-        <button type="button" data-value="Spreadsheet"><span class="corp-opt-copy"><b>Spreadsheet</b><small>Masih banyak bergantung pada spreadsheet</small></span></button>
-        <button type="button" data-value="Multiple apps"><span class="corp-opt-copy"><b>Multiple apps</b><small>Mengandalkan beberapa aplikasi sekaligus</small></span></button>
-        <button type="button" data-value="Manual chat & follow-up"><span class="corp-opt-copy"><b>Manual chat &amp; follow-up</b><small>Banyak koordinasi manual</small></span></button>
-        <button type="button" data-value="Existing system"><span class="corp-opt-copy"><b>Existing system</b><small>Sudah ada sistem yang digunakan</small></span></button>
-        <button type="button" data-value="Nothing structured yet"><span class="corp-opt-copy"><b>Nothing structured yet</b><small>Belum ada proses yang benar-benar terstruktur</small></span></button>
-      </div>
-      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-    </div>
-
-    <div class="corp-step" data-step="3">
-      <span class="corp-count">04 / 05</span>
-      <h3>Who feels it most?<span class="corp-qcopy">Siapa yang paling terdampak?</span></h3>
-      <div class="corp-options">
-        <button type="button" data-value="Internal team"><span class="corp-opt-copy"><b>Internal team</b><small>Tim internal</small></span></button>
-        <button type="button" data-value="Customers"><span class="corp-opt-copy"><b>Customers</b><small>Customer atau pengguna</small></span></button>
-        <button type="button" data-value="Management"><span class="corp-opt-copy"><b>Management</b><small>Owner atau management</small></span></button>
-        <button type="button" data-value="Everyone"><span class="corp-opt-copy"><b>Everyone</b><small>Semua pihak terdampak</small></span></button>
-      </div>
-      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Next <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-    </div>
-
-    <div class="corp-step" data-step="4">
-      <span class="corp-count">05 / 05</span>
-      <h3>What would make things better first?<span class="corp-qcopy">Kalau dibenahi satu hal lebih dulu, hasil apa yang paling dibutuhkan?</span></h3>
-      <div class="corp-options">
-        <button type="button" data-value="Save time"><span class="corp-opt-copy"><b>Save time</b><small>Proses lebih cepat dan efisien</small></span></button>
-        <button type="button" data-value="Reduce errors"><span class="corp-opt-copy"><b>Reduce errors</b><small>Mengurangi error dan pekerjaan ulang</small></span></button>
-        <button type="button" data-value="See data clearly"><span class="corp-opt-copy"><b>See data clearly</b><small>Data lebih mudah dilihat dan dipahami</small></span></button>
-        <button type="button" data-value="Connect existing tools"><span class="corp-opt-copy"><b>Connect existing tools</b><small>Tools yang ada bisa bekerja lebih terhubung</small></span></button>
-        <button type="button" data-value="Scale easier"><span class="corp-opt-copy"><b>Scale easier</b><small>Lebih siap berkembang tanpa menambah kerumitan</small></span></button>
-      </div>
-      <div class="corp-nav"><button class="corp-back" type="button" data-corp-back>Back</button><button class="btn btn-primary btn-sm corp-next" type="button" data-corp-next disabled>Continue <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-    </div>
-
-    <div class="corp-lead" id="corpLead">
-      <span class="corp-count">LET’S CONTINUE</span>
-      <h3>Where should we follow up?</h3>
-      <p>Isi kontak di bawah. Jawabanmu ikut terkirim supaya diskusinya bisa langsung mulai dari konteks yang tepat.</p>
-      <div class="corp-summary-box" id="corpSummary"></div>
-      <form name="kodeflux-corp" id="corpLeadForm" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="kodeflux-corp">
-        <input type="hidden" name="problem_area" id="corpProblemArea"><input type="hidden" name="impact" id="corpImpact"><input type="hidden" name="current_setup" id="corpCurrentSetup"><input type="hidden" name="affected" id="corpAffected"><input type="hidden" name="priority" id="corpPriority"><input type="hidden" name="summary" id="corpSummaryField">
-        <div class="form-grid two">
-          <div class="form-field"><label for="corpName">Name</label><input id="corpName" name="name" type="text" autocomplete="name" required></div>
-          <div class="form-field"><label for="corpEmail">Email</label><input id="corpEmail" name="email" type="email" autocomplete="email" required></div>
-          <div class="form-field"><label for="corpWhatsApp">WhatsApp</label><input id="corpWhatsApp" name="whatsapp" type="tel" autocomplete="tel" required></div>
-          <div class="form-field"><label for="corpCompany">Company / Brand</label><input id="corpCompany" name="company" type="text" autocomplete="organization" required></div>
-        </div>
-        <div class="corp-nav"><button class="corp-back" id="corpLeadBack" type="button">Back</button><button class="btn btn-primary btn-sm" type="submit">Discuss this <svg class="ic"><use href="#i-arrow"/></svg></button></div>
-        <div class="form-status" id="corpFormStatus" aria-live="polite"></div>
-      </form>
-    </div>
-
-    <div class="corp-success" id="corpSuccess"><span class="corp-count">RECEIVED</span><h3>Got it.</h3><p>Terima kasih. Kodeflux sudah menerima konteks dan kontakmu. Kami akan follow up lewat kontak yang kamu kirim.</p></div>
-  </div>
-</div>
 
 <!-- JOIN -->
 <section id="join">
@@ -1457,76 +1389,17 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     else if(factCapture&&factCapture.classList.contains('active'))closeFactCapture();
   });
 
-  // CORP: modal, FACT-like step flow + Netlify contact form.
-  var quiz=document.getElementById('corpQuiz');
-  if(quiz){
-    var modal=document.getElementById('corpModal');
-    var startBtn=document.getElementById('corpStart');
-    var closeBtn=document.getElementById('corpClose');
-    var steps=[].slice.call(quiz.querySelectorAll('.corp-step'));
-    var lead=document.getElementById('corpLead');
-    var success=document.getElementById('corpSuccess');
-    var summary=document.getElementById('corpSummary');
-    var form=document.getElementById('corpLeadForm');
-    var answers=[];
-    var currentStep=0;
-    function openCorp(){modal.classList.add('active');document.body.style.overflow='hidden';showStep(currentStep)}
-    function closeCorp(){modal.classList.remove('active');document.body.style.overflow=''}
-    if(startBtn)startBtn.addEventListener('click',openCorp);
-    if(closeBtn)closeBtn.addEventListener('click',closeCorp);
-    if(modal)modal.addEventListener('click',function(e){if(e.target===modal)closeCorp()});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('active'))closeCorp()});
-    function showStep(n){
-      currentStep=n;
-      steps.forEach(function(x,i){x.classList.toggle('active',i===n)});
-      lead.classList.toggle('active',n===steps.length);
-      success.classList.remove('active');
-      if(n<steps.length){
-        var next=steps[n].querySelector('[data-corp-next]');
-        steps[n].querySelectorAll('button[data-value]').forEach(function(btn){btn.classList.toggle('selected',btn.getAttribute('data-value')===answers[n])});
-        if(next)next.disabled=!answers[n];
-      }
-      quiz.scrollTop=0;
-    }
-    function buildSummary(){
-      var labels=['Problem area','Impact','Current setup','Affected most','Priority'];
-      var text=labels.map(function(label,i){return label+': '+(answers[i]||'—')}).join(' · ')+'.';
-      summary.textContent=text;
-      document.getElementById('corpProblemArea').value=answers[0]||'';
-      document.getElementById('corpImpact').value=answers[1]||'';
-      document.getElementById('corpCurrentSetup').value=answers[2]||'';
-      document.getElementById('corpAffected').value=answers[3]||'';
-      document.getElementById('corpPriority').value=answers[4]||'';
-      document.getElementById('corpSummaryField').value=text;
-    }
-    steps.forEach(function(step,idx){
-      var next=step.querySelector('[data-corp-next]');
-      step.querySelectorAll('button[data-value]').forEach(function(btn){
-        btn.addEventListener('click',function(){
-          answers[idx]=btn.getAttribute('data-value');
-          step.querySelectorAll('button[data-value]').forEach(function(b){b.classList.toggle('selected',b===btn)});
-          if(next)next.disabled=false;
-        });
-      });
-      if(next)next.addEventListener('click',function(){if(!answers[idx])return;if(idx<steps.length-1)showStep(idx+1);else{buildSummary();showStep(steps.length)}});
-      var back=step.querySelector('[data-corp-back]');
-      if(back)back.addEventListener('click',function(){showStep(Math.max(0,idx-1))});
-    });
-    var leadBack=document.getElementById('corpLeadBack');
-    if(leadBack)leadBack.addEventListener('click',function(){showStep(steps.length-1)});
-    if(form)form.addEventListener('submit',async function(e){
-      e.preventDefault();buildSummary();
-      var status=document.getElementById('corpFormStatus');var btn=form.querySelector('button[type="submit"]');
-      btn.disabled=true;status.textContent='Sending…';
-      var fd=new FormData(form),data={};fd.forEach(function(v,k){data[k]=v});
-      try{var r=await netlifySubmit(form,data);if(!r.ok)throw new Error('submit failed');lead.classList.remove('active');success.classList.add('active');steps.forEach(function(x){x.classList.remove('active')});}
-      catch(err){status.textContent='Couldn’t send this yet. Please try again.';}
-      finally{btn.disabled=false;}
-    });
-  }
-
 })();
 </script>
 
+<script>
+(function(){
+  var f=document.getElementById('fxPrev');if(!f)return;
+  window.addEventListener('message',function(e){
+    if(e.origin!==location.origin||!e.data||e.data.type!=='fluxhq:height')return;
+    if(e.source===f.contentWindow)f.style.height=e.data.height+'px';
+  });
+})();
+</script>
 </body>
 </html>
