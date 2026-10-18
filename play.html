@@ -1016,6 +1016,158 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   .plh-preview .ring,.plh-preview .ring svg{width:64px;height:64px}
   .plh-preview .chk{font-size:.68rem;gap:6px}
 }</style>
+
+<style id="rental-prototype-hero">
+@media(min-width:1000px){
+  .pl-hero .hq-hero-grid{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:40px!important;
+    align-items:center;
+  }
+}
+.pl-hero h1{font-size:clamp(2.3rem,5.4vw,4.1rem)!important;line-height:1.02!important;letter-spacing:-.045em!important;max-width:16ch!important}
+.pl-hero .lead{max-width:35rem}
+.plh{min-width:0}
+.plh-chips{display:none!important}
+.plh-frame{
+  width:100%;
+  aspect-ratio:1/1!important;
+  min-height:0!important;
+  border-radius:20px;
+  border:1px solid var(--line2);
+  overflow:hidden;
+  background:#0a090d;
+  box-shadow:0 32px 90px -46px rgba(123,79,216,.85);
+}
+.plh-stage{position:relative;height:100%;min-height:0!important}
+.plh-preview{display:none!important}
+.plh-cap{margin-top:10px}
+
+/* Rental walkthrough */
+.rdemo{
+  position:absolute;inset:0;
+  display:grid;grid-template-rows:52px 1fr;
+  background:#0b0a0e;
+  color:var(--fg);
+  font-family:var(--sans);
+  overflow:hidden;
+}
+.rdemo-top{
+  display:flex;align-items:center;gap:10px;padding:0 14px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background:#111014;
+}
+.rdemo-brand{font-weight:800;font-size:.9rem}
+.rdemo-sector{
+  margin-left:auto;font:700 .58rem var(--mono);letter-spacing:.13em;text-transform:uppercase;
+  padding:5px 8px;border-radius:7px;border:1px solid rgba(255,255,255,.18);color:var(--muted)
+}
+.rdemo-live{display:flex;align-items:center;gap:5px;font:.56rem var(--mono);letter-spacing:.08em;color:#b7b1c0}
+.rdemo-live i{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.7)}
+.rdemo-body{display:grid;grid-template-columns:28% 72%;min-height:0}
+.rdemo-side{
+  position:relative;padding:12px 9px;border-right:1px solid rgba(255,255,255,.09);
+  background:#100f13;overflow:hidden
+}
+.rdemo-asset{
+  display:flex;align-items:center;gap:7px;padding:8px 9px;margin-bottom:10px;
+  border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#17151b;
+  font-size:.58rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.rdemo-dot{width:6px;height:6px;border-radius:50%;background:#f5c242;flex:none}
+.rdemo-group{font:.49rem var(--mono);letter-spacing:.14em;color:#5f5969;margin:9px 8px 5px;text-transform:uppercase}
+.rdemo-nav{display:grid;gap:3px}
+.rdemo-nav button{
+  appearance:none;border:0;text-align:left;padding:7px 8px;border-radius:6px;
+  background:transparent;color:#898390;font:600 .56rem var(--sans)
+}
+.rdemo-nav button.on{background:rgba(139,92,246,.18);color:#ad91ff}
+.rdemo-foot{position:absolute;left:9px;right:9px;bottom:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);display:grid;gap:6px}
+.rdemo-foot span{font-size:.53rem;color:#6f6977}
+.rdemo-main{position:relative;padding:13px 14px 14px;overflow:hidden;background:#0b0a0e}
+.rdemo-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
+.rdemo-head h3{font-size:.92rem;letter-spacing:-.02em;margin:0}
+.rdemo-head p{font-size:.53rem;color:#6f6977;margin-top:2px}
+.rdemo-chip{margin-left:auto;font:.5rem var(--mono);padding:4px 6px;border-radius:6px;border:1px solid rgba(139,92,246,.55);color:#a78bfa}
+.rdemo-panel{
+  position:absolute;left:14px;right:14px;top:54px;bottom:14px;
+  opacity:0;transform:translateY(7px);transition:opacity .28s ease,transform .35s ease;
+  pointer-events:none
+}
+.rdemo-panel.on{opacity:1;transform:none}
+.rdemo-card{
+  border:1px solid rgba(255,255,255,.10);border-radius:10px;background:#151319;padding:10px
+}
+.rdemo-ai{border-color:rgba(245,194,66,.55)}
+.rdemo-card h4{margin:0 0 5px;font-size:.62rem}
+.rdemo-card p{margin:0;font-size:.54rem;line-height:1.45;color:#9d97a6}
+.rdemo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.rdemo-kpi{border:1px solid rgba(255,255,255,.09);border-radius:9px;background:#141219;padding:9px}
+.rdemo-kpi span{display:block;font:.45rem var(--mono);letter-spacing:.08em;color:#625d69;text-transform:uppercase}
+.rdemo-kpi b{display:block;font-size:.8rem;margin-top:4px}
+.rdemo-bars{height:58px;display:flex;align-items:flex-end;gap:5px;padding-top:8px}
+.rdemo-bars i{flex:1;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,#a78bfa,#7b4fd8);transform-origin:bottom;animation:rdemoBars 1.5s ease-in-out infinite alternate}
+.rdemo-bars i:nth-child(2){height:72%}.rdemo-bars i:nth-child(3){height:44%}.rdemo-bars i:nth-child(4){height:86%}.rdemo-bars i:nth-child(5){height:63%}
+@keyframes rdemoBars{from{transform:scaleY(.35);opacity:.55}to{transform:scaleY(1);opacity:1}}
+
+.rdemo-form{display:grid;gap:8px}
+.rdemo-field label{display:block;font-size:.48rem;color:#716b79;margin-bottom:4px}
+.rdemo-input,.rdemo-select{
+  height:30px;border:1px solid rgba(255,255,255,.12);border-radius:7px;background:#1b1820;
+  padding:0 9px;display:flex;align-items:center;font-size:.57rem;color:#d8d2df
+}
+.rdemo-input.typing::after{
+  content:"";width:1px;height:12px;background:#fff;margin-left:2px;animation:rdemoBlink .7s steps(1) infinite
+}
+@keyframes rdemoBlink{50%{opacity:0}}
+.rdemo-btn{
+  justify-self:start;border:0;border-radius:7px;padding:7px 11px;
+  background:linear-gradient(135deg,#7b4fd8,#c8578f);color:white;font:700 .55rem var(--sans)
+}
+.rdemo-doc{
+  height:100%;border:1px solid rgba(255,255,255,.11);border-radius:10px;background:#151319;padding:12px;
+  display:flex;flex-direction:column;gap:7px
+}
+.rdemo-line{height:5px;border-radius:4px;background:#27232d}
+.rdemo-line.w1{width:72%}.rdemo-line.w2{width:92%}.rdemo-line.w3{width:54%}
+.rdemo-sign{margin-top:auto;display:flex;justify-content:space-between;align-items:center}
+.rdemo-sign span{font:.49rem var(--mono);color:#766f7e}
+.rdemo-ready{padding:4px 7px;border-radius:99px;background:rgba(74,222,128,.12);color:#5de38d;font-size:.48rem}
+.rdemo-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.rdemo-cal b{font:.45rem var(--mono);color:#625d69;text-align:center;padding:2px}
+.rdemo-day{
+  aspect-ratio:1;border:1px solid rgba(255,255,255,.07);border-radius:5px;background:#151319;
+  display:grid;place-items:center;font-size:.48rem;color:#817b88;position:relative
+}
+.rdemo-day.booked{border-color:rgba(245,194,66,.5);color:#f5c242;background:rgba(245,194,66,.08)}
+.rdemo-day.booked::after{content:"";position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:#f5c242}
+
+.rdemo-cursor{
+  position:absolute;z-index:10;width:12px;height:12px;border-radius:50%;
+  border:2px solid #fff;background:rgba(139,92,246,.8);
+  box-shadow:0 0 0 4px rgba(139,92,246,.18);
+  transform:translate(-50%,-50%);
+  transition:left .55s var(--ease),top .55s var(--ease),transform .18s ease;
+  pointer-events:none
+}
+.rdemo-cursor.click{transform:translate(-50%,-50%) scale(.65)}
+
+@media(max-width:900px){
+  .plh-frame{max-width:620px;margin-inline:auto}
+}
+@media(max-width:560px){
+  .rdemo{grid-template-rows:44px 1fr}
+  .rdemo-top{padding:0 10px}
+  .rdemo-body{grid-template-columns:30% 70%}
+  .rdemo-main{padding:10px}
+  .rdemo-panel{left:10px;right:10px;top:47px;bottom:10px}
+  .rdemo-side{padding:9px 6px}
+  .rdemo-nav button{padding:6px;font-size:.49rem}
+  .rdemo-asset{padding:7px 6px;font-size:.48rem}
+  .rdemo-main .rdemo-head h3{font-size:.76rem}
+}
+</style>
+
 </head>
 <body>
 
@@ -1088,99 +1240,105 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     <div class="hq-hero-grid">
       <div>
         <span class="pill rv"><i class="dot"></i>Digital Playground</span>
-        <h1 class="rv">Coba langsung. <span class="hero-grad">Miliki selamanya.</span></h1>
+        <h1 class="rv"><span class="hero-grad">Coba tools-nya langsung.</span> Miliki akses selamanya.</h1>
         <p class="lead rv">Empat tool industri dengan data contoh. Buka demonya, lihat cara kerjanya, lalu pilih bundle yang pas. Seat lifetime early-bird dibuka dalam tiga fase harga.</p>
         <div class="cta rv">
           <a class="btn btn-primary btn-lg" href="#bundles">See bundles <svg class="ic"><use href="#i-arrow"/></svg></a>
           <a class="btn btn-glass btn-lg" href="#tools">Try the demos</a>
         </div>
       </div>
-      <div class="plh rv" id="plh" aria-label="Preview dashboard Flux I/O yang berganti antar industri">
-        <div class="plh-chips" role="tablist" aria-label="Flux I/O industries">
-          <button type="button" class="on" data-n="Rental I/O" aria-selected="true">Rental</button>
-          <button type="button" data-n="Travel I/O" aria-selected="false">Travel</button>
-          <button type="button" data-n="Party I/O" aria-selected="false">Party</button>
-          <button type="button" data-n="Mentor I/O" aria-selected="false">Mentor</button>
-        </div>
-        <div class="plh-frame"><div class="plh-stage">
-
-          <div class="plh-preview on" data-preview="0" aria-hidden="false">
-            <div class="pv">
-              <div class="pv-bar"><i></i><i></i><i></i><b>Fleet board</b><em>Preview</em></div>
-              <div class="pv-body">
-                <div class="fleet">
-                  <div class="fr"><span></span><div class="dh"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></div>
-                  <div class="fr r1"><span class="nm">Brio RS</span><div class="tl"><span class="bk" style="--l:0%;--w:28.57%;--d:0s"></span><span class="bk" style="--l:42.86%;--w:42.86%;--d:2.2s"></span></div></div>
-                  <div class="fr r2"><span class="nm">Vario 160</span><div class="tl"><span class="bk" style="--l:14.29%;--w:57.14%;--d:.6s"></span></div></div>
-                  <div class="fr r3"><span class="nm">Genset 5K</span><div class="tl"><span class="bk" style="--l:0%;--w:42.86%;--d:1.2s"></span><span class="bk" style="--l:71.43%;--w:28.57%;--d:3s"></span></div></div>
-                </div>
-                <div class="days"><span style="--d:0s">KTP ✓</span><span style="--d:3s">Agreement</span><span style="--d:6s">Handover</span></div>
+      <div class="plh rv" id="plh" aria-label="Rental I/O animated product walkthrough">
+        <div class="plh-frame">
+          <div class="plh-stage">
+            <div class="rdemo" id="rDemo">
+              <div class="rdemo-top">
+                <div class="rdemo-brand">Flux I/O</div>
+                <div class="rdemo-sector">Rental</div>
+                <div class="rdemo-live"><i></i> LIVE</div>
               </div>
-            </div>
-          </div>
 
-          <div class="plh-preview" data-preview="1" aria-hidden="true">
-            <div class="pv">
-              <div class="pv-bar"><i></i><i></i><i></i><b>Trip planner</b><em>Preview</em></div>
-              <div class="pv-body">
-                <svg class="route" viewBox="0 0 300 50" preserveAspectRatio="xMidYMid meet">
-                  <defs><linearGradient id="plh-rg" x1="0" x2="1"><stop offset="0" stop-color="#4f70de"/><stop offset=".55" stop-color="#7b4fd8"/><stop offset="1" stop-color="#e7b565"/></linearGradient></defs>
-                  <path class="base" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
-                  <path class="path" style="stroke:url(#plh-rg)" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
-                  <circle class="pin" style="--d:.4s" cx="24" cy="36" r="5" fill="#4f70de"/>
-                  <circle class="pin" style="--d:1.9s" cx="150" cy="24" r="5" fill="#7b4fd8"/>
-                  <circle class="pin" style="--d:3.4s" cx="276" cy="30" r="5" fill="#e7b565"/>
-                </svg>
-                <div class="days"><span style="--d:0s">Day 1</span><span style="--d:3s">Day 2</span><span style="--d:6s">Day 3</span></div>
-                <div class="cost">
-                  <div class="seg"><i style="--d:.2s"></i><i style="--d:.8s"></i><i style="--d:1.4s"></i></div>
-                  <div class="lg"><span>Flight</span><span>Stay</span><span>Activities</span><span class="tot">≈ Rp 4,8 jt</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="plh-preview" data-preview="2" aria-hidden="true">
-            <div class="pv">
-              <div class="pv-bar"><i></i><i></i><i></i><b>Run of show</b><em>Preview</em></div>
-              <div class="pv-body">
-                <div class="ros">
-                  <div class="rw" style="--d:.2s"><b>17:30</b><span>Registrasi tamu</span></div>
-                  <div class="rw" style="--d:2.4s"><b>18:30</b><span>Makan malam &amp; hiburan</span></div>
-                  <div class="rw" style="--d:4.6s"><b>20:30</b><span>Acara utama</span></div>
-                </div>
-                <div class="bud"><div class="bar"><i></i></div><div class="lg"><span>Vendor booked 3/4</span><span class="tot">Budget 64%</span></div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="plh-preview" data-preview="3" aria-hidden="true">
-            <div class="pv">
-              <div class="pv-bar"><i></i><i></i><i></i><b>Program tracker</b><em>Preview</em></div>
-              <div class="pv-body">
-                <div class="mn">
-                  <div class="ring">
-                    <svg viewBox="0 0 64 64">
-                      <defs><linearGradient id="plh-mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b4fd8"/><stop offset="1" stop-color="#c8578f"/></linearGradient></defs>
-                      <circle class="bg" cx="32" cy="32" r="26"/><circle class="fg" style="stroke:url(#plh-mg)" cx="32" cy="32" r="26"/>
-                    </svg><span>4/6</span>
+              <div class="rdemo-body">
+                <aside class="rdemo-side">
+                  <div class="rdemo-asset"><span class="rdemo-dot"></span>Honda Brio RS</div>
+                  <div class="rdemo-group">Operate</div>
+                  <div class="rdemo-nav">
+                    <button class="on" data-step="0">Dashboard</button>
+                    <button data-step="1">Generator</button>
+                    <button data-step="2">Agreements</button>
+                    <button data-step="3">Calendar</button>
+                    <button>Maintenance</button>
+                    <button>Invoices</button>
+                    <button>Reports</button>
+                    <button>Assets</button>
                   </div>
-                  <ul class="chk">
-                    <li><i style="--d:.6s"><svg viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></i>Kickoff session</li>
-                    <li><i style="--d:1.8s"><svg viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></i>Set goals</li>
-                    <li><i style="--d:3s"><svg viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></i>Weekly review</li>
-                  </ul>
-                </div>
-                <div class="mm">
-                  <div class="rw" style="--pc:#c8578f"><span class="av">A</span><span class="bar"><i style="--w:82%;--d:.4s"></i></span></div>
-                  <div class="rw" style="--pc:#3fa6ad"><span class="av">B</span><span class="bar"><i style="--w:56%;--d:1.2s"></i></span></div>
+                  <div class="rdemo-foot"><span>⚙ Settings</span><span>↪ Log out</span></div>
+                </aside>
+
+                <div class="rdemo-main">
+                  <div class="rdemo-head">
+                    <div><h3 id="rDemoTitle">Analytics</h3><p id="rDemoSub">Live rental performance</p></div>
+                    <span class="rdemo-chip" id="rDemoChip">AI insight</span>
+                  </div>
+
+                  <section class="rdemo-panel on" data-panel="0">
+                    <div class="rdemo-card rdemo-ai">
+                      <h4>AI Insight — Honda Brio RS</h4>
+                      <p>Bookings naik minggu ini. Weekend demand tinggi — pertimbangkan dynamic pricing.</p>
+                    </div>
+                    <div class="rdemo-grid">
+                      <div class="rdemo-kpi"><span>Bookings</span><b>12</b></div>
+                      <div class="rdemo-kpi"><span>Revenue</span><b>Rp 8.4M</b></div>
+                    </div>
+                    <div class="rdemo-card" style="margin-top:8px">
+                      <h4>Booking trend</h4>
+                      <div class="rdemo-bars"><i style="height:46%"></i><i></i><i></i><i></i><i></i></div>
+                    </div>
+                  </section>
+
+                  <section class="rdemo-panel" data-panel="1">
+                    <div class="rdemo-card">
+                      <h4>Generate rental handover</h4>
+                      <div class="rdemo-form">
+                        <div class="rdemo-field"><label>Vehicle</label><div class="rdemo-input typing" id="rDemoType"></div></div>
+                        <div class="rdemo-field"><label>Customer</label><div class="rdemo-input">Alya Putri</div></div>
+                        <div class="rdemo-field"><label>Rental period</label><div class="rdemo-select">19–21 Oct 2026</div></div>
+                        <button class="rdemo-btn">Generate document</button>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="rdemo-panel" data-panel="2">
+                    <div class="rdemo-doc">
+                      <h4 style="margin:0;font-size:.66rem">Rental Agreement #R-1024</h4>
+                      <div class="rdemo-line w2"></div>
+                      <div class="rdemo-line w1"></div>
+                      <div class="rdemo-line w2"></div>
+                      <div class="rdemo-line w3"></div>
+                      <div class="rdemo-line w1"></div>
+                      <div class="rdemo-sign"><span>Customer signed digitally</span><b class="rdemo-ready">READY</b></div>
+                    </div>
+                  </section>
+
+                  <section class="rdemo-panel" data-panel="3">
+                    <div class="rdemo-card">
+                      <h4>October 2026</h4>
+                      <div class="rdemo-cal">
+                        <b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b>
+                        <div class="rdemo-day">12</div><div class="rdemo-day">13</div><div class="rdemo-day">14</div><div class="rdemo-day">15</div><div class="rdemo-day">16</div><div class="rdemo-day">17</div><div class="rdemo-day">18</div>
+                        <div class="rdemo-day booked">19</div><div class="rdemo-day booked">20</div><div class="rdemo-day booked">21</div><div class="rdemo-day">22</div><div class="rdemo-day">23</div><div class="rdemo-day">24</div><div class="rdemo-day">25</div>
+                        <div class="rdemo-day">26</div><div class="rdemo-day">27</div><div class="rdemo-day">28</div><div class="rdemo-day">29</div><div class="rdemo-day">30</div><div class="rdemo-day">31</div><div class="rdemo-day"></div>
+                      </div>
+                    </div>
+                    <div class="rdemo-card" style="margin-top:8px"><h4>19–21 Oct</h4><p>Honda Brio RS · Alya Putri · Confirmed</p></div>
+                  </section>
+
+                  <div class="rdemo-cursor" id="rDemoCursor" style="left:20%;top:26%"></div>
                 </div>
               </div>
             </div>
           </div>
-
-        </div></div>
-        <div class="plh-cap"><i></i><span id="plhN">Rental I/O</span><em>Live preview</em></div>
+        </div>
+        <div class="plh-cap"><i></i><span>Rental I/O</span><em>Auto walkthrough</em></div>
       </div>
     </div>
   </div>
@@ -1269,40 +1427,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   }
 })();
 </script>
-<script>
-(function(){
-  var box=document.getElementById('plh');if(!box)return;
-  var chips=[].slice.call(box.querySelectorAll('.plh-chips button'));
-  var previews=[].slice.call(box.querySelectorAll('.plh-preview'));
-  var nm=document.getElementById('plhN'),i=0,t=null,vis=true;
-  function go(n){
-    i=n;
-    chips.forEach(function(c,k){
-      var on=k===n;
-      c.classList.toggle('on',on);
-      c.setAttribute('aria-selected',on?'true':'false');
-    });
-    previews.forEach(function(p,k){
-      var on=k===n;
-      p.classList.toggle('on',on);
-      p.setAttribute('aria-hidden',on?'false':'true');
-    });
-    nm.textContent=chips[n].dataset.n;
-  }
-  function arm(){
-    clearInterval(t);
-    t=setInterval(function(){if(vis&&!document.hidden)go((i+1)%chips.length)},3200);
-  }
-  chips.forEach(function(c,k){c.onclick=function(){go(k);arm()}});
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){vis=es[0].isIntersecting},{threshold:.15}).observe(box);
-  }
-  document.addEventListener('visibilitychange',function(){
-    if(document.hidden){clearInterval(t);t=null}else if(!t){arm()}
-  });
-  go(0);arm();
-})();
-</script>
+
 <script src="/bundles.js" defer></script>
 <script>
 (function(){
@@ -1321,5 +1446,62 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </script>
 <form name="kodeflux-toolreq" data-netlify="true" hidden><input name="who"><input name="messiest"><input name="current_setup"><input name="dream_tool"><input name="urgency"><input name="page"><input name="name"><input name="role"><input name="whatsapp"><input name="email"></form>
 <script src="/toolreq.js" defer></script>
+
+<script id="rental-prototype-walkthrough">
+(function(){
+  var root=document.getElementById('rDemo'); if(!root) return;
+  var nav=[].slice.call(root.querySelectorAll('.rdemo-nav button[data-step]'));
+  var panels=[].slice.call(root.querySelectorAll('.rdemo-panel'));
+  var title=document.getElementById('rDemoTitle');
+  var sub=document.getElementById('rDemoSub');
+  var chip=document.getElementById('rDemoChip');
+  var cursor=document.getElementById('rDemoCursor');
+  var typer=document.getElementById('rDemoType');
+
+  var steps=[
+    {title:'Analytics',sub:'Live rental performance',chip:'AI insight',x:'18%',y:'20%'},
+    {title:'Generator',sub:'Create handover documents',chip:'Smart form',x:'18%',y:'31%'},
+    {title:'Agreements',sub:'Documents & signatures',chip:'Signed',x:'18%',y:'41%'},
+    {title:'Calendar',sub:'Bookings & availability',chip:'Confirmed',x:'18%',y:'51%'}
+  ];
+  var idx=0,timer=null,typingTimer=null;
+
+  function typeVehicle(){
+    clearInterval(typingTimer);
+    var str='Honda Brio RS AT 2023',i=0;
+    typer.textContent='';
+    typingTimer=setInterval(function(){
+      typer.textContent=str.slice(0,++i);
+      if(i>=str.length) clearInterval(typingTimer);
+    },55);
+  }
+
+  function show(n){
+    idx=n;
+    nav.forEach(function(b,k){b.classList.toggle('on',k===n)});
+    panels.forEach(function(p,k){p.classList.toggle('on',k===n)});
+    title.textContent=steps[n].title;
+    sub.textContent=steps[n].sub;
+    chip.textContent=steps[n].chip;
+    cursor.classList.add('click');
+    cursor.style.left=steps[n].x;
+    cursor.style.top=steps[n].y;
+    setTimeout(function(){cursor.classList.remove('click')},180);
+    if(n===1) setTimeout(typeVehicle,450);
+  }
+
+  function arm(){
+    clearInterval(timer);
+    timer=setInterval(function(){show((idx+1)%steps.length)},2200);
+  }
+
+  nav.forEach(function(b,k){
+    b.addEventListener('click',function(){show(k);arm()});
+  });
+
+  show(0);arm();
+})();
+</script>
+
 </body>
 </html>
