@@ -1119,6 +1119,33 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   .pl-hero h1{max-width:16ch!important}
   .rental-funnel{padding-top:4px}
 }
+
+
+
+.fxm-view{display:none}
+.fxm-view.on{display:grid;gap:8px;animation:fxmViewIn .42s var(--ease) both}
+@keyframes fxmViewIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(min-width:901px){.fxm-view.on{gap:10px}}
+
+.rental-form{display:grid;gap:8px}
+.rental-form label{display:grid;gap:4px;font-size:.58rem;color:var(--km)}
+.rental-field{min-height:31px;display:flex;align-items:center;padding:0 9px;border:1px solid var(--kh);border-radius:7px;background:var(--kp);color:var(--kw);font-size:.66rem}
+.rental-field.typing::after{content:"";width:1px;height:12px;margin-left:2px;background:var(--kw);animation:rentalBlink .7s steps(1) infinite}
+@keyframes rentalBlink{50%{opacity:0}}
+.rental-generate{justify-self:start;border:0;border-radius:7px;padding:.42rem .72rem;background:var(--kt);color:#fff;font:700 .62rem var(--sans)}
+
+.rental-doc{display:grid;gap:8px;min-height:190px}
+.rental-docline{height:6px;border-radius:5px;background:var(--kl)}
+.rental-docline.w1{width:72%}.rental-docline.w2{width:94%}.rental-docline.w3{width:55%}
+.rental-sign{margin-top:auto;display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--km);font-size:.58rem}
+.rental-sign b{padding:.18rem .45rem;border-radius:99px;background:rgba(16,185,129,.14);color:#66d9a5;font-size:.52rem}
+
+.rental-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.rental-cal b{font-family:var(--mono);font-size:.48rem;color:var(--km);text-align:center}
+.rental-cal span{aspect-ratio:1;border:1px solid var(--kl);border-radius:6px;display:grid;place-items:center;font-size:.56rem;color:var(--kd);background:var(--kp)}
+.rental-cal span.booked{border-color:rgba(245,194,66,.6);background:rgba(245,194,66,.08);color:#F5C242}
+.rental-booking p{margin:0;color:var(--kd);font-size:.64rem}
+
 </style>
 
 
@@ -1233,71 +1260,122 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
               </div>
             </aside>
 
-            <div class="fxm-main">
-              <div class="fxm-h">
-                <div><h3>Analytics</h3><p>Honda Brio RS · Live rental performance</p></div>
-              </div>
-
-              <div class="fxm-2">
-                <div class="fxm-c fxm-ins">
-                  <h4>AI insight · Honda Brio RS <em>AI</em></h4>
-                  <p>Booking minggu ini naik 66.7%. Momentum bagus — pertimbangkan naikkan harga di periode ramai.</p>
+            <div class="fxm-main" id="rentalMain">
+              <div class="fxm-view on" data-view="0">
+                <div class="fxm-h">
+                  <div><h3>Analytics</h3><p>Honda Brio RS · Live rental performance</p></div>
                 </div>
 
-                <div class="fxm-c">
-                  <h4>Booking Type Mix</h4>
-                  <div class="rental-mix">
-                    <svg viewBox="0 0 80 80" aria-hidden="true">
-                      <circle cx="40" cy="40" r="34" fill="none" stroke="#242427" stroke-width="9"/>
-                      <circle cx="40" cy="40" r="34" fill="none" stroke="#F5C242" stroke-width="9" stroke-dasharray="123.9 89.7" transform="rotate(-90 40 40)"/>
-                      <circle cx="40" cy="40" r="34" fill="none" stroke="#8B5CF6" stroke-width="9" stroke-dasharray="89.7 123.9" stroke-dashoffset="-123.9" transform="rotate(-90 40 40)"/>
-                      <text x="40" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F5">58%</text>
-                    </svg>
-                    <div class="fxm-leg">
-                      <div><i class="daily"></i>Daily<b>58%</b></div>
-                      <div><i class="long"></i>Long-term<b>42%</b></div>
+                <div class="fxm-2">
+                  <div class="fxm-c fxm-ins">
+                    <h4>AI insight · Honda Brio RS <em>AI</em></h4>
+                    <p>Booking minggu ini naik 66.7%. Momentum bagus — pertimbangkan naikkan harga di periode ramai.</p>
+                  </div>
+
+                  <div class="fxm-c">
+                    <h4>Booking Type Mix</h4>
+                    <div class="rental-mix">
+                      <svg viewBox="0 0 80 80" aria-hidden="true">
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="#242427" stroke-width="9"/>
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="#F5C242" stroke-width="9" stroke-dasharray="123.9 89.7" transform="rotate(-90 40 40)"/>
+                        <circle cx="40" cy="40" r="34" fill="none" stroke="#8B5CF6" stroke-width="9" stroke-dasharray="89.7 123.9" stroke-dashoffset="-123.9" transform="rotate(-90 40 40)"/>
+                        <text x="40" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F5">58%</text>
+                      </svg>
+                      <div class="fxm-leg">
+                        <div><i class="daily"></i>Daily<b>58%</b></div>
+                        <div><i class="long"></i>Long-term<b>42%</b></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="fxm-kp">
-                <div class="fxm-k"><span>Total Bookings</span><b>22</b><em>+12.4%</em></div>
-                <div class="fxm-k"><span>Revenue</span><b>Rp 36.3M</b><em>+8.1%</em></div>
-                <div class="fxm-k"><span>Utilization Rate</span><b>78%</b><em>+1.9%</em></div>
-                <div class="fxm-k"><span>Repeat Customer Rate</span><b>46%</b><em>+2.0%</em></div>
-              </div>
-
-              <div class="fxm-2">
-                <div class="fxm-c">
-                  <h4>Funnel Flow</h4>
-                  <div class="rental-funnel">
-                    <i>40</i><i>22</i><i>20</i>
-                  </div>
-                  <div class="rental-funnel-leg">
-                    <div><i style="background:#F5C242"></i>Inquiries <small>baseline</small></div>
-                    <div><i style="background:#A78BFA"></i>Bookings <small>↓55.0% CVR</small></div>
-                    <div><i style="background:#8B5CF6"></i>Completed <small>↓90.9% CVR</small></div>
-                  </div>
+                <div class="fxm-kp">
+                  <div class="fxm-k"><span>Total Bookings</span><b>22</b><em>+12.4%</em></div>
+                  <div class="fxm-k"><span>Revenue</span><b>Rp 36.3M</b><em>+8.1%</em></div>
+                  <div class="fxm-k"><span>Utilization Rate</span><b>78%</b><em>+1.9%</em></div>
+                  <div class="fxm-k"><span>Repeat Customer Rate</span><b>46%</b><em>+2.0%</em></div>
                 </div>
 
-                <div class="fxm-c">
-                  <h4>Funnel Performance <em>Utilization Rate</em></h4>
-                  <div class="rental-chart">
-                    <svg viewBox="0 0 220 82" preserveAspectRatio="none" aria-hidden="true">
-                      <defs>
-                        <linearGradient id="rentalPerf" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stop-color="#F5C242" stop-opacity=".28"/>
-                          <stop offset="100%" stop-color="#F5C242" stop-opacity="0"/>
-                        </linearGradient>
-                      </defs>
-                      <path d="M4 53 L36 65 L68 69 L100 69 L132 67 L165 63 L196 57 L216 16 L216 82 L4 82 Z" fill="url(#rentalPerf)"/>
-                      <path d="M4 53 L36 65 L68 69 L100 69 L132 67 L165 63 L196 57 L216 16" fill="none" stroke="#F5C242" stroke-width="2"/>
-                      <circle cx="216" cy="16" r="3" fill="#F5C242"/>
-                    </svg>
+                <div class="fxm-2">
+                  <div class="fxm-c">
+                    <h4>Funnel Flow</h4>
+                    <div class="rental-funnel">
+                      <i>40</i><i>22</i><i>20</i>
+                    </div>
+                    <div class="rental-funnel-leg">
+                      <div><i style="background:#F5C242"></i>Inquiries <small>baseline</small></div>
+                      <div><i style="background:#A78BFA"></i>Bookings <small>↓55.0% CVR</small></div>
+                      <div><i style="background:#8B5CF6"></i>Completed <small>↓90.9% CVR</small></div>
+                    </div>
                   </div>
-                  <div class="rental-chart-meta"><span>11 Oct</span><span>18 Oct</span></div>
-                  <div class="rental-latest">Latest: <b>90.6%</b></div>
+
+                  <div class="fxm-c">
+                    <h4>Funnel Performance <em>Utilization Rate</em></h4>
+                    <div class="rental-chart">
+                      <svg viewBox="0 0 220 82" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="rentalPerf" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#F5C242" stop-opacity=".28"/>
+                            <stop offset="100%" stop-color="#F5C242" stop-opacity="0"/>
+                          </linearGradient>
+                        </defs>
+                        <path d="M4 53 L36 65 L68 69 L100 69 L132 67 L165 63 L196 57 L216 16 L216 82 L4 82 Z" fill="url(#rentalPerf)"/>
+                        <path d="M4 53 L36 65 L68 69 L100 69 L132 67 L165 63 L196 57 L216 16" fill="none" stroke="#F5C242" stroke-width="2"/>
+                        <circle cx="216" cy="16" r="3" fill="#F5C242"/>
+                      </svg>
+                    </div>
+                    <div class="rental-chart-meta"><span>11 Oct</span><span>18 Oct</span></div>
+                    <div class="rental-latest">Latest: <b>90.6%</b></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fxm-view" data-view="1">
+                <div class="fxm-h">
+                  <div><h3>Generator</h3><p>Create rental handover documents</p></div>
+                </div>
+                <div class="fxm-c">
+                  <h4>Rental handover</h4>
+                  <div class="rental-form">
+                    <label>Vehicle<div class="rental-field" id="rentalTypeTarget"></div></label>
+                    <label>Customer<div class="rental-field">Alya Putri</div></label>
+                    <label>Rental period<div class="rental-field">19–21 Oct 2026</div></label>
+                    <button type="button" class="rental-generate">Generate document</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fxm-view" data-view="2">
+                <div class="fxm-h">
+                  <div><h3>Agreements</h3><p>Documents &amp; signatures</p></div>
+                </div>
+                <div class="fxm-c rental-doc">
+                  <h4>Rental Agreement #R-1024 <em>Ready</em></h4>
+                  <div class="rental-docline w2"></div>
+                  <div class="rental-docline w1"></div>
+                  <div class="rental-docline w2"></div>
+                  <div class="rental-docline w3"></div>
+                  <div class="rental-docline w1"></div>
+                  <div class="rental-sign">Customer signed digitally <b>READY</b></div>
+                </div>
+              </div>
+
+              <div class="fxm-view" data-view="3">
+                <div class="fxm-h">
+                  <div><h3>Calendar</h3><p>Bookings &amp; availability</p></div>
+                </div>
+                <div class="fxm-c">
+                  <h4>October 2026</h4>
+                  <div class="rental-cal">
+                    <b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b>
+                    <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+                    <span class="booked">19</span><span class="booked">20</span><span class="booked">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+                    <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+                  </div>
+                </div>
+                <div class="fxm-c rental-booking">
+                  <h4>19–21 Oct</h4>
+                  <p>Honda Brio RS · Alya Putri · Confirmed</p>
                 </div>
               </div>
             </div>
@@ -1414,6 +1492,47 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 <script src="/toolreq.js" defer></script>
 
 
+
+
+<script id="rental-fxm-walkthrough">
+(function(){
+  var root=document.getElementById('rDemo'); if(!root)return;
+  var nav=[].slice.call(root.querySelectorAll('.fxm-nav')).slice(0,4);
+  var views=[].slice.call(root.querySelectorAll('.fxm-view'));
+  var typeTarget=document.getElementById('rentalTypeTarget');
+  var index=0, timer=null, typing=null;
+
+  function typeVehicle(){
+    if(!typeTarget)return;
+    clearInterval(typing);
+    var value='Honda Brio RS AT 2023', i=0;
+    typeTarget.textContent='';
+    typeTarget.classList.add('typing');
+    typing=setInterval(function(){
+      typeTarget.textContent=value.slice(0,++i);
+      if(i>=value.length){
+        clearInterval(typing);
+        setTimeout(function(){typeTarget.classList.remove('typing')},350);
+      }
+    },42);
+  }
+
+  function show(n){
+    index=n;
+    nav.forEach(function(item,k){item.classList.toggle('on',k===n)});
+    views.forEach(function(view,k){view.classList.toggle('on',k===n)});
+    if(n===1)setTimeout(typeVehicle,280);
+  }
+
+  function arm(){
+    clearInterval(timer);
+    timer=setInterval(function(){show((index+1)%views.length)},2600);
+  }
+
+  show(0);
+  arm();
+})();
+</script>
 
 </body>
 </html>
