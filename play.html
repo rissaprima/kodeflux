@@ -1146,6 +1146,34 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .rental-cal span.booked{border-color:rgba(245,194,66,.6);background:rgba(245,194,66,.08);color:#F5C242}
 .rental-booking p{margin:0;color:var(--kd);font-size:.64rem}
 
+/* FIXED PREVIEW HEIGHT — switching views must never resize the dashboard */
+.fxm.rental-fxm{
+  height:100%!important;
+  min-height:0!important;
+}
+.fxm-body{
+  height:calc(100% - 40px)!important;
+  min-height:0!important;
+}
+.fxm-main{
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.fxm-view{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.fxm-view.on{
+  display:grid!important;
+  grid-auto-rows:max-content!important;
+  align-content:start!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
 </style>
 
 
