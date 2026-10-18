@@ -795,6 +795,10 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .hq-sec h2{font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.08;letter-spacing:-.035em;max-width:26ch}
 .hq-sec .sub{margin-top:14px;color:var(--muted);max-width:40rem}
 .hq-frame{margin-top:28px;padding:10px;border:1px solid var(--line2);border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));overflow:hidden}
+.hq-loop{position:relative;padding:0;border:0;background:none;border-radius:0;overflow:hidden;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+.hq-loop iframe{height:720px;border-radius:0;pointer-events:none}
+@media(max-width:759px){.hq-loop iframe{height:900px}}
+.hq-open.hq-try{margin-top:-6px;position:relative;z-index:2}.hq-open.hq-try a{border:0;color:#fff}
 .hq-open{margin:14px 0 0;text-align:center;font-size:.9rem}.hq-open a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line2)}.hq-open a:hover{color:var(--fg)}
 .hq-frame iframe{display:block;width:100%;height:900px;border:0;border-radius:18px;background:transparent;color-scheme:dark}
 .hq-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
@@ -872,6 +876,8 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fxm{--kb:#0a0a0b;--kp:#111113;--kc:#161618;--kl:#242427;--kh:#323236;--kt:#8B5CF6;--ktb:#A78BFA;--kg:#E7B565;--kw:#F4F4F5;--kd:#A1A1AA;--km:#6B6B73;--kok:#10B981;
   position:relative;border:1px solid var(--kh);border-radius:18px;background:var(--kb);overflow:hidden;font-family:"Inter",system-ui,sans-serif;font-size:11px;color:var(--kw);box-shadow:0 40px 80px -40px rgba(139,92,246,.55)}
 .fxm *{box-sizing:border-box}
+.fxm-ask button.pulse{box-shadow:0 0 0 4px rgba(139,92,246,.35);transform:scale(1.06);transition:.25s}
+.fxm-row em,.fxm-bar b{transition:width .9s ease,color .4s}
 .fxm-top{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:var(--kp);border-bottom:1px solid var(--kl)}
 .fxm-brand{font-weight:800;font-size:.95rem;letter-spacing:-.02em}.fxm-brand span{color:var(--ktb)}
 .fxm-tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--kd);border:1px solid var(--kh);border-radius:99px;padding:.15rem .55rem}
@@ -999,7 +1005,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     </nav>
     <a class="logo" href="/" aria-label="Kodeflux — kembali ke atas" data-text="KOD3FLUX+"><span class="la">KOD3</span><span class="lb">FL</span><span class="lc">UX</span><span class="lb">+</span></a>
     <nav class="links links-r" aria-label="Utama kanan">
-      <a href="/#playgrounds">PLAY</a>
+      <a href="/play">PLAY</a>
       <a href="/corp" title="FluxHQ & custom build for business" aria-current="page" style="color:var(--fg)">CORP</a>
     </nav>
     <div class="nav-right">
@@ -1010,7 +1016,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   <div class="mobile-menu" id="mmenu">
     <a href="/#fact">FACT · Flux AI Capability Test</a>
     <a href="/#fun">FUN · Flux User Network</a>
-    <a href="/#playgrounds">PLAY · Playground</a>
+    <a href="/play">PLAY · Playground</a>
     <a href="/corp">CORP · For Business</a>
   </div>
 </header>
@@ -1099,11 +1105,11 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   <div class="wrap">
     <div class="section-kicker">INTERACTIVE</div>
     <h2>See the agents work, desk by desk.</h2>
-    <p class="sub">Enter one sample project and watch six divisions and 18 agents work it end to end. When approval is needed, you decide.</p>
-    <div class="hq-frame rv">
-      <iframe id="fxFrame" src="./fluxhq-demo.html?embed=1" title="FluxHQ live demo: six virtual desks, 18 agents and the full dashboard" loading="lazy"></iframe>
+    <p class="sub">Watch one sample project move through six divisions and 18 agents, end to end. When approval is needed, the founder decides. Want to drive it yourself? Try the demo.</p>
+    <div class="hq-frame hq-loop rv">
+      <iframe id="fxFrame" src="./fluxhq-demo.html?embed=loop" tabindex="-1" aria-hidden="false" title="FluxHQ live demo: six virtual desks, 18 agents and the full dashboard" loading="lazy"></iframe>
     </div>
-    <p class="hq-open"><a href="/fluxhq-demo.html">Open the demo full page →</a></p>
+    <p class="hq-open hq-try"><a class="btn btn-primary btn-lg" href="/fluxhq-demo.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a></p>
   </div>
 </section>
 
@@ -1139,7 +1145,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
         <span class="k">FluxHQ</span>
         <h3>Ready-to-run business system.</h3>
         <p>Enam meja dengan alur umum: inquiry, penawaran, jadwal, hasil kerja, dan tagihan. Disesuaikan ke jenis bisnismu.</p>
-        <ul><li>Agency, rental, tour, event, kelas, retail</li><li>Persetujuan tetap di tanganmu</li><li>Ringkasan harian untuk owner</li></ul>
+        <ul><li>Agency, rental, travel, event, kelas, retail</li><li>Persetujuan tetap di tanganmu</li><li>Ringkasan harian untuk owner</li></ul>
         <a class="btn btn-primary" href="/fluxhq-demo.html">Try FluxHQ <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
       <div class="hq-path rv" id="custom" style="--d:100ms">
@@ -1154,6 +1160,25 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   </div>
 </section>
 
+<!-- BUNDLES -->
+<section class="hq-sec" id="bundles">
+  <div class="wrap">
+    <div class="section-kicker">BUNDLES</div>
+    <h2>FluxHQ, packaged.</h2>
+    <p class="sub">Seat lifetime terbatas dan dijual dalam tiga fase: 50, lalu 30, lalu 20 seat (per bundle, per industri). Tiap bundle untuk satu industri, industri lain dijual terpisah. Harga naik di setiap fase, dan fase berikutnya baru dibuka saat fase sebelumnya habis.</p>
+    <div data-bundles="hq"><noscript><p class="sub">Aktifkan JavaScript untuk melihat harga bundle.</p></noscript></div>
+  </div>
+</section>
+
+
+<section class="hq-sec" id="request">
+  <div class="wrap">
+    <div class="section-kicker">NOT HERE YET?</div>
+    <h2>Your industry isn’t in FluxHQ yet?</h2>
+    <p class="sub">Ceritakan bisnismu. Jawab lima pertanyaan singkat, lalu kami pertimbangkan untuk menambahkan industrimu. Request yang banyak sama akan ditambahkan lebih dulu.</p>
+    <p style="margin-top:22px"><a class="btn btn-primary" href="#" data-agentreq="corp">Request an industry <svg class="ic"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
 
 <div class="corp-modal" id="corpModal" role="dialog" aria-modal="true" aria-labelledby="corpModalTitle">
   <div class="corp-modal-card" id="corpQuiz">
@@ -1428,27 +1453,53 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     });
   }
 
-  // hero dashboard replica: approval is clickable
+  // hero dashboard replica: loops by itself (draft -> approve -> done -> reset); click also works
   (function(){
     var ok=document.getElementById('fxmOk'),ask=document.getElementById('fxmAsk');
     if(!ok||!ask)return;
-    ok.addEventListener('click',function(){
+    var st=document.getElementById('fxmSt'),ins=document.getElementById('fxmIns'),rows=[].slice.call(document.querySelectorAll('.fxm-row'));
+    var T0={ask:ask.querySelector('p').textContent,ok:ok.textContent,ins:ins?ins.textContent:'',st:st?st.textContent:''};
+    var R0=rows.map(function(r){return{cls:r.className,w:r.querySelector('.fxm-bar').style.getPropertyValue('--w'),em:r.querySelector('em').textContent}});
+    var APP={Director:['100%','Done'],Operation:['62%','Active'],Finance:['38%','Active']};
+    function set(r,w,t,on){r.querySelector('.fxm-bar').style.setProperty('--w',w);r.querySelector('em').textContent=t;r.classList.toggle('on',!!on)}
+    function approve(){
       if(ask.classList.contains('done'))return;
       ask.classList.add('done');
       ask.querySelector('p').textContent='Approved. Operation and Finance are on it.';
       ok.textContent='Approved ✓';
-      var st=document.getElementById('fxmSt');if(st){st.textContent='Approved';st.classList.remove('w')}
-      var ins=document.getElementById('fxmIns');if(ins)ins.textContent='Approved by you. Operation scheduled the 4-week timeline and Finance sent the DP invoice, all without waiting on you again.';
-    });
+      if(st){st.textContent='Approved';st.classList.remove('w')}
+      if(ins)ins.textContent='Approved by you. Operation scheduled the 4-week timeline and Finance sent the DP invoice, all without waiting on you again.';
+      rows.forEach(function(r){var n=r.querySelector('span').textContent.trim(),a=APP[n];if(a)set(r,a[0],a[1],a[1]==='Active')});
+    }
+    function reset(){
+      ask.classList.remove('done');ask.querySelector('p').textContent=T0.ask;ok.textContent=T0.ok;
+      if(st){st.textContent=T0.st;st.classList.add('w')}if(ins)ins.textContent=T0.ins;
+      rows.forEach(function(r,i){r.className=R0[i].cls;set(r,R0[i].w,R0[i].em,/\bon\b/.test(R0[i].cls))});
+    }
+    ok.addEventListener('click',approve);
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches,vis=true;
+    var hero=document.querySelector('.fxm');
+    if(hero&&'IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(hero);
+    if(reduce)return;
+    function cycle(){
+      if(!vis){setTimeout(cycle,1500);return}
+      reset();
+      setTimeout(function(){ok.classList.add('pulse');setTimeout(function(){ok.classList.remove('pulse');approve()},900);setTimeout(cycle,6500)},3200);
+    }
+    setTimeout(cycle,2500);
   })();
 
   // iframe demo: ikuti tinggi konten
   window.addEventListener('message',function(e){
     if(e.origin!==location.origin||!e.data||e.data.type!=='fluxhq:height')return;
     var f=document.getElementById('fxFrame');
-    if(f&&e.source===f.contentWindow)f.style.height=(e.data.height+4)+'px';
+    if(f&&e.source===f.contentWindow&&!f.closest('.hq-loop'))f.style.height=(e.data.height+4)+'px';
   });
 })();
 </script>
+<script src="/bundles.js" defer></script>
+<form name="kodeflux-agentreq" data-netlify="true" hidden><input name="industry"><input name="desk"><input name="inquiry_flow"><input name="agent_tasks"><input name="urgency"><input name="page"><input name="name"><input name="role"><input name="whatsapp"><input name="email"></form>
+<script src="/agentreq.js" defer></script>
+
 </body>
 </html>

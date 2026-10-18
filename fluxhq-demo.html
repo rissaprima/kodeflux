@@ -381,6 +381,13 @@ html,body{background:#0a0a0b}:root{--bg:#0a0a0b}
 html.emb body{background:transparent!important}
 html.emb .top,html.emb .intro{display:none!important}
 html.emb .wrap{padding:0 0 2px;max-width:none}
+html.loop,html.loop body{overflow:hidden;background:transparent!important}
+html.loop .atop,html.loop .side,html.loop .backdrop,html.loop #formView,html.loop #doc,html.loop .spd,html.loop .sim{display:none!important}
+html.loop .app,html.loop .abody{display:block;border:0;background:transparent;min-height:0}
+html.loop .main{padding:0}
+html.loop .dtop{display:grid!important;grid-template-columns:minmax(0,1fr);gap:12px;margin:0}
+@media(min-width:760px){html.loop .dtop{grid-template-columns:minmax(0,3fr) minmax(0,1fr)}html.loop .fxcol{display:flex;flex-direction:column;gap:12px}html.loop .fxcard{order:0}}
+@media(max-width:759px){html.loop .fxcol{display:flex;flex-direction:column;gap:12px}html.loop .fxcard{order:0}html.loop .dtop .feed{order:0}}
 </style>
 </head>
 <body>
@@ -462,6 +469,8 @@ html.emb .wrap{padding:0 0 2px;max-width:none}
 <script>
 var FxOffice=(function(){
   var NS='http://www.w3.org/2000/svg';
+  var ISLOOP=/embed=loop/.test(location.search);
+  if(ISLOOP){[].forEach.call(document.styleSheets,function(ss){try{[].forEach.call(ss.cssRules,function(r){if(r.media&&/1180px|1179px/.test(r.media.mediaText))r.media.mediaText=r.media.mediaText.replace(/1180px/g,'1000px').replace(/1179px/g,'999px')})}catch(e){}})}
   var REDUCED=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* index meja: 0 Director, 1 Marketing, 2 Sales, 3 Operation, 4 Production, 5 Finance */
   var DESKS=[
@@ -476,7 +485,7 @@ var FxOffice=(function(){
   var POS=[[1,3],[1,1],[1,2],[3,3],[3,2],[3,1]];
   /* desktop: baris atas Marketing > Sales > Director, baris bawah Finance > Production > Operation (Operation tepat di bawah Director) */
   var POSH=[[3,1],[1,1],[2,1],[3,3],[2,3],[1,3]];
-  var MQ=window.matchMedia?matchMedia('(min-width:1180px)'):{matches:false};
+  var MQ=window.matchMedia?matchMedia(ISLOOP?'(min-width:1000px)':'(min-width:1180px)'):{matches:false};
   var CHAIN=[[1,2],[2,0],[3,4],[4,5]];
 
   function make(root,opts){
@@ -681,7 +690,7 @@ var FxOffice=(function(){
 (function(){
   var $=function(id){return document.getElementById(id)};
   var QP=new URLSearchParams(location.search);
-  var EMBED=QP.get('embed')==='1';
+  var LOOP=QP.get('embed')==='loop',EMBED=QP.get('embed')==='1'||LOOP;
   var LANG=QP.get('lang')==='id'?'id':'en';
   /* T(inggris, indonesia, vars): satu kalimat, dua bahasa. {x} diganti dari vars */
   function T(en,id,v){var s=(LANG==='id'&&id!=null)?id:en;if(v)s=s.replace(/\{(\w+)\}/g,function(m,n){return v[n]!=null?v[n]:m});return s}
@@ -1440,7 +1449,23 @@ var FxOffice=(function(){
 
   /* ---------- mode embed (dipakai corp.html) ---------- */
   applyLang();
-  if(EMBED){
+  if(LOOP){
+    document.documentElement.classList.add('emb','loop');
+    var started=false;
+    var fire=function(){
+      resetRun();S.running=false;$('app').classList.remove('running');
+      var f=$('form');f.dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}));
+      var sp=document.querySelector('[data-spd="2"]');if(sp)sp.click();
+    };
+    var tick=function(){
+      var ok=document.querySelector('.ok-btn');
+      if(ok&&!ok._armed){ok._armed=1;setTimeout(function(){if(ok.isConnected)ok.click()},1800)}
+      if(S.done&&!tick.w){tick.w=1;setTimeout(function(){tick.w=0;fire()},7000)}
+    };
+    var begin=function(){if(started)return;started=true;fire();setInterval(tick,400)};
+    setTimeout(begin,600);
+  }
+  if(EMBED&&!LOOP){
     document.documentElement.classList.add('emb');
     var lastH=0;
     var postH=function(){

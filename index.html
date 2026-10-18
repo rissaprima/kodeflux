@@ -611,7 +611,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fact-result-actions .btn{width:100%;justify-content:center}
 @media(max-width:640px){
   .fact-intro{grid-template-columns:1fr}
-  .fact-intro-mark{display:none}
+  .fact-intro-mark{min-height:0;margin-top:6px}.fact-intro-radar{max-width:280px}
   .fact-modal{padding:12px}
   .fact-modal-card{width:100%;max-height:88svh;border-radius:20px}
   .fact-quiz,.fact-result{padding:30px 20px 24px}
@@ -791,6 +791,41 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fxprev-hit{position:absolute;inset:0;z-index:2;border-radius:inherit}
 .fxprev-hit:focus-visible{outline-offset:-3px}
 @media(max-width:640px){.fx-teaser .corp-visual{margin-top:8px}}
+
+/* FACT v7: capability map restored */
+.fact-modal-card{width:min(100%,1060px);max-height:min(92svh,860px)}
+.fact-body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.fact-body .fact-viz{min-height:0;padding:44px 26px 30px;border-right:1px solid var(--line)}
+.fact-body .fact-radar-wrap{width:min(100%,400px)}
+.fact-body .fact-orbit{inset:3%}
+.fact-panel{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.fact-panel .fact-quiz{min-height:0;padding:56px clamp(22px,3.4vw,40px) 36px}
+.fact-panel .fact-result{min-height:0;padding:56px clamp(22px,3.4vw,40px) 36px}
+.fact-levels{align-items:baseline;gap:8px}.fact-levels span{font-size:.78rem;color:var(--dim);transition:.3s}.fact-levels span.cur{font-size:1.5rem;font-weight:700;color:var(--fg);letter-spacing:-.02em}.fact-levels span.arr{color:var(--dim);opacity:.6}
+.fact-rec{margin-top:22px;padding:15px 16px;border:1px solid rgba(231,181,101,.35);border-radius:14px;background:rgba(231,181,101,.06)}
+.fact-rec span{font:600 .68rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+.fact-rec b{display:block;margin-top:6px;font-size:1.05rem}.fact-rec p{margin-top:4px;color:var(--muted);font-size:.9rem;line-height:1.55}
+.fact-concentric .seg{stroke-width:1.4}
+@media(max-width:900px){.fact-body{grid-template-columns:1fr}.fact-body .fact-viz{border-right:0;border-bottom:1px solid var(--line);padding:46px 16px 22px}.fact-body .fact-radar-wrap{width:min(100%,300px)}.fact-panel .fact-quiz,.fact-panel .fact-result{padding:28px 20px 26px}}
+@media(max-width:640px){.fact-body .fact-radar-wrap{width:min(100%,205px)}.fact-body .fact-viz{padding:40px 10px 16px}.fact-levels span.cur{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){.fact-orbit{animation:none}}
+
+/* fun offers */
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.offers>.rv{display:flex}
+.offer{display:flex;flex-direction:column;gap:12px;padding:24px;width:100%}
+.offer h3{font-size:1.2rem;letter-spacing:-.02em}
+.offer p{color:var(--muted);font-size:.92rem;line-height:1.6}
+.offer .soon{margin-top:auto;align-self:flex-start;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid var(--line2);border-radius:99px;padding:.22rem .65rem}
+@media(max-width:860px){.offers{grid-template-columns:1fr}}
+/* faq */
+.pl-faq{margin-top:26px;display:grid;gap:10px;max-width:46rem}
+.pl-faq details{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);padding:0 18px}
+.pl-faq summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:600}
+.pl-faq summary::-webkit-details-marker{display:none}
+.pl-faq summary::after{content:"+";float:right;color:var(--amber)}
+.pl-faq details[open] summary::after{content:"\2212"}
+.pl-faq p{padding:0 0 16px;color:var(--muted);font-size:.95rem}
 </style>
 </head>
 <body>
@@ -841,7 +876,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     </nav>
     <a class="logo" href="#top" aria-label="Kodeflux — kembali ke atas" data-text="KOD3FLUX+"><span class="la">KOD3</span><span class="lb">FL</span><span class="lc">UX</span><span class="lb">+</span></a>
     <nav class="links links-r" aria-label="Utama kanan">
-      <a href="#playgrounds">PLAY</a>
+      <a href="/play">PLAY</a>
       <a href="/corp" title="FluxHQ & custom build for business">CORP</a>
     </nav>
     <div class="nav-right">
@@ -852,7 +887,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   <div class="mobile-menu" id="mmenu">
     <a href="#fact">FACT · Flux AI Capability Test</a>
     <a href="#fun">FUN · Flux User Network</a>
-    <a href="#playgrounds">PLAY · Playground</a>
+    <a href="/play">PLAY · Playground</a>
     <a href="/corp">CORP · For Business</a>
   </div>
 </header>
@@ -949,10 +984,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           <button class="btn btn-primary fact-start" id="factStart" type="button">Start FACT <svg class="ic"><use href="#i-arrow"/></svg></button>
         </div>
         <div class="fact-intro-mark" aria-hidden="true">
-          <div class="fact-intro-orbit">
-            <span></span><span></span><span></span><span></span><span></span>
-            <i></i>
-          </div>
+          <svg class="fact-concentric fact-intro-radar" id="factIntroSvg" viewBox="0 0 420 420"></svg>
           <div class="fact-intro-label">10 questions · 5 dimensions</div>
         </div>
       </div>
@@ -964,6 +996,13 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   <div class="fact-modal-card" role="dialog" aria-modal="true" aria-labelledby="factQuestion">
     <button class="fact-close fact-modal-close" id="factModalClose" type="button" aria-label="Close FACT">×</button>
 
+    <div class="fact-body">
+    <div class="fact-viz">
+      <div class="fact-viz-title">Your capability map</div>
+      <div class="fact-radar-wrap"><div class="fact-orbit"></div><svg class="fact-concentric" id="factSvg" viewBox="0 0 420 420"></svg></div>
+      <div class="fact-levels" id="factLevelPath"></div>
+    </div>
+    <div class="fact-panel">
     <div class="fact-quiz" id="factQuiz">
       <div class="fact-topline">
         <span id="factCount">Question 1 of 10</span>
@@ -987,12 +1026,14 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
       </div>
       <p class="desc" id="factDesc"></p>
       <div class="fact-bars" id="factBars"></div>
+      <div class="fact-rec" id="factRec"><span>Your next step</span><b id="factRecTitle"></b><p id="factRecText"></p></div>
       <button class="fact-share" id="factShare" type="button" aria-label="Share FACT result"><svg class="ic"><use href="#i-share"/></svg> Share result</button>
       <div class="cta fact-result-actions">
         <button class="btn btn-glass btn-sm" id="factRestart" type="button">Retake FACT</button>
         <a class="btn btn-primary btn-sm" href="#fun" id="factJoinFun">Join FUN <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
+    </div></div>
   </div>
 </div>
 
@@ -1034,6 +1075,26 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
       <div class="rv" style="--d:220ms"><div class="card prompt" style="--fd:2.4s">
         <span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span>
         <div><q>Test something together.</q><small>Experiments & ideas</small></div>
+      </div></div>
+    </div>
+    <div class="offers">
+      <div class="rv" style="--d:0ms"><div class="card offer">
+        <span class="ico"><svg class="ic"><use href="#i-users"/></svg></span>
+        <h3>Membership</h3>
+        <p>Masuk ke komunitas Fluxmates di Discord: ruang tanya-jawab, update tool, dan eksplorasi bareng orang yang sama-sama lagi belajar.</p>
+        <span class="soon">Segera hadir</span>
+      </div></div>
+      <div class="rv" style="--d:110ms"><div class="card offer">
+        <span class="ico"><svg class="ic"><use href="#i-book"/></svg></span>
+        <h3>E-playbook</h3>
+        <p>Panduan langkah demi langkah per industri: contoh alur kerja dan prompt siap pakai untuk menjalankan AI di bisnismu.</p>
+        <span class="soon">Segera hadir</span>
+      </div></div>
+      <div class="rv" style="--d:220ms"><div class="card offer">
+        <span class="ico"><svg class="ic"><use href="#i-mentor"/></svg></span>
+        <h3>E-mini course</h3>
+        <p>Kelas singkat yang memandu dari nol sampai tool-nya jalan di bisnismu, disusun per industri.</p>
+        <span class="soon">Segera hadir</span>
       </div></div>
     </div>
     <div class="rv flux-in-fun"><div class="card fluxbar">
@@ -1090,12 +1151,12 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           </div>
         </div>
         <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="https://rental-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass btn-sm" href="/tools/kluster.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
       </article></div>
 
-      <!-- TOUR I/O -->
+      <!-- TRAVEL I/O -->
       <div class="rv" style="--d:110ms"><article class="card play">
-        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-compass"/></svg></span><h3>Tour I/O</h3><span class="tag live">Demo live</span></div>
+        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-compass"/></svg></span><h3>Travel I/O</h3><span class="tag live">Demo live</span></div>
         <p class="for">Buat traveler, guide, dan tour operator yang menyusun trip dan itinerary dengan rapi.</p>
         <div class="pv" aria-hidden="true">
           <div class="pv-bar"><i></i><i></i><i></i><b>Trip planner</b><em>Preview</em></div>
@@ -1116,7 +1177,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           </div>
         </div>
         <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="https://tour-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass btn-sm" href="/tools/kruiser.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
       </article></div>
 
       <!-- PARTY I/O -->
@@ -1138,7 +1199,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           </div>
         </div>
         <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="https://party-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass btn-sm" href="/tools/konsole.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
       </article></div>
 
       <!-- MENTOR I/O -->
@@ -1169,7 +1230,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           </div>
         </div>
         <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="https://mentor-io.netlify.app" target="_blank" rel="noopener noreferrer">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass btn-sm" href="/tools/kubicle.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
       </article></div>
     </div>
   </div>
@@ -1185,7 +1246,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
         <h3 style="margin-top:8px;font-size:clamp(1.35rem,3vw,1.8rem)">Belum ada tool buat industrimu?</h3>
         <p style="margin-top:8px;color:var(--muted)">Ceritain workflow yang mau kamu rapihin. Kita bisa bikin tool yang sesuai kebutuhan bisnismu.</p>
       </div>
-      <a class="btn btn-glass" href="/corp#custom">Request a tool <svg class="ic"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-glass" href="#" data-toolreq="index">Request a tool <svg class="ic"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
@@ -1215,6 +1276,25 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </section>
 
 <!-- JOIN -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sh">
+      <div class="section-kicker">FAQ</div>
+      <h2>Quick answers.</h2>
+      <p>Pertanyaan yang paling sering muncul sebelum orang mulai.</p>
+    </div>
+    <div class="pl-faq rv">
+      <details><summary>Apa bedanya Flux I/O dan FluxHQ?</summary><p>Flux I/O adalah tool per industri yang kamu jalankan sendiri. FluxHQ adalah kantor virtual dengan enam meja dan 18 agent yang membantu operasional bisnis, dengan persetujuan tetap di tanganmu.</p></details>
+      <details><summary>Perlu paham prompting?</summary><p>Tidak. Struktur, prompt, dan hasilnya sudah disiapkan. Kamu cukup mengisi data sendiri dan menyetujui hal yang penting.</p></details>
+      <details><summary>AI mana yang dipakai?</summary><p>Kamu pasang API key sendiri dan pilih Claude atau GPT (satu per akun). API key ditagih terpisah dari langganan Claude atau ChatGPT. Tutorialnya akan memandumu langkah demi langkah.</p></details>
+      <details><summary>Apa bedanya demo dengan versi lengkap?</summary><p>Demo berjalan dengan data contoh. Menyimpan, mengekspor, dan mencetak ada di versi lengkap.</p></details>
+      <details><summary>Bagaimana cara kerja fase harga?</summary><p>Tiap bundle punya 50 seat di harga pertama, lalu 30, lalu 20. Harga naik saat satu fase habis terjual. Jumlah seat di kartu bundle adalah angka sebenarnya.</p></details>
+      <details><summary>Bisa beli lebih dari satu industri?</summary><p>Bisa. Tiap bundle mencakup satu industri, dan industri lain dijual terpisah karena tool, e-playbook, dan e-mini course-nya berbeda untuk tiap industri.</p></details>
+      <details><summary>Di mana aku bisa bertanya?</summary><p>Di Discord Kodeflux. Di sana juga kabar peluncuran dan update komunitas diumumkan lebih dulu.</p></details>
+    </div>
+  </div>
+</section>
+
 <section id="join">
   <div class="wrap">
     <div class="join rv">
@@ -1332,9 +1412,50 @@ function factSectorPath(i,val){
   const x1=cx+Math.cos(a1)*r,y1=cy+Math.sin(a1)*r,x2=cx+Math.cos(a2)*r,y2=cy+Math.sin(a2)*r;
   return `M${cx} ${cy} L${x1.toFixed(1)} ${y1.toFixed(1)} A${r.toFixed(1)} ${r.toFixed(1)} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)} Z`;
 }
-function factUpdateViz(){const vals=factDimensionScores();vals.forEach((v,i)=>{const seg=factEl('factSeg'+i);if(seg)seg.setAttribute('d',factSectorPath(i,v));const lab=factEl('factVal'+i);if(lab)lab.textContent=v;});}
+const FC=[['#7b4fd8','#a98bf0'],['#c86bb0','#e8a0d4'],['#4f8fe0','#8fc0f5'],['#d0509a','#f08cc0'],['#4a9fb0','#8fd8e0']];
+const FLEVELS=['Seed','Grow','Flow','Glow','Rise'];
+const FRECS=[
+ ['Mulai dari satu use case kecil','Pilih satu tugas ringan yang sering kamu kerjakan, lalu coba bantu pakai AI minggu ini.'],
+ ['Ulangi use case yang sama','Pakai AI untuk tugas yang sama tiga kali, lalu catat instruksi mana yang hasilnya paling bagus.'],
+ ['Simpan prompt yang berhasil','Kumpulkan instruksi favoritmu di satu tempat supaya tidak mulai dari nol setiap kali.'],
+ ['Dokumentasikan yang works','Ubah satu workflow terbaikmu menjadi template atau mini playbook yang bisa dipakai ulang.'],
+ ['Bagikan sistemmu','Ajarkan satu workflow ke orang lain atau jadikan versi publik, supaya dampaknya ikut tumbuh.']];
+function factBuildRadar(svg,pref,showVals){
+  const cx=210,cy=210,R=154;let h='<defs>';
+  FC.forEach((c,i)=>{h+=`<linearGradient id="${pref}g${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c[0]}" stop-opacity=".78"/><stop offset="1" stop-color="${c[1]}" stop-opacity=".42"/></linearGradient>`;});
+  h+='</defs>';
+  for(let k=1;k<=5;k++)h+=`<circle class="grid" cx="${cx}" cy="${cy}" r="${R*k/5}"/>`;
+  for(let i=0;i<5;i++){const a=(-90+i*72)*Math.PI/180;h+=`<line class="divider" x1="${cx}" y1="${cy}" x2="${(cx+Math.cos(a)*R).toFixed(1)}" y2="${(cy+Math.sin(a)*R).toFixed(1)}"/>`;}
+  for(let k=1;k<=5;k++)h+=`<text class="tick" x="${cx+5}" y="${cy-R*k/5+3}">${k*20}</text>`;
+  for(let i=0;i<5;i++)h+=`<path class="seg" id="${pref}Seg${i}" d="${factSectorPath(i,0)}" fill="url(#${pref}g${i})" stroke="${FC[i][1]}"/>`;
+  for(let i=0;i<5;i++){const a=(-90+i*72+14)*Math.PI/180,lx=cx+Math.cos(a)*(R+34),ly=cy+Math.sin(a)*(R+34);
+    h+=`<text class="lab" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle">${factPillars[i]}</text>`;
+    if(showVals)h+=`<text class="val" id="${pref}Val${i}" x="${lx.toFixed(1)}" y="${(ly+17).toFixed(1)}" text-anchor="middle">0</text>`;}
+  svg.innerHTML=h;
+}
+function factInitViz(){
+  const svg=factEl('factSvg');if(svg)factBuildRadar(svg,'fact',true);
+  const intro=factEl('factIntroSvg');
+  if(intro){factBuildRadar(intro,'fi',false);
+    const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;let vis=true,t0=performance.now();
+    const draw=t=>{for(let i=0;i<5;i++){const v=reduce?[55,70,82,66,74][i]:52+30*Math.sin(t*0.0011+i*1.35);const e=factEl('fiSeg'+i);if(e)e.setAttribute('d',factSectorPath(i,v));}};
+    draw(0);
+    if(!reduce){const loop=n=>{if(vis)draw(n-t0);requestAnimationFrame(loop);};requestAnimationFrame(loop);
+      if('IntersectionObserver' in window)new IntersectionObserver(es=>{vis=es[0].isIntersecting;}).observe(intro);}
+  }
+}
+function factLevelIdx(score){return Math.max(0,factLevels.findIndex(l=>score<=l.max));}
+function factUpdateViz(){
+  const vals=factDimensionScores();
+  vals.forEach((v,i)=>{const seg=factEl('factSeg'+i);if(seg)seg.setAttribute('d',factSectorPath(i,v));const lab=factEl('factVal'+i);if(lab)lab.textContent=v;});
+  const ans=factAnswers.filter(a=>a!==null);let idx=0;
+  if(ans.length){const raw=ans.reduce((s,a)=>s+factWeights[a],0);idx=factLevelIdx(factNormalize(raw,ans.length*2.5,ans.length*10));}
+  const lp=factEl('factLevelPath');if(lp)lp.innerHTML=FLEVELS.map((n,i)=>`<span class="${i===idx?'cur':''}">${n}</span>`).join('<span class="arr">→</span>');
+}
+function factShowRec(level){const i=Math.max(0,factLevels.indexOf(level));factEl('factRecTitle').textContent=FRECS[i][0];factEl('factRecText').textContent=FRECS[i][1];}
 function factRender(){const item=factQuestions[factCurrent];factEl('factCount').textContent=`Question ${factCurrent+1} of ${factQuestions.length}`;factEl('factPct').textContent=`${Math.round((factCurrent+1)/factQuestions.length*100)}%`;factEl('factProgress').style.width=`${(factCurrent+1)/factQuestions.length*100}%`;factEl('factPillar').textContent=item.pillar;factEl('factQuestion').textContent=item.q;const box=factEl('factOptions');box.innerHTML='';item.opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.className='fact-option'+(factAnswers[factCurrent]===i?' selected':'');b.innerHTML=`<b>${o[0]}</b><small>${o[1]}</small>`;b.onclick=()=>{factAnswers[factCurrent]=i;factRender();factUpdateViz();};box.appendChild(b);});factEl('factPrev').disabled=factCurrent===0;factEl('factNext').disabled=factAnswers[factCurrent]===null;factEl('factNext').innerHTML=factCurrent===factQuestions.length-1?'See my result <svg class="ic"><use href="#i-arrow"/></svg>':'Next <svg class="ic"><use href="#i-arrow"/></svg>';factUpdateViz();}
-function factShowResult(){const raw=factAnswers.reduce((s,a)=>s+factWeights[a],0),score=factNormalize(raw,25,100),level=factLevels.find(l=>score<=l.max)||factLevels[4],vals=factDimensionScores();factEl('factQuiz').style.display='none';factEl('factResult').classList.add('active');factEl('factScore').textContent=score;factEl('factLevel').textContent=level.name;factEl('factDesc').textContent=level.copy;const bars=factEl('factBars');bars.innerHTML='';factPillars.forEach((p,i)=>{const row=document.createElement('div');row.className='fact-bar';row.innerHTML=`<span>${p}</span><div class="fact-bar-track"><i style="width:${vals[i]}%"></i></div><b>${vals[i]}</b>`;bars.appendChild(row);});}
+function factShowResult(){const raw=factAnswers.reduce((s,a)=>s+factWeights[a],0),score=factNormalize(raw,25,100),level=factLevels.find(l=>score<=l.max)||factLevels[4],vals=factDimensionScores();factEl('factQuiz').style.display='none';factEl('factResult').classList.add('active');factEl('factScore').textContent=score;factEl('factLevel').textContent=level.name;factEl('factDesc').textContent=level.copy;factShowRec(level);const bars=factEl('factBars');bars.innerHTML='';factPillars.forEach((p,i)=>{const row=document.createElement('div');row.className='fact-bar';row.innerHTML=`<span>${p}</span><div class="fact-bar-track"><i style="width:${vals[i]}%"></i></div><b>${vals[i]}</b>`;bars.appendChild(row);});}
+factInitViz();factUpdateViz();
 if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factCapture');cap.classList.add('active');cap.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>factEl('factName')&&factEl('factName').focus(),60);};factEl('factPrev').onclick=()=>{if(factCurrent>0){factCurrent--;factRender();}};factEl('factNext').onclick=()=>{if(factAnswers[factCurrent]===null)return;if(factCurrent<factQuestions.length-1){factCurrent++;factRender();}else factShowResult();};factEl('factRestart').onclick=()=>{factAnswers.fill(null);factCurrent=0;factEl('factResult').classList.remove('active');factEl('factQuiz').style.display='flex';factRender();};const closeFactModal=()=>{const modal=factEl('factStage');modal.classList.remove('active');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';};factEl('factModalClose').onclick=closeFactModal;factEl('factStage').addEventListener('click',e=>{if(e.target===factEl('factStage'))closeFactModal();});factEl('factJoinFun').addEventListener('click',closeFactModal);}
 
 </script>
@@ -1402,5 +1523,7 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
   });
 })();
 </script>
+<form name="kodeflux-toolreq" data-netlify="true" hidden><input name="who"><input name="messiest"><input name="current_setup"><input name="dream_tool"><input name="urgency"><input name="page"><input name="name"><input name="role"><input name="whatsapp"><input name="email"></form>
+<script src="/toolreq.js" defer></script>
 </body>
 </html>
