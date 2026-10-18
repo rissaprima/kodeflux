@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://kodeflux.web.id/tools/kluster.html">
 <meta property="og:image" content="https://kodeflux.web.id/og-image.png?v=20261006">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#120D06">
+<meta name="theme-color" content="#0a0a0b">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -287,14 +287,272 @@
     body { background: #fff; }
   }
 </style>
+
+<style id="fluxio-visual-system">
+/* Flux I/O shell — literal FluxHQ visual system */
+:root {
+  --bg:#0a0a0b;
+  --panel:#111113;
+  --card:#161618;
+  --card-hi:#1f1f22;
+  --line:#242427;
+  --line-hi:#323236;
+  --white:#F4F4F5;
+  --dim:#A1A1AA;
+  --mute:#6B6B73;
+
+  /* FluxHQ shell interaction */
+  --flux-primary:#8B5CF6;
+  --flux-primary-bright:#A78BFA;
+  --flux-gold:#E7B565;
+}
+
+html,body{
+  background:var(--bg);
+  color:var(--white);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* exact FluxHQ top shell */
+.top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  height:56px;
+  padding:0 16px;
+  border-bottom:1px solid var(--line);
+  background:var(--panel);
+}
+.hbtn{
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  background:transparent;
+  border:1px solid var(--line-hi);
+  color:var(--dim);
+}
+.hbtn svg{
+  width:16px;
+  height:16px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.8;
+}
+.brand{
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:-.2px;
+  color:var(--white);
+}
+.brand span{display:none!important}
+.top-tag{
+  margin-left:auto;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--mute);
+  border:1px solid var(--line-hi);
+  border-radius:6px;
+  padding:5px 10px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* exact FluxHQ sidebar shell */
+.side{
+  width:220px;
+  flex-shrink:0;
+  background:var(--panel);
+  border-right:1px solid var(--line);
+}
+.side-scroll{background:var(--panel)}
+.side-psel-wrap{padding:12px 12px 6px}
+.side-psel-btn{
+  background:var(--card);
+  border:1px solid var(--line-hi);
+  border-radius:8px;
+  padding:9px 11px;
+}
+.side-pdd{
+  background:var(--card);
+  border:1px solid var(--line-hi);
+  border-radius:8px;
+}
+.pdd-item:hover{background:var(--card-hi)}
+.pdd-item.on{
+  background:rgba(139,92,246,.14);
+  color:var(--flux-primary-bright);
+}
+.nav-list{
+  display:block;
+  padding:8px 12px;
+}
+.nav-item{
+  position:relative;
+  display:flex;
+  align-items:center;
+  width:100%;
+  margin:0 0 2px;
+  padding:9px 11px;
+  border:0;
+  border-radius:7px;
+  background:transparent;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--dim);
+  text-align:left;
+}
+.nav-item:hover{
+  background:var(--card-hi);
+  color:var(--white);
+}
+.nav-item.on{
+  background:rgba(139,92,246,.14);
+  color:var(--flux-primary-bright);
+}
+.side-nav{
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  padding:8px 12px;
+}
+.sf-item{
+  padding:9px 11px;
+  border-radius:7px;
+  font-size:12.5px;
+  color:var(--dim);
+}
+.sf-item:hover{
+  background:var(--card-hi);
+  color:var(--white);
+}
+
+/* FluxHQ main spacing + cards */
+.main{background:var(--bg)}
+.page-content{padding:20px 24px 40px}
+.dash-head-title{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:0;
+}
+.section-label{
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:1.3px;
+  color:var(--mute);
+  text-transform:uppercase;
+}
+.card,
+.kx-card,
+.kpi-card,
+.chart-card,
+.gen-card,
+.gen-output,
+.task-col{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:none;
+}
+.modal-box{
+  background:var(--panel);
+  border:1px solid var(--line-hi);
+  box-shadow:none;
+}
+.task-card,.cal-cell{
+  background:var(--panel);
+  border-color:var(--line);
+}
+.kx-title{color:var(--white)}
+.kx-cat,.kpi-label{color:var(--mute)}
+
+/* FluxHQ controls */
+.field input,
+.field select,
+.field textarea{
+  background:var(--line);
+  border:1px solid var(--line-hi);
+  border-radius:7px;
+  color:var(--white);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--flux-primary-bright);
+}
+.btn-ghost,
+.icon-btn,
+.planner-arrow,
+.trend-metric-sel,
+.task-status-sel{
+  background:var(--line);
+  border-color:var(--line-hi);
+  color:var(--white);
+}
+.btn-ghost:hover{background:var(--card-hi)}
+
+/* FluxHQ system actions are purple; domain visualization keeps each tool's accent */
+.btn-primary{
+  background:var(--flux-primary);
+  color:#fff;
+}
+.btn-primary:hover{background:var(--flux-primary-bright)}
+.chan-tab{
+  background:var(--card);
+  border:1px solid var(--line);
+  color:var(--dim);
+}
+.chan-tab.on{
+  background:rgba(139,92,246,.14);
+  border-color:var(--flux-primary-bright);
+  color:var(--flux-primary-bright);
+}
+.tab-btn.on{
+  color:var(--flux-primary-bright);
+  border-bottom-color:var(--flux-primary-bright);
+}
+.gen-tab.on{
+  background:rgba(139,92,246,.14);
+  border-color:var(--flux-primary-bright);
+  color:var(--flux-primary-bright);
+}
+
+/* retain sector-specific data/AI accents */
+.kx-insight-card{box-shadow:none}
+.kx-ai-badge{box-shadow:none}
+
+/* exact FluxHQ mobile drawer behavior */
+@media(max-width:1100px){
+  .hbtn{display:flex}
+  .side{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    width:260px;
+    z-index:250;
+    transform:translateX(-100%);
+    transition:transform .22s;
+    box-shadow:20px 0 40px rgba(0,0,0,.5);
+  }
+  .side.mopen{transform:translateX(0)}
+}
+@media(min-width:1101px){
+  .hbtn{display:none}
+}
+@media(max-width:600px){
+  .page-content{padding:12px 8px 28px}
+}
+</style>
+
 </head>
 <body>
 <div class="shell">
 
   <div class="top">
     <button class="hbtn" id="railBtn"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-    <div class="brand">Kluster<span>.</span></div>
-    <div class="top-tag">Rental I/O</div>
+    <div class="brand">Flux I/O</div>
+    <div class="top-tag">Rental</div>
   </div>
 
   <div class="body">
