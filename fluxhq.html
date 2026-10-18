@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FluxHQ — Kantor virtual | Kodeflux</title>
-<meta name="description" content="FluxHQ: enam divisi dan founder saling terhubung. Pilih jenis bisnis dan tonton satu permintaan mengalir dari meja ke meja.">
+<title>FluxHQ — Virtual office embed | Kodeflux</title>
+<meta name="description" content="FluxHQ embed: six AI divisions and a founder connected. Watch a request flow from desk to desk.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://kodeflux.web.id/corp">
 <meta name="theme-color" content="#0e0c12">
 <meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,11 +107,24 @@ html.tr .fl{background:transparent}
   .ag::after{display:none}
 }
 
+/* theme: black / grey / purple */
+:root{--bg:#0a0a0b;--kline:#242427;--klinehi:#323236;--kteal:#8B5CF6;--ktealb:#A78BFA;--kwhite:#F4F4F5;--kdim:#A1A1AA;--kmute:#6B6B73}
+.crew{display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;padding:2px 2px 0;min-height:46px}
+.cr{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;border-radius:99px;border:1px solid var(--kline);font-size:10px;font-weight:600;color:var(--kmute);background:rgba(255,255,255,.02);white-space:nowrap;transition:color .3s,border-color .3s,background .3s}
+.cr i{width:5px;height:5px;border-radius:50%;background:var(--klinehi);flex:none}
+.cr.on{color:var(--kwhite);border-color:rgba(var(--rgb),.75);background:rgba(var(--rgb),.16)}
+.cr.on i{background:rgb(var(--rgb));animation:blink 1s infinite}
+.cr.done{color:var(--kdim);border-color:rgba(var(--rgb),.35)}
+.cr.done i{background:rgb(var(--rgb))}
+html.pv .crew{min-height:0;gap:3px}
+html.pv .cr{height:15px;padding:0 5px;font-size:8px}
+@keyframes blink{50%{opacity:.35}}
+@media(max-width:600px){html.pv .crew{display:none}}
 .hq{max-width:1100px;margin:0 auto;padding:12px}
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:0 0 14px}
 .chip{flex:1 1 0;min-width:0;text-align:center;min-height:32px;padding:.2rem .1rem;border-radius:99px;border:1px solid var(--line2);background:rgba(255,255,255,.04);color:#cfc9d8;font-size:.72rem;font-weight:500;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
 .chip:hover{background:rgba(255,255,255,.09)}
-.chip[aria-pressed="true"]{color:#fff;border-color:transparent;background:linear-gradient(135deg,#7b4fd8,#a84fb0 60%,#c8578f)}
+.chip[aria-pressed="true"]{color:#fff;border-color:transparent;background:#8B5CF6}
 @media(max-width:700px){.chips{flex-wrap:nowrap;gap:4px}.chip{font-size:.7rem}}
 @media(max-width:340px){.chips{flex-wrap:wrap}}
 @media(min-width:701px){.chip{flex:0 0 auto;width:96px;min-height:36px;font-size:.84rem;padding:.3rem 0}}
@@ -124,7 +139,7 @@ html.pv{--spine:40px;--gap:12px;--hw:50px;--hh:39px;--dh:19px;--bh:4.1rem;--bf:.
 </head>
 <body>
 <div class="hq" id="hq">
-  <div class="chips" id="chips" role="group" aria-label="Jenis bisnis"></div>
+  <div class="chips" id="chips" role="group" aria-label="Business type"></div>
   <div class="pvlabel">FluxHQ <span id="pvskin">Agency</span></div>
   <div class="office" id="office"></div>
 </div>
@@ -361,37 +376,42 @@ var FxOffice=(function(){
 
   var SKINS={
     agency:{chip:'Agency',name:'Creative Agency',
-      idle:['Pantau margin & prioritas klien','Konten portofolio & studi kasus','Kualifikasi budget & draf proposal','Atur timeline revisi & deadline','Copy, moodboard & QC brief','Tagih DP & pelunasan klien'],
-      flow:['Inquiry baru: rebranding kafe','Draf proposal siap','Setujui proposal Rp 45 jt sekarang?','Timeline 4 minggu terjadwal','Brief & moodboard siap','Invoice DP 50% sudah terkirim','Ringkasan terkirim ke owner'],
-      ok:'Disetujui: proposal senilai Rp 45 jt'},
+      idle:['Watch margins & client priorities','Portfolio content & case studies','Qualify budgets & draft proposals','Plan schedules, revisions & deadlines','Copy, moodboards & QC','Collect DP & final payments'],
+      flow:['New inquiry: cafe rebrand','Proposal draft is ready','Approve the Rp 45M proposal now?','4-week schedule is set','Brief & moodboard ready','50% DP invoice sent','Summary sent to the owner'],
+      ok:'Approved: Rp 45M proposal'},
     rental:{chip:'Rental',name:'Rental I/O',
-      idle:['Pantau utilisasi & servis unit','Promosi unit kosong di katalog','Cek kalender & amankan booking','Atur antar-jemput & waktu kembali','Bersihkan, cek fungsi, foto unit','Tagih sewa, deposit & refund'],
-      flow:['Inquiry baru: sewa unit 3 hari','Kalender dicek, booking dikirim','Setujui diskon sewa 10% ini?','Antar-jemput dijadwalkan','Unit dibersihkan & difoto','Invoice sewa & deposit terkirim','Ringkasan terkirim ke owner'],
-      ok:'Disetujui: diskon sewa 10%'},
+      idle:['Track utilization & unit servicing','Promote idle units in the catalog','Check the calendar & lock bookings','Plan delivery & return times','Clean, test & photograph units','Collect rent, deposits & refunds'],
+      flow:['New inquiry: 3-day rental','Calendar checked, booking sent','Approve this 10% rental discount?','Delivery & pickup scheduled','Unit cleaned & photographed','Rental & deposit invoice sent','Summary sent to the owner'],
+      ok:'Approved: 10% rental discount'},
     travel:{chip:'Travel',name:'Tour I/O',
-      idle:['Pantau okupansi trip & margin','Promosi open trip & destinasi','Kualifikasi & kirim itinerary','Atur pickup, tiket & vendor','Susun itinerary & voucher','Tagih DP, lunas & refund'],
-      flow:['Inquiry baru: trip 4 orang','Itinerary & harga dikirim','Setujui harga grup khusus?','Pickup & vendor dijadwalkan','Voucher & briefing disiapkan','Invoice DP trip sudah terkirim','Ringkasan terkirim ke owner'],
-      ok:'Disetujui: harga grup khusus'},
+      idle:['Track trip occupancy & margin','Promote open trips & destinations','Qualify leads & send itineraries','Arrange pickups, tickets & vendors','Build itineraries & vouchers','Collect DP, balances & refunds'],
+      flow:['New inquiry: trip for 4','Itinerary & price sent','Approve a special group price?','Pickup & vendors scheduled','Vouchers & briefing prepared','Trip DP invoice sent','Summary sent to the owner'],
+      ok:'Approved: special group price'},
     party:{chip:'Party',name:'Party I/O',
-      idle:['Pantau acara & margin kerja','Konten portofolio & promo paket','Kualifikasi & kirim proposal','Atur rundown, vendor & crew','Siapkan dekor & checklist venue','Tagih DP & pelunasan acara'],
-      flow:['Inquiry baru: ultah 50 tamu','Proposal & estimasi dikirim','Setujui tambahan dekor panggung?','Rundown & vendor terjadwal','Moodboard & checklist siap','Invoice DP acara terkirim','Ringkasan terkirim ke owner'],
-      ok:'Disetujui: tambahan dekor'},
+      idle:['Track events & project margins','Portfolio content & package promos','Qualify leads & send proposals','Plan rundowns, vendors & crew','Prepare decor & venue checklists','Collect event DP & balances'],
+      flow:['New inquiry: birthday, 50 guests','Proposal & estimate sent','Approve extra stage decor?','Rundown & vendors scheduled','Moodboard & checklist ready','Event DP invoice sent','Summary sent to the owner'],
+      ok:'Approved: extra decor'},
     mentor:{chip:'Mentor',name:'Mentor I/O',
-      idle:['Cek kurikulum & batch baru','Konten tips & testimoni alumni','Kualifikasi & closing murid','Kirim Zoom, rekaman, absen','Bikin worksheet & rekap sesi','Tagih kelas & reminder cicilan'],
-      flow:['Pendaftar baru: batch November','Calon peserta dikualifikasi','Setujui beasiswa 1 kursi?','Link Zoom & jadwal dikirim','Worksheet sesi 1 disiapkan','Tagihan & cicilan dijadwalkan','Ringkasan terkirim ke owner'],
-      ok:'Disetujui: beasiswa 1 kursi'},
+      idle:['Review curriculum & new batches','Tips content & alumni stories','Qualify & close students','Send Zoom, recordings, attendance','Make worksheets & session recaps','Bill classes & remind installments'],
+      flow:['New signup: November batch','Prospect qualified','Approve a 1-seat scholarship?','Zoom link & schedule sent','Session 1 worksheet prepared','Billing & installments scheduled','Summary sent to the owner'],
+      ok:'Approved: 1-seat scholarship'},
     retail:{chip:'Retail',name:'Retail',
-      idle:['Pantau penjualan & stok tipis','Promo produk & konten katalog','Balas chat & proses order','Atur kirim, resi & retur barang','Update listing, foto & stok','Rekap bayar, fee & refund'],
-      flow:['Chat baru: tanya stok & ongkir','Order diproses, link bayar siap','Setujui refund pesanan rusak?','Resi dikirim ke pelanggan','Listing & stok diperbarui','Pembayaran sudah dicocokkan','Ringkasan terkirim ke owner'],
-      ok:'Disetujui: refund pesanan'}
+      idle:['Track sales & low stock','Product promos & catalog content','Reply to chats & process orders','Handle shipping, tracking & returns','Update listings, photos & stock','Reconcile payments, fees & refunds'],
+      flow:['New chat: stock & shipping','Order processed, pay link ready','Approve a refund for a damaged order?','Tracking sent to the customer','Listing & stock updated','Payment has been matched','Summary sent to the owner'],
+      ok:'Approved: order refund'}
   };
   var ORDER=['agency','rental','travel','party','mentor','retail'];
-  ORDER.forEach(function(k){var S=SKINS[k];S.idle.concat(S.flow,[S.ok]).forEach(function(x){if(x.length>MAXC&&window.console)console.warn('FluxHQ: teks > '+MAXC+' karakter',k,x)})});
+  ORDER.forEach(function(k){var S=SKINS[k];S.idle.concat(S.flow,[S.ok]).forEach(function(x){if(x.length>MAXC&&window.console)console.warn('FluxHQ: text > '+MAXC+' chars',k,x)})});
 
   var $=function(id){return document.getElementById(id)};
   var chips=$('chips'),skin=Q.get('skin');
   if(!SKINS[skin])skin='agency';
   var O=FxOffice.make($('office'));
+  var ROSTER=[['Briefing','Approvals','Reports'],['Lead Intake','Content','Social'],['Qualifier','Proposal','Follow-up'],['Scheduler','Project Mgr','Client Comms'],['Copywriter','Design Brief','QC Review'],['Invoicing','Collections','Bookkeeping']];
+  var STEPAG=[0,1,1,0,1,0,2];
+  O.DESKS.forEach(function(D,i){var c=document.createElement('div');c.className='crew';c.innerHTML=ROSTER[i].map(function(n,k){return '<span class="cr" data-a="'+k+'"><i></i>'+n+'</span>'}).join('');O.el(i).appendChild(c)});
+  function crew(d,a){return O.el(d).querySelector('.cr[data-a="'+a+'"]')}
+  function crewReset(){[].forEach.call(document.querySelectorAll('.cr'),function(c){c.classList.remove('on','done')})}
 
   ORDER.forEach(function(k){
     var b=document.createElement('button');b.type='button';b.className='chip';b.dataset.k=k;b.textContent=SKINS[k].chip;
@@ -417,7 +437,7 @@ var FxOffice=(function(){
     [].forEach.call(chips.querySelectorAll('.chip'),function(c){c.setAttribute('aria-pressed',String(c.dataset.k===k))});
     $('pvskin').textContent=SKINS[k].chip;
     var off=$('office');off.classList.remove('swap');void off.offsetWidth;off.classList.add('swap');
-    O.reset();O.setIdle(SKINS[k].idle);sendHeight();
+    O.reset();crewReset();O.setIdle(SKINS[k].idle);sendHeight();
     if(restart)start();
   }
   function approval(t){
@@ -437,17 +457,17 @@ var FxOffice=(function(){
   }
   async function play(t){
     var S=SKINS[skin];
-    O.reset();O.setIdle(S.idle);
+    O.reset();crewReset();O.setIdle(S.idle);
     await wait(t,PREVIEW?900:1100);
     var prev=null;
     for(var i=0;i<STEPS.length;i++){
       var d=STEPS[i][0];
       if(prev!==null&&prev!==d)O.transit(prev,d);
-      O.activate(d,S.flow[i]);
+      O.activate(d,S.flow[i]);var ce=crew(d,STEPAG[i]);ce.classList.remove('done');ce.classList.add('on');
       if(i===1){O.transit(2,3);O.transit(2,5)}
       if(i===4){O.transit(4,1);O.transit(4,0)}
       if(STEPS[i][1])await approval(t);else await wait(t,PREVIEW?1900:2300);
-      O.complete(d,i===2?S.ok:S.flow[i]);
+      O.complete(d,i===2?S.ok:S.flow[i]);ce.classList.remove('on');ce.classList.add('done');
       prev=d;
     }
     O.transit(0,'F');

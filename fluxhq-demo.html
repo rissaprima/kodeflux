@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coba FluxHQ untuk Agency | Kodeflux</title>
-<meta name="description" content="Coba FluxHQ untuk agency: isi satu proyek contoh, lihat enam divisi bekerja, lalu setujui sendiri proposal, timeline, brief, dan invoice-nya.">
+<title>Try FluxHQ for Agencies — Live Demo | Kodeflux</title>
+<meta name="description" content="Try FluxHQ for agencies: enter a sample project, watch six AI divisions work together, then approve the proposal, schedule, brief and invoice yourself. Runs in your browser.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://kodeflux.web.id/fluxhq-demo.html">
+<meta property="og:title" content="Try FluxHQ for Agencies — Live Demo">
+<meta property="og:description" content="Enter a sample project and watch six AI divisions run an agency workflow, with the key decision left to you.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kodeflux">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://kodeflux.web.id/fluxhq-demo.html">
+<meta property="og:image" content="https://kodeflux.web.id/og-image.png?v=20261006">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FluxHQ live demo by Kodeflux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Try FluxHQ for Agencies — Live Demo">
+<meta name="twitter:description" content="Six AI divisions, one agency workflow, your decision at the key moment.">
+<meta name="twitter:image" content="https://kodeflux.web.id/og-image.png?v=20261006">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FluxHQ demo","url":"https://kodeflux.web.id/fluxhq-demo.html","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Interactive simulation of FluxHQ, a virtual office of six AI divisions for agencies.","publisher":{"@type":"Organization","name":"Kodeflux","url":"https://kodeflux.web.id/"},"offers":{"@type":"Offer","price":"0","priceCurrency":"IDR"}}</script>
 <meta name="theme-color" content="#0e0c12">
 <meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -358,25 +378,28 @@ html,body{background:#0a0a0b}:root{--bg:#0a0a0b}
 .fld input.bad{border-color:#EF4444}
 .fin-cta{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
 .hide{display:none!important}
+html.emb body{background:transparent!important}
+html.emb .top,html.emb .intro{display:none!important}
+html.emb .wrap{padding:0 0 2px;max-width:none}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <a class="logo" href="/" aria-label="Kodeflux"><span class="la">KOD3</span><span class="lb">FL</span><span class="lc">UX</span><span class="lb">+</span></a>
-    <a class="back" href="/corp.html">← Back to Corp</a>
+    <a class="back" href="/corp" data-i="← Back to Corp||← Kembali ke Corp">← Back to Corp</a>
   </div>
   <div class="intro">
     <div>
       <h1>Try <em>FluxHQ</em> for Agencies.</h1>
-      <p>Isi satu proyek contoh. Enam divisi bekerja saling terhubung, dan keputusan pentingnya ada di tanganmu.</p>
+      <p data-i="Fill in one sample project. Six divisions work together, and the key decision stays in your hands.||Isi satu proyek contoh. Enam divisi bekerja saling terhubung, dan keputusan pentingnya ada di tanganmu.">Fill in one sample project. Six divisions work together, and the key decision stays in your hands.</p>
     </div>
-    <div class="sim"><div class="sim-h"><i>Simulation</i><b>Demo</b></div><span>Semua hasil dibuat otomatis dari data yang kamu isi, langsung di browser. Tidak ada data yang dikirim ke mana pun.</span></div>
+    <div class="sim"><div class="sim-h"><i data-i="Simulation||Simulasi">Simulation</i><b>Demo</b></div><span data-i="Everything is generated from the data you enter, right in your browser. Nothing is sent anywhere.||Semua hasil dibuat otomatis dari data yang kamu isi, langsung di browser. Tidak ada data yang dikirim ke mana pun.">Everything is generated from the data you enter, right in your browser. Nothing is sent anywhere.</span></div>
   </div>
 
   <div class="app" id="app">
     <header class="atop">
-      <button class="hbtn" id="hbtn" type="button" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="hbtn" id="hbtn" type="button" data-ia="Menu||Menu" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <span class="abrand">FluxHQ<span>.</span></span>
       <span class="atag">Agency</span>
     </header>
@@ -385,10 +408,10 @@ html,body{background:#0a0a0b}:root{--bg:#0a0a0b}
     <aside class="side" id="side">
       <div class="side-scroll">
         <div class="psel-wrap"><div class="psel" aria-hidden="true"><i></i><span id="pselName">New project</span><em>▾</em></div></div>
-        <nav class="tabs" id="tabs" role="tablist" aria-label="Menu dashboard"></nav>
+        <nav class="tabs" id="tabs" role="tablist" data-ia="Dashboard menu||Menu dashboard" aria-label="Dashboard menu"></nav>
       </div>
-      <div class="side-foot"><div class="plbl"><span>Progress</span><span id="pTxt">0/7</span></div><div class="pbar"><b id="pBar"></b></div>
-        <button class="sf" type="button" data-act="again">↺ <span>New simulation</span></button></div>
+      <div class="side-foot"><div class="plbl"><span data-i="Progress||Progres">Progress</span><span id="pTxt">0/7</span></div><div class="pbar"><b id="pBar"></b></div>
+        <button class="sf" type="button" data-act="again">↺ <span data-i="New simulation||Simulasi baru">New simulation</span></button></div>
     </aside>
 
     <section class="main" id="panel" aria-live="polite">
@@ -400,29 +423,29 @@ html,body{background:#0a0a0b}:root{--bg:#0a0a0b}
         <div class="stage" id="stage"><div class="office" id="office"></div></div>
         <aside class="fxcol">
           <div class="fxcard">
-            <div class="fxh"><span class="fxt">FluxOS</span><span class="fxs"><i></i>Memory · Live demo</span></div>
-            <canvas id="fxc" aria-label="FluxOS: memori dan agent yang sedang bekerja" role="img"></canvas>
+            <div class="fxh"><span class="fxt">FluxOS</span><span class="fxs"><i></i><span data-i="Memory · Live demo||Memori · Demo langsung">Memory · Live demo</span></span></div>
+            <canvas id="fxc" data-ia="FluxOS: memory and the agents currently working||FluxOS: memori dan agent yang sedang bekerja" aria-label="FluxOS: memory and the agents currently working" role="img"></canvas>
             <div class="fxcap" id="fxCap"></div>
           </div>
-          <div class="card feed"><h4>Activity <span class="ai">LIVE</span></h4><ol id="feed"><li class="emp">Aktifkan FluxOS untuk melihat agent bekerja.</li></ol></div>
+          <div class="card feed"><h4><span data-i="Activity||Aktivitas">Activity</span> <span class="ai">LIVE</span></h4><ol id="feed"><li class="emp">Activate FluxOS to watch the agents work.</li></ol></div>
         </aside>
       </div>
 
       <!-- FORM -->
       <div id="formView">
-        <h2>Aktifkan FluxOS</h2>
-        <p class="sub">Satu hari kerja disimulasikan dalam sekitar satu menit. Isi inquiry yang akan masuk, atau pakai data contoh.</p>
+        <h2 data-i="Activate FluxOS||Aktifkan FluxOS">Activate FluxOS</h2>
+        <p class="sub" data-i="One working day is simulated in about a minute. Enter the inquiry that will arrive, or use the sample data.||Satu hari kerja disimulasikan dalam sekitar satu menit. Isi inquiry yang akan masuk, atau pakai data contoh.">One working day is simulated in about a minute. Enter the inquiry that will arrive, or use the sample data.</p>
         <form class="form" id="form" novalidate>
-          <div class="fld"><label for="fClient">Client name</label><input id="fClient" maxlength="28" value="Kopi Senja" autocomplete="off"></div>
-          <div class="fld"><label for="fBudget">Client budget (Rp)</label><input id="fBudget" inputmode="numeric" value="45.000.000" autocomplete="off"></div>
+          <div class="fld"><label for="fClient" data-i="Client name||Nama klien">Client name</label><input id="fClient" maxlength="28" value="Kopi Senja" autocomplete="off"></div>
+          <div class="fld"><label for="fBudget" data-i="Client budget (Rp)||Budget klien (Rp)">Client budget (Rp)</label><input id="fBudget" inputmode="numeric" value="45.000.000" autocomplete="off"></div>
           <div class="two">
-            <div class="fld"><label for="fType">Project type</label><select id="fType"><option value="rebrand">Rebranding</option><option value="web">Website</option><option value="social">Social media retainer</option><option value="campaign">Campaign</option></select></div>
-            <div class="fld"><label for="fWeeks">Target timeline</label><select id="fWeeks"><option value="2">2 weeks</option><option value="4" selected>4 weeks</option><option value="6">6 weeks</option><option value="8">8 weeks</option></select></div>
+            <div class="fld"><label for="fType" data-i="Project type||Jenis proyek">Project type</label><select id="fType"></select></div>
+            <div class="fld"><label for="fWeeks" data-i="Target timeline||Target timeline">Target timeline</label><select id="fWeeks"></select></div>
           </div>
-          <div class="fld full"><label for="fArrive">Inquiry masuk pukul</label><select id="fArrive"><option value="133" selected>02:13 · tengah malam</option><option value="570">09:30 · pagi</option><option value="840">14:00 · siang</option></select></div>
-          <div class="fld full"><label for="fNote">Client message (optional)</label><textarea id="fNote" maxlength="120" placeholder="Contoh: mau tampilan baru yang lebih hangat"></textarea></div>
+          <div class="fld full"><label for="fArrive" data-i="Inquiry arrives at||Inquiry masuk pukul">Inquiry arrives at</label><select id="fArrive"></select></div>
+          <div class="fld full"><label for="fNote" data-i="Client message (optional)||Pesan klien (opsional)">Client message (optional)</label><textarea id="fNote" maxlength="120" data-ip="e.g. we want a warmer new look||Contoh: mau tampilan baru yang lebih hangat" placeholder="e.g. we want a warmer new look"></textarea></div>
           <div class="err" id="fErr" role="alert"></div>
-          <div class="row-btn"><button class="btn pri" type="submit">Aktifkan FluxOS</button><button class="btn" type="button" data-tab="setup">Buka Settings dulu</button></div>
+          <div class="row-btn"><button class="btn pri" type="submit" data-i="Activate FluxOS||Aktifkan FluxOS">Activate FluxOS</button><button class="btn" type="button" data-tab="setup" data-i="Open Settings first||Buka Pengaturan dulu">Open Settings first</button></div>
         </form>
       </div>
 
@@ -656,55 +679,64 @@ var FxOffice=(function(){
 })();
 
 (function(){
-  /* ISI NANTI: kalau sudah ada link pembayaran, taruh di sini.
-     Selama kosong, tombol "Pasang FluxHQ" tidak ditampilkan. */
-  var PAYMENT_URL='';
-
   var $=function(id){return document.getElementById(id)};
-  var IDLE=['Pantau margin & prioritas klien','Konten portofolio & studi kasus','Kualifikasi budget & draf proposal','Atur timeline revisi & deadline','Copy, moodboard & QC','Tagih DP & pelunasan klien'];
-  var TABS=[['dash','Dashboard',-1,'Operate'],['inquiry','Inquiries',1,'Outputs'],['sow','Proposals',2],['timeline','Schedule',3],['brief','Briefs',4],['invoice','Invoices',5],['summary','Reports',0],['setup','Settings',-1,'System'],['conn','Integrations',-1]];
+  var QP=new URLSearchParams(location.search);
+  var EMBED=QP.get('embed')==='1';
+  var LANG=QP.get('lang')==='id'?'id':'en';
+  /* T(inggris, indonesia, vars): satu kalimat, dua bahasa. {x} diganti dari vars */
+  function T(en,id,v){var s=(LANG==='id'&&id!=null)?id:en;if(v)s=s.replace(/\{(\w+)\}/g,function(m,n){return v[n]!=null?v[n]:m});return s}
+  function L(p){return LANG==='id'?p[1]:p[0]}
+  function LL(a){return a.map(L)}
+  var PAYMENT_URL='';
+  var TABS=[['dash',['Dashboard','Dashboard'],-1,['Operate','Operasional']],['inquiry',['Inquiries','Inquiry'],1,['Outputs','Hasil kerja']],['sow',['Proposals','Proposal'],2],['timeline',['Schedule','Jadwal'],3],['brief',['Briefs','Brief'],4],['invoice',['Invoices','Invoice'],5],['summary',['Reports','Laporan'],0],['setup',['Settings','Pengaturan'],-1,['System','Sistem']],['conn',['Integrations','Integrasi'],-1]];
   var ALWAYS={dash:1,setup:1,conn:1};
   var DESK_KEY={0:'summary',1:'inquiry',2:'sow',3:'timeline',4:'brief',5:'invoice'};
+  function idle(){return [
+    T('Watch margins & client priorities','Pantau margin & prioritas klien'),
+    T('Portfolio content & case studies','Konten portofolio & studi kasus'),
+    T('Qualify budgets & draft proposals','Kualifikasi budget & draf proposal'),
+    T('Plan schedules, revisions & deadlines','Atur jadwal, revisi & deadline'),
+    T('Copy, moodboards & QC','Copy, moodboard & QC'),
+    T('Collect DP & final payments','Tagih DP & pelunasan klien')]}
 
   var TYPES={
-    rebrand:{label:'Rebranding',
-      scope:['Riset & audit brand','Strategi & positioning','Logo dan identitas visual','Brand guideline'],
-      deliv:['Logo & varian','Palet warna & tipografi','Brand guideline (PDF)','Template sosial media'],
-      kw:['bersih','hangat','modern lokal','kontras tegas'],
-      qc:['Logo terbaca di ukuran kecil','Palet lolos cek kontras','Guideline lengkap & konsisten']},
-    web:{label:'Website',
-      scope:['Struktur & wireframe','Desain UI halaman utama','Pengembangan responsif','Setup SEO dasar'],
-      deliv:['Wireframe & desain UI','Website live & responsif','Panduan konten','Laporan kecepatan'],
-      kw:['ringan','jelas','mobile-first','fokus konversi'],
-      qc:['Tampil benar di HP & desktop','Kecepatan muat sudah dicek','Formulir & tombol berfungsi']},
-    social:{label:'Social media retainer',
-      scope:['Strategi konten bulanan','Desain konten feed & story','Penjadwalan posting','Laporan performa'],
-      deliv:['Kalender konten','12 desain post','4 story highlight','Laporan bulanan'],
-      kw:['konsisten','ramah','visual kuat','mudah dibagikan'],
-      qc:['Tone sesuai brand','Caption bebas typo','Jadwal posting sudah dicek']},
-    campaign:{label:'Campaign',
-      scope:['Konsep & key message','Aset kreatif multi-channel','Copy iklan & landing','Pelaporan hasil'],
-      deliv:['Konsep campaign','Aset kreatif (set lengkap)','Copy iklan','Laporan akhir'],
-      kw:['berani','berkesan','jelas pesannya','segar'],
-      qc:['Pesan utama konsisten di semua aset','Ukuran aset sesuai channel','Tautan & CTA berfungsi']}
+    rebrand:{label:['Rebranding','Rebranding'],
+      scope:[['Brand research & audit','Riset & audit brand'],['Strategy & positioning','Strategi & positioning'],['Logo & visual identity','Logo dan identitas visual'],['Brand guidelines','Brand guideline']],
+      deliv:[['Logo & variants','Logo & varian'],['Color palette & typography','Palet warna & tipografi'],['Brand guidelines (PDF)','Brand guideline (PDF)'],['Social media templates','Template sosial media']],
+      kw:[['clean','bersih'],['warm','hangat'],['modern local','modern lokal'],['bold contrast','kontras tegas']],
+      qc:[['Logo is legible at small sizes','Logo terbaca di ukuran kecil'],['Palette passes the contrast check','Palet lolos cek kontras'],['Guidelines are complete & consistent','Guideline lengkap & konsisten']]},
+    web:{label:['Website','Website'],
+      scope:[['Structure & wireframes','Struktur & wireframe'],['Main page UI design','Desain UI halaman utama'],['Responsive development','Pengembangan responsif'],['Basic SEO setup','Setup SEO dasar']],
+      deliv:[['Wireframes & UI design','Wireframe & desain UI'],['Live responsive website','Website live & responsif'],['Content guide','Panduan konten'],['Speed report','Laporan kecepatan']],
+      kw:[['light','ringan'],['clear','jelas'],['mobile-first','mobile-first'],['conversion-focused','fokus konversi']],
+      qc:[['Renders correctly on phone & desktop','Tampil benar di HP & desktop'],['Load speed has been checked','Kecepatan muat sudah dicek'],['Forms & buttons work','Formulir & tombol berfungsi']]},
+    social:{label:['Social media retainer','Social media retainer'],
+      scope:[['Monthly content strategy','Strategi konten bulanan'],['Feed & story design','Desain konten feed & story'],['Post scheduling','Penjadwalan posting'],['Performance report','Laporan performa']],
+      deliv:[['Content calendar','Kalender konten'],['12 post designs','12 desain post'],['4 story highlights','4 story highlight'],['Monthly report','Laporan bulanan']],
+      kw:[['consistent','konsisten'],['friendly','ramah'],['strong visuals','visual kuat'],['shareable','mudah dibagikan']],
+      qc:[['Tone matches the brand','Tone sesuai brand'],['Captions are typo-free','Caption bebas typo'],['Posting schedule has been checked','Jadwal posting sudah dicek']]},
+    campaign:{label:['Campaign','Campaign'],
+      scope:[['Concept & key message','Konsep & key message'],['Multi-channel creative assets','Aset kreatif multi-channel'],['Ad copy & landing page','Copy iklan & landing'],['Results reporting','Pelaporan hasil']],
+      deliv:[['Campaign concept','Konsep campaign'],['Creative assets (full set)','Aset kreatif (set lengkap)'],['Ad copy','Copy iklan'],['Final report','Laporan akhir']],
+      kw:[['bold','berani'],['memorable','berkesan'],['clear message','jelas pesannya'],['fresh','segar']],
+      qc:[['Key message is consistent across assets','Pesan utama konsisten di semua aset'],['Asset sizes match each channel','Ukuran aset sesuai channel'],['Links & CTAs work','Tautan & CTA berfungsi']]}
   };
+  function TL(k){return L(TYPES[k].label)}
 
   /* ---------- helpers ---------- */
   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function rp(n){return 'Rp '+Math.round(n).toLocaleString('id-ID')}
-  function jt(n){return 'Rp '+(n/1e6).toLocaleString('id-ID',{maximumFractionDigits:1})+' jt'}
+  function jt(n){return LANG==='id'?'Rp '+(n/1e6).toLocaleString('id-ID',{maximumFractionDigits:1})+' jt':'Rp '+(n/1e6).toLocaleString('en-US',{maximumFractionDigits:1})+'M'}
   function cap(s,n){n=n||34;return s.length>n?s.slice(0,n-1).trim()+'…':s}
   function addD(dt,n){var x=new Date(dt);x.setDate(x.getDate()+n);return x}
   function wd(dt){var x=new Date(dt),g=x.getDay();if(g===6)x.setDate(x.getDate()+2);else if(g===0)x.setDate(x.getDate()+1);return x}
-  function fd(dt){return dt.toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short'})}
+  function fd(dt){return dt.toLocaleDateString(LANG==='id'?'id-ID':'en-GB',{weekday:'short',day:'numeric',month:'short'})}
   function nextMon(){var x=new Date();x.setHours(0,0,0,0);x.setDate(x.getDate()+((8-x.getDay())%7||7));return x}
   function kv(l,v,w){return '<div'+(w?' class="w"':'')+'><dt>'+l+'</dt><dd>'+v+'</dd></div>'}
   function li(a){return a.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')}
 
   /* ---------- state ---------- */
-  var MQ=window.matchMedia?matchMedia('(min-width:861px)'):{matches:false};
-  var STEPS7=[['Marketing','Inquiry diterima'],['Sales','Proposal disusun'],['Director','Persetujuan founder'],['Operation','Timeline dijadwalkan'],['Production','Brief & QC siap'],['Finance','Invoice DP dibuat'],['Director','Ringkasan untuk founder']];
-  var S={step:0,data:null,art:{},cur:'dash',pending:false,allowRev:false,rev:false,ppn:false,qc:[false,false,false],done:false,manual:false};
+  var S={step:0,data:null,art:{},cur:'dash',pending:false,allowRev:false,rev:false,ppn:false,qc:[false,false,false],done:false,manual:false,stat:null};
   var token=0,hidden=false,decide=null,decideFail=null;
   document.addEventListener('visibilitychange',function(){hidden=document.hidden});
   function wait(t,ms){
@@ -723,42 +755,53 @@ var FxOffice=(function(){
     var k=DESK_KEY[i];
     if(i===0&&S.pending)k='sow';
     if(S.art[k]){S.manual=true;show(k)}
-    else if(S.data)setStatus('Meja '+O.DESKS[i].n+' belum bekerja. Tunggu giliran atau jalankan dulu.',false);
+    else if(S.data)setStatus('The {d} desk has not started yet. Wait for its turn, or run the simulation first.','Meja {d} belum bekerja. Tunggu giliran atau jalankan dulu.',false,{d:O.DESKS[i].n});
   }});
-  O.setIdle(IDLE);
+  O.setIdle(idle());
+
   /* ===== FluxOS: agents, brain canvas, feed, simulated day ===== */
   var ROSTER=[['Briefing','Approvals','Reports'],['Lead Intake','Content','Social'],['Qualifier','Proposal','Follow-up'],['Scheduler','Project Mgr','Client Comms'],['Copywriter','Design Brief','QC Review'],['Invoicing','Collections','Bookkeeping']];
   var CONN=[
-    {k:'gmail',n:'Gmail',d:'Kirim & baca email klien, invoice terkirim otomatis.',ph:'email@domain.com'},
-    {k:'gws',n:'Google Workspace',d:'Drive, Sheets, Docs, Slides, Calendar sebagai penyimpanan & dokumen kerja.',ph:'URL folder Drive atau Sheet utama'},
-    {k:'telegram',n:'Telegram',d:'Kanal notifikasi & approval. Paling mudah: bot gratis lewat BotFather.',ph:'@nama_bot_kamu'},
-    {k:'whatsapp',n:'WhatsApp Business',d:'Chat dengan klien. Perlu verifikasi Meta & template pesan, biasanya lewat penyedia BSP.',ph:'+62 8xx xxxx xxxx'},
-    {k:'notion',n:'Notion',d:'Wiki SOP & catatan klien (opsional).',ph:'URL halaman atau workspace'},
-    {k:'slack',n:'Slack',d:'Notifikasi untuk tim internal (opsional).',ph:'#nama-channel'},
-    {k:'social',n:'Social (Meta, IG, TikTok)',d:'Posting terjadwal lewat scheduler seperti Buffer atau Metricool, bukan API Meta langsung.',ph:'Akun scheduler'},
-    {k:'pay',n:'Pembayaran',d:'Link bayar di invoice, misalnya Xendit atau Midtrans.',ph:'URL halaman atau link bayar'}
+    {k:'gmail',n:'Gmail',d:['Send and read client email. Invoices go out automatically.','Kirim & baca email klien, invoice terkirim otomatis.'],ph:['email@domain.com','email@domain.com']},
+    {k:'gws',n:'Google Workspace',d:['Drive, Sheets, Docs, Slides and Calendar for storage and working documents.','Drive, Sheets, Docs, Slides, Calendar sebagai penyimpanan & dokumen kerja.'],ph:['Drive folder or main Sheet URL','URL folder Drive atau Sheet utama']},
+    {k:'telegram',n:'Telegram',d:['Notification and approval channel. Easiest to set up: a free bot via BotFather.','Kanal notifikasi & approval. Paling mudah: bot gratis lewat BotFather.'],ph:['@your_bot_name','@nama_bot_kamu']},
+    {k:'whatsapp',n:'WhatsApp Business',d:['Chat with clients. Needs Meta verification and message templates, usually through a BSP provider.','Chat dengan klien. Perlu verifikasi Meta & template pesan, biasanya lewat penyedia BSP.'],ph:['+62 8xx xxxx xxxx','+62 8xx xxxx xxxx']},
+    {k:'notion',n:'Notion',d:['SOP wiki and client notes (optional).','Wiki SOP & catatan klien (opsional).'],ph:['Page or workspace URL','URL halaman atau workspace']},
+    {k:'slack',n:'Slack',d:['Notifications for your internal team (optional).','Notifikasi untuk tim internal (opsional).'],ph:['#channel-name','#nama-channel']},
+    {k:'social',n:['Social (Meta, IG, TikTok)','Social (Meta, IG, TikTok)'],d:['Scheduled posting through a scheduler such as Buffer or Metricool, not the Meta API directly.','Posting terjadwal lewat scheduler seperti Buffer atau Metricool, bukan API Meta langsung.'],ph:['Scheduler account','Akun scheduler']},
+    {k:'pay',n:['Payments','Pembayaran'],d:['Payment link on invoices, for example Xendit or Midtrans.','Link bayar di invoice, misalnya Xendit atau Midtrans.'],ph:['Payment page or link URL','URL halaman atau link bayar']}
   ];
-  S.setup={provider:'claude',tier:'balanced',hasKey:false,cap:'500.000',mcp:[],thr:20,notify:'telegram',to:'@founder',autoInv:true,
+  var SOP=[
+    ['Summarize the day and flag decisions that need the founder','Ringkas hasil harian, tandai keputusan yang butuh founder'],
+    ['Log leads within 5 minutes and reply with the welcome template','Catat lead dalam 5 menit, balas dengan template sambutan'],
+    ['Qualify the budget first; every proposal needs a scope & revision limit','Kualifikasi budget dulu, proposal wajib punya scope & revisi'],
+    ['Start on Monday; every revision gets a clear deadline','Jadwal mulai Senin, tiap revisi punya tenggat jelas'],
+    ['Short brief per deliverable, QC before it goes to the client','Brief singkat per deliverable, QC sebelum kirim klien'],
+    ['50% DP upfront, automatic reminder one day after the due date','DP 50% di awal, tagih otomatis H+1 setelah jatuh tempo']];
+  var SCHED0=[
+    ['07:00',1,0,['Recap overnight leads & update the pipeline','Rekap lead semalam & update pipeline']],
+    ['09:00',2,2,['Follow up on proposals with no reply','Follow-up proposal yang belum dibalas']],
+    ['10:30',3,2,['Send schedule reminders to clients','Kirim reminder jadwal ke klien']],
+    ['12:00',1,2,['Schedule this week\'s social posts','Jadwalkan posting sosmed minggu ini']],
+    ['15:00',4,2,['QC the review queue & assets','QC antrean review & aset']],
+    ['16:00',5,1,['Chase overdue invoices','Tagih invoice yang jatuh tempo']],
+    ['18:00',0,2,['Send the daily summary to the founder','Kirim ringkasan harian ke founder']]];
+  S.setup={lang:LANG,provider:'claude',tier:'balanced',hasKey:false,cap:'500.000',mcp:[],thr:20,notify:'telegram',to:'@founder',autoInv:true,
     agents:[[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1]],
-    sop:['Ringkas hasil harian, tandai keputusan yang butuh founder','Catat lead dalam 5 menit, balas dengan template sambutan','Kualifikasi budget dulu, proposal wajib punya scope & revisi','Jadwal mulai Senin, tiap revisi punya tenggat jelas','Brief singkat per deliverable, QC sebelum kirim klien','DP 50% di awal, tagih otomatis H+1 setelah jatuh tempo'],
-    sched:[
-      {t:'07:00',d:1,a:0,txt:'Rekap lead semalam & update pipeline',on:true},
-      {t:'09:00',d:2,a:2,txt:'Follow-up proposal yang belum dibalas',on:true},
-      {t:'10:30',d:3,a:2,txt:'Kirim reminder jadwal ke klien',on:true},
-      {t:'12:00',d:1,a:2,txt:'Jadwalkan posting sosmed minggu ini',on:true},
-      {t:'15:00',d:4,a:2,txt:'QC antrean review & aset',on:true},
-      {t:'16:00',d:5,a:1,txt:'Tagih invoice yang jatuh tempo',on:true},
-      {t:'18:00',d:0,a:2,txt:'Kirim ringkasan harian ke founder',on:true}
-    ]};
-  S.conn={gmail:{on:true,val:'hello@youragency.id'},gws:{on:true,val:'Folder: Klien 2026'},telegram:{on:true,val:'@fluxhq_demo_bot'},whatsapp:{on:false,val:''},notion:{on:false,val:''},slack:{on:false,val:''},social:{on:false,val:''},pay:{on:false,val:''}};
+    sop:[null,null,null,null,null,null],
+    sched:SCHED0.map(function(r){return{t:r[0],d:r[1],a:r[2],p:r[3],txt:null,on:true}})};
+  function rtext(r){return r.txt!=null?r.txt:L(r.p)}
+  function stext(i){var v=S.setup.sop[i];return v!=null?v:L(SOP[i])}
+  S.conn={gmail:{on:true,val:'hello@youragency.id'},gws:{on:true,val:'Folder: Clients 2026'},telegram:{on:true,val:'@fluxhq_demo_bot'},whatsapp:{on:false,val:''},notion:{on:false,val:''},slack:{on:false,val:''},social:{on:false,val:''},pay:{on:false,val:''}};
   S.auto=0;S.running=false;S.fired={};S.arrive=133;
   var SPD=1;
+  var FEED=[];
 
   function pad(n){return (n<10?'0':'')+n}
   function fmtClock(m){m=Math.floor(m);if(m>=1440)return '24:00';return pad(Math.floor(m/60)%24)+':'+pad(m%60)}
   function parseT(s){var p=String(s||'').split(':');return (+p[0]||0)*60+(+p[1]||0)}
 
-  /* crew chips di tiap meja */
+  /* agent chips di tiap meja */
   O.DESKS.forEach(function(D,i){
     var c=document.createElement('div');c.className='crew';
     c.innerHTML=ROSTER[i].map(function(n,k){return '<span class="cr" data-a="'+k+'"><i></i>'+n+'</span>'}).join('');
@@ -773,14 +816,25 @@ var FxOffice=(function(){
     O.DESKS.forEach(function(D,i){[0,1,2].forEach(function(k){crewEl(i,k).classList.toggle('off',!S.setup.agents[i][k])})});
     Brain.setAgents();capText();
   }
-  function capText(){$('fxCap').innerHTML='<span>6 DIVISIONS · '+nAgents()+' AGENTS</span><span>'+nTasks()+' TASKS · '+nTools()+' TOOLS</span>'}
+  function capText(){$('fxCap').innerHTML='<span>'+T('6 DIVISIONS · {a} AGENTS','6 DIVISI · {a} AGEN',{a:nAgents()})+'</span><span>'+T('{n} TASKS · {t} TOOLS','{n} TUGAS · {t} TOOLS',{n:nTasks(),t:nTools()})+'</span>'}
 
   /* ---------- feed ---------- */
-  function log(d,a,txt){
+  function feedLi(e){
     var li=document.createElement('li');
-    li.innerHTML='<time>'+(S.running?fmtClock(CK.min):'--:--')+'</time><div><b style="color:rgb('+O.DESKS[d].rgb+')">'+ROSTER[d][a]+'</b><span>'+esc(txt)+'</span></div>';
-    var ol=$('feed');ol.insertBefore(li,ol.firstChild);
+    li.innerHTML='<time>'+e.t+'</time><div><b style="color:rgb('+O.DESKS[e.d].rgb+')">'+ROSTER[e.d][e.a]+'</b><span>'+esc(T(e.en,e.id,e.v))+'</span></div>';
+    return li;
+  }
+  function log(d,a,en,id,v){
+    var e={t:S.running?fmtClock(CK.min):'--:--',d:d,a:a,en:en,id:id,v:v};
+    FEED.unshift(e);if(FEED.length>60)FEED.pop();
+    var ol=$('feed'),emp=ol.querySelector('.emp');if(emp)emp.remove();
+    ol.insertBefore(feedLi(e),ol.firstChild);
     while(ol.children.length>60)ol.removeChild(ol.lastChild);
+  }
+  function renderFeed(){
+    var ol=$('feed');ol.innerHTML='';
+    if(!FEED.length){ol.innerHTML='<li class="emp">'+T('Activate FluxOS to watch the agents work.','Aktifkan FluxOS untuk melihat agent bekerja.')+'</li>';return}
+    FEED.forEach(function(e){ol.appendChild(feedLi(e))});
   }
 
   /* ---------- FluxOS brain canvas ---------- */
@@ -852,9 +906,10 @@ var FxOffice=(function(){
           g.beginPath();g.arc(p.x,p.y,8.5*u,0,6.283);g.fill();g.stroke();g.shadowBlur=0;
           g.fillStyle=rc(n.i,.95);g.beginPath();g.arc(p.x,p.y,2.6*u,0,6.283);g.fill();
           g.font=(7.4*Math.max(.9,u))+'px "DM Mono",monospace';g.textAlign='center';g.fillStyle=rc(n.i,.85);
-          g.fillText((R<130?['DIR','MKT','SLS','OPS','PRD','FIN'][n.i]:O.DESKS[n.i].n.toUpperCase()),p.x,p.y+(p.y>cy?17:-13)*Math.max(.9,u));
+          g.fillText(O.DESKS[n.i].n.toUpperCase(),p.x,p.y+(p.y>cy?17:-13)*Math.max(.9,u));
         }
       });
+      g.font=(8*Math.max(.9,u))+'px "DM Mono",monospace';g.textAlign='center';g.fillStyle='rgba(196,181,253,.8)';g.fillText('FLUXOS',cx,cy+R*.3);
       /* denyut ambient & aktif */
       if(!RED){
         if(T-lastAmb>650){lastAmb=T;var l=links[Math.floor(Math.random()*links.length)];if(l)spawn(l,Math.random()<.5)}
@@ -899,9 +954,9 @@ var FxOffice=(function(){
   }
   function fireRoutine(x){
     var r=x.r,a=pickAgent(r.d,r.a);S.fired[x.i]=true;
-    if(!S.setup.agents[r.d].some(Boolean)){log(r.d,0,'Dilewati: semua agent divisi '+O.DESKS[r.d].n+' nonaktif');refreshDash();return}
+    if(!S.setup.agents[r.d].some(Boolean)){log(r.d,0,'Skipped: every agent in {d} is switched off','Dilewati: semua agent divisi {d} nonaktif',{d:O.DESKS[r.d].n});refreshDash();return}
     var el=crewEl(r.d,a);el.classList.remove('done');el.classList.add('on');Brain.agent(r.d,a,1);Brain.burst(r.d);
-    log(r.d,a,r.txt+' (jadwal '+r.t+')');S.auto++;
+    log(r.d,a,'{x} (scheduled {t})','{x} (jadwal {t})',{x:rtext(r),t:r.t});S.auto++;
     setTimeout(function(){el.classList.remove('on');el.classList.add('done');Brain.agent(r.d,a,0)},Math.max(500,1900/SPD));
     refreshDash();
   }
@@ -912,37 +967,40 @@ var FxOffice=(function(){
       setTimeout(step,100);
     })()});
   }
-  function AG(d,a,msg){
+  function AG(d,a,en,id,v){
     a=pickAgent(d,a);var el=crewEl(d,a);el.classList.remove('done');el.classList.add('on');
-    log(d,a,msg);Brain.burst(d);Brain.agent(d,a,1);S.auto++;
+    log(d,a,en,id,v);Brain.burst(d);Brain.agent(d,a,1);S.auto++;
     return function(){el.classList.remove('on');el.classList.add('done');Brain.agent(d,a,0)};
   }
   function chanName(){return {telegram:'Telegram',whatsapp:'WhatsApp',email:'Email'}[S.setup.notify]}
   function chanOn(){var k={telegram:'telegram',whatsapp:'whatsapp',email:'gmail'}[S.setup.notify];return S.conn[k].on}
   function notifyFounder(){
-    log(0,1,'Notifikasi ke '+chanName()+' '+(S.setup.to||'founder')+': proposal '+jt(price())+' menunggu persetujuan'+(chanOn()?'':' · hubungkan '+chanName()+' di Integrations agar terkirim'));
+    log(0,1,'Notification to {ch} {to}: the {p} proposal is waiting for approval{h}','Notifikasi ke {ch} {to}: proposal {p} menunggu persetujuan{h}',
+      {ch:chanName(),to:S.setup.to||'founder',p:jt(price()),h:chanOn()?'':T(' · connect '+chanName()+' under Integrations so it actually sends',' · hubungkan '+chanName()+' di Integrations agar terkirim')});
   }
   function clientChan(){return S.conn.whatsapp.on?'WhatsApp':S.conn.gmail.on?'Gmail':''}
   function endDay(){
     CK.on=false;Brain.set(-1);
-    setStatus('Hari selesai. Satu keputusan darimu, '+S.auto+' tugas jalan otomatis. FluxOS tetap aktif 24/7.',true);
-    var c='<button class="btn sm" type="button" data-act="again">Try with other data</button>';
-    if(PAYMENT_URL)c='<a class="btn pri" href="'+esc(PAYMENT_URL)+'">Get FluxHQ for your agency</a>'+c;
-    $('finCta').innerHTML=c;refreshDash();
+    setStatus('Day complete. One decision from you, {n} tasks ran on their own. FluxOS stays on 24/7.','Hari selesai. Satu keputusan darimu, {n} tugas jalan otomatis. FluxOS tetap aktif 24/7.',true,{n:S.auto});
+    finCta();refreshDash();
+  }
+  function finCta(){
+    var c='<button class="btn sm" type="button" data-act="again">'+T('Try with other data','Coba dengan data lain')+'</button>';
+    if(PAYMENT_URL)c='<a class="btn pri" href="'+esc(PAYMENT_URL)+'">'+T('Get FluxHQ for your agency','Pasang FluxHQ untuk agency-mu')+'</a>'+c;
+    $('finCta').innerHTML=c;
   }
   applyAgents();Brain.setTools(Math.max(3,nTools()));capText();
-
 
   /* ---------- documents (tampil sebagai halaman dashboard) ---------- */
   function price(){var d=S.data;return S.rev?d.budget*.95:d.budget}
   function timeline(){
     var d=S.data,start=nextMon(),total=d.weeks*7;
     return [
-      ['Kickoff & brief',start,'Operation'],
-      ['Draf pertama',wd(addD(start,Math.round(total*.4))),'Production'],
-      ['Revisi 1',wd(addD(start,Math.round(total*.65))),'Operation'],
-      ['Revisi 2',wd(addD(start,Math.round(total*.85))),'Operation'],
-      ['Final & serah terima',wd(addD(start,total-1)),'Production']
+      [['Kickoff & brief','Kickoff & brief'],start,'Operation'],
+      [['First draft','Draf pertama'],wd(addD(start,Math.round(total*.4))),'Production'],
+      [['Revision 1','Revisi 1'],wd(addD(start,Math.round(total*.65))),'Operation'],
+      [['Revision 2','Revisi 2'],wd(addD(start,Math.round(total*.85))),'Operation'],
+      [['Final & handover','Final & serah terima'],wd(addD(start,total-1)),'Production']
     ];
   }
   function invoiceNums(){
@@ -956,23 +1014,23 @@ var FxOffice=(function(){
   function deskTag(n){var D=O.DESKS.filter(function(x){return x.n===n})[0];return '<span class="dk" style="--c:'+D.rgb+'">'+n+'</span>'}
 
   function docInquiry(){
-    var d=S.data,T=TYPES[d.type],lead=d.budget>=30e6?'Tinggi':d.budget>=10e6?'Sedang':'Rendah';
-    return head('New inquiry','Marketing · diteruskan ke Sales','AI')+
-      '<div class="kpis">'+kpi('Client',esc(d.client))+kpi('Project',T.label)+kpi('Budget',jt(d.budget))+kpi('Lead priority',lead,'Scored','')+'</div>'+
-      '<div class="g2">'+card('<h4>Detail</h4><dl class="kvl">'+kvc('Target',d.weeks+' minggu')+kvc('Source','Form website')+kvc('Diterima','Hari ini')+'</dl>')+
-      card('<h4>Client message</h4><p class="msg">'+(d.note?'“'+esc(d.note)+'”':'Tidak ada pesan tambahan.')+'</p>')+'</div>';
+    var d=S.data,TT=TYPES[d.type],lead=d.budget>=30e6?T('High','Tinggi'):d.budget>=10e6?T('Medium','Sedang'):T('Low','Rendah');
+    return head(T('New inquiry','Inquiry baru'),T('Marketing · passed to Sales','Marketing · diteruskan ke Sales'),'AI')+
+      '<div class="kpis">'+kpi(T('Client','Klien'),esc(d.client))+kpi(T('Project','Proyek'),L(TT.label))+kpi('Budget',jt(d.budget))+kpi(T('Lead priority','Prioritas lead'),lead,T('Scored','Dinilai'),'')+'</div>'+
+      '<div class="g2">'+card('<h4>'+T('Details','Detail')+'</h4><dl class="kvl">'+kvc(T('Target','Target'),T('{n} weeks','{n} minggu',{n:d.weeks}))+kvc(T('Source','Sumber'),T('Website form','Form website'))+kvc(T('Received','Diterima'),T('Today','Hari ini'))+'</dl>')+
+      card('<h4>'+T('Client message','Pesan klien')+'</h4><p class="msg">'+(d.note?'“'+esc(d.note)+'”':T('No additional message.','Tidak ada pesan tambahan.'))+'</p>')+'</div>';
   }
   function docSow(){
-    var d=S.data,T=TYPES[d.type],p=price();
-    var h=head('Proposal','Sales · untuk '+esc(d.client),S.rev?'Revisi':'AI')+
-      '<div class="g2">'+card('<h4>Scope</h4><ul class="ls">'+li(T.scope)+'</ul>')+card('<h4>Deliverables</h4><ul class="ls">'+li(T.deliv)+'</ul>')+'</div>'+
-      card('<h4>Investment</h4><table class="tbl"><tr><td>Nilai proyek ('+T.label+')</td><td>'+rp(d.budget)+'</td></tr>'+
-      (S.rev?'<tr><td>Diskon 5% (revisi dari owner)</td><td>−'+rp(d.budget*.05)+'</td></tr>':'')+
-      '<tr class="tot"><td>Total</td><td>'+rp(p)+'</td></tr></table><p class="note">DP 50% saat disetujui, pelunasan 50% saat final · 2 putaran revisi · berlaku 14 hari</p>');
+    var d=S.data,TT=TYPES[d.type],p=price();
+    var h=head(T('Proposal','Proposal'),T('Sales · for {c}','Sales · untuk {c}',{c:esc(d.client)}),S.rev?T('Revised','Revisi'):'AI')+
+      '<div class="g2">'+card('<h4>Scope</h4><ul class="ls">'+li(LL(TT.scope))+'</ul>')+card('<h4>Deliverables</h4><ul class="ls">'+li(LL(TT.deliv))+'</ul>')+'</div>'+
+      card('<h4>'+T('Investment','Investasi')+'</h4><table class="tbl"><tr><td>'+T('Project value ({t})','Nilai proyek ({t})',{t:L(TT.label)})+'</td><td>'+rp(d.budget)+'</td></tr>'+
+      (S.rev?'<tr><td>'+T('5% discount (owner revision)','Diskon 5% (revisi dari owner)')+'</td><td>−'+rp(d.budget*.05)+'</td></tr>':'')+
+      '<tr class="tot"><td>Total</td><td>'+rp(p)+'</td></tr></table><p class="note">'+T('50% DP on approval, 50% on final delivery · 2 revision rounds · valid for 14 days','DP 50% saat disetujui, pelunasan 50% saat final · 2 putaran revisi · berlaku 14 hari')+'</p>');
     if(S.pending){
-      h+='<div class="act-bar"><p>Penawaran sebesar '+jt(p)+' menunggu persetujuanmu sebagai founder.</p><div class="row-btn" style="margin:0">'+
+      h+='<div class="act-bar"><p>'+T('A {p} proposal is waiting for your approval as founder.','Penawaran sebesar {p} menunggu persetujuanmu sebagai founder.',{p:jt(p)})+'</p><div class="row-btn" style="margin:0">'+
         '<button class="btn pri sm" type="button" data-act="ok">Approve</button>'+
-        (S.allowRev?'<button class="btn sm" type="button" data-act="rev">Request revision (5% off)</button>':'')+'</div></div>';
+        (S.allowRev?'<button class="btn sm" type="button" data-act="rev">'+T('Request revision (5% off)','Minta revisi (diskon 5%)')+'</button>':'')+'</div></div>';
     }
     return h;
   }
@@ -981,44 +1039,45 @@ var FxOffice=(function(){
     return '<div class="gantt">'+tl.map(function(r,i){
       var a=i?tl[i-1][1]:s0,b=r[1],l=(a-s0)/span*100,w=Math.max(7,(b-a)/span*100);
       if(l+w>100)l=100-w;
-      return '<div class="gr"><span>'+r[0]+'</span><div class="gt"><b style="left:'+l.toFixed(1)+'%;width:'+w.toFixed(1)+'%"></b></div></div>';
+      return '<div class="gr"><span>'+L(r[0])+'</span><div class="gt"><b style="left:'+l.toFixed(1)+'%;width:'+w.toFixed(1)+'%"></b></div></div>';
     }).join('')+'</div>';
   }
   function docTimeline(){
-    var rows=timeline().map(function(r){return '<tr><td>'+fd(r[1])+'</td><td>'+r[0]+'</td><td>'+deskTag(r[2])+'</td></tr>'}).join('');
-    return head('Schedule','Operation · dijadwalkan otomatis untuk '+S.data.weeks+' minggu','AI')+
-      card('<h4>Schedule</h4><table class="tbl"><tr><th>Date</th><th>Stage</th><th>Desk</th></tr>'+rows+'</table><p class="note">Mulai Senin terdekat. Tanggal akhir pekan digeser ke hari kerja.</p>')+
+    var rows=timeline().map(function(r){return '<tr><td>'+fd(r[1])+'</td><td>'+L(r[0])+'</td><td>'+deskTag(r[2])+'</td></tr>'}).join('');
+    return head(T('Schedule','Jadwal'),T('Operation · scheduled automatically for {n} weeks','Operation · dijadwalkan otomatis untuk {n} minggu',{n:S.data.weeks}),'AI')+
+      card('<h4>'+T('Schedule','Jadwal')+'</h4><table class="tbl"><tr><th>'+T('Date','Tanggal')+'</th><th>'+T('Stage','Tahap')+'</th><th>'+T('Desk','Meja')+'</th></tr>'+rows+'</table><p class="note">'+T('Starts on the next Monday. Weekend dates are moved to working days.','Mulai Senin terdekat. Tanggal akhir pekan digeser ke hari kerja.')+'</p>')+
       card('<h4>Gantt</h4>'+gantt());
   }
   function docBrief(){
-    var T=TYPES[S.data.type],n=S.qc.filter(Boolean).length;
-    return head('Brief & QC','Production · '+esc(S.data.client)+' · '+T.label,'AI')+
+    var TT=TYPES[S.data.type],n=S.qc.filter(Boolean).length;
+    return head('Brief & QC','Production · '+esc(S.data.client)+' · '+L(TT.label),'AI')+
       '<div class="g2">'+
-      card('<h4>Visual direction</h4><div class="chipset">'+T.kw.map(function(k){return '<span>'+esc(k)+'</span>'}).join('')+'</div><h4 style="margin-top:16px">Deliverables</h4><ul class="ls">'+li(T.deliv)+'</ul>')+
-      card('<h4>Quality checklist</h4>'+T.qc.map(function(q,i){return '<label class="chk"><input type="checkbox" data-qc="'+i+'"'+(S.qc[i]?' checked':'')+'><span>'+esc(q)+'</span></label>'}).join('')+
-        '<p class="prog" id="qcProg">'+n+' dari '+T.qc.length+' lolos QC'+(n===T.qc.length?' · siap dikirim ke klien':'')+'</p>')+'</div>';
+      card('<h4>'+T('Visual direction','Arah visual')+'</h4><div class="chipset">'+LL(TT.kw).map(function(k){return '<span>'+esc(k)+'</span>'}).join('')+'</div><h4 style="margin-top:16px">Deliverables</h4><ul class="ls">'+li(LL(TT.deliv))+'</ul>')+
+      card('<h4>'+T('Quality checklist','Checklist kualitas')+'</h4>'+TT.qc.map(function(q,i){return '<label class="chk"><input type="checkbox" data-qc="'+i+'"'+(S.qc[i]?' checked':'')+'><span>'+esc(L(q))+'</span></label>'}).join('')+
+        '<p class="prog" id="qcProg">'+qcText()+'</p>')+'</div>';
   }
+  function qcText(){var TT=TYPES[S.data.type],n=S.qc.filter(Boolean).length;return T('{n} of {t} QC checks passed','{n} dari {t} lolos QC',{n:n,t:TT.qc.length})+(n===TT.qc.length?T(' · ready to send to the client',' · siap dikirim ke klien'):'')}
   function docInvoice(){
     var d=S.data,n=invoiceNums(),now=new Date(),no='INV-'+String(now.getFullYear()).slice(2)+String(now.getMonth()+1).padStart(2,'0')+'-001';
-    return head('Invoice · 50% DP','Finance · '+no,'AI')+
-      '<div class="kpis">'+kpi('Billed to',esc(d.client))+kpi('Due',fd(addD(now,3)),'3 hari','w')+kpi('DP 50%',jt(n.dp))+kpi('Total due',rp(n.total),S.ppn?'+PPN':'','')+'</div>'+
-      card('<h4>Items</h4><table class="tbl"><tr><th>Item</th><th>Amount</th></tr><tr><td>DP 50% · '+TYPES[d.type].label+'</td><td>'+rp(n.dp)+'</td></tr>'+
+    return head(T('Invoice · 50% DP','Invoice · DP 50%'),'Finance · '+no,'AI')+
+      '<div class="kpis">'+kpi(T('Billed to','Ditagihkan ke'),esc(d.client))+kpi(T('Due','Jatuh tempo'),fd(addD(now,3)),T('3 days','3 hari'),'w')+kpi('DP 50%',jt(n.dp))+kpi(T('Total due','Total tagihan'),rp(n.total),S.ppn?'+PPN':'','')+'</div>'+
+      card('<h4>Items</h4><table class="tbl"><tr><th>Item</th><th>'+T('Amount','Jumlah')+'</th></tr><tr><td>DP 50% · '+L(TYPES[d.type].label)+'</td><td>'+rp(n.dp)+'</td></tr>'+
       (S.ppn?'<tr><td>PPN 11%</td><td>'+rp(n.ppn)+'</td></tr>':'')+
-      '<tr class="tot"><td>Total due</td><td>'+rp(n.total)+'</td></tr></table>'+
-      '<label class="sw"><input type="checkbox" id="ppn"'+(S.ppn?' checked':'')+'><span>Kenakan PPN 11% (coba, total berubah)</span></label>')+
-      '<p class="note" style="margin:0">'+(clientChan()?'Terkirim ke klien via '+clientChan()+'.':'Belum ada Gmail atau WhatsApp terhubung, jadi invoice belum terkirim otomatis.')+'</p>';
+      '<tr class="tot"><td>'+T('Total due','Total tagihan')+'</td><td>'+rp(n.total)+'</td></tr></table>'+
+      '<label class="sw"><input type="checkbox" id="ppn"'+(S.ppn?' checked':'')+'><span>'+T('Apply 11% VAT (PPN) to see the total change','Kenakan PPN 11% (coba, total berubah)')+'</span></label>')+
+      '<p class="note" style="margin:0">'+(clientChan()?T('Sent to the client via {c}.','Terkirim ke klien via {c}.',{c:clientChan()}):T('No Gmail or WhatsApp is connected, so the invoice is not sent automatically.','Belum ada Gmail atau WhatsApp terhubung, jadi invoice belum terkirim otomatis.'))+'</p>';
   }
   function docSummary(){
     var d=S.data,n=invoiceNums(),tl=timeline();
-    return head('Daily summary','Director · untuk founder','AI')+
-      '<div class="g2">'+card('<h4>Hari ini</h4><ul class="ls sum">'+
-      '<li>Inquiry '+esc(d.client)+' ('+TYPES[d.type].label+') masuk dari Marketing</li>'+
-      '<li>Proposal '+jt(price())+' kamu setujui'+(S.rev?' setelah revisi diskon 5%':'')+'</li>'+
-      '<li>Timeline berjalan sampai '+fd(tl[tl.length-1][1])+'</li>'+
-      '<li>Brief & checklist QC sudah di meja Production</li>'+
-      '<li>Invoice DP '+rp(n.total)+' terkirim, jatuh tempo 3 hari</li>'+
-      '<li>'+S.auto+' tugas dijalankan otomatis oleh agent</li></ul>')+
-      card('<h4>Waiting on</h4><ul class="ls"><li>Pembayaran DP dari '+esc(d.client)+'</li></ul>','hl')+'</div>';
+    return head(T('Daily summary','Ringkasan harian'),T('Director · for the founder','Director · untuk founder'),'AI')+
+      '<div class="g2">'+card('<h4>'+T('Today','Hari ini')+'</h4><ul class="ls sum">'+
+      '<li>'+T('Inquiry from {c} ({t}) arrived via Marketing','Inquiry {c} ({t}) masuk dari Marketing',{c:esc(d.client),t:L(TYPES[d.type].label)})+'</li>'+
+      '<li>'+T('You approved the {p} proposal','Proposal {p} kamu setujui',{p:jt(price())})+(S.rev?T(' after the 5% discount revision',' setelah revisi diskon 5%'):'')+'</li>'+
+      '<li>'+T('Schedule runs until {d}','Timeline berjalan sampai {d}',{d:fd(tl[tl.length-1][1])})+'</li>'+
+      '<li>'+T('Brief & QC checklist are on the Production desk','Brief & checklist QC sudah di meja Production')+'</li>'+
+      '<li>'+T('DP invoice {n} sent, due in 3 days','Invoice DP {n} terkirim, jatuh tempo 3 hari',{n:rp(n.total)})+'</li>'+
+      '<li>'+T('{n} tasks ran automatically by agents','{n} tugas dijalankan otomatis oleh agent',{n:S.auto})+'</li></ul>')+
+      card('<h4>'+T('Waiting on','Menunggu')+'</h4><ul class="ls"><li>'+T('DP payment from {c}','Pembayaran DP dari {c}',{c:esc(d.client)})+'</li></ul>','hl')+'</div>';
   }
 
   /* dashboard (overview) */
@@ -1030,102 +1089,104 @@ var FxOffice=(function(){
     var n=DESKSTEP.filter(function(x){return x[0]===i})[0][1];
     return st>n?'Done':st===n?'Active':'Idle';
   }
+  function stLabel(s){return {Done:T('Done','Selesai'),Active:T('Active','Aktif'),Idle:T('Idle','Siaga'),Next:T('Next','Berikut'),Set:T('Set','Jadwal')}[s]||s}
   function insight(){
-    var d=S.data,T=TYPES[d.type],st=S.done?8:S.step;
-    if(S.done)return 'Proyek '+esc(d.client)+' sudah berjalan penuh. Kamu cukup memutuskan satu hal, sisanya dikerjakan agent. Invoice DP '+jt(invoiceNums().total)+' tinggal menunggu pembayaran. '+S.auto+' tugas sudah dijalankan otomatis hari ini.';
-    if(S.pending)return 'Proposal '+jt(price())+' untuk '+esc(d.client)+' menunggu keputusanmu. Operation dan Finance sudah dikabari lebih awal, jadi begitu kamu setuju, timeline dan invoice langsung jalan.';
-    if(st<=1)return 'Inquiry '+esc(d.client)+' ('+T.label+') masuk dengan budget '+jt(d.budget)+'. Lead Intake mencatatnya dan meneruskan ke Sales tanpa menunggu kamu.';
-    if(st===2)return 'Sales menyusun proposal '+jt(d.budget)+' dari scope '+T.label.toLowerCase()+'. Penawaran akan dikirim ke mejamu untuk disetujui.';
-    if(st===4)return 'Timeline '+d.weeks+' minggu sedang dijadwalkan Operation, dimulai Senin terdekat.';
-    if(st===5)return 'Brief dan checklist QC disiapkan Production. Salinannya otomatis dikirim ke Marketing dan Director.';
-    if(st===6)return 'Finance menyiapkan invoice DP 50% untuk '+esc(d.client)+'.';
-    return 'Director merangkum semua hasil kerja divisi untukmu.';
+    var d=S.data,lc=L(TYPES[d.type].label),st=S.done?8:S.step,c=esc(d.client);
+    if(S.done)return T('The {c} project is fully underway. You only had to decide one thing; the agents handled the rest. The DP invoice of {i} is waiting for payment. {n} tasks have already run automatically today.','Proyek {c} sudah berjalan penuh. Kamu cukup memutuskan satu hal, sisanya dikerjakan agent. Invoice DP {i} tinggal menunggu pembayaran. {n} tugas sudah dijalankan otomatis hari ini.',{c:c,i:jt(invoiceNums().total),n:S.auto});
+    if(S.pending)return T('The {p} proposal for {c} is waiting for your decision. Operation and Finance were already notified, so once you approve, the schedule and invoice start right away.','Proposal {p} untuk {c} menunggu keputusanmu. Operation dan Finance sudah dikabari lebih awal, jadi begitu kamu setuju, timeline dan invoice langsung jalan.',{p:jt(price()),c:c});
+    if(st<=1)return T('An inquiry from {c} ({t}) came in with a {b} budget. Lead Intake logged it and passed it to Sales without waiting for you.','Inquiry {c} ({t}) masuk dengan budget {b}. Lead Intake mencatatnya dan meneruskan ke Sales tanpa menunggu kamu.',{c:c,t:lc,b:jt(d.budget)});
+    if(st===2)return T('Sales is drafting a {b} proposal from the {t} scope. It will go to your desk for approval.','Sales menyusun proposal {b} dari scope {t}. Penawaran akan dikirim ke mejamu untuk disetujui.',{b:jt(d.budget),t:lc.toLowerCase()});
+    if(st===4)return T('Operation is scheduling a {w}-week timeline, starting next Monday.','Timeline {w} minggu sedang dijadwalkan Operation, dimulai Senin terdekat.',{w:d.weeks});
+    if(st===5)return T('Production is preparing the brief and QC checklist. A copy goes to Marketing and the Director automatically.','Brief dan checklist QC disiapkan Production. Salinannya otomatis dikirim ke Marketing dan Director.');
+    if(st===6)return T('Finance is preparing the 50% DP invoice for {c}.','Finance menyiapkan invoice DP 50% untuk {c}.',{c:c});
+    return T('The Director is summarizing every division\'s work for you.','Director merangkum semua hasil kerja divisi untukmu.');
   }
   function routinesCard(){
     var list=S.setup.sched.map(function(r,i){return{i:i,m:parseT(r.t),r:r}}).filter(function(x){return x.r.on}).sort(function(a,b){return a.m-b.m});
-    if(!list.length)return '<p class="msg">Belum ada jadwal rutin. Tambahkan di Settings.</p>';
+    if(!list.length)return '<p class="msg">'+T('No daily routines yet. Add some in Settings.','Belum ada jadwal rutin. Tambahkan di Pengaturan.')+'</p>';
     return '<div class="rts">'+list.map(function(x){
       var done=!!S.fired[x.i],stt=done?'Done':(S.running&&CK.on&&CK.min<x.m?'Next':'Set');
-      return '<div class="rt'+(done?' d':'')+'"><time>'+esc(x.r.t)+'</time><span>'+esc(x.r.txt)+'</span><em>'+stt+'</em></div>';
+      return '<div class="rt'+(done?' d':'')+'"><time>'+esc(x.r.t)+'</time><span>'+esc(rtext(x.r))+'</span><em>'+stLabel(stt)+'</em></div>';
     }).join('')+'</div>';
   }
   function docDash(){
     var d=S.data;if(!d)return '';
-    var T=TYPES[d.type],v=S.done?7:Math.max(0,S.step-1),pct=Math.round(v/7*100),act=S.done?0:1,wait=7-v-act;
+    var v=S.done?7:Math.max(0,S.step-1),pct=Math.round(v/7*100),act=S.done?0:1,wt=7-v-act;
     var C=2*Math.PI*34,off=C*(1-pct/100);
     var rows=[1,2,0,3,4,5].map(function(di){
       var s=deskState(di),w=s==='Done'?100:s==='Active'?55:6;
-      return '<div class="rowb" style="--c:'+O.DESKS[di].rgb+'"><span>'+O.DESKS[di].n+'</span><div class="bar"><b style="width:'+w+'%"></b></div><em>'+s+'</em></div>';
+      return '<div class="rowb" style="--c:'+O.DESKS[di].rgb+'"><span>'+O.DESKS[di].n+'</span><div class="bar"><b style="width:'+w+'%"></b></div><em>'+stLabel(s)+'</em></div>';
     }).join('');
-    var bar=S.pending?'<div class="act-bar"><p>Proposal '+jt(price())+' menunggu keputusanmu sebagai founder.</p><div class="row-btn" style="margin:0"><button class="btn pri sm" type="button" data-act="ok">Approve</button>'+(S.allowRev?'<button class="btn sm" type="button" data-act="rev">Request revision (5% off)</button>':'')+'<button class="btn sm" type="button" data-tab="sow">Lihat proposal</button></div></div>':'';
-    var h=bar+head('Overview','Director · '+esc(d.client)+(S.rev?' · proposal revisi':''),S.done?'Selesai':'Live')+
+    var bar=S.pending?'<div class="act-bar"><p>'+T('The {p} proposal is waiting for your decision as founder.','Proposal {p} menunggu keputusanmu sebagai founder.',{p:jt(price())})+'</p><div class="row-btn" style="margin:0"><button class="btn pri sm" type="button" data-act="ok">Approve</button>'+(S.allowRev?'<button class="btn sm" type="button" data-act="rev">'+T('Request revision (5% off)','Minta revisi (diskon 5%)')+'</button>':'')+'<button class="btn sm" type="button" data-tab="sow">'+T('View proposal','Lihat proposal')+'</button></div></div>':'';
+    return bar+head('Overview','Director · '+esc(d.client)+(S.rev?T(' · revised proposal',' · proposal revisi'):''),S.done?T('Done','Selesai'):'Live')+
       '<div class="g2">'+
-        card('<h4>AI insight · '+esc(d.client)+' <span class="ai">AI</span></h4><p class="ins-t">'+insight()+'</p>','hl ins')+
+        card('<h4>'+T('AI insight','Insight AI')+' · '+esc(d.client)+' <span class="ai">AI</span></h4><p class="ins-t">'+insight()+'</p>','hl ins')+
         card('<h4>Workflow progress</h4><div class="donut"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34" fill="none" style="stroke:var(--kline)" stroke-width="9"/><circle cx="40" cy="40" r="34" fill="none" style="stroke:var(--ktealb)" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 40 40)"/><text x="40" y="45" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--kwhite)">'+pct+'%</text></svg>'+
-        '<div class="leg"><div><i style="background:var(--ktealb)"></i>Selesai<b>'+v+'</b></div><div><i style="background:var(--kgold)"></i>Berjalan<b>'+act+'</b></div><div><i style="background:var(--klinehi)"></i>Antri<b>'+Math.max(0,wait)+'</b></div></div></div>')+
+        '<div class="leg"><div><i style="background:var(--ktealb)"></i>'+T('Done','Selesai')+'<b>'+v+'</b></div><div><i style="background:var(--kgold)"></i>'+T('In progress','Berjalan')+'<b>'+act+'</b></div><div><i style="background:var(--klinehi)"></i>'+T('Queued','Antri')+'<b>'+Math.max(0,wt)+'</b></div></div></div>')+
       '</div>'+
       '<div class="kpis">'+
-        kpi('Contract value',jt(price()),S.rev?'−5%':(S.step>3||S.done?'Approved':'Draft'),S.rev?'w':(S.step>3||S.done?'':'n'))+
-        kpi('Receivable (DP)',S.art.invoice?jt(invoiceNums().total):'—',S.art.invoice?'Net 3 hari':'Antri',S.art.invoice?'w':'n')+
-        kpi('Timeline',d.weeks+' minggu',S.art.timeline?'Terjadwal':'Antri',S.art.timeline?'':'n')+
+        kpi(T('Contract value','Nilai kontrak'),jt(price()),S.rev?'−5%':(S.step>3||S.done?T('Approved','Disetujui'):'Draft'),S.rev?'w':(S.step>3||S.done?'':'n'))+
+        kpi(T('Receivable (DP)','Piutang (DP)'),S.art.invoice?jt(invoiceNums().total):'—',S.art.invoice?'Net 3 '+T('days','hari'):T('Queued','Antri'),S.art.invoice?'w':'n')+
+        kpi('Timeline',T('{n} weeks','{n} minggu',{n:d.weeks}),S.art.timeline?T('Scheduled','Terjadwal'):T('Queued','Antri'),S.art.timeline?'':'n')+
         kpi('Auto tasks',String(S.auto),'24/7','')+
       '</div>'+
       '<div class="g2">'+card('<h4>Desk activity</h4><div class="rows">'+rows+'</div>')+
-        card('<h4>Jadwal harian FluxOS</h4>'+routinesCard())+'</div>';
-    return h;
+        card('<h4>'+T('FluxOS daily routines','Jadwal harian FluxOS')+'</h4>'+routinesCard())+'</div>';
   }
   function docSetup(){
     var s=S.setup;
     var ag=O.DESKS.map(function(D,i){return '<div class="agrow"><b style="color:rgb('+D.rgb+')">'+D.n+'</b><div class="aps">'+ROSTER[i].map(function(n,k){return '<label class="ap"><input type="checkbox" data-ag="'+i+'-'+k+'"'+(s.agents[i][k]?' checked':'')+'><span>'+n+'</span></label>'}).join('')+'</div></div>'}).join('');
-    var sop=O.DESKS.map(function(D,i){return '<div class="fld"><label>'+D.n+'</label><input data-sop="'+i+'" value="'+esc(s.sop[i])+'" maxlength="100"></div>'}).join('');
+    var sop=O.DESKS.map(function(D,i){return '<div class="fld"><label>'+D.n+'</label><input data-sop="'+i+'" value="'+esc(stext(i))+'" maxlength="100"></div>'}).join('');
     var dopt=function(sel){return O.DESKS.map(function(D,i){return '<option value="'+i+'"'+(i===sel?' selected':'')+'>'+D.n+'</option>'}).join('')};
     var sched=s.sched.map(function(r,i){
-      return '<div class="srow"><input type="time" data-sc="'+i+'.t" value="'+esc(r.t)+'"><select data-sc="'+i+'.d">'+dopt(r.d)+'</select><select data-sc="'+i+'.a">'+ROSTER[r.d].map(function(n,k){return '<option value="'+k+'"'+(k===r.a?' selected':'')+'>'+n+'</option>'}).join('')+'</select><input class="stx" data-sc="'+i+'.txt" value="'+esc(r.txt)+'" maxlength="70"><label class="sw tg"><input type="checkbox" data-sc="'+i+'.on"'+(r.on?' checked':'')+'><span>Aktif</span></label><button class="btn sm" type="button" data-sc-del="'+i+'" aria-label="Hapus jadwal">✕</button></div>';
+      return '<div class="srow"><input type="time" data-sc="'+i+'.t" value="'+esc(r.t)+'"><select data-sc="'+i+'.d">'+dopt(r.d)+'</select><select data-sc="'+i+'.a">'+ROSTER[r.d].map(function(n,k){return '<option value="'+k+'"'+(k===r.a?' selected':'')+'>'+n+'</option>'}).join('')+'</select><input class="stx" data-sc="'+i+'.txt" value="'+esc(rtext(r))+'" maxlength="70"><label class="sw tg"><input type="checkbox" data-sc="'+i+'.on"'+(r.on?' checked':'')+'><span>'+T('On','Aktif')+'</span></label><button class="btn sm" type="button" data-sc-del="'+i+'" aria-label="'+T('Delete schedule','Hapus jadwal')+'">✕</button></div>';
     }).join('');
-    var mcp=s.mcp.map(function(u,i){return '<li><span>'+esc(u)+'</span><button class="btn sm" type="button" data-mcp="'+i+'">Hapus</button></li>'}).join('')||'<li class="emp">Belum ada MCP server.</li>';
+    var mcp=s.mcp.map(function(u,i){return '<li><span>'+esc(u)+'</span><button class="btn sm" type="button" data-mcp="'+i+'">'+T('Remove','Hapus')+'</button></li>'}).join('')||'<li class="emp">'+T('No MCP servers yet.','Belum ada MCP server.')+'</li>';
     var sel=function(key,opts){return '<select data-st="'+key+'">'+opts.map(function(o){return '<option value="'+o[0]+'"'+(s[key]===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'};
-    return head('Settings','Atur sekali, FluxOS bekerja 24/7 sesuai aturanmu','Simulasi')+
+    return head(T('Settings','Pengaturan'),T('Set it up once, then FluxOS works 24/7 by your rules','Atur sekali, FluxOS bekerja 24/7 sesuai aturanmu'),T('Simulation','Simulasi'))+
+      card('<h4>'+T('General','Umum')+'</h4><div class="fld" style="max-width:280px"><label>'+T('Language','Bahasa')+'</label><select data-st="lang"><option value="en"'+(s.lang==='en'?' selected':'')+'>English</option><option value="id"'+(s.lang==='id'?' selected':'')+'>Bahasa Indonesia</option></select></div>')+
       '<div class="g2">'+
-      card('<h4>Model & MCP</h4><div class="stk">'+
-        '<div class="fld"><label>Penyedia model</label>'+sel('provider',[['claude','Claude (Anthropic API)'],['gpt','GPT (OpenAI API)'],['auto','Otomatis, pilih termurah yang cukup']])+'</div>'+
-        '<div class="fld"><label>Tingkat kecerdasan</label>'+sel('tier',[['fast','Cepat & hemat (tugas rutin)'],['balanced','Seimbang (disarankan)'],['best','Paling pintar (analisa berat)']])+'</div>'+
-        '<div class="fld"><label>API key</label><input type="password" data-st="key" autocomplete="off" placeholder="'+(s.hasKey?'•••••••• (simulasi)':'sk-… (demo, tidak disimpan)')+'"></div>'+
-        '<p class="note" style="margin:0">API dihitung per pemakaian dan terpisah dari langganan chat Claude atau ChatGPT. Biayanya masuk ke akunmu sendiri. Di demo ini tidak ada key yang dikirim ke mana pun.</p>'+
-        '<div class="fld"><label>Batas biaya model per bulan (Rp)</label><input data-st="cap" inputmode="numeric" value="'+esc(s.cap)+'"></div>'+
-        '<div class="fld"><label>MCP server</label><div class="mcpadd"><input id="mcpIn" placeholder="https://…/mcp" autocomplete="off"><button class="btn sm pri" type="button" data-mcp="add">Tambah</button></div><ul class="mcpl">'+mcp+'</ul></div>'+
+      card('<h4>'+T('Model & MCP','Model & MCP')+'</h4><div class="stk">'+
+        '<div class="fld"><label>'+T('Model provider','Penyedia model')+'</label>'+sel('provider',[['claude','Claude (Anthropic API)'],['gpt','GPT (OpenAI API)'],['auto',T('Auto: cheapest model that is good enough','Otomatis, pilih termurah yang cukup')]])+'</div>'+
+        '<div class="fld"><label>'+T('Intelligence level','Tingkat kecerdasan')+'</label>'+sel('tier',[['fast',T('Fast & cheap (routine tasks)','Cepat & hemat (tugas rutin)')],['balanced',T('Balanced (recommended)','Seimbang (disarankan)')],['best',T('Smartest (heavy analysis)','Paling pintar (analisa berat)')]])+'</div>'+
+        '<div class="fld"><label>API key</label><input type="password" data-st="key" autocomplete="off" placeholder="'+(s.hasKey?'•••••••• ('+T('simulated','simulasi')+')':T('sk-… (demo, not stored)','sk-… (demo, tidak disimpan)'))+'"></div>'+
+        '<p class="note" style="margin:0">'+T('API usage is billed per use, separately from a Claude or ChatGPT chat subscription, and goes to your own account. In this demo no key is sent anywhere.','API dihitung per pemakaian dan terpisah dari langganan chat Claude atau ChatGPT. Biayanya masuk ke akunmu sendiri. Di demo ini tidak ada key yang dikirim ke mana pun.')+'</p>'+
+        '<div class="fld"><label>'+T('Monthly model cost cap (Rp)','Batas biaya model per bulan (Rp)')+'</label><input data-st="cap" inputmode="numeric" value="'+esc(s.cap)+'"></div>'+
+        '<div class="fld"><label>MCP server</label><div class="mcpadd"><input id="mcpIn" placeholder="https://…/mcp" autocomplete="off"><button class="btn sm pri" type="button" data-mcp="add">'+T('Add','Tambah')+'</button></div><ul class="mcpl">'+mcp+'</ul></div>'+
       '</div>')+
-      card('<h4>Approval & notifikasi</h4><div class="stk">'+
-        '<div class="fld"><label>Minta persetujuanku jika proposal di atas (juta Rp)</label><input data-st="thr" type="number" min="1" max="999" value="'+s.thr+'"></div>'+
-        '<div class="fld"><label>Kirim notifikasi via</label>'+sel('notify',[['telegram','Telegram'],['whatsapp','WhatsApp'],['email','Email']])+'</div>'+
-        '<div class="fld"><label>Tujuan notifikasi</label><input data-st="to" value="'+esc(s.to)+'" maxlength="40"></div>'+
-        '<label class="sw"><input type="checkbox" data-st="autoInv"'+(s.autoInv?' checked':'')+'><span>Invoice DP terkirim otomatis setelah proposal disetujui</span></label>'+
-        '<p class="note" style="margin:0">Coba turunkan atau naikkan batasnya, lalu jalankan simulasi. proposal di bawah batas disetujui otomatis tanpa menunggumu.</p>'+
+      card('<h4>'+T('Approvals & notifications','Approval & notifikasi')+'</h4><div class="stk">'+
+        '<div class="fld"><label>'+T('Ask for my approval when a proposal is above (Rp millions)','Minta persetujuanku jika proposal di atas (juta Rp)')+'</label><input data-st="thr" type="number" min="1" max="999" value="'+s.thr+'"></div>'+
+        '<div class="fld"><label>'+T('Send notifications via','Kirim notifikasi via')+'</label>'+sel('notify',[['telegram','Telegram'],['whatsapp','WhatsApp'],['email','Email']])+'</div>'+
+        '<div class="fld"><label>'+T('Notification destination','Tujuan notifikasi')+'</label><input data-st="to" value="'+esc(s.to)+'" maxlength="40"></div>'+
+        '<label class="sw"><input type="checkbox" data-st="autoInv"'+(s.autoInv?' checked':'')+'><span>'+T('Send the DP invoice automatically once the proposal is approved','Invoice DP terkirim otomatis setelah proposal disetujui')+'</span></label>'+
+        '<p class="note" style="margin:0">'+T('Try lowering or raising the limit, then run the simulation. Proposals below the limit are approved automatically without waiting for you.','Coba turunkan atau naikkan batasnya, lalu jalankan simulasi. Proposal di bawah batas disetujui otomatis tanpa menunggumu.')+'</p>'+
       '</div>')+
       '</div>'+
-      card('<h4>Agent aktif per divisi <span class="tagp">'+nAgents()+' dari 18</span></h4><div class="agrows">'+ag+'</div>')+
-      card('<h4>SOP singkat per divisi</h4><div class="sopg">'+sop+'</div>')+
-      card('<h4>Jadwal harian (jalan sendiri, termasuk malam & akhir pekan)</h4><div class="srows">'+sched+'</div><div class="row-btn" style="margin-top:12px"><button class="btn sm" type="button" data-sc-add="1">+ Tambah jadwal</button></div>')+
-      '<p class="note" style="margin:0">Pengaturan ini dipakai di simulasi berikutnya dan disimpan selama halaman terbuka.</p>';
+      card('<h4>'+T('Active agents per division','Agent aktif per divisi')+' <span class="tagp">'+T('{n} of 18','{n} dari 18',{n:nAgents()})+'</span></h4><div class="agrows">'+ag+'</div>')+
+      card('<h4>'+T('Short SOP per division','SOP singkat per divisi')+'</h4><div class="sopg">'+sop+'</div>')+
+      card('<h4>'+T('Daily schedule (runs by itself, including nights & weekends)','Jadwal harian (jalan sendiri, termasuk malam & akhir pekan)')+'</h4><div class="srows">'+sched+'</div><div class="row-btn" style="margin-top:12px"><button class="btn sm" type="button" data-sc-add="1">'+T('+ Add a schedule','+ Tambah jadwal')+'</button></div>')+
+      '<p class="note" style="margin:0">'+T('These settings apply to the next simulation and are kept while this page stays open.','Pengaturan ini dipakai di simulasi berikutnya dan disimpan selama halaman terbuka.')+'</p>';
   }
   function docConn(){
     var cards=CONN.map(function(c){
-      var st=S.conn[c.k];
-      return '<div class="card cn"><div class="cn-h"><b>'+c.n+'</b><span class="dl '+(st.on?'':'n')+'">'+(st.on?'Terhubung':'Belum')+'</span></div><p>'+c.d+'</p>'+
-        '<div class="fld"><input data-cv="'+c.k+'" id="cv-'+c.k+'" value="'+esc(st.val)+'" placeholder="'+esc(c.ph)+'" autocomplete="off"'+(st.on?' readonly':'')+'></div>'+
-        '<button class="btn sm'+(st.on?'':' pri')+'" type="button" data-conn="'+c.k+'">'+(st.on?'Putuskan':'Hubungkan')+'</button></div>';
+      var st=S.conn[c.k],nm=typeof c.n==='string'?c.n:L(c.n);
+      return '<div class="card cn"><div class="cn-h"><b>'+nm+'</b><span class="dl '+(st.on?'':'n')+'">'+(st.on?T('Connected','Terhubung'):T('Not connected','Belum'))+'</span></div><p>'+L(c.d)+'</p>'+
+        '<div class="fld"><input data-cv="'+c.k+'" id="cv-'+c.k+'" value="'+esc(st.val)+'" placeholder="'+esc(L(c.ph))+'" autocomplete="off"'+(st.on?' readonly':'')+'></div>'+
+        '<button class="btn sm'+(st.on?'':' pri')+'" type="button" data-conn="'+c.k+'">'+(st.on?T('Disconnect','Putuskan'):T('Connect','Hubungkan'))+'</button></div>';
     }).join('');
-    return head('Integrations',nTools()+' tools terhubung','Simulasi')+
+    return head(T('Integrations','Integrasi'),T('{n} tools connected','{n} tools terhubung',{n:nTools()}),T('Simulation','Simulasi'))+
       '<div class="cng">'+cards+'</div>'+
-      '<p class="note" style="margin:0">Ini simulasi: tidak ada akun yang benar-benar terhubung dan tidak ada data yang dikirim. Tool yang terhubung dipakai agent di simulasi (misalnya invoice terkirim via Gmail atau WhatsApp).</p>';
+      '<p class="note" style="margin:0">'+T('This is a simulation: no account is actually connected and no data is sent. Connected tools are used by the agents in the simulation (for example, invoices going out via Gmail or WhatsApp).','Ini simulasi: tidak ada akun yang benar-benar terhubung dan tidak ada data yang dikirim. Tool yang terhubung dipakai agent di simulasi (misalnya invoice terkirim via Gmail atau WhatsApp).')+'</p>';
   }
   var DOCS={dash:docDash,inquiry:docInquiry,sow:docSow,timeline:docTimeline,brief:docBrief,invoice:docInvoice,summary:docSummary,setup:docSetup,conn:docConn};
 
-/* ---------- panel ---------- */
+
+  /* ---------- panel ---------- */
   function renderTabs(){
     var seen=S.seen||(S.seen={});
     $('tabs').innerHTML=TABS.map(function(t){
       var on=!!ALWAYS[t[0]]||!!S.art[t[0]],fresh=on&&!ALWAYS[t[0]]&&!seen[t[0]];
-      return (t[3]?'<div class="nav-sec">'+t[3]+'</div>':'')+'<button type="button" class="tab'+(fresh?' fresh':'')+'" role="tab" data-tab="'+t[0]+'"'+(on?'':' disabled')+' aria-selected="'+(S.cur===t[0])+'">'+t[1]+'</button>';
+      return (t[3]?'<div class="nav-sec">'+L(t[3])+'</div>':'')+'<button type="button" class="tab'+(fresh?' fresh':'')+'" role="tab" data-tab="'+t[0]+'"'+(on?'':' disabled')+' aria-selected="'+(S.cur===t[0])+'">'+L(t[1])+'</button>';
     }).join('');
   }
   function refreshDash(){if(S.cur==='dash'&&S.data&&S.running)$('doc').innerHTML=docDash()}
@@ -1143,23 +1204,24 @@ var FxOffice=(function(){
     if(isDash)requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'))});
   }
   function auto(k){renderTabs();if(S.cur==='dash')refreshDash();else if(S.cur===k)show(k)}
-  function setStatus(txt,fin){
-    $('statusTxt').textContent=txt;
+  function setStatus(en,id,fin,v){
+    S.stat={en:en,id:id,v:v};
+    $('statusTxt').textContent=T(en,id,v);
     $('status').classList.toggle('fin',!!fin);
-    var m=/Langkah (\d)\/7/.exec(txt);if(m)S.step=+m[1];
+    var m=/^Step (\d)\/7/.exec(en);if(m)S.step=+m[1];
     if(fin)S.step=7;
     updProg();
     refreshDash();
   }
   function updProg(){var v=S.done?7:Math.max(0,S.step-1);$('pBar').style.width=(v/7*100)+'%';$('pTxt').textContent=(S.done?7:S.step)+'/7'}
-  function scrollPanel(){var p=$('dtop').hidden?$('panel'):$('dtop');if(p.scrollIntoView)p.scrollIntoView({behavior:'smooth',block:'start'})}
+  function scrollPanel(){if(EMBED)return;var p=$('dtop').hidden?$('panel'):$('dtop');if(p.scrollIntoView)p.scrollIntoView({behavior:'smooth',block:'start'})}
 
   /* ---------- decision (approve / revise) ---------- */
   function askFounder(t,allowRev){
     S.pending=true;S.allowRev=allowRev;CK.pause=true;
     O.fnd.classList.add('ask');O.badge.textContent='!';
     O.transit(0,'F');
-    S.manual=false;show('dash');setStatus('Director menunggu keputusanmu',false);
+    S.manual=false;show('dash');setStatus('The Director is waiting for your decision','Director menunggu keputusanmu',false);
     notifyFounder();
     var btn=document.createElement('button');btn.type='button';btn.className='ok-btn';btn.textContent='Approve';
     O.box(0).appendChild(btn);
@@ -1176,77 +1238,82 @@ var FxOffice=(function(){
 
   /* ---------- the flow ---------- */
   async function run(t){
-    var d=S.data,T=TYPES[d.type];
+    var d=S.data,TT=TYPES[d.type],tl=L(TT.label),tlo=tl.toLowerCase();
     await waitClock(t,S.arrive);
-    setStatus('Langkah 1/7 · Marketing menerima inquiry',false);
-    var e1=AG(1,0,'Inquiry masuk dari '+d.client+' ('+T.label+'), dicatat ke pipeline');
+    setStatus('Step 1/7 · Marketing receives the inquiry','Langkah 1/7 · Marketing menerima inquiry',false);
+    var e1=AG(1,0,'Inquiry from {c} ({t}) received and logged to the pipeline','Inquiry masuk dari {c} ({t}), dicatat ke pipeline',{c:d.client,t:tl});
     await wait(t,500);
-    var m1=cap('Inquiry: '+d.client,26);
+    var m1=cap(T('Inquiry: {c}','Inquiry: {c}',{c:d.client}),26);
     O.activate(1,m1);S.art.inquiry=true;auto('inquiry');
     await wait(t,1800);O.complete(1,m1);e1();
 
-    O.transit(1,2);setStatus('Langkah 2/7 · Sales menyusun proposal',false);
-    var e2=AG(2,0,'Kualifikasi budget '+jt(d.budget)+' untuk '+T.label.toLowerCase());
-    O.activate(2,'Menyusun draf proposal & harga…');await wait(t,1000);e2();
-    var e2b=AG(2,1,'Menyusun draf proposal & harga');
-    S.art.sow=true;auto('sow');O.activate(2,cap('Draf proposal '+jt(d.budget)+' sudah siap'));O.transit(2,3);O.transit(2,5);setStatus('Langkah 2/7 · Sales mengabari Operation & Finance lebih awal',false);
-    log(2,2,'Operation & Finance dikabari lebih awal, belum menunggu approval');
+    O.transit(1,2);setStatus('Step 2/7 · Sales drafts the proposal','Langkah 2/7 · Sales menyusun proposal',false);
+    var e2=AG(2,0,'Qualifying the {b} budget for {t}','Kualifikasi budget {b} untuk {t}',{b:jt(d.budget),t:tlo});
+    O.activate(2,T('Drafting the proposal & pricing…','Menyusun draf proposal & harga…'));await wait(t,1000);e2();
+    var e2b=AG(2,1,'Drafting the proposal & pricing','Menyusun draf proposal & harga');
+    var dr=cap(T('Proposal draft for {b} is ready','Draf proposal {b} sudah siap',{b:jt(d.budget)}));
+    S.art.sow=true;auto('sow');O.activate(2,dr);O.transit(2,3);O.transit(2,5);setStatus('Step 2/7 · Sales notifies Operation & Finance early','Langkah 2/7 · Sales mengabari Operation & Finance lebih awal',false);
+    log(2,2,'Operation & Finance notified early, without waiting for approval','Operation & Finance dikabari lebih awal, belum menunggu approval');
     await wait(t,1600);
-    O.complete(2,cap('Draf proposal '+jt(d.budget)+' sudah siap'));e2b();
+    O.complete(2,dr);e2b();
 
     var round=0,ans,thr=S.setup.thr*1e6;
     while(true){
       O.transit(2,0);
-      O.activate(0,cap('Setujui proposal '+jt(price())+' sekarang?'));
-      setStatus('Langkah 3/7 · Menunggu persetujuanmu',false);
-      var eA=AG(0,1,'Cek proposal '+jt(price())+' terhadap aturan approval (batas Rp '+S.setup.thr+' jt)');
+      O.activate(0,cap(T('Approve the {p} proposal now?','Setujui proposal {p} sekarang?',{p:jt(price())})));
+      setStatus('Step 3/7 · Waiting for your approval','Langkah 3/7 · Menunggu persetujuanmu',false);
+      var eA=AG(0,1,'Checking the {p} proposal against the approval rule (limit Rp {l}M)','Cek proposal {p} terhadap aturan approval (batas Rp {l} jt)',{p:jt(price()),l:S.setup.thr});
       if(price()<thr){
-        log(0,1,'Di bawah batas, disetujui otomatis sesuai aturan Settings');
+        log(0,1,'Below the limit, approved automatically per your Settings','Di bawah batas, disetujui otomatis sesuai aturan Settings');
         await wait(t,1400);eA();ans='ok';break;
       }
       ans=await askFounder(t,round===0);eA();
       if(ans==='ok')break;
       round++;S.rev=true;
-      O.complete(0,'Revisi diminta: diskon 5% proposal');
-      O.transit(0,2);setStatus('Sales merevisi penawaran',false);
-      var er=AG(2,1,'Menerapkan diskon 5% ke proposal');
-      O.activate(2,'Menerapkan diskon ke proposal…');await wait(t,1200);
-      auto('sow');O.complete(2,cap('Proposal revisi senilai '+jt(price())));er();await wait(t,900);
+      O.complete(0,T('Revision requested: 5% off the proposal','Revisi diminta: diskon 5% proposal'));
+      O.transit(0,2);setStatus('Sales is revising the offer','Sales merevisi penawaran',false);
+      var er=AG(2,1,'Applying the 5% discount to the proposal','Menerapkan diskon 5% ke proposal');
+      O.activate(2,T('Applying the discount to the proposal…','Menerapkan diskon ke proposal…'));await wait(t,1200);
+      auto('sow');O.complete(2,cap(T('Revised proposal worth {p}','Proposal revisi senilai {p}',{p:jt(price())})));er();await wait(t,900);
     }
-    O.complete(0,cap(ans==='ok'&&price()<thr?'Disetujui otomatis: '+jt(price()):'Disetujui: proposal senilai '+jt(price())));
+    O.complete(0,cap(price()<thr?T('Auto-approved: {p}','Disetujui otomatis: {p}',{p:jt(price())}):T('Approved: {p} proposal','Disetujui: proposal senilai {p}',{p:jt(price())})));
     auto('sow');await wait(t,900);
 
-    O.transit(0,3);setStatus('Langkah 4/7 · Operation menjadwalkan timeline',false);
-    var e4=AG(3,0,'Menjadwalkan timeline '+d.weeks+' minggu mulai Senin terdekat');
-    O.activate(3,'Menyusun timeline kerja…');await wait(t,900);
-    S.art.timeline=true;auto('timeline');O.activate(3,cap('Timeline '+d.weeks+' minggu terjadwal'));
-    var e4b=AG(3,2,'Mengabari klien soal jadwal kickoff'+(clientChan()?' via '+clientChan():''));
+    O.transit(0,3);setStatus('Step 4/7 · Operation schedules the timeline','Langkah 4/7 · Operation menjadwalkan timeline',false);
+    var e4=AG(3,0,'Scheduling a {w}-week timeline starting next Monday','Menjadwalkan timeline {w} minggu mulai Senin terdekat',{w:d.weeks});
+    O.activate(3,T('Building the work schedule…','Menyusun timeline kerja…'));await wait(t,900);
+    var tm=cap(T('{w}-week timeline scheduled','Timeline {w} minggu terjadwal',{w:d.weeks}));
+    S.art.timeline=true;auto('timeline');O.activate(3,tm);
+    var e4b=AG(3,2,'Telling the client about the kickoff schedule{v}','Mengabari klien soal jadwal kickoff{v}',{v:clientChan()?T(' via '+clientChan(),' via '+clientChan()):''});
     await wait(t,1700);
-    O.complete(3,cap('Timeline '+d.weeks+' minggu terjadwal'));e4();e4b();
+    O.complete(3,tm);e4();e4b();
 
-    O.transit(3,4);setStatus('Langkah 5/7 · Production menyiapkan brief',false);
-    var e5=AG(4,1,'Menyusun brief visual & moodboard');
-    O.activate(4,'Menyiapkan brief & moodboard…');await wait(t,900);
-    S.art.brief=true;auto('brief');O.activate(4,'Brief & moodboard siap');O.transit(4,1);O.transit(4,0);
-    var e5b=AG(4,2,'Menyiapkan checklist QC untuk '+T.label.toLowerCase());
-    setStatus('Langkah 5/7 · Production mengirim hasil ke Marketing & Director',false);await wait(t,1900);
-    O.complete(4,'Brief & moodboard siap');e5();e5b();
+    O.transit(3,4);setStatus('Step 5/7 · Production prepares the brief','Langkah 5/7 · Production menyiapkan brief',false);
+    var e5=AG(4,1,'Drafting the visual brief & moodboard','Menyusun brief visual & moodboard');
+    O.activate(4,T('Preparing brief & moodboard…','Menyiapkan brief & moodboard…'));await wait(t,900);
+    var bm=T('Brief & moodboard ready','Brief & moodboard siap');
+    S.art.brief=true;auto('brief');O.activate(4,bm);O.transit(4,1);O.transit(4,0);
+    var e5b=AG(4,2,'Preparing the QC checklist for {t}','Menyiapkan checklist QC untuk {t}',{t:tlo});
+    setStatus('Step 5/7 · Production sends results to Marketing & the Director','Langkah 5/7 · Production mengirim hasil ke Marketing & Director',false);await wait(t,1900);
+    O.complete(4,bm);e5();e5b();
 
-    O.transit(4,5);setStatus('Langkah 6/7 · Finance membuat invoice',false);
-    var e6=AG(5,0,'Membuat invoice DP 50% untuk '+d.client);
-    O.activate(5,'Membuat invoice DP untuk klien…');await wait(t,900);
-    S.art.invoice=true;auto('invoice');O.activate(5,cap('Invoice DP '+jt(invoiceNums().total)+' terkirim'));
-    var e6b=AG(5,2,'Mencatat piutang '+rp(invoiceNums().total)+' ke pembukuan'+(S.conn.gws.on?' (Sheets)':''));
-    log(5,0,clientChan()?('Invoice terkirim ke klien via '+clientChan()):'Invoice siap, hubungkan Gmail atau WhatsApp agar terkirim otomatis');
+    O.transit(4,5);setStatus('Step 6/7 · Finance creates the invoice','Langkah 6/7 · Finance membuat invoice',false);
+    var e6=AG(5,0,'Creating the 50% DP invoice for {c}','Membuat invoice DP 50% untuk {c}',{c:d.client});
+    O.activate(5,T('Creating the DP invoice for the client…','Membuat invoice DP untuk klien…'));await wait(t,900);
+    var iv=cap(T('DP invoice {n} sent','Invoice DP {n} terkirim',{n:jt(invoiceNums().total)}));
+    S.art.invoice=true;auto('invoice');O.activate(5,iv);
+    var e6b=AG(5,2,'Recording the {n} receivable in the books{v}','Mencatat piutang {n} ke pembukuan{v}',{n:rp(invoiceNums().total),v:S.conn.gws.on?' (Sheets)':''});
+    if(clientChan())log(5,0,'Invoice sent to the client via {c}','Invoice terkirim ke klien via {c}',{c:clientChan()});
+    else log(5,0,'Invoice is ready. Connect Gmail or WhatsApp so it sends automatically','Invoice siap, hubungkan Gmail atau WhatsApp agar terkirim otomatis');
     await wait(t,1700);
-    O.complete(5,cap('Invoice DP '+jt(invoiceNums().total)+' terkirim'));e6();e6b();
+    O.complete(5,iv);e6();e6b();
 
-    O.transit(5,0);setStatus('Langkah 7/7 · Director merangkum untukmu',false);
-    var e7=AG(0,2,'Menyusun ringkasan semua divisi untuk founder');
-    O.activate(0,'Menyusun ringkasan…');await wait(t,1000);
-    S.art.summary=true;auto('summary');O.complete(0,'Ringkasan dikirim ke owner');e7();
+    O.transit(5,0);setStatus('Step 7/7 · The Director summarizes for you','Langkah 7/7 · Director merangkum untukmu',false);
+    var e7=AG(0,2,'Compiling a summary of all divisions for the founder','Menyusun ringkasan semua divisi untuk founder');
+    O.activate(0,T('Compiling the summary…','Menyusun ringkasan…'));await wait(t,1000);
+    S.art.summary=true;auto('summary');O.complete(0,T('Summary sent to the owner','Ringkasan dikirim ke owner'));e7();
     O.transit(0,'F');O.badge.textContent='✓';O.fnd.classList.add('got');
-    S.done=true;setStatus('Proyek selesai. FluxOS lanjut bekerja sampai tengah malam…',false);
+    S.done=true;setStatus('Project complete. FluxOS keeps working until midnight…','Proyek selesai. FluxOS lanjut bekerja sampai tengah malam…',false);
     CK.fast=true;
   }
 
@@ -1254,12 +1321,12 @@ var FxOffice=(function(){
     token++;
     if(decideFail){try{decideFail(new Error('x'))}catch(e){}}
     decide=null;decideFail=null;
-    S.art={};S.seen={};S.cur='dash';S.step=0;S.pending=false;S.rev=false;S.ppn=false;S.qc=[false,false,false];S.done=false;S.manual=false;
-    O.reset();O.setIdle(IDLE);O.view(-1);
+    S.art={};S.seen={};S.cur='dash';S.step=0;S.pending=false;S.rev=false;S.ppn=false;S.qc=[false,false,false];S.done=false;S.manual=false;S.stat=null;
+    O.reset();O.setIdle(idle());O.view(-1);
     ckStop();CK.min=0;$('clkT').textContent='00:00';S.auto=0;S.fired={};Brain.resetAgents();
     [].forEach.call(document.querySelectorAll('.cr'),function(c){c.classList.remove('on','done')});
-    $('feed').innerHTML='<li class="emp">Aktifkan FluxOS untuk melihat agent bekerja.</li>';
-    $('finCta').innerHTML='';updProg();$('pselName').textContent='New project';
+    FEED=[];renderFeed();
+    $('finCta').innerHTML='';updProg();$('pselName').textContent=T('New project','Proyek baru');
   }
   function toForm(){
     resetRun();S.running=false;
@@ -1267,7 +1334,35 @@ var FxOffice=(function(){
     show('dash');scrollPanel();
   }
 
+  /* ---------- bahasa ---------- */
+  function fillSel(id,opts,def){
+    var el=$(id),v=el.value||def;
+    el.innerHTML=opts.map(function(o){return '<option value="'+o[0]+'">'+esc(o[1])+'</option>'}).join('');
+    el.value=v;
+  }
+  function buildForm(){
+    fillSel('fType',Object.keys(TYPES).map(function(k){return [k,TL(k)]}),'rebrand');
+    fillSel('fWeeks',[2,4,6,8].map(function(n){return [String(n),T('{n} weeks','{n} minggu',{n:n})]}),'4');
+    fillSel('fArrive',[['133','02:13 · '+T('middle of the night','tengah malam')],['570','09:30 · '+T('morning','pagi')],['840','14:00 · '+T('afternoon','siang')]],'133');
+  }
+  function applyLang(){
+    LANG=S.setup.lang==='id'?'id':'en';
+    document.documentElement.lang=LANG;
+    function part(s){var p=s.split('||');return LANG==='id'&&p[1]?p[1]:p[0]}
+    [].forEach.call(document.querySelectorAll('[data-i]'),function(el){el.textContent=part(el.getAttribute('data-i'))});
+    [].forEach.call(document.querySelectorAll('[data-ip]'),function(el){el.placeholder=part(el.getAttribute('data-ip'))});
+    [].forEach.call(document.querySelectorAll('[data-ia]'),function(el){el.setAttribute('aria-label',part(el.getAttribute('data-ia')))});
+    buildForm();
+    if(!S.running){O.setIdle(idle());$('pselName').textContent=T('New project','Proyek baru')}
+    capText();renderFeed();
+    if(S.stat)$('statusTxt').textContent=T(S.stat.en,S.stat.id,S.stat.v);
+    if(S.done)finCta();
+    show(S.cur);
+  }
+  var _lang0=S.setup.lang;S.setup.lang=LANG;
+
   renderTabs();
+  renderFeed();
 
   /* ---------- events ---------- */
   function closeSide(){$('side').classList.remove('mopen');$('bdrop').classList.remove('show')}
@@ -1281,15 +1376,15 @@ var FxOffice=(function(){
   $('form').addEventListener('submit',function(e){
     e.preventDefault();
     var client=$('fClient').value.trim(),budget=Number($('fBudget').value.replace(/\D/g,'')||0);
-    if(!client){$('fErr').textContent='Isi nama klien dulu.';$('fClient').focus();return}
-    if(budget<1000000){$('fErr').textContent='Budget minimal Rp 1.000.000.';$('fBudget').focus();return}
+    if(!client){$('fErr').textContent=T('Enter a client name first.','Isi nama klien dulu.');$('fClient').focus();return}
+    if(budget<1000000){$('fErr').textContent=T('Minimum budget is Rp 1,000,000.','Budget minimal Rp 1.000.000.');$('fBudget').focus();return}
     $('fErr').textContent='';
     S.data={client:client,type:$('fType').value,weeks:Number($('fWeeks').value),budget:budget,note:$('fNote').value.trim()};
     resetRun();
     S.arrive=Number($('fArrive').value)||133;S.running=true;
     $('pselName').textContent=client;
     $('app').classList.add('running');S.cur='dash';renderTabs();show('dash');
-    setStatus('FluxOS aktif · menunggu inquiry masuk pukul '+fmtClock(S.arrive),false);ckStart();
+    setStatus('FluxOS is active · waiting for the inquiry at {t}','FluxOS aktif · menunggu inquiry masuk pukul {t}',false,{t:fmtClock(S.arrive)});ckStart();
     scrollPanel();
     var t=++token;
     run(t).catch(function(){});
@@ -1305,12 +1400,12 @@ var FxOffice=(function(){
     if(b.dataset.conn){var ck=b.dataset.conn,inp=$('cv-'+ck),stt=S.conn[ck];
       if(stt.on){stt.on=false;show('conn');Brain.setTools(nTools());capText();return}
       var val=inp?inp.value.trim():'';if(!val){if(inp){inp.classList.add('bad');inp.focus()}return}
-      b.textContent='Menghubungkan…';b.disabled=true;stt.val=val;
+      b.textContent=T('Connecting…','Menghubungkan…');b.disabled=true;stt.val=val;
       setTimeout(function(){stt.on=true;if(S.cur==='conn')show('conn');Brain.setTools(nTools());capText()},700);return}
     if(b.dataset.mcp!==undefined){var mv=b.dataset.mcp;
       if(mv==='add'){var mi=$('mcpIn'),u=mi.value.trim();if(!/^https:\/\/.+/.test(u)){mi.classList.add('bad');mi.focus();return}S.setup.mcp.push(u);show('setup')}
       else{S.setup.mcp.splice(+mv,1);show('setup')}return}
-    if(b.dataset.scAdd){S.setup.sched.push({t:'12:00',d:1,a:0,txt:'Tugas baru',on:true});show('setup');return}
+    if(b.dataset.scAdd){S.setup.sched.push({t:'12:00',d:1,a:0,p:['New task','Tugas baru'],txt:null,on:true});show('setup');return}
     if(b.dataset.scDel!==undefined){S.setup.sched.splice(+b.dataset.scDel,1);show('setup');return}
     var a=b.dataset.act;
     if(a==='ok'&&decide)decide('ok');
@@ -1322,6 +1417,7 @@ var FxOffice=(function(){
     if(ds.cv){S.conn[ds.cv].val=el.value;el.classList.remove('bad');return}
     if(ds.st){
       if(ds.st==='key'){S.setup.hasKey=!!el.value;return}
+      if(ds.st==='lang'){if(e.type==='change'){S.setup.lang=el.value;applyLang()}return}
       var v=el.type==='checkbox'?el.checked:el.value;if(ds.st==='thr')v=Math.max(1,Math.min(999,Number(v)||1));
       S.setup[ds.st]=v;return}
     if(ds.sop!==undefined){S.setup.sop[+ds.sop]=el.value;return}
@@ -1338,10 +1434,23 @@ var FxOffice=(function(){
     if(el.id==='ppn'){S.ppn=el.checked;show('invoice');return}
     if(el.dataset&&el.dataset.qc!==undefined){
       S.qc[Number(el.dataset.qc)]=el.checked;
-      var T=TYPES[S.data.type],n=S.qc.filter(Boolean).length;
-      $('qcProg').textContent=n+' dari '+T.qc.length+' lolos QC'+(n===T.qc.length?' · siap dikirim ke klien':'');
+      $('qcProg').textContent=qcText();
     }
   });
+
+  /* ---------- mode embed (dipakai corp.html) ---------- */
+  applyLang();
+  if(EMBED){
+    document.documentElement.classList.add('emb');
+    var lastH=0;
+    var postH=function(){
+      var h=Math.ceil(document.documentElement.scrollHeight);
+      if(Math.abs(h-lastH)<3)return;lastH=h;
+      try{parent.postMessage({type:'fluxhq:height',height:h},'*')}catch(e){}
+    };
+    if(window.ResizeObserver)new ResizeObserver(postH).observe(document.body);
+    window.addEventListener('load',postH);setTimeout(postH,300);
+  }
 })();
 </script>
 </body>

@@ -795,7 +795,8 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .hq-sec h2{font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.08;letter-spacing:-.035em;max-width:26ch}
 .hq-sec .sub{margin-top:14px;color:var(--muted);max-width:40rem}
 .hq-frame{margin-top:28px;padding:10px;border:1px solid var(--line2);border-radius:26px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));overflow:hidden}
-.hq-frame iframe{display:block;width:100%;height:620px;border:0;border-radius:18px;background:transparent;color-scheme:dark}
+.hq-open{margin:14px 0 0;text-align:center;font-size:.9rem}.hq-open a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line2)}.hq-open a:hover{color:var(--fg)}
+.hq-frame iframe{display:block;width:100%;height:900px;border:0;border-radius:18px;background:transparent;color-scheme:dark}
 .hq-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
 .hq-card{padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.035)}
 .hq-card .n{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;color:var(--amber)}
@@ -804,7 +805,10 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .hq-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:26px}
 .hq-six div{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03)}
 .hq-six i{flex:none;width:10px;height:10px;margin-top:7px;border-radius:50%;background:var(--c)}
-.hq-six b{display:block;font-size:.98rem}
+.hq-six b{display:block;font-size:.98rem;color:var(--fg)}
+#why .hq-six+.sub{margin-top:18px}
+#why .hq-six{align-items:stretch}#why .hq-six div{min-height:92px;align-items:flex-start}
+@media(max-width:560px){#why .hq-six div{min-height:88px}}
 .hq-six span{display:block;color:var(--muted);font-size:.86rem;line-height:1.4}
 .hq-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
 .hq-path{display:flex;flex-direction:column;padding:28px;border:1px solid var(--line2);border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
@@ -862,6 +866,65 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   .k b{font-size:1.1rem}
 }
 @media(prefers-reduced-motion:reduce){.d-tag u,.dash.in .bars i{animation:none}}
+
+
+/* ===== hero mockup: replica of the FluxHQ dashboard (Overview) ===== */
+.fxm{--kb:#0a0a0b;--kp:#111113;--kc:#161618;--kl:#242427;--kh:#323236;--kt:#8B5CF6;--ktb:#A78BFA;--kg:#E7B565;--kw:#F4F4F5;--kd:#A1A1AA;--km:#6B6B73;--kok:#10B981;
+  position:relative;border:1px solid var(--kh);border-radius:18px;background:var(--kb);overflow:hidden;font-family:"Inter",system-ui,sans-serif;font-size:11px;color:var(--kw);box-shadow:0 40px 80px -40px rgba(139,92,246,.55)}
+.fxm *{box-sizing:border-box}
+.fxm-top{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:var(--kp);border-bottom:1px solid var(--kl)}
+.fxm-brand{font-weight:800;font-size:.95rem;letter-spacing:-.02em}.fxm-brand span{color:var(--ktb)}
+.fxm-tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--kd);border:1px solid var(--kh);border-radius:99px;padding:.15rem .55rem}
+.fxm-live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ktb)}
+.fxm-live u{width:6px;height:6px;border-radius:50%;background:var(--ktb);animation:dpulse 1.8s ease-in-out infinite}
+.fxm-body{display:grid;grid-template-columns:116px minmax(0,1fr)}
+.fxm-side{display:flex;flex-direction:column;justify-content:space-between;padding:10px 8px;background:var(--kp);border-right:1px solid var(--kl);min-width:0}
+.fxm-proj{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid var(--kh);border-radius:7px;font-size:.66rem;font-weight:600;margin-bottom:8px;white-space:nowrap;overflow:hidden}
+.fxm-proj i{width:7px;height:7px;border-radius:50%;background:var(--kt);flex:none}
+.fxm-sec{margin:9px 0 3px 6px;font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--km)}
+.fxm-nav{display:block;padding:5px 8px;border-radius:6px;font-size:.66rem;font-weight:500;color:var(--km);white-space:nowrap}
+.fxm-nav.on{background:rgba(139,92,246,.16);color:var(--ktb);font-weight:600}
+.fxm-nav.a{color:var(--kd)}
+.fxm-prog{padding:8px 6px 0;font-size:.56rem;color:var(--km)}
+.fxm-prog div{display:flex;justify-content:space-between;margin-bottom:4px}
+.fxm-pbar{height:4px;border-radius:4px;background:var(--kl);overflow:hidden}.fxm-pbar b{display:block;height:100%;width:57%;background:var(--kt);border-radius:4px}
+.fxm-main{padding:12px;min-width:0;display:grid;gap:8px;align-content:start}
+.fxm-h{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.fxm-h h3{margin:0;font-size:.95rem;letter-spacing:-.02em}.fxm-h p{margin:2px 0 0;font-size:.62rem;color:var(--km)}
+.fxm-pill{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ktb);border:1px solid rgba(139,92,246,.5);border-radius:99px;padding:.15rem .5rem;white-space:nowrap}
+.fxm-c{border:1px solid var(--kl);border-radius:10px;background:var(--kc);padding:10px 11px;min-width:0}
+.fxm-c h4{margin:0 0 7px;font-family:var(--mono);font-size:.52rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--km);display:flex;align-items:center;justify-content:space-between;gap:6px}
+.fxm-c h4 em{font-style:normal;color:var(--ktb);border:1px solid rgba(139,92,246,.45);border-radius:5px;padding:0 5px}
+.fxm-ins{border-color:rgba(139,92,246,.55);background:linear-gradient(180deg,rgba(139,92,246,.1),var(--kc))}
+.fxm-ins p{margin:0;font-size:.68rem;line-height:1.5;color:var(--kd)}
+.fxm-2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:8px}
+.fxm-donut{display:flex;align-items:center;gap:10px}.fxm-donut svg{width:62px;height:62px;flex:none}
+.fxm-leg{display:grid;gap:3px;font-size:.62rem;color:var(--kd);flex:1;min-width:0}
+.fxm-leg div{display:flex;align-items:center;gap:5px}.fxm-leg i{width:6px;height:6px;border-radius:50%;flex:none}.fxm-leg b{margin-left:auto;color:var(--kw)}
+.fxm-kp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.fxm-k{border:1px solid var(--kl);border-radius:9px;background:var(--kc);padding:8px 9px;min-width:0}
+.fxm-k span{display:block;font-size:.56rem;color:var(--km);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fxm-k b{display:block;margin-top:3px;font-size:.92rem;letter-spacing:-.03em;white-space:nowrap}
+.fxm-k em{display:block;margin-top:2px;font-style:normal;font-size:.54rem;color:var(--kok);white-space:nowrap}.fxm-k em.w{color:var(--kg)}
+.fxm-rows{display:grid;gap:6px}
+.fxm-row{display:grid;grid-template-columns:62px minmax(0,1fr) 40px;align-items:center;gap:6px;font-size:.6rem;color:var(--kd)}
+.fxm-row span{white-space:nowrap}.fxm-row em{font-style:normal;text-align:right;font-family:var(--mono);font-size:.5rem;text-transform:uppercase;color:var(--km)}
+.fxm-bar{height:5px;border-radius:5px;background:var(--kl);overflow:hidden}.fxm-bar b{display:block;height:100%;border-radius:5px;background:rgb(var(--c));width:var(--w)}
+.fxm.in .fxm-bar b{animation:fxmw 1s var(--ease) backwards}.fxm.in .fxm-pbar b{animation:fxmw 1s var(--ease) backwards}
+@keyframes fxmw{from{width:0}}
+.fxm-row.on em{color:var(--ktb)}.fxm-row.on .fxm-bar b{animation:fxmp 2.2s ease-in-out infinite}
+@keyframes fxmp{50%{opacity:.55}}
+.fxm-rt{display:grid;gap:5px}
+.fxm-rt div{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:6px;align-items:center;font-size:.6rem;color:var(--kd)}
+.fxm-rt time{font-family:var(--mono);font-size:.54rem;color:var(--km)}.fxm-rt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fxm-rt em{font-style:normal;font-family:var(--mono);font-size:.48rem;text-transform:uppercase;color:var(--km)}.fxm-rt .d em{color:var(--kok)}.fxm-rt .d{color:var(--kw)}
+.fxm-ask{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(231,181,101,.55);background:rgba(231,181,101,.07);border-radius:10px;padding:8px 10px;font-size:.64rem;color:var(--kw);transition:opacity .4s}
+.fxm-ask p{margin:0}.fxm-ask button{flex:none;border:0;cursor:pointer;font:inherit;font-weight:700;font-size:.62rem;color:#1a1306;background:var(--kg);border-radius:7px;padding:.28rem .7rem}
+.fxm-ask.done{border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.07)}.fxm-ask.done button{background:rgba(16,185,129,.2);color:#8fe0aa}
+@media(max-width:900px){.fxm{margin-top:8px}}
+@media(min-width:901px){.fxm{min-width:520px}.fxm-body{grid-template-columns:128px minmax(0,1fr)}.fxm{font-size:12px}.fxm-main{padding:14px;gap:10px}.fxm-nav{font-size:.7rem}.fxm-ins p{font-size:.72rem}.fxm-k b{font-size:1rem}.fxm-row{font-size:.64rem}.fxm-rt div{font-size:.64rem}}
+@media(max-width:620px){.fxm-body{grid-template-columns:1fr}.fxm-side{display:none}.fxm-2{grid-template-columns:1fr}.fxm-kp{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.fxm-live u,.fxm-row.on .fxm-bar b,.fxm.in .fxm-bar b,.fxm.in .fxm-pbar b{animation:none}}
 
 /* live dashboard motion */
 .live-tag u{animation:livePulse 1.7s ease-in-out infinite}
@@ -966,40 +1029,68 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           <a class="btn btn-glass btn-lg" href="#paths">Explore options</a>
         </div>
       </div>
-      <div class="dash rv" role="img" aria-label="Dashboard FluxHQ untuk owner">
-        <div class="d-bar"><b>FluxHQ</b><span class="d-tag live-tag"><u></u>Live</span></div>
-        <div class="d-kpis">
-          <div class="k"><span>New inquiries</span><b>12</b><em>+3 hari ini</em></div>
-          <div class="k"><span>Needs approval</span><b>2</b><em class="warn">waiting on you</em></div>
-          <div class="k"><span>Active projects</span><b>8</b><em>1 near deadline</em></div>
-          <div class="k"><span>Receivables</span><b>Rp 18,5 jt</b><em>2 invoices</em></div>
-        </div>
-        <div class="d-cols">
-          <div class="d-box">
-            <h4>Needs your approval</h4>
-            <div class="row decision-row"><span>Cafe proposal · Rp 45 jt</span><button class="mini dash-approve" type="button">Approve</button></div>
-            <div class="row decision-row"><span>Diskon 10% klien lama</span><button class="mini dash-approve" type="button">Approve</button></div>
-          </div>
-          <div class="d-box">
-            <h4>Agent activity</h4>
-            <div class="act"><i style="--c:#c8578f"></i>Marketing · 3 inquiries captured</div>
-            <div class="act"><i style="--c:#9a6bf0"></i>Sales · 2 proposal drafts ready</div>
-            <div class="act"><i style="--c:#4f70de"></i>Operations · revision due soon</div>
-            <div class="act"><i style="--c:#5fbf8a"></i>Finance · DP invoice sent</div>
-          </div>
-        </div>
-        <div class="d-bottom">
-          <div class="d-chart">
-            <h4>Revenue · this week</h4>
-            <div class="bars" aria-hidden="true"><i style="--h:38%"></i><i style="--h:52%"></i><i style="--h:30%"></i><i style="--h:66%"></i><i style="--h:48%"></i><i style="--h:80%"></i><i class="hi" style="--h:94%"></i></div>
-          </div>
-          <div class="d-chart kanban">
-            <h4>Project flow</h4>
-            <div class="kb"><span><b>BRIEF</b><i>Brand refresh</i><i>Villa launch</i></span><span><b>WORKING</b><i>Social pack</i><i class="hot">Web revamp</i></span><span><b>REVIEW</b><i>Campaign Q4</i></span></div>
+      <div class="fxm rv" role="img" aria-label="FluxHQ dashboard preview: AI insight, workflow progress, KPIs, desk activity and daily routines">
+        <div class="fxm-top"><span class="fxm-brand">FluxHQ<span>.</span></span><span class="fxm-tag">Agency</span><span class="fxm-live"><u></u>Live</span></div>
+        <div class="fxm-body">
+          <aside class="fxm-side">
+            <div>
+              <div class="fxm-proj"><i></i>Kopi Senja</div>
+              <div class="fxm-sec">Operate</div><span class="fxm-nav on">Dashboard</span>
+              <div class="fxm-sec">Outputs</div><span class="fxm-nav a">Inquiries</span><span class="fxm-nav a">Proposals</span><span class="fxm-nav a">Schedule</span><span class="fxm-nav a">Briefs</span><span class="fxm-nav a">Invoices</span><span class="fxm-nav a">Reports</span>
+              <div class="fxm-sec">System</div><span class="fxm-nav a">Settings</span><span class="fxm-nav a">Integrations</span>
+            </div>
+            <div class="fxm-prog"><div><span>Progress</span><span>4/7</span></div><div class="fxm-pbar"><b></b></div></div>
+          </aside>
+          <div class="fxm-main">
+            <div class="fxm-h"><div><h3>Overview</h3><p>Director · Kopi Senja</p></div><span class="fxm-pill">Live</span></div>
+            <div class="fxm-ask" id="fxmAsk"><p>Rp 45M proposal is waiting for your decision.</p><button type="button" id="fxmOk">Approve</button></div>
+            <div class="fxm-2">
+              <div class="fxm-c fxm-ins"><h4>AI insight · Kopi Senja <em>AI</em></h4><p id="fxmIns">Operation and Finance were notified early, so once you approve, the schedule and invoice start right away.</p></div>
+              <div class="fxm-c"><h4>Workflow progress</h4><div class="fxm-donut"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34" fill="none" stroke="#242427" stroke-width="9"/><circle cx="40" cy="40" r="34" fill="none" stroke="#A78BFA" stroke-width="9" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="91.9" transform="rotate(-90 40 40)"/><text x="40" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F5">57%</text></svg><div class="fxm-leg"><div><i style="background:#A78BFA"></i>Done<b>4</b></div><div><i style="background:#E7B565"></i>In progress<b>1</b></div><div><i style="background:#323236"></i>Queued<b>2</b></div></div></div></div>
+            </div>
+            <div class="fxm-kp">
+              <div class="fxm-k"><span>Contract value</span><b>Rp 45M</b><em id="fxmSt" class="w">Draft</em></div>
+              <div class="fxm-k"><span>Receivable (DP)</span><b>Rp 22.5M</b><em class="w">Net 3 days</em></div>
+              <div class="fxm-k"><span>Timeline</span><b>4 weeks</b><em>Scheduled</em></div>
+              <div class="fxm-k"><span>Auto tasks</span><b>14</b><em>24/7</em></div>
+            </div>
+            <div class="fxm-2">
+              <div class="fxm-c"><h4>Desk activity</h4><div class="fxm-rows">
+                <div class="fxm-row"><span style="color:rgb(200,87,143)">Marketing</span><div class="fxm-bar" style="--c:200,87,143;--w:100%"><b></b></div><em>Done</em></div>
+                <div class="fxm-row"><span style="color:rgb(154,107,240)">Sales</span><div class="fxm-bar" style="--c:154,107,240;--w:100%"><b></b></div><em>Done</em></div>
+                <div class="fxm-row on"><span style="color:rgb(231,181,101)">Director</span><div class="fxm-bar" style="--c:231,181,101;--w:55%"><b></b></div><em>Active</em></div>
+                <div class="fxm-row"><span style="color:rgb(79,112,222)">Operation</span><div class="fxm-bar" style="--c:79,112,222;--w:6%"><b></b></div><em>Idle</em></div>
+                <div class="fxm-row"><span style="color:rgb(63,166,173)">Production</span><div class="fxm-bar" style="--c:63,166,173;--w:6%"><b></b></div><em>Idle</em></div>
+                <div class="fxm-row"><span style="color:rgb(95,191,138)">Finance</span><div class="fxm-bar" style="--c:95,191,138;--w:6%"><b></b></div><em>Idle</em></div>
+              </div></div>
+              <div class="fxm-c"><h4>FluxOS daily routines</h4><div class="fxm-rt">
+                <div class="d"><time>07:00</time><span>Overnight lead recap</span><em>Done</em></div>
+                <div class="d"><time>09:00</time><span>Proposal follow-ups</span><em>Done</em></div>
+                <div><time>10:30</time><span>Schedule reminders</span><em>Next</em></div>
+                <div><time>15:00</time><span>QC review queue</span><em>Set</em></div>
+                <div><time>16:00</time><span>Overdue invoices</span><em>Set</em></div>
+                <div><time>18:00</time><span>Daily founder summary</span><em>Set</em></div>
+              </div></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="hq-sec" id="why">
+  <div class="wrap">
+    <div class="section-kicker">WHY FLUXHQ</div>
+    <h2>Your staff that never sleeps.</h2>
+    <p class="sub">FluxHQ runs 24/7, so inquiries get logged, follow-ups go out and invoices get chased even at 2 a.m. You open it from your phone, approve the big decisions, and that is it. No laptop, no server, no automation scenarios to build.</p>
+    <div class="hq-six rv">
+      <div><i style="--c:#e7b565"></i><span><b>Works 24/7</b>Six desks and 18 agents keep work moving on nights and weekends.</span></div>
+      <div><i style="--c:#9a6bf0"></i><span><b>Runs from your phone</b>Approve and check from your phone. Nothing to install or keep on.</span></div>
+      <div><i style="--c:#5fbf8a"></i><span><b>No server, no n8n or Make</b>No laptop or hosted server to maintain. FluxHQ is ready to run.</span></div>
+    </div>
+    <p class="sub">Built for owners who are not technical and do not want to become technical just to get their time back.</p>
   </div>
 </section>
 
@@ -1008,10 +1099,11 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   <div class="wrap">
     <div class="section-kicker">INTERACTIVE</div>
     <h2>See the agents work, desk by desk.</h2>
-    <p class="sub">Pilih industry, lalu lihat satu request bergerak antar-agent. Saat butuh approval, kamu yang memutuskan.</p>
+    <p class="sub">Enter one sample project and watch six divisions and 18 agents work it end to end. When approval is needed, you decide.</p>
     <div class="hq-frame rv">
-      <iframe id="fxFrame" src="./fluxhq.html?mode=full&amp;bg=transparent" title="Demo FluxHQ: enam meja virtual" loading="lazy"></iframe>
+      <iframe id="fxFrame" src="./fluxhq-demo.html?embed=1" title="FluxHQ live demo: six virtual desks, 18 agents and the full dashboard" loading="lazy"></iframe>
     </div>
+    <p class="hq-open"><a href="/fluxhq-demo.html">Open the demo full page →</a></p>
   </div>
 </section>
 
@@ -1336,16 +1428,19 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     });
   }
 
-  // dashboard demo: approval is clickable
-  document.querySelectorAll('.dash-approve').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var row=btn.closest('.decision-row');
-      if(row.classList.contains('done'))return;
-      row.classList.add('done');btn.textContent='Approved';
-      var pending=document.querySelector('.d-kpis .k:nth-child(2) b');
-      if(pending){var n=Math.max(0,parseInt(pending.textContent,10)-1);pending.textContent=String(n)}
+  // hero dashboard replica: approval is clickable
+  (function(){
+    var ok=document.getElementById('fxmOk'),ask=document.getElementById('fxmAsk');
+    if(!ok||!ask)return;
+    ok.addEventListener('click',function(){
+      if(ask.classList.contains('done'))return;
+      ask.classList.add('done');
+      ask.querySelector('p').textContent='Approved. Operation and Finance are on it.';
+      ok.textContent='Approved ✓';
+      var st=document.getElementById('fxmSt');if(st){st.textContent='Approved';st.classList.remove('w')}
+      var ins=document.getElementById('fxmIns');if(ins)ins.textContent='Approved by you. Operation scheduled the 4-week timeline and Finance sent the DP invoice, all without waiting on you again.';
     });
-  });
+  })();
 
   // iframe demo: ikuti tinggi konten
   window.addEventListener('message',function(e){
