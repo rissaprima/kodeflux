@@ -1019,530 +1019,110 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 
 <style id="rental-prototype-hero">
 @media(min-width:1000px){
-  .pl-hero .hq-hero-grid{
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
-    gap:40px!important;
-    align-items:center;
-  }
+  .pl-hero .hq-hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:40px!important;align-items:center}
 }
 .pl-hero h1{font-size:clamp(2.3rem,5.4vw,4.1rem)!important;line-height:1.02!important;letter-spacing:-.045em!important;max-width:16ch!important}
 .pl-hero .lead{max-width:35rem}
-.plh{min-width:0}
-.plh-chips{display:none!important}
-.plh-frame{
-  width:100%;
-  aspect-ratio:1/1!important;
-  min-height:0!important;
-  border-radius:20px;
-  border:1px solid var(--line2);
-  overflow:hidden;
-  background:#0a090d;
-  box-shadow:0 32px 90px -46px rgba(123,79,216,.85);
-}
-.plh-stage{position:relative;height:100%;min-height:0!important}
-.plh-preview{display:none!important}
-.plh-cap{margin-top:10px}
+.plh-cap{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.8rem;color:var(--dim)}
+.plh-cap>i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.15)}
+.plh-cap span{color:var(--fg);font-weight:600}
+.plh-cap em{font-style:normal;margin-left:auto;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
 
-/* Rental walkthrough */
-.rdemo{
-  position:absolute;inset:0;
-  display:grid;grid-template-rows:52px 1fr;
-  background:#0b0a0e;
-  color:var(--fg);
-  font-family:var(--sans);
-  overflow:hidden;
-}
-.rdemo-top{
-  display:flex;align-items:center;gap:10px;padding:0 14px;
-  border-bottom:1px solid rgba(255,255,255,.10);
-  background:#111014;
-}
-.rdemo-brand{font-weight:800;font-size:.9rem}
-.rdemo-sector{
-  margin-left:auto;font:700 .58rem var(--mono);letter-spacing:.13em;text-transform:uppercase;
-  padding:5px 8px;border-radius:7px;border:1px solid rgba(255,255,255,.18);color:var(--muted)
-}
-.rdemo-live{display:flex;align-items:center;gap:5px;font:.56rem var(--mono);letter-spacing:.08em;color:#b7b1c0}
-.rdemo-live i{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.7)}
-.rdemo-body{display:grid;grid-template-columns:28% 72%;min-height:0}
-.rdemo-side{
-  position:relative;padding:12px 9px;border-right:1px solid rgba(255,255,255,.09);
-  background:#100f13;overflow:hidden
-}
-.rdemo-asset{
-  display:flex;align-items:center;gap:7px;padding:8px 9px;margin-bottom:10px;
-  border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#17151b;
-  font-size:.58rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
-}
-.rdemo-dot{width:6px;height:6px;border-radius:50%;background:#f5c242;flex:none}
-.rdemo-group{font:.49rem var(--mono);letter-spacing:.14em;color:#5f5969;margin:9px 8px 5px;text-transform:uppercase}
-.rdemo-nav{display:grid;gap:3px}
-.rdemo-nav button{
-  appearance:none;border:0;text-align:left;padding:7px 8px;border-radius:6px;
-  background:transparent;color:#898390;font:600 .56rem var(--sans)
-}
-.rdemo-nav button.on{background:rgba(139,92,246,.18);color:#ad91ff}
-.rdemo-foot{position:absolute;left:9px;right:9px;bottom:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);display:grid;gap:6px}
-.rdemo-foot span{font-size:.53rem;color:#6f6977}
-.rdemo-main{position:relative;padding:13px 14px 14px;overflow:hidden;background:#0b0a0e}
-.rdemo-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px}
-.rdemo-head h3{font-size:.92rem;letter-spacing:-.02em;margin:0}
-.rdemo-head p{font-size:.53rem;color:#6f6977;margin-top:2px}
-.rdemo-chip{margin-left:auto;font:.5rem var(--mono);padding:4px 6px;border-radius:6px;border:1px solid rgba(139,92,246,.55);color:#a78bfa}
-.rdemo-panel{
-  position:absolute;left:14px;right:14px;top:54px;bottom:14px;
-  opacity:0;transform:translateY(7px);transition:opacity .28s ease,transform .35s ease;
-  pointer-events:none
-}
-.rdemo-panel.on{opacity:1;transform:none}
-.rdemo-card{
-  border:1px solid rgba(255,255,255,.10);border-radius:10px;background:#151319;padding:10px
-}
-.rdemo-ai{border-color:rgba(245,194,66,.55)}
-.rdemo-card h4{margin:0 0 5px;font-size:.62rem}
-.rdemo-card p{margin:0;font-size:.54rem;line-height:1.45;color:#9d97a6}
-.rdemo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.rdemo-kpi{border:1px solid rgba(255,255,255,.09);border-radius:9px;background:#141219;padding:9px}
-.rdemo-kpi span{display:block;font:.45rem var(--mono);letter-spacing:.08em;color:#625d69;text-transform:uppercase}
-.rdemo-kpi b{display:block;font-size:.8rem;margin-top:4px}
-.rdemo-bars{height:58px;display:flex;align-items:flex-end;gap:5px;padding-top:8px}
-.rdemo-bars i{flex:1;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,#a78bfa,#7b4fd8);transform-origin:bottom;animation:rdemoBars 1.5s ease-in-out infinite alternate}
-.rdemo-bars i:nth-child(2){height:72%}.rdemo-bars i:nth-child(3){height:44%}.rdemo-bars i:nth-child(4){height:86%}.rdemo-bars i:nth-child(5){height:63%}
-@keyframes rdemoBars{from{transform:scaleY(.35);opacity:.55}to{transform:scaleY(1);opacity:1}}
+.fxm{--kb:#0a0a0b;--kp:#111113;--kc:#161618;--kl:#242427;--kh:#323236;--kt:#8B5CF6;--ktb:#A78BFA;--kg:#E7B565;--kw:#F4F4F5;--kd:#A1A1AA;--km:#6B6B73;--kok:#10B981;
+  position:relative;border:1px solid var(--kh);border-radius:18px;background:var(--kb);overflow:hidden;font-family:"Inter",system-ui,sans-serif;font-size:11px;color:var(--kw);box-shadow:0 40px 80px -40px rgba(139,92,246,.55)}
+.fxm *{box-sizing:border-box}
+.fxm-ask button.pulse{box-shadow:0 0 0 4px rgba(139,92,246,.35);transform:scale(1.06);transition:.25s}
+.fxm-row em,.fxm-bar b{transition:width .9s ease,color .4s}
+.fxm-top{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:var(--kp);border-bottom:1px solid var(--kl)}
+.fxm-brand{font-weight:800;font-size:.95rem;letter-spacing:-.02em}.fxm-brand span{color:var(--ktb)}
+.fxm-tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--kd);border:1px solid var(--kh);border-radius:99px;padding:.15rem .55rem}
+.fxm-live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ktb)}
+.fxm-live u{width:6px;height:6px;border-radius:50%;background:var(--ktb);animation:dpulse 1.8s ease-in-out infinite}
+.fxm-body{display:grid;grid-template-columns:116px minmax(0,1fr)}
+.fxm-side{display:flex;flex-direction:column;justify-content:space-between;padding:10px 8px;background:var(--kp);border-right:1px solid var(--kl);min-width:0}
+.fxm-proj{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid var(--kh);border-radius:7px;font-size:.66rem;font-weight:600;margin-bottom:8px;white-space:nowrap;overflow:hidden}
+.fxm-proj i{width:7px;height:7px;border-radius:50%;background:var(--kt);flex:none}
+.fxm-sec{margin:9px 0 3px 6px;font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--km)}
+.fxm-nav{display:block;padding:5px 8px;border-radius:6px;font-size:.66rem;font-weight:500;color:var(--km);white-space:nowrap}
+.fxm-nav.on{background:rgba(139,92,246,.16);color:var(--ktb);font-weight:600}
+.fxm-nav.a{color:var(--kd)}
+.fxm-prog{padding:8px 6px 0;font-size:.56rem;color:var(--km)}
+.fxm-prog div{display:flex;justify-content:space-between;margin-bottom:4px}
+.fxm-pbar{height:4px;border-radius:4px;background:var(--kl);overflow:hidden}.fxm-pbar b{display:block;height:100%;width:57%;background:var(--kt);border-radius:4px}
+.fxm-main{padding:12px;min-width:0;display:grid;gap:8px;align-content:start}
+.fxm-h{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.fxm-h h3{margin:0;font-size:.95rem;letter-spacing:-.02em}.fxm-h p{margin:2px 0 0;font-size:.62rem;color:var(--km)}
+.fxm-pill{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ktb);border:1px solid rgba(139,92,246,.5);border-radius:99px;padding:.15rem .5rem;white-space:nowrap}
+.fxm-c{border:1px solid var(--kl);border-radius:10px;background:var(--kc);padding:10px 11px;min-width:0}
+.fxm-c h4{margin:0 0 7px;font-family:var(--mono);font-size:.52rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--km);display:flex;align-items:center;justify-content:space-between;gap:6px}
+.fxm-c h4 em{font-style:normal;color:var(--ktb);border:1px solid rgba(139,92,246,.45);border-radius:5px;padding:0 5px}
+.fxm-ins{border-color:rgba(139,92,246,.55);background:linear-gradient(180deg,rgba(139,92,246,.1),var(--kc))}
+.fxm-ins p{margin:0;font-size:.68rem;line-height:1.5;color:var(--kd)}
+.fxm-2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:8px}
+.fxm-donut{display:flex;align-items:center;gap:10px}.fxm-donut svg{width:62px;height:62px;flex:none}
+.fxm-leg{display:grid;gap:3px;font-size:.62rem;color:var(--kd);flex:1;min-width:0}
+.fxm-leg div{display:flex;align-items:center;gap:5px}.fxm-leg i{width:6px;height:6px;border-radius:50%;flex:none}.fxm-leg b{margin-left:auto;color:var(--kw)}
+.fxm-kp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.fxm-k{border:1px solid var(--kl);border-radius:9px;background:var(--kc);padding:8px 9px;min-width:0}
+.fxm-k span{display:block;font-size:.56rem;color:var(--km);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fxm-k b{display:block;margin-top:3px;font-size:.92rem;letter-spacing:-.03em;white-space:nowrap}
+.fxm-k em{display:block;margin-top:2px;font-style:normal;font-size:.54rem;color:var(--kok);white-space:nowrap}.fxm-k em.w{color:var(--kg)}
+.fxm-rows{display:grid;gap:6px}
+.fxm-row{display:grid;grid-template-columns:62px minmax(0,1fr) 40px;align-items:center;gap:6px;font-size:.6rem;color:var(--kd)}
+.fxm-row span{white-space:nowrap}.fxm-row em{font-style:normal;text-align:right;font-family:var(--mono);font-size:.5rem;text-transform:uppercase;color:var(--km)}
+.fxm-bar{height:5px;border-radius:5px;background:var(--kl);overflow:hidden}.fxm-bar b{display:block;height:100%;border-radius:5px;background:rgb(var(--c));width:var(--w)}
+.fxm.in .fxm-bar b{animation:fxmw 1s var(--ease) backwards}.fxm.in .fxm-pbar b{animation:fxmw 1s var(--ease) backwards}
+@keyframes fxmw{from{width:0}}
+.fxm-row.on em{color:var(--ktb)}.fxm-row.on .fxm-bar b{animation:fxmp 2.2s ease-in-out infinite}
+@keyframes fxmp{50%{opacity:.55}}
+.fxm-rt{display:grid;gap:5px}
+.fxm-rt div{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:6px;align-items:center;font-size:.6rem;color:var(--kd)}
+.fxm-rt time{font-family:var(--mono);font-size:.54rem;color:var(--km)}.fxm-rt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fxm-rt em{font-style:normal;font-family:var(--mono);font-size:.48rem;text-transform:uppercase;color:var(--km)}.fxm-rt .d em{color:var(--kok)}.fxm-rt .d{color:var(--kw)}
+.fxm-ask{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(231,181,101,.55);background:rgba(231,181,101,.07);border-radius:10px;padding:8px 10px;font-size:.64rem;color:var(--kw);transition:opacity .4s}
+.fxm-ask p{margin:0}.fxm-ask button{flex:none;border:0;cursor:pointer;font:inherit;font-weight:700;font-size:.62rem;color:#1a1306;background:var(--kg);border-radius:7px;padding:.28rem .7rem}
+.fxm-ask.done{border-color:rgba(16,185,129,.5);background:rgba(16,185,129,.07)}.fxm-ask.done button{background:rgba(16,185,129,.2);color:#8fe0aa}
+@media(max-width:900px){.fxm{margin-top:8px}}
+@media(min-width:901px){.fxm{min-width:520px}.fxm-body{grid-template-columns:128px minmax(0,1fr)}.fxm{font-size:12px}.fxm-main{padding:14px;gap:10px}.fxm-nav{font-size:.7rem}.fxm-ins p{font-size:.72rem}.fxm-k b{font-size:1rem}.fxm-row{font-size:.64rem}.fxm-rt div{font-size:.64rem}}
+@media(max-width:620px){.fxm-body{grid-template-columns:1fr}.fxm-side{display:none}.fxm-2{grid-template-columns:1fr}.fxm-kp{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.fxm-live u,.fxm-row.on .fxm-bar b,.fxm.in .fxm-bar b,.fxm.in .fxm-pbar b{animation:none}}
 
-.rdemo-form{display:grid;gap:8px}
-.rdemo-field label{display:block;font-size:.48rem;color:#716b79;margin-bottom:4px}
-.rdemo-input,.rdemo-select{
-  height:30px;border:1px solid rgba(255,255,255,.12);border-radius:7px;background:#1b1820;
-  padding:0 9px;display:flex;align-items:center;font-size:.57rem;color:#d8d2df
-}
-.rdemo-input.typing::after{
-  content:"";width:1px;height:12px;background:#fff;margin-left:2px;animation:rdemoBlink .7s steps(1) infinite
-}
-@keyframes rdemoBlink{50%{opacity:0}}
-.rdemo-btn{
-  justify-self:start;border:0;border-radius:7px;padding:7px 11px;
-  background:linear-gradient(135deg,#7b4fd8,#c8578f);color:white;font:700 .55rem var(--sans)
-}
-.rdemo-doc{
-  height:100%;border:1px solid rgba(255,255,255,.11);border-radius:10px;background:#151319;padding:12px;
-  display:flex;flex-direction:column;gap:7px
-}
-.rdemo-line{height:5px;border-radius:4px;background:#27232d}
-.rdemo-line.w1{width:72%}.rdemo-line.w2{width:92%}.rdemo-line.w3{width:54%}
-.rdemo-sign{margin-top:auto;display:flex;justify-content:space-between;align-items:center}
-.rdemo-sign span{font:.49rem var(--mono);color:#766f7e}
-.rdemo-ready{padding:4px 7px;border-radius:99px;background:rgba(74,222,128,.12);color:#5de38d;font-size:.48rem}
-.rdemo-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.rdemo-cal b{font:.45rem var(--mono);color:#625d69;text-align:center;padding:2px}
-.rdemo-day{
-  aspect-ratio:1;border:1px solid rgba(255,255,255,.07);border-radius:5px;background:#151319;
-  display:grid;place-items:center;font-size:.48rem;color:#817b88;position:relative
-}
-.rdemo-day.booked{border-color:rgba(245,194,66,.5);color:#f5c242;background:rgba(245,194,66,.08)}
-.rdemo-day.booked::after{content:"";position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:#f5c242}
+/* Rental content only — shell/layout remains Corp's exact .fxm system */
+.rental-fxm{--kr:#F5C242;--kr2:#D4A017}
+.rental-fxm .fxm-proj i{background:var(--kr)}
+.rental-fxm .fxm-nav.on{background:rgba(139,92,246,.16);color:var(--ktb)}
+.rental-fxm .fxm-ins{border-color:rgba(245,194,66,.58);background:linear-gradient(180deg,rgba(245,194,66,.075),var(--kc))}
+.rental-fxm .fxm-ins h4 em{color:var(--kr);border-color:rgba(245,194,66,.5)}
 
-@media(max-width:900px){
-  .plh-frame{max-width:620px;margin-inline:auto}
-}
-@media(max-width:560px){
-  .rdemo{grid-template-rows:44px 1fr}
-  .rdemo-top{padding:0 10px}
-  .rdemo-body{grid-template-columns:30% 70%}
-  .rdemo-main{padding:10px}
-  .rdemo-panel{left:10px;right:10px;top:47px;bottom:10px}
-  .rdemo-side{padding:9px 6px}
-  .rdemo-nav button{padding:6px;font-size:.49rem}
-  .rdemo-asset{padding:7px 6px;font-size:.48rem}
-  .rdemo-main .rdemo-head h3{font-size:.76rem}
-}
+.rental-mix{display:flex;align-items:center;gap:10px}
+.rental-mix svg{width:62px;height:62px;flex:none}
+.rental-mix .fxm-leg i.daily{background:#F5C242}
+.rental-mix .fxm-leg i.long{background:#8B5CF6}
 
+.rental-funnel{display:flex;flex-direction:column;align-items:center;gap:3px;padding-top:2px}
+.rental-funnel i{display:block;height:17px;line-height:17px;text-align:center;font-style:normal;font-family:var(--mono);font-size:.46rem;font-weight:700;color:#0a0a0b;clip-path:polygon(5% 0,95% 0,80% 100%,20% 100%)}
+.rental-funnel i:nth-child(1){width:82%;background:#F5C242}
+.rental-funnel i:nth-child(2){width:62%;background:#A78BFA}
+.rental-funnel i:nth-child(3){width:44%;background:#8B5CF6}
+.rental-funnel-leg{display:grid;gap:3px;margin-top:6px;font-size:.52rem;color:var(--km)}
+.rental-funnel-leg div{display:flex;align-items:center;gap:5px}
+.rental-funnel-leg small{margin-left:auto;font-family:var(--mono);font-size:.46rem;color:var(--km)}
+.rental-funnel-leg i{width:6px;height:6px;border-radius:2px;clip-path:none;flex:none}
 
-/* Rental dashboard — mirrors actual Kluster information hierarchy */
-.rdemo-panel[data-panel="0"]{
-  top:54px!important;
-  display:grid;
-  grid-template-rows:auto auto 1fr;
-  gap:8px;
-}
-.rdemo-topgrid{display:grid;grid-template-columns:1.25fr .75fr;gap:8px;margin-top:14px}
-.rdemo-insight{min-height:92px;display:flex;flex-direction:column;justify-content:space-between}
-.rdemo-insight-top,.rdemo-mix-top,.rdemo-funnel-top{display:flex;align-items:center;gap:6px}
-.rdemo-ai-badge{margin-left:auto;padding:3px 5px;border:1px solid rgba(245,194,66,.55);border-radius:5px;font:700 .44rem var(--mono);color:#f5c242}
-.rdemo-insight-copy{font-size:.50rem;line-height:1.42;color:#9d97a6}
-.rdemo-dots{display:flex;gap:4px}.rdemo-dots i{width:4px;height:4px;border-radius:50%;background:#3a3540}.rdemo-dots i.on{background:#f5c242}
-.rdemo-mix{min-height:92px}
-.rdemo-mix-body{display:grid;grid-template-columns:54px 1fr;align-items:center;gap:8px;margin-top:7px}
-.rdemo-donut{width:54px;height:54px;border-radius:50%;background:conic-gradient(#f5c242 0 58%,#8b5cf6 58% 100%);position:relative}
-.rdemo-donut::after{content:"58%";position:absolute;inset:10px;border-radius:50%;background:#151319;display:grid;place-items:center;font-size:.56rem;font-weight:800;color:#f4f1ea}
-.rdemo-legend{display:grid;gap:5px}.rdemo-legend div{display:flex;justify-content:space-between;gap:7px;font-size:.45rem;color:#8f8996}
-.rdemo-legend span{display:flex;align-items:center;gap:4px}.rdemo-legend i{width:5px;height:5px;border-radius:50%}
-.rdemo-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.rdemo-kpi{min-width:0;padding:7px 7px 8px}.rdemo-kpi span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.39rem}
-.rdemo-kpi b{font-size:.68rem;margin-top:3px}.rdemo-up{margin-top:2px;font-size:.37rem;color:#4ade80}
-.rdemo-bottomgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:8px;min-height:0}
-.rdemo-funnel,.rdemo-performance{min-height:0;height:100%}
-.rdemo-funnel-shape{height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;margin-top:4px}
-.rdemo-funnel-shape i{display:block;height:17px;clip-path:polygon(6% 0,94% 0,80% 100%,20% 100%);font-style:normal;font:800 .43rem var(--mono);color:#0b0a0e;text-align:center;line-height:17px}
-.rdemo-funnel-shape i:nth-child(1){width:82%;background:#f5c242}.rdemo-funnel-shape i:nth-child(2){width:62%;background:#a78bfa}.rdemo-funnel-shape i:nth-child(3){width:44%;background:#8b5cf6}
-.rdemo-funnel-legend{display:grid;gap:3px;margin-top:3px}.rdemo-funnel-legend div{display:flex;align-items:center;gap:5px;font-size:.40rem;color:#7e7886}
-.rdemo-funnel-legend i{width:5px;height:5px;border-radius:2px;flex:none}
-.rdemo-perf-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.rdemo-perf-select{padding:3px 5px;border-radius:5px;border:1px solid rgba(255,255,255,.11);background:#1c1921;color:#8f8996;font-size:.40rem}
-.rdemo-chart{position:relative;height:93px;margin-top:7px;border-left:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);overflow:hidden}
-.rdemo-chart svg{width:100%;height:100%;display:block}.rdemo-chart-meta{display:flex;justify-content:space-between;margin-top:4px;font-size:.38rem;color:#625d69}
-.rdemo-latest{margin-top:3px;font-size:.42rem;color:#7e7886}.rdemo-latest b{color:#f4f1ea}
-@media(max-width:560px){
-  .rdemo-panel[data-panel="0"]{top:46px!important;gap:5px}
-  .rdemo-topgrid{margin-top:10px}
-  .rdemo-topgrid{grid-template-columns:1.12fr .88fr;gap:5px}
-  .rdemo-kpis{gap:4px}.rdemo-bottomgrid{gap:5px}.rdemo-card{padding:7px}
-  .rdemo-insight-copy{font-size:.43rem}.rdemo-kpi{padding:5px}.rdemo-kpi b{font-size:.59rem}
-  .rdemo-chart{height:72px}.rdemo-funnel-shape{height:68px}
-}
+.rental-chart{height:82px;margin-top:2px}
+.rental-chart svg{width:100%;height:100%;display:block}
+.rental-chart-meta{display:flex;justify-content:space-between;margin-top:2px;font-family:var(--mono);font-size:.46rem;color:var(--km)}
+.rental-latest{margin-top:2px;font-size:.52rem;color:var(--kd)}
+.rental-latest b{color:var(--kw)}
 
-/* FINAL ALIGNMENT FIX — match FluxHQ header + top-align feature content */
-.rdemo{
-  grid-template-rows:40px 1fr!important;
-}
-.rdemo-top{
-  display:flex!important;
-  align-items:center!important;
-  gap:10px!important;
-  height:40px!important;
-  padding:0 14px!important;
-  background:#111113!important;
-  border-bottom:1px solid #242427!important;
-}
-.rdemo-brand{
-  font-weight:800!important;
-  font-size:.95rem!important;
-  letter-spacing:-.02em!important;
-  color:#F4F4F5!important;
-}
-.rdemo-sector{
-  margin-left:0!important;
-  font-family:var(--mono)!important;
-  font-size:.56rem!important;
-  font-weight:500!important;
-  letter-spacing:.1em!important;
-  text-transform:uppercase!important;
-  color:#A1A1AA!important;
-  border:1px solid #323236!important;
-  border-radius:99px!important;
-  padding:.15rem .55rem!important;
-  background:transparent!important;
-}
-.rdemo-live{
-  margin-left:auto!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  gap:6px!important;
-  font-family:var(--mono)!important;
-  font-size:.56rem!important;
-  letter-spacing:.1em!important;
-  text-transform:uppercase!important;
-  color:#A78BFA!important;
-}
-.rdemo-live i{
-  width:6px!important;
-  height:6px!important;
-  border-radius:50%!important;
-  background:#A78BFA!important;
-  box-shadow:none!important;
-  animation:dpulse 1.8s ease-in-out infinite;
-}
-
-/* FluxHQ-style main area: content always starts from top */
-.rdemo-main{
-  position:relative!important;
-  padding:14px!important;
-  overflow:hidden!important;
-  background:#0a0a0b!important;
-}
-.rdemo-head{
-  display:flex!important;
-  align-items:flex-start!important;
-  justify-content:space-between!important;
-  gap:8px!important;
-  margin:0!important;
-  min-height:34px!important;
-}
-.rdemo-head h3{
-  margin:0!important;
-  font-size:.95rem!important;
-  letter-spacing:-.02em!important;
-}
-.rdemo-head p{
-  margin:2px 0 0!important;
-  font-size:.62rem!important;
-  color:#6B6B73!important;
-}
-.rdemo-chip{
-  margin-left:auto!important;
-  font-family:var(--mono)!important;
-  font-size:.5rem!important;
-  letter-spacing:.1em!important;
-  text-transform:uppercase!important;
-  color:#A78BFA!important;
-  border:1px solid rgba(139,92,246,.5)!important;
-  border-radius:99px!important;
-  padding:.15rem .5rem!important;
-  white-space:nowrap!important;
-}
-
-/* CRITICAL: no vertical centering/stretching */
-.rdemo-panel,
-.rdemo-panel[data-panel="0"]{
-  position:absolute!important;
-  left:14px!important;
-  right:14px!important;
-  top:58px!important;
-  bottom:auto!important;
-  height:auto!important;
-  min-height:0!important;
-  display:block!important;
-  align-content:start!important;
-  justify-content:start!important;
-}
-.rdemo-panel:not(.on){
-  opacity:0!important;
-  pointer-events:none!important;
-}
-.rdemo-panel.on{
-  opacity:1!important;
-  transform:none!important;
-}
-.rdemo-topgrid{
-  display:grid!important;
-  grid-template-columns:1.25fr .75fr!important;
-  gap:8px!important;
-  margin:10px 0 0!important;
-  align-items:stretch!important;
-}
-.rdemo-kpis{
-  display:grid!important;
-  grid-template-columns:repeat(4,1fr)!important;
-  gap:6px!important;
-  margin-top:8px!important;
-}
-.rdemo-bottomgrid{
-  display:grid!important;
-  grid-template-columns:.9fr 1.1fr!important;
-  gap:8px!important;
-  margin-top:8px!important;
-  min-height:0!important;
-}
-
-/* every walkthrough feature begins at top below the heading too */
-.rdemo-panel[data-panel="1"] > .rdemo-card,
-.rdemo-panel[data-panel="2"] > .rdemo-doc,
-.rdemo-panel[data-panel="3"] > .rdemo-card:first-child{
-  margin-top:10px!important;
-}
-
-@media(max-width:560px){
-  .rdemo{grid-template-rows:40px 1fr!important}
-  .rdemo-top{height:40px!important;padding:0 10px!important}
-  .rdemo-main{padding:10px!important}
-  .rdemo-panel,
-  .rdemo-panel[data-panel="0"]{
-    left:10px!important;
-    right:10px!important;
-    top:50px!important;
-  }
-  .rdemo-topgrid{margin-top:8px!important;gap:5px!important}
-  .rdemo-kpis,.rdemo-bottomgrid{margin-top:5px!important;gap:5px!important}
-}
-
-/* FINAL FLOW FIX — active feature sits directly under heading */
-.rdemo-main{
-  display:block!important;
-  padding:14px!important;
-  overflow:hidden!important;
-}
-.rdemo-head{
-  position:relative!important;
-  margin:0!important;
-  padding:0!important;
-  min-height:0!important;
-  display:block!important;
-}
-.rdemo-head > div{display:block!important}
-.rdemo-head h3{margin:0!important}
-.rdemo-head p{margin:2px 0 0!important}
-
-/* No absolute positioning for feature content. */
-.rdemo-panel,
-.rdemo-panel[data-panel="0"]{
-  position:static!important;
-  inset:auto!important;
-  left:auto!important;
-  right:auto!important;
-  top:auto!important;
-  bottom:auto!important;
-  width:auto!important;
-  height:auto!important;
-  min-height:0!important;
-  margin:10px 0 0!important;
-  padding:0!important;
-  transform:none!important;
-  align-content:initial!important;
-  justify-content:initial!important;
-}
-.rdemo-panel:not(.on){
-  display:none!important;
-  opacity:0!important;
-}
-.rdemo-panel.on{
-  display:block!important;
-  opacity:1!important;
-  pointer-events:auto!important;
-}
-
-/* Dashboard group starts immediately after the normal 10px content gap. */
-.rdemo-topgrid{
-  margin:0!important;
-  display:grid!important;
-  grid-template-columns:1.25fr .75fr!important;
-  gap:8px!important;
-}
-.rdemo-kpis{margin-top:8px!important}
-.rdemo-bottomgrid{margin-top:8px!important}
-
-/* Other walkthrough screens follow the same top-aligned flow. */
-.rdemo-panel[data-panel="1"] > .rdemo-card,
-.rdemo-panel[data-panel="2"] > .rdemo-doc,
-.rdemo-panel[data-panel="3"] > .rdemo-card:first-child{
-  margin-top:0!important;
-}
-
-@media(max-width:560px){
-  .rdemo-main{padding:10px!important}
-  .rdemo-panel,
-  .rdemo-panel[data-panel="0"]{margin-top:8px!important}
-  .rdemo-topgrid{margin:0!important}
+@media(max-width:620px){
+  .pl-hero h1{max-width:16ch!important}
+  .rental-funnel{padding-top:4px}
 }
 </style>
 
 
-<style id="rental-alignment-fix">
-/* Exact FluxHQ header metrics from corp(5).html */
-.rdemo{
-  grid-template-rows:40px 1fr!important;
-}
-.rdemo-top{
-  display:flex!important;
-  align-items:center!important;
-  gap:10px!important;
-  height:40px!important;
-  min-height:40px!important;
-  padding:0 14px!important;
-  background:#111014!important;
-  border-bottom:1px solid rgba(255,255,255,.10)!important;
-}
-.rdemo-brand{
-  font-weight:800!important;
-  font-size:.95rem!important;
-  letter-spacing:-.02em!important;
-  line-height:1!important;
-}
-.rdemo-sector{
-  margin-left:0!important;
-  font-family:var(--mono)!important;
-  font-size:.56rem!important;
-  letter-spacing:.1em!important;
-  text-transform:uppercase!important;
-  color:var(--dim)!important;
-  border:1px solid var(--line2)!important;
-  border-radius:99px!important;
-  padding:.15rem .55rem!important;
-  line-height:1!important;
-}
-.rdemo-live{
-  margin-left:auto!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  gap:6px!important;
-  font-family:var(--mono)!important;
-  font-size:.56rem!important;
-  letter-spacing:.1em!important;
-  text-transform:uppercase!important;
-  color:#a78bfa!important;
-  line-height:1!important;
-}
-.rdemo-live i{
-  width:6px!important;
-  height:6px!important;
-}
 
-/* Heading stays at top; dashboard cards start immediately below */
-.rdemo-main{
-  padding:12px 14px 14px!important;
-  display:block!important;
-}
-.rdemo-head{
-  position:relative!important;
-  margin:0 0 10px 0!important;
-  min-height:30px!important;
-}
-.rdemo-panel{
-  position:absolute!important;
-  left:14px!important;
-  right:14px!important;
-  top:52px!important;
-  bottom:14px!important;
-}
-.rdemo-panel[data-panel="0"]{
-  top:52px!important;
-  display:flex!important;
-  flex-direction:column!important;
-  justify-content:flex-start!important;
-  gap:7px!important;
-  overflow:hidden!important;
-}
-.rdemo-topgrid{
-  margin-top:0!important;
-  flex:0 0 auto!important;
-}
-.rdemo-kpis{flex:0 0 auto!important}
-.rdemo-bottomgrid{
-  flex:1 1 auto!important;
-  min-height:0!important;
-}
-.rdemo-insight,
-.rdemo-mix,
-.rdemo-kpi,
-.rdemo-funnel,
-.rdemo-performance{
-  align-self:stretch!important;
-}
-.rdemo-funnel,
-.rdemo-performance{display:block!important}
-
-@media(max-width:560px){
-  .rdemo{
-    grid-template-rows:40px 1fr!important;
-  }
-  .rdemo-top{
-    height:40px!important;
-    min-height:40px!important;
-    padding:0 10px!important;
-  }
-  .rdemo-main{padding:9px 10px 10px!important}
-  .rdemo-head{margin-bottom:7px!important;min-height:27px!important}
-  .rdemo-panel{
-    left:10px!important;
-    right:10px!important;
-    top:44px!important;
-    bottom:10px!important;
-  }
-  .rdemo-panel[data-panel="0"]{
-    top:44px!important;
-    gap:5px!important;
-  }
-}
-</style>
 
 </head>
 <body>
@@ -1623,161 +1203,114 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           <a class="btn btn-glass btn-lg" href="#tools">Try the demos</a>
         </div>
       </div>
-      <div class="plh rv" id="plh" aria-label="Rental I/O animated product walkthrough">
-        <div class="plh-frame">
-          <div class="plh-stage">
-            <div class="rdemo" id="rDemo">
-              <div class="rdemo-top">
-                <div class="rdemo-brand">Flux I/O</div>
-                <div class="rdemo-sector">Rental</div>
-                <div class="rdemo-live"><i></i> LIVE</div>
+      <div class="plh rv" id="plh" aria-label="Rental I/O dashboard preview">
+        <div class="fxm rental-fxm" id="rDemo">
+          <div class="fxm-top">
+            <span class="fxm-brand">Flux I/O</span>
+            <span class="fxm-tag">Rental</span>
+            <span class="fxm-live"><u></u>Live</span>
+          </div>
+
+          <div class="fxm-body">
+            <aside class="fxm-side">
+              <div>
+                <div class="fxm-proj"><i></i>Honda Brio RS</div>
+                <div class="fxm-sec">Operate</div>
+                <span class="fxm-nav on">Dashboard</span>
+                <span class="fxm-nav a">Generator</span>
+                <span class="fxm-nav a">Agreements</span>
+                <span class="fxm-nav a">Calendar</span>
+                <span class="fxm-nav a">Maintenance</span>
+                <span class="fxm-nav a">Invoices</span>
+                <span class="fxm-nav a">Reports</span>
+                <span class="fxm-nav a">Assets</span>
+                <div class="fxm-sec">System</div>
+                <span class="fxm-nav a">Settings</span>
+              </div>
+              <div class="fxm-prog">
+                <div><span>Bookings</span><span>22</span></div>
+                <div class="fxm-pbar"><b style="width:78%;background:#F5C242"></b></div>
+              </div>
+            </aside>
+
+            <div class="fxm-main">
+              <div class="fxm-h">
+                <div><h3>Analytics</h3><p>Honda Brio RS · Live rental performance</p></div>
               </div>
 
-              <div class="rdemo-body">
-                <aside class="rdemo-side">
-                  <div class="rdemo-asset"><span class="rdemo-dot"></span>Honda Brio RS</div>
-                  <div class="rdemo-group">Operate</div>
-                  <div class="rdemo-nav">
-                    <button class="on" data-step="0">Dashboard</button>
-                    <button data-step="1">Generator</button>
-                    <button data-step="2">Agreements</button>
-                    <button data-step="3">Calendar</button>
-                    <button>Maintenance</button>
-                    <button>Invoices</button>
-                    <button>Reports</button>
-                    <button>Assets</button>
+              <div class="fxm-2">
+                <div class="fxm-c fxm-ins">
+                  <h4>AI insight · Honda Brio RS <em>AI</em></h4>
+                  <p>Booking minggu ini naik 66.7%. Momentum bagus — pertimbangkan naikkan harga di periode ramai.</p>
+                </div>
+
+                <div class="fxm-c">
+                  <h4>Booking Type Mix</h4>
+                  <div class="rental-mix">
+                    <svg viewBox="0 0 80 80" aria-hidden="true">
+                      <circle cx="40" cy="40" r="34" fill="none" stroke="#242427" stroke-width="9"/>
+                      <circle cx="40" cy="40" r="34" fill="none" stroke="#F5C242" stroke-width="9" stroke-dasharray="123.9 89.7" transform="rotate(-90 40 40)"/>
+                      <circle cx="40" cy="40" r="34" fill="none" stroke="#8B5CF6" stroke-width="9" stroke-dasharray="89.7 123.9" stroke-dashoffset="-123.9" transform="rotate(-90 40 40)"/>
+                      <text x="40" y="45" text-anchor="middle" font-size="15" font-weight="700" fill="#F4F4F5">58%</text>
+                    </svg>
+                    <div class="fxm-leg">
+                      <div><i class="daily"></i>Daily<b>58%</b></div>
+                      <div><i class="long"></i>Long-term<b>42%</b></div>
+                    </div>
                   </div>
-                  <div class="rdemo-foot"><span>⚙ Settings</span><span>↪ Log out</span></div>
-                </aside>
+                </div>
+              </div>
 
-                <div class="rdemo-main">
-                  <div class="rdemo-head">
-                    <div><h3 id="rDemoTitle">Analytics</h3><p id="rDemoSub">Live rental performance</p></div>
+              <div class="fxm-kp">
+                <div class="fxm-k"><span>Total Bookings</span><b>22</b><em>+12.4%</em></div>
+                <div class="fxm-k"><span>Revenue</span><b>Rp 36.3M</b><em>+8.1%</em></div>
+                <div class="fxm-k"><span>Utilization Rate</span><b>78%</b><em>+1.9%</em></div>
+                <div class="fxm-k"><span>Repeat Customer Rate</span><b>46%</b><em>+2.0%</em></div>
+              </div>
+
+              <div class="fxm-2">
+                <div class="fxm-c">
+                  <h4>Funnel Flow</h4>
+                  <div class="rental-funnel">
+                    <i>40</i><i>22</i><i>20</i>
                   </div>
+                  <div class="rental-funnel-leg">
+                    <div><i style="background:#F5C242"></i>Inquiries <small>baseline</small></div>
+                    <div><i style="background:#A78BFA"></i>Bookings <small>↓55.0% CVR</small></div>
+                    <div><i style="background:#8B5CF6"></i>Completed <small>↓90.9% CVR</small></div>
+                  </div>
+                </div>
 
-                  <section class="rdemo-panel on" data-panel="0">
-                    <div class="rdemo-topgrid">
-                      <div class="rdemo-card rdemo-ai rdemo-insight">
-                        <div class="rdemo-insight-top">
-                          <h4>AI Insight — Honda Brio RS</h4>
-                          <span class="rdemo-ai-badge">AI</span>
-                        </div>
-                        <p class="rdemo-insight-copy">Booking minggu ini naik 66.7%. Momentum bagus — pertimbangkan naikkan harga di periode ramai.</p>
-                        <div class="rdemo-dots"><i class="on"></i><i></i><i></i><i></i></div>
-                      </div>
-
-                      <div class="rdemo-card rdemo-mix">
-                        <div class="rdemo-mix-top"><h4>Booking Type Mix</h4></div>
-                        <div class="rdemo-mix-body">
-                          <div class="rdemo-donut"></div>
-                          <div class="rdemo-legend">
-                            <div><span><i style="background:#f5c242"></i>Daily</span><b>58%</b></div>
-                            <div><span><i style="background:#8b5cf6"></i>Long-term</span><b>42%</b></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="rdemo-kpis">
-                      <div class="rdemo-kpi">
-                        <span>Total Bookings</span><b>22</b><div class="rdemo-up">+12.4%</div>
-                      </div>
-                      <div class="rdemo-kpi">
-                        <span>Revenue</span><b>Rp 36.3M</b><div class="rdemo-up">+8.1%</div>
-                      </div>
-                      <div class="rdemo-kpi">
-                        <span>Utilization Rate</span><b>78%</b><div class="rdemo-up">+1.9%</div>
-                      </div>
-                      <div class="rdemo-kpi">
-                        <span>Repeat Customer Rate</span><b>46%</b><div class="rdemo-up">+2.0%</div>
-                      </div>
-                    </div>
-
-                    <div class="rdemo-bottomgrid">
-                      <div class="rdemo-card rdemo-funnel">
-                        <div class="rdemo-funnel-top"><h4>Funnel Flow</h4></div>
-                        <div class="rdemo-funnel-shape">
-                          <i>40</i><i>22</i><i>20</i>
-                        </div>
-                        <div class="rdemo-funnel-legend">
-                          <div><i style="background:#f5c242"></i>Inquiries <span style="margin-left:auto">baseline</span></div>
-                          <div><i style="background:#a78bfa"></i>Bookings <span style="margin-left:auto">↓55.0% CVR</span></div>
-                          <div><i style="background:#8b5cf6"></i>Completed <span style="margin-left:auto">↓90.9% CVR</span></div>
-                        </div>
-                      </div>
-
-                      <div class="rdemo-card rdemo-performance">
-                        <div class="rdemo-perf-head">
-                          <h4>Funnel Performance</h4>
-                          <span class="rdemo-perf-select">Utilization Rate</span>
-                        </div>
-                        <div class="rdemo-chart">
-                          <svg viewBox="0 0 220 90" preserveAspectRatio="none" aria-hidden="true">
-                            <defs>
-                              <linearGradient id="rdemoPerfGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#f5c242" stop-opacity=".32"/>
-                                <stop offset="100%" stop-color="#f5c242" stop-opacity="0"/>
-                              </linearGradient>
-                            </defs>
-                            <path d="M4 58 L35 70 L66 74 L98 74 L130 72 L163 68 L195 62 L216 18 L216 90 L4 90 Z" fill="url(#rdemoPerfGrad)"/>
-                            <path d="M4 58 L35 70 L66 74 L98 74 L130 72 L163 68 L195 62 L216 18" fill="none" stroke="#f5c242" stroke-width="2"/>
-                            <circle cx="216" cy="18" r="3" fill="#f5c242"/>
-                          </svg>
-                        </div>
-                        <div class="rdemo-chart-meta"><span>11 Oct</span><span>18 Oct</span></div>
-                        <div class="rdemo-latest">Latest: <b>90.6%</b></div>
-                      </div>
-                    </div>
-                  </section>
-
-                  <section class="rdemo-panel" data-panel="1">
-                    <div class="rdemo-card">
-                      <h4>Generate rental handover</h4>
-                      <div class="rdemo-form">
-                        <div class="rdemo-field"><label>Vehicle</label><div class="rdemo-input typing" id="rDemoType"></div></div>
-                        <div class="rdemo-field"><label>Customer</label><div class="rdemo-input">Alya Putri</div></div>
-                        <div class="rdemo-field"><label>Rental period</label><div class="rdemo-select">19–21 Oct 2026</div></div>
-                        <button class="rdemo-btn">Generate document</button>
-                      </div>
-                    </div>
-                  </section>
-
-                  <section class="rdemo-panel" data-panel="2">
-                    <div class="rdemo-doc">
-                      <h4 style="margin:0;font-size:.66rem">Rental Agreement #R-1024</h4>
-                      <div class="rdemo-line w2"></div>
-                      <div class="rdemo-line w1"></div>
-                      <div class="rdemo-line w2"></div>
-                      <div class="rdemo-line w3"></div>
-                      <div class="rdemo-line w1"></div>
-                      <div class="rdemo-sign"><span>Customer signed digitally</span><b class="rdemo-ready">READY</b></div>
-                    </div>
-                  </section>
-
-                  <section class="rdemo-panel" data-panel="3">
-                    <div class="rdemo-card">
-                      <h4>October 2026</h4>
-                      <div class="rdemo-cal">
-                        <b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b>
-                        <div class="rdemo-day">12</div><div class="rdemo-day">13</div><div class="rdemo-day">14</div><div class="rdemo-day">15</div><div class="rdemo-day">16</div><div class="rdemo-day">17</div><div class="rdemo-day">18</div>
-                        <div class="rdemo-day booked">19</div><div class="rdemo-day booked">20</div><div class="rdemo-day booked">21</div><div class="rdemo-day">22</div><div class="rdemo-day">23</div><div class="rdemo-day">24</div><div class="rdemo-day">25</div>
-                        <div class="rdemo-day">26</div><div class="rdemo-day">27</div><div class="rdemo-day">28</div><div class="rdemo-day">29</div><div class="rdemo-day">30</div><div class="rdemo-day">31</div><div class="rdemo-day"></div>
-                      </div>
-                    </div>
-                    <div class="rdemo-card" style="margin-top:8px"><h4>19–21 Oct</h4><p>Honda Brio RS · Alya Putri · Confirmed</p></div>
-                  </section>
-</div>
+                <div class="fxm-c">
+                  <h4>Funnel Performance <em>Utilization Rate</em></h4>
+                  <div class="rental-chart">
+                    <svg viewBox="0 0 220 82" preserveAspectRatio="none" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="rentalPerf" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#F5C242" stop-opacity=".28"/>
+                          <stop offset="100%" stop-color="#F5C242" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path d="M4 53 L36 65 L68 69 L100 69 L132 67 L165 63 L196 57 L216 16 L216 82 L4 82 Z" fill="url(#rentalPerf)"/>
+                      <path d="M4 53 L36 65 L68 69 L100 69 L132 67 L165 63 L196 57 L216 16" fill="none" stroke="#F5C242" stroke-width="2"/>
+                      <circle cx="216" cy="16" r="3" fill="#F5C242"/>
+                    </svg>
+                  </div>
+                  <div class="rental-chart-meta"><span>11 Oct</span><span>18 Oct</span></div>
+                  <div class="rental-latest">Latest: <b>90.6%</b></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="plh-cap"><i></i><span>Rental I/O</span><em>Auto walkthrough</em></div>
+
+        <div class="plh-cap"><i></i><span>Rental I/O</span><em>Live preview</em></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="hq-sec pl-sec" id="tools">
+                  <section class="hq-sec pl-sec" id="tools">
   <div class="wrap">
     <div class="section-kicker">FLUX I/O</div>
     <h2>Four tools. Try each one live.</h2>
@@ -1880,54 +1413,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 <form name="kodeflux-toolreq" data-netlify="true" hidden><input name="who"><input name="messiest"><input name="current_setup"><input name="dream_tool"><input name="urgency"><input name="page"><input name="name"><input name="role"><input name="whatsapp"><input name="email"></form>
 <script src="/toolreq.js" defer></script>
 
-<script id="rental-prototype-walkthrough">
-(function(){
-  var root=document.getElementById('rDemo'); if(!root) return;
-  var nav=[].slice.call(root.querySelectorAll('.rdemo-nav button[data-step]'));
-  var panels=[].slice.call(root.querySelectorAll('.rdemo-panel'));
-  var title=document.getElementById('rDemoTitle');
-  var sub=document.getElementById('rDemoSub');
-  var typer=document.getElementById('rDemoType');
 
-  var steps=[
-    {title:'Analytics',sub:'Live rental performance'},
-    {title:'Generator',sub:'Create handover documents'},
-    {title:'Agreements',sub:'Documents & signatures'},
-    {title:'Calendar',sub:'Bookings & availability'}
-  ];
-  var idx=0,timer=null,typingTimer=null;
-
-  function typeVehicle(){
-    clearInterval(typingTimer);
-    var str='Honda Brio RS AT 2023',i=0;
-    typer.textContent='';
-    typingTimer=setInterval(function(){
-      typer.textContent=str.slice(0,++i);
-      if(i>=str.length) clearInterval(typingTimer);
-    },55);
-  }
-
-  function show(n){
-    idx=n;
-    nav.forEach(function(b,k){b.classList.toggle('on',k===n)});
-    panels.forEach(function(p,k){p.classList.toggle('on',k===n)});
-    title.textContent=steps[n].title;
-    sub.textContent=steps[n].sub;
-    if(n===1) setTimeout(typeVehicle,450);
-  }
-
-  function arm(){
-    clearInterval(timer);
-    timer=setInterval(function(){show((idx+1)%steps.length)},2200);
-  }
-
-  nav.forEach(function(b,k){
-    b.addEventListener('click',function(){show(k);arm()});
-  });
-
-  show(0);arm();
-})();
-</script>
 
 </body>
 </html>
