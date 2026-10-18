@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konsole — Party I/O · Live Demo | Kodeflux</title>
+<meta name="description" content="Demo of Party I/O (Konsole): vendors, budget and run of show for event organizers. Sample data, try it live.">
+<link rel="canonical" href="https://kodeflux.web.id/tools/konsole.html">
+<meta property="og:title" content="Konsole — Party I/O · Live Demo">
+<meta property="og:description" content="Demo of Party I/O (Konsole): vendors, budget and run of show for event organizers. Sample data, try it live.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kodeflux">
+<meta property="og:url" content="https://kodeflux.web.id/tools/konsole.html">
+<meta property="og:image" content="https://kodeflux.web.id/og-image.png?v=20261006">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#120D06">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #12070F; --panel: #190A15; --card: #1F0E1B; --card-hi: #2A1425;
+    --line: #33182B; --line-hi: #45213A;
+    --teal: #D63FA7; --teal-bright: #F472C6;
+    --gold: #22D3EE; --gold-soft: #67E8F9;
+    --white: #F7EEF4; --dim: #C4A9BC; --mute: #7A5F72;
+    --green: #10B981; --red: #EF4444;
+  }
+  html { background: var(--bg); color: var(--white); font-family: "Inter", sans-serif; font-size: 14px; }
+  body { min-height: 100vh; overflow-x: hidden; }
+  input, select, textarea, button { font-family: inherit; font-size: inherit; color: inherit; }
+  .shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+  .top { display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 56px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 200; }
+  .hbtn { display: none; width: 34px; height: 34px; border-radius: 8px; background: transparent; border: 1px solid var(--line-hi); color: var(--dim); cursor: pointer; align-items: center; justify-content: center; flex-shrink: 0; }
+  .hbtn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+  .brand { font-size: 17px; font-weight: 800; letter-spacing: -0.2px; }
+  .brand span { color: var(--teal-bright); }
+  .top-tag { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: var(--mute); border: 1px solid var(--line-hi); border-radius: 6px; padding: 5px 10px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+
+  .body { display: flex; flex: 1; min-height: 0; position: relative; }
+  .backdrop { display: none; position: fixed; inset: 0; top: 56px; background: rgba(0,0,0,.55); z-index: 240; }
+  .backdrop.show { display: block; }
+
+  .side { width: 220px; flex-shrink: 0; background: var(--panel); border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+  .side-scroll { flex: 1; overflow-y: auto; min-height: 0; }
+  .side-psel-wrap { padding: 12px 12px 6px; position: relative; }
+  .side-psel-btn { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line-hi); border-radius: 8px; padding: 9px 11px; cursor: pointer; }
+  .psel-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal-bright); flex-shrink: 0; }
+  .psel-name { font-size: 12px; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+  .psel-arrow { color: var(--mute); font-size: 9px; flex-shrink: 0; transition: transform .2s; }
+  .psel-arrow.open { transform: rotate(180deg); }
+  .side-pdd { display: none; margin-top: 4px; background: var(--card); border: 1px solid var(--line-hi); border-radius: 8px; overflow: hidden; }
+  .side-pdd.show { display: block; }
+  .pdd-item { display: flex; align-items: center; gap: 9px; padding: 9px 12px; cursor: pointer; }
+  .pdd-item:hover { background: var(--card-hi); }
+  .pdd-item.on { background: rgba(214,63,167,.1); }
+  .pdd-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .pdd-n { font-size: 12px; font-weight: 600; color: var(--white); }
+  .pdd-del { margin-left: auto; background: transparent; border: none; color: var(--mute); cursor: pointer; font-size: 13px; padding: 2px 4px; }
+
+  .nav-list { padding: 8px 12px; list-style: none; }
+  .nav-item { display: flex; align-items: center; padding: 9px 11px; border-radius: 7px; font-size: 12.5px; font-weight: 600; color: var(--dim); cursor: pointer; margin-bottom: 2px; }
+  .nav-item:hover { background: var(--card-hi); color: var(--white); }
+  .nav-item.on { background: rgba(214,63,167,.12); color: var(--teal-bright); }
+  .side-nav { flex-shrink: 0; border-top: 1px solid var(--line); padding: 8px 12px; }
+  .sf-item { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: 7px; font-size: 12.5px; color: var(--dim); cursor: pointer; }
+  .sf-item:hover { background: var(--card-hi); color: var(--white); }
+  .sf-item svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.7; flex-shrink: 0; }
+
+  @media (max-width: 880px) {
+    .hbtn { display: flex; }
+    .side { position: fixed; top: 56px; left: 0; bottom: 0; width: 260px; z-index: 250; transform: translateX(-100%); transition: transform .22s; box-shadow: 20px 0 40px rgba(0,0,0,.5); }
+    .side.mopen { transform: translateX(0); }
+  }
+
+  .main { flex: 1; min-width: 0; }
+  .page-content { padding: 20px 24px 40px; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: var(--mute); text-transform: uppercase; margin-bottom: 12px; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 8px; padding: 9px 16px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .btn-primary { background: var(--teal); color: #1A0714; }
+  .btn-primary:hover { background: var(--teal-bright); }
+  .btn-ghost { background: var(--line); color: var(--white); }
+  .btn-ghost:hover { background: var(--card-hi); }
+  .btn-gold { background: var(--gold); color: #04222A; }
+  .btn-sm { padding: 6px 11px; font-size: 11.5px; }
+
+  /* ── KOMPLEX-STYLE DASHBOARD CARDS ── */
+  .kx-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 700px) { .kx-grid { grid-template-columns: 1fr; } }
+  .kx-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; position: relative; display: flex; flex-direction: column; }
+  /* ── MODAL (replaces window.prompt — works everywhere, webview-safe) ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 900; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.show { display: flex; }
+  .modal-box { background: var(--panel); border: 1px solid var(--line-hi); border-radius: 12px; padding: 20px; width: 100%; max-width: 360px; }
+  .modal-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  .dash-eq-card { height: 232px; overflow: hidden; }
+  .kx-rev-bars { display: flex; align-items: flex-end; gap: 10px; flex: 1; margin-top: 10px; padding: 0 4px; }
+  .kx-rev-bar { width: 100%; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--teal-bright), var(--teal)); min-height: 4px; max-width: 30px; margin: 0 auto; }
+  .kx-rev-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .kx-rev-bar-label { font-size: 7.5px; color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .kx-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .kx-cat { font-size: 9.5px; font-weight: 700; letter-spacing: 1.3px; color: var(--mute); text-transform: uppercase; margin-bottom: 3px; }
+  .kx-title { font-size: 14px; font-weight: 700; color: var(--white); }
+  .kx-ai-badge { font-size: 9px; font-weight: 700; color: var(--teal-bright); border: 1px solid var(--teal-bright); border-radius: 5px; padding: 2px 6px; flex-shrink: 0; }
+  .kx-value { font-size: 26px; font-weight: 800; margin: 10px 0 2px; }
+  .kx-sub { font-size: 10.5px; color: var(--mute); margin-bottom: 10px; }
+  .kx-body { flex: 1; min-height: 0; }
+  .kx-insight { font-size: 11.5px; color: var(--dim); line-height: 1.6; margin-top: 8px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+  .kx-insight-card { border-color: var(--teal-bright) !important; }
+  .kx-insight-dots { display: flex; gap: 5px; margin-top: auto; padding-top: 8px; }
+  .kx-insight-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--line-hi); }
+  .kx-insight-dot.on { background: var(--teal-bright); }
+
+  .kx-donut-wrap { display: flex; flex-direction: row; align-items: center; gap: 14px; flex: 1; min-height: 0; }
+  .kx-donut-svg { width: 86px; height: 86px; flex-shrink: 0; }
+  .kx-legend { flex: 1; font-size: 10px; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .kx-legend-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+  .kx-legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .kx-legend-label { color: var(--dim); flex: 1; }
+  .kx-legend-val { font-family: "DM Mono",monospace; font-weight: 700; }
+
+  .kx-cal-mini { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin-top: 4px; }
+  .kx-cal-dow-mini { font-size: 7.5px; text-align: center; color: var(--mute); }
+  .kx-cal-cell-mini { aspect-ratio: 1; background: var(--panel); border-radius: 3px; border: 1px solid var(--line); font-size: 7px; color: var(--mute); display: flex; align-items: center; justify-content: center; position: relative; }
+  .kx-cal-cell-mini.has-post { background: rgba(214,63,167,.18); color: var(--teal-bright); font-weight: 700; }
+  .kx-cal-cell-mini.empty { background: transparent; border: none; }
+
+  .kx-link { font-size: 10.5px; color: var(--teal-bright); margin-top: 8px; cursor: pointer; }
+
+  /* ── DASHBOARD ANALYTICS: header, channel tabs, KPI cards, funnel ── */
+  .dash-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .dash-head-title { font-size: 18px; font-weight: 800; }
+  .dash-head-sub { font-size: 11.5px; color: var(--mute); margin-top: 2px; }
+  .dash-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chan-tabs { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 14px; padding-bottom: 2px; }
+  .chan-tab { flex-shrink: 0; background: var(--card); border: 1px solid var(--line); padding: 7px 13px; border-radius: 10px; font-size: 11.5px; font-weight: 700; color: var(--dim); cursor: pointer; white-space: nowrap; }
+  .chan-tab.on { background: rgba(214,63,167,.14); border-color: var(--teal-bright); color: var(--teal-bright); }
+  .kpi-chg { font-size: 9.5px; font-weight: 700; color: var(--green); font-family: "DM Mono",monospace; }
+  .trend-metric-sel { background: var(--line); border: 1px solid var(--line-hi); color: var(--dim); font-size: 9.5px; font-weight: 600; border-radius: 5px; padding: 2px 5px; flex-shrink: 0; }
+  .kpi-mini-sub { font-size: 9px; color: var(--mute); margin-top: 2px; }
+  .funnel-card { }
+  .funnel-shape-row { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+  .funnel-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .funnel-shape-meta { flex: 1; display: flex; align-items: center; justify-content: space-between; font-size: 9.5px; font-family: "DM Mono",monospace; color: var(--mute); min-width: 0; }
+  .funnel-metric-sel-sm { background: transparent; border: none; color: var(--mute); font-size: 9.5px; font-weight: 700; padding: 0; appearance: none; -webkit-appearance: none; }
+  .funnel-metric-sel-sm:focus { outline: none; }
+
+  /* ── SHARED FORM/TABLE ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; align-items: stretch; }
+  @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 500px) { .kpi-grid { grid-template-columns: repeat(2,1fr); gap: 8px; } }
+  .kpi-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; min-height: 90px; display: flex; flex-direction: column; justify-content: center; }
+  @media (max-width: 500px) { .kpi-card { padding: 10px 11px; border-radius: 8px; min-height: 74px; } }
+  .kpi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; gap: 8px; }
+  .kpi-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1.3px; color: var(--mute); text-transform: uppercase; }
+  .kpi-badge { font-size: 10.5px; font-weight: 700; padding: 3px 7px; border-radius: 5px; white-space: nowrap; }
+  .kpi-badge.up { background: rgba(16,185,129,.15); color: var(--green); }
+  .kpi-value { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
+  .kpi-value.teal { color: var(--teal-bright); } .kpi-value.gold { color: var(--gold-soft); } .kpi-value.white { color: var(--white); }
+
+  .chart-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px; min-width: 0; }
+  .chart-title { font-size: 12.5px; font-weight: 600; margin-bottom: 14px; }
+  .rev-chart svg { width: 100%; height: 160px; display: block; }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 420px; }
+  th { text-align: left; font-size: 9.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--mute); padding: 9px 11px; border-bottom: 1px solid var(--line); }
+  td { padding: 11px; border-bottom: 1px solid var(--line); color: var(--dim); }
+  tr:last-child td { border-bottom: none; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable:hover td { background: var(--card-hi); }
+  .tier-badge { font-size: 9.5px; font-weight: 700; padding: 3px 7px; border-radius: 5px; }
+  .tier-badge.established, .tier-badge.confirmed, .tier-badge.paid, .tier-badge.published, .tier-badge.approved { background: rgba(34,211,238,.14); color: var(--gold-soft); }
+  .tier-badge.growth, .tier-badge.planning, .tier-badge.unpaid, .tier-badge.draft, .tier-badge.requested { background: rgba(214,63,167,.15); color: var(--teal-bright); }
+  .tier-badge.micro { background: rgba(214,63,167,.08); color: var(--mute); }
+  .icon-btn { background: var(--line); border: none; border-radius: 6px; width: 28px; height: 28px; color: var(--dim); cursor: pointer; }
+  .icon-btn.del:hover { color: var(--red); }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+  .field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .field label { font-size: 10.5px; font-weight: 600; color: var(--dim); }
+  .field input, .field select, .field textarea { background: var(--line); border: 1px solid var(--line-hi); border-radius: 7px; padding: 9px 11px; color: var(--white); min-height: 40px; width: 100%; box-sizing: border-box; min-width: 0; }
+  .field textarea { min-height: 64px; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--teal-bright); }
+  .week-inputs { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+
+  .client-detail { margin-top: 16px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .tab-btn { background: transparent; border: none; padding: 10px 14px; font-size: 12.5px; font-weight: 600; color: var(--mute); cursor: pointer; border-bottom: 2px solid transparent; }
+  .tab-btn.on { color: var(--teal-bright); border-bottom-color: var(--teal-bright); }
+  .tab-panel { display: none; }
+  .tab-panel.on { display: block; }
+  .blueprint-result { background: var(--panel); border: 1px solid var(--teal); border-radius: 8px; padding: 14px; font-size: 12.5px; color: var(--dim); line-height: 1.6; margin-top: 14px; display: none; }
+  .blueprint-result.show { display: block; }
+  .blueprint-summary { background: var(--card); border: 1px dashed var(--line-hi); border-radius: 8px; padding: 12px 14px; font-size: 12px; color: var(--dim); line-height: 1.6; margin-bottom: 16px; max-height: 130px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .bp-label { font-size: 9.5px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
+  .chip-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { background: var(--line); border-radius: 14px; padding: 5px 10px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
+  .chip button { background: transparent; border: none; color: var(--mute); cursor: pointer; font-size: 11px; }
+
+  .gen-tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+  .gen-tab { background: var(--card); border: 1px solid var(--line); padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--dim); cursor: pointer; }
+  .gen-tab.on { background: rgba(214,63,167,.12); border-color: var(--teal-bright); color: var(--teal-bright); }
+  .gen-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+  @media (max-width: 900px) { .gen-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px) { .gen-grid { grid-template-columns: 1fr; } }
+  .gen-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; cursor: pointer; }
+  .gen-card.active { border-color: var(--teal-bright); background: rgba(214,63,167,.06); }
+  .gen-card-title { font-size: 13px; font-weight: 700; color: var(--white); }
+  .gen-card-sub { font-size: 11px; color: var(--mute); margin-top: 4px; }
+  .gen-output { margin-top: 14px; background: var(--card); border: 1px solid var(--line-hi); border-radius: 10px; padding: 18px; font-size: 12.5px; color: var(--dim); line-height: 1.6; display: none; }
+  .gen-output.show { display: block; }
+  .gen-output-text { white-space: pre-wrap; margin-top: 10px; }
+
+  .lib-empty { color: var(--mute); font-size: 12.5px; text-align: center; padding: 30px 0; }
+
+  .planner-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .planner-nav { display: flex; align-items: center; gap: 10px; }
+  .planner-arrow { width: 30px; height: 30px; border-radius: 7px; background: var(--line); border: none; color: var(--white); cursor: pointer; }
+  .planner-month { font-size: 14px; font-weight: 700; min-width: 130px; text-align: center; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; }
+  .cal-dow { font-size: 9.5px; text-align: center; color: var(--mute); font-weight: 700; padding-bottom: 6px; text-transform: uppercase; }
+  .cal-cell { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-height: 78px; padding: 5px; font-size: 10.5px; color: var(--mute); cursor: pointer; display: flex; flex-direction: column; overflow: hidden; }
+  .cal-cell.empty { background: transparent; border: none; cursor: default; }
+  .cal-post { margin-top: 3px; font-size: 8.5px; padding: 2px 4px; border-radius: 4px; font-weight: 600; background: rgba(214,63,167,.2); color: var(--teal-bright); display: flex; justify-content: space-between; gap: 3px; align-items: center; line-height: 1.3; }
+  .cal-post .x { cursor: pointer; opacity: .6; flex-shrink: 0; }
+  @media (max-width: 640px) {
+    .cal-grid { gap: 2px; }
+    .cal-cell { min-height: 52px; padding: 2px; font-size: 8.5px; }
+    .cal-post { font-size: 6.5px; padding: 1px 3px; border-radius: 3px; margin-top: 2px; line-height: 1.3; }
+    .cal-post span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  }
+
+  .task-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 800px) { .task-cols { grid-template-columns: 1fr; } }
+  .task-col { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+  .task-col-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
+  .task-col-title-wrap { display: flex; align-items: center; gap: 7px; }
+  .task-col-title { font-size: 10.5px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--mute); }
+  .task-col-count { font-size: 9.5px; font-weight: 700; color: var(--dim); background: var(--line); border-radius: 10px; padding: 1px 7px; }
+  .task-add-btn { background: transparent; border: 1px dashed var(--line-hi); color: var(--mute); border-radius: 6px; font-size: 10px; padding: 3px 8px; cursor: pointer; }
+  .task-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 11px; margin-bottom: 8px; position: relative; }
+  .task-card-title { font-size: 12px; color: var(--white); margin-bottom: 8px; font-weight: 600; padding-right: 18px; }
+  .task-card-del { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: var(--mute); cursor: pointer; font-size: 12px; }
+  .task-status-sel { font-size: 10px; font-weight: 700; background: var(--line); border: 1px solid var(--line-hi); color: var(--dim); border-radius: 5px; padding: 3px 6px; margin-bottom: 8px; }
+  .task-sub { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--dim); padding: 3px 0; }
+  .task-sub input[type=checkbox] { accent-color: var(--teal-bright); width: 13px; height: 13px; }
+  .task-sub.done .task-sub-label { text-decoration: line-through; color: var(--mute); }
+  .task-progress-bar { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .task-progress-fill { height: 100%; background: var(--teal); border-radius: 2px; }
+  .task-add-sub { font-size: 10.5px; color: var(--mute); cursor: pointer; margin-top: 6px; }
+
+  .inv-layout { display: grid; grid-template-columns: 1fr 380px; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .inv-layout { grid-template-columns: 1fr; } }
+  .inv-list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; cursor: pointer; margin-bottom: 6px; border: 1px solid var(--line); }
+  .inv-list-item.on { border-color: var(--teal-bright); background: rgba(214,63,167,.06); }
+  .inv-li-name { font-size: 12.5px; font-weight: 700; color: var(--white); }
+  .inv-li-sub { font-size: 10.5px; color: var(--mute); margin-top: 2px; }
+  .inv-li-amt { font-size: 12.5px; font-weight: 700; font-family: "DM Mono",monospace; text-align: right; }
+  .doc-preview { background: #fff; color: #111; border-radius: 10px; padding: 22px; max-width: 100%; overflow: hidden; }
+  @media (min-width: 901px) { .doc-preview { position: sticky; top: 72px; } }
+  .doc-preview h2 { color: #111; margin-bottom: 4px; font-size: 18px; }
+  .doc-preview .muted { color: #666; font-size: 11.5px; }
+  .doc-table-wrap { overflow-x: auto; }
+  .doc-table { width: 100%; border-collapse: collapse; margin-top: 14px; min-width: 300px; }
+  .doc-table th, .doc-table td { border-bottom: 1px solid #ddd; padding: 6px; text-align: left; font-size: 11.5px; color: #111; }
+  .doc-total { text-align: right; font-size: 14px; font-weight: 700; margin-top: 10px; color: #111; }
+  .doc-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .doc-add-item { font-size: 11px; color: #B02B84; cursor: pointer; margin-top: 8px; display: inline-block; }
+
+  .rate-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+  .rate-row:last-child { border-bottom: none; }
+
+  @media print {
+    .top, .side, .backdrop, .no-print { display: none !important; }
+    .page-content { padding: 0 !important; }
+    .inv-layout { display: block !important; }
+    body { background: #fff; }
+  }
+
+  /* ── KONSOLE additions ── */
+  .kpi-badge.warn { background: rgba(239,68,68,.15); color: var(--red); }
+  .vd-meta { display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 10px; color: var(--mute); margin-bottom: 8px; font-family: "DM Mono", monospace; }
+  .vd-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; }
+  .blueprint-result div { white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="top">
+    <button class="hbtn" id="railBtn"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <div class="brand">Konsole<span>.</span></div>
+    <div class="top-tag">Party I/O</div>
+  </div>
+
+  <div class="body">
+    <div class="backdrop" id="backdrop" onclick="closeMobile()"></div>
+
+    <aside class="side" id="side">
+      <div class="side-scroll">
+        <div class="side-psel-wrap">
+          <div class="side-psel-btn" onclick="toggleSidebarClientDD()">
+            <div class="psel-dot" id="pselDot"></div>
+            <div class="psel-name" id="pselName">Sweet 17 — Nadia</div>
+            <div class="psel-arrow" id="pselArrow">▾</div>
+          </div>
+          <div class="side-pdd" id="sidebarClientDD"></div>
+        </div>
+        <ul class="nav-list" style="padding-top:4px;">
+          <li class="nav-item on" onclick="goTo('dashboard',this)">Dashboard</li>
+          <li class="nav-item" onclick="goTo('generator',this)">Generator</li>
+          <li class="nav-item" onclick="goTo('library',this)">Documents</li>
+          <li class="nav-item" onclick="goTo('planner',this)">Calendar</li>
+          <li class="nav-item" onclick="goTo('tasks',this)">Vendors</li>
+          <li class="nav-item" onclick="goTo('invoices',this)">Invoices</li>
+          <li class="nav-item" onclick="goTo('reports',this)">Reports</li>
+          <li class="nav-item" onclick="goTo('clients',this)">Events</li>
+        </ul>
+      </div>
+      <div class="side-nav">
+        <div class="sf-item" onclick="goTo('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.36.09.7.28 1 1.51H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
+        <div class="sf-item"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log out</div>
+      </div>
+    
+    </aside>
+
+    <div class="main">
+      <div class="page-content">
+
+        <!-- ══ DASHBOARD / ANALYTICS — per event, budget-category filtered ══ -->
+        <div class="page active" id="page-dashboard">
+          <div class="dash-head">
+            <div><div class="dash-head-title">Analytics</div><div class="dash-head-sub" id="dashSub"></div></div>
+            <div class="dash-actions">
+              <button class="btn btn-ghost btn-sm" onclick="triggerScreenshotUpload()">⇪ Upload Vendor Quote</button>
+              <input type="file" id="ssUploadInput" accept="image/*,application/pdf" style="display:none;" onchange="handleScreenshotUpload(this)">
+              <button class="btn btn-gold btn-sm" id="aiExtractBtn" onclick="triggerScreenshotUpload()">✦ AI Extractor</button>
+            </div>
+          </div>
+          <div class="chan-tabs" id="chanTabs"></div>
+          <div class="kx-grid">
+            <div class="kx-card dash-eq-card kx-insight-card" id="kxInsight"></div>
+            <div class="kx-card dash-eq-card" id="kxChannelMix"></div>
+          </div>
+          <div class="kpi-grid" id="kpiGrid" style="margin-bottom:12px;"></div>
+          <div class="kx-grid">
+            <div class="kx-card dash-eq-card funnel-card" id="funnelCard"></div>
+            <div class="kx-card dash-eq-card" id="funnelPerfCard"></div>
+          </div>
+        </div>
+
+        <!-- ══ EVENTS ══ -->
+        <div class="page" id="page-clients">
+          <div class="card" id="clientsListView">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+              <div class="section-label" style="margin-bottom:0;">Events Master</div>
+              <button class="btn btn-primary" onclick="openAddClient()">+ Add Event</button>
+            </div>
+            <div class="table-wrap" id="clientsTableWrap"></div>
+          </div>
+
+          <div class="card client-detail" id="clientDetailView" style="display:none;">
+            <button class="btn btn-ghost btn-sm" style="margin-bottom:14px;" onclick="closeClientDetail()">← Back to list</button>
+            <div class="section-label" id="clientDetailHeading">Sweet 17 — Nadia</div>
+            <p id="clientDetailHint" style="font-size:11.5px;color:var(--mute);margin-bottom:14px;display:none;">New event — fill in every tab now so Dashboard & Generator work right away.</p>
+            <div class="tabs">
+              <button class="tab-btn on" onclick="switchClientTab(this,'overview')">Overview</button>
+              <button class="tab-btn" onclick="switchClientTab(this,'metrics')">Metrics</button>
+              <button class="tab-btn" onclick="switchClientTab(this,'channels')">Budget Mix</button>
+              <button class="tab-btn" onclick="switchClientTab(this,'competitors')">Guests</button>
+              <button class="tab-btn" onclick="switchClientTab(this,'brief')">Event Brief</button>
+            </div>
+
+            <div class="tab-panel on" id="tab-overview">
+              <div class="form-grid">
+                <div class="field"><label>Event Name</label><input id="ovName"></div>
+                <div class="field"><label>Event Type</label><input id="ovHandle" placeholder="e.g. Ulang Tahun, Wedding, Corporate, Launching"></div>
+                <div class="field"><label>Status</label><select id="ovTier"><option>Draft</option><option>Planning</option><option>Confirmed</option></select></div>
+                <div class="field"><label>Host / Client</label><input id="ovHost" placeholder="e.g. Bu Ratna, PT Nusa"></div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="tab-metrics">
+              <p style="font-size:11.5px;color:var(--mute);margin-bottom:10px;">RSVP confirmations per week this month (feeds the trend chart & confirmed count).</p>
+              <div class="week-inputs">
+                <div class="field"><label>Week 1</label><input id="mWeek1"></div>
+                <div class="field"><label>Week 2</label><input id="mWeek2"></div>
+                <div class="field"><label>Week 3</label><input id="mWeek3"></div>
+                <div class="field"><label>Week 4</label><input id="mWeek4"></div>
+              </div>
+              <div class="form-grid" style="margin-top:12px;">
+                <div class="field"><label>Guests Invited</label><input id="mInvited"></div>
+                <div class="field"><label>Total Budget (Rp)</label><input id="mBudget"></div>
+              </div>
+              <div class="field" style="margin-top:12px;"><label>Highlight</label><input id="mBest"></div>
+            </div>
+
+            <div class="tab-panel" id="tab-channels">
+              <p style="font-size:11.5px;color:var(--mute);margin-bottom:10px;">Planned budget allocation per category (should total 100%).</p>
+              <div class="form-grid">
+                <div class="field"><label>Venue & F&B %</label><input id="chFnb"></div>
+                <div class="field"><label>Decor & Styling %</label><input id="chDecor"></div>
+                <div class="field"><label>Entertainment %</label><input id="chEnt"></div>
+              </div>
+            </div>
+
+            <div class="tab-panel" id="tab-competitors">
+              <p style="font-size:11.5px;color:var(--mute);margin-bottom:10px;">VIP & key guests for this event. Upload the guest list and Konsole reads the names for you — one photo or screenshot is enough.</p>
+              <div class="chip-list" id="competitorChips"></div>
+              <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+                <input id="newCompetitor" placeholder="Guest name" style="flex:1;min-width:140px;background:var(--line);border:1px solid var(--line-hi);border-radius:7px;padding:9px 11px;">
+                <button class="btn btn-ghost btn-sm" onclick="triggerGuestUpload()">⇪ Upload Guest List</button>
+                <input type="file" id="guestUploadInput" accept="image/*,application/pdf" style="display:none;" onchange="handleGuestUpload(this)">
+                <button class="btn btn-ghost btn-sm" onclick="addCompetitor()">+ Add</button>
+              </div>
+              <p id="guestStatus" style="font-size:10.5px;color:var(--mute);margin-top:8px;"></p>
+            </div>
+
+            <div class="tab-panel" id="tab-brief">
+              <p style="font-size:11.5px;color:var(--mute);margin-bottom:14px;">Event brief — this becomes the reference used by the Document Generator.</p>
+              <div class="form-grid">
+                <div class="field"><label>Vibe</label><select id="bqTone"><option>Intimate</option><option>Festive</option><option>Elegant</option><option>Corporate</option></select></div>
+                <div class="field"><label>Format</label><select id="bqGoal"><option>Indoor</option><option>Outdoor</option><option>Indoor & Outdoor</option></select></div>
+              </div>
+              <div class="field" style="margin-top:12px;"><label>Concept & Highlights</label><textarea id="bqUsp"></textarea></div>
+              <div class="field" style="margin-top:12px;"><label>Budget & Payment Terms</label><textarea id="bqAudience"></textarea></div>
+              <div class="field" style="margin-top:12px;"><label>Must-haves (comma-separated)</label><input id="bqPillars"></div>
+            </div>
+
+            <button class="btn btn-primary" style="margin-top:16px;" id="clientSaveBtn" onclick="saveClient()">Create Event & Generate Brief</button>
+            <div class="blueprint-result" id="blueprintResult"></div>
+          </div>
+        </div>
+
+        <!-- ══ GENERATOR ══ -->
+        <div class="page" id="page-generator">
+          <div class="blueprint-summary" id="blueprintSummary"></div>
+          <div class="gen-tabs">
+            <div class="gen-tab on" onclick="switchGenTab(this,'documents')">Documents</div>
+            <div class="gen-tab" onclick="switchGenTab(this,'invitation')">Invitation</div>
+          </div>
+          <div class="gen-tab-panel" data-tab="documents">
+            <div class="gen-grid">
+              <div class="gen-card active" onclick="selectGen(this,'contract')"><div class="gen-card-title">Event Service Agreement</div><div class="gen-card-sub">Perjanjian jasa EO, ready to print</div></div>
+              <div class="gen-card" onclick="selectGen(this,'rundown')"><div class="gen-card-title">Run of Show</div><div class="gen-card-sub">Rundown acara per jam</div></div>
+              <div class="gen-card" onclick="selectGen(this,'vendor')"><div class="gen-card-title">Vendor Brief</div><div class="gen-card-sub">Brief lengkap buat vendor</div></div>
+              <div class="gen-card" onclick="selectGen(this,'rsvp')"><div class="gen-card-title">RSVP Message</div><div class="gen-card-sub">Pesan konfirmasi ke tamu</div></div>
+            </div>
+          </div>
+          <div class="gen-tab-panel" data-tab="invitation" style="display:none;">
+            <div class="gen-grid">
+              <div class="gen-card" onclick="selectGen(this,'invite')"><div class="gen-card-title">Invitation Copy</div><div class="gen-card-sub">Copy undangan digital</div></div>
+              <div class="gen-card" onclick="selectGen(this,'poster')"><div class="gen-card-title">Poster Prompt</div><div class="gen-card-sub">Prompt poster / undangan</div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-label" id="genHeading">Event Service Agreement</div>
+            <div class="field"><label>Event Details</label><textarea id="genTopic" placeholder="e.g. Sabtu 12 Des, 120 tamu, Villa Cempaka, 17.00–22.00"></textarea></div>
+            <button class="btn btn-primary" style="margin-top:12px;" onclick="generateContent()">Generate</button>
+            <div class="gen-output" id="genOutput"></div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:10px;display:none;" id="saveLibBtn" onclick="saveToLibrary()">+ Save to Library</button>
+          </div>
+        </div>
+
+        <div class="page" id="page-library"><div class="card"><div class="section-label">Saved Documents</div><div id="libraryList"><div class="lib-empty">No saved documents yet.</div></div></div></div>
+
+        <div class="page" id="page-planner">
+          <div class="card">
+            <div class="planner-head">
+              <div class="section-label" style="margin-bottom:0;">Event Calendar</div>
+              <div class="planner-nav"><button class="planner-arrow" onclick="changeMonth(-1)">‹</button><div class="planner-month" id="plannerMonth">June 2026</div><button class="planner-arrow" onclick="changeMonth(1)">›</button></div>
+            </div>
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+        </div>
+
+        <div class="page" id="page-tasks"><div class="task-cols" id="taskCols"></div></div>
+
+        <div class="page" id="page-invoices">
+          <div class="no-print card" style="margin-bottom:18px;">
+            <div class="section-label">Create Invoice</div>
+            <button class="btn btn-primary" onclick="newInvoice()">Create Invoice</button>
+          </div>
+          <div class="inv-layout"><div class="no-print" id="invList"></div><div class="doc-preview" id="invoicePreview"></div></div>
+        </div>
+
+        <div class="page" id="page-reports">
+          <div class="no-print card" style="margin-bottom:18px;">
+            <div class="section-label">Generate Monthly Report</div>
+            <div class="form-grid">
+              <div class="field"><label>Month</label><select id="reportMonth"></select></div>
+              <div class="field"><label>Budget Category</label><select id="reportChannel"></select></div>
+            </div>
+            <button class="btn btn-primary" style="margin-top:12px;" onclick="generateReport()">Generate Report</button>
+          </div>
+          <div class="inv-layout">
+            <div class="no-print" id="reportList"></div>
+            <div class="doc-preview" id="reportPreview" style="display:none;"></div>
+          </div>
+        </div>
+
+        <div class="page" id="page-settings">
+          <div class="card" style="margin-bottom:16px;">
+            <div class="section-label">Brand Settings</div>
+            <div class="form-grid"><div class="field"><label>Business Name</label><input value="Konsole"></div><div class="field"><label>Contact Email</label><input value="hello@konsole.example"></div></div>
+            <button class="btn btn-primary" style="margin-top:14px;">Save Changes</button>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div class="section-label" style="margin-bottom:0;">Services & Rate Card</div><button class="btn btn-ghost btn-sm" onclick="addService()">+ Add Service</button></div>
+            <div id="ratesList"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-title" id="modalTitle">Title</div>
+    <div id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="modalConfirmBtn">OK</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ═══════════ CONSTANTS & HELPERS ═══════════
+  const DP_RATE = 0.3;
+  const SUB_STEPS = ['Kirim brief','Terima penawaran','Bayar DP 30%','Pelunasan H-3'];
+  const catDefs = [
+    { key:'fnb',   label:'Venue & F&B',     color:'#F472C6' },
+    { key:'decor', label:'Decor & Styling', color:'#C084FC' },
+    { key:'ent',   label:'Entertainment',   color:'#67E8F9' },
+  ];
+  const channelDefs = [{ key:'all', label:'All Budget' }].concat(catDefs.map(c => ({ key:c.key, label:c.label })));
+  const catLabel = (k) => (catDefs.find(c => c.key === k) || { label:k }).label;
+  const catColor = (k) => (catDefs.find(c => c.key === k) || { color:'#F472C6' }).color;
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const today = new Date();
+  let plannerYear = today.getFullYear(), plannerMonth = today.getMonth();
+  function addDays(n) { const d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate() + n); return d; }
+  function fmtDate(d) { return d.getDate() + ' ' + monthNames[d.getMonth()].slice(0,3) + ' ' + d.getFullYear(); }
+  function entryKey(y,m,d) { return `${y}-${m+1}-${d}`; }
+  function mkSubs(col, firstDone) { return SUB_STEPS.map((t,i) => ({ t, done: col === 'done' ? true : col === 'progress' ? i < 3 : !!(firstDone && i === 0) })); }
+
+  // ═══════════ DATA STORE ═══════════
+  let activeClient = 'Sweet 17 — Nadia';
+  let activeChannel = 'all';
+  let clients = ['Sweet 17 — Nadia','Intimate Wedding — Ayu & Bram','Year-End Gathering — PT Nusa','Product Launch — Kopi Kenari'];
+  const palette = ['#F472C6','#C084FC','#67E8F9','#FBBF24','#F9A8D4','#A78BFA'];
+  let clientMeta = {
+    'Sweet 17 — Nadia':               { color:'#F472C6', handle:'Ulang Tahun', tier:'Confirmed', host:'Bu Ratna' },
+    'Intimate Wedding — Ayu & Bram':  { color:'#C084FC', handle:'Wedding',     tier:'Confirmed', host:'Ayu & Bram' },
+    'Year-End Gathering — PT Nusa':   { color:'#67E8F9', handle:'Corporate',   tier:'Planning',  host:'Bu Melati (HR)' },
+    'Product Launch — Kopi Kenari':   { color:'#FBBF24', handle:'Launching',   tier:'Planning',  host:'Kopi Kenari' },
+  };
+  let clientMetrics = {
+    'Sweet 17 — Nadia':              { weeks:[12,20,28,24], invited:'120', budget:85000000,  best:'Gelombang RSVP setelah reminder WA — 28 tamu konfirmasi dalam 2 hari' },
+    'Intimate Wedding — Ayu & Bram': { weeks:[10,18,22,16], invited:'80',  budget:240000000, best:'Pemberkatan outdoor disetujui — venue villa terkunci sampai jam 22.00' },
+    'Year-End Gathering — PT Nusa':  { weeks:[20,35,40,30], invited:'200', budget:150000000, best:'Divisi sales konfirmasi 100% hadir setelah undangan dari direksi' },
+    'Product Launch — Kopi Kenari':  { weeks:[15,25,30,28], invited:'150', budget:120000000, best:'22 dari 30 media & influencer undangan awal sudah konfirmasi' },
+  };
+  let clientChannels = {
+    'Sweet 17 — Nadia':              { fnb:45, decor:30, ent:25 },
+    'Intimate Wedding — Ayu & Bram': { fnb:50, decor:30, ent:20 },
+    'Year-End Gathering — PT Nusa':  { fnb:40, decor:20, ent:40 },
+    'Product Launch — Kopi Kenari':  { fnb:35, decor:35, ent:30 },
+  };
+  let clientGuests = {
+    'Sweet 17 — Nadia':              ['Pak Wayan (Kepala Sekolah)','Bu Ratna (Ibu host)'],
+    'Intimate Wedding — Ayu & Bram': ['Opa & Oma Bram (VIP)'],
+    'Year-End Gathering — PT Nusa':  ['Direksi (VIP)','Tim Sales Regional'],
+    'Product Launch — Kopi Kenari':  ['Media Partner Utama','Influencer Kopi (VIP)'],
+  };
+  let blueprints = {
+    'Sweet 17 — Nadia':              { tone:'Festive',   goal:'Indoor',            usp:'Sweet seventeen bertema garden party pastel untuk 120 tamu, lengkap dengan photo booth dan live DJ.', audience:'DP 30% saat kontrak, termin 2 H-14, pelunasan H-3', pillars:'Dress code pastel, Kue tart 3 tingkat, Photo booth, Tanpa alkohol' },
+    'Intimate Wedding — Ayu & Bram': { tone:'Elegant',   goal:'Indoor & Outdoor',  usp:'Wedding intimate 80 tamu di villa: pemberkatan outdoor, lalu makan malam sit-down dengan live band akustik.', audience:'DP 40% saat kontrak, termin 2 H-30, pelunasan H-7', pillars:'Sit-down dinner, Live band akustik, Rundown ketat 5 jam, Backup tenda hujan' },
+    'Year-End Gathering — PT Nusa':  { tone:'Corporate', goal:'Indoor',            usp:'Gathering akhir tahun untuk 200 karyawan: awarding, games antar divisi, dan hiburan penutup.', audience:'DP 50% saat PO, pelunasan H+7 setelah acara', pillars:'Dress code batik, Awarding 10 kategori, MC profesional, Doorprize' },
+    'Product Launch — Kopi Kenari':  { tone:'Festive',   goal:'Indoor & Outdoor',  usp:'Peluncuran varian kopi baru: coffee tasting bar, live acoustic, dan area foto brand.', audience:'DP 50% saat kontrak, pelunasan H-5', pillars:'Tasting bar 6 station, Area foto brand, Live acoustic, Media kit di goodie bag' },
+  };
+  let services = [
+    { name:'Event Planning Fee', price:15000000 },
+    { name:'Wedding Planning Fee', price:30000000 },
+    { name:'Day-of Coordination', price:8000000 },
+    { name:'Vendor Sourcing & Management', price:6000000 },
+    { name:'Decor & Styling Concept', price:5000000 },
+    { name:'MC & Rundown Handling', price:3000000 },
+  ];
+
+  // Vendor tracker — the Konsole USP. Each card = one vendor booked for an event.
+  // Column decides the money: Shortlist = nothing committed, Booked · DP = contract committed + DP paid, Paid in Full = fully paid.
+  let taskIdSeq = 13;
+  const mkV = (id, title, tag, cat, amount, col, firstDone) => ({ id, title, tag, cat, amount, subs: mkSubs(col, firstDone) });
+  let taskData = {
+    todo: [
+      mkV(3,  'DJ Arka & MC',                  'Sweet 17 — Nadia',              'ent',   12000000,  'todo', true),
+      mkV(6,  'Senja Acoustic Band',           'Intimate Wedding — Ayu & Bram', 'ent',   30000000,  'todo', false),
+      mkV(9,  'Atelier Lima — Dekor Korporat', 'Year-End Gathering — PT Nusa',  'decor', 26000000,  'todo', true),
+      mkV(12, 'Acoustic Hour Duo',             'Product Launch — Kopi Kenari',  'ent',   16000000,  'todo', false),
+    ],
+    progress: [
+      mkV(2,  'Atelier Petal — Dekor Garden',  'Sweet 17 — Nadia',              'decor', 22000000,  'progress'),
+      mkV(5,  'Kirana Florist',                'Intimate Wedding — Ayu & Bram', 'decor', 55000000,  'progress'),
+      mkV(7,  'Ballroom Aruna Hotel',          'Year-End Gathering — PT Nusa',  'fnb',   52000000,  'progress'),
+      mkV(8,  'SoundBox Stage & Sound',        'Year-End Gathering — PT Nusa',  'ent',   42000000,  'progress'),
+      mkV(11, 'Studio Terra — Set & Booth',    'Product Launch — Kopi Kenari',  'decor', 36000000,  'progress'),
+    ],
+    done: [
+      mkV(1,  'Dapur Nusa Catering',           'Sweet 17 — Nadia',              'fnb',   32000000,  'done'),
+      mkV(4,  'Villa Cempaka — Venue & Dinner','Intimate Wedding — Ayu & Bram', 'fnb',   100000000, 'done'),
+      mkV(10, 'Galeri Kenari — Venue',         'Product Launch — Kopi Kenari',  'fnb',   28000000,  'done'),
+    ],
+  };
+
+  // Calendar / invoices / library are seeded relative to today so the demo always looks current.
+  let plannerEntries = {};
+  function seedEntry(client, offset, text, channel) {
+    const d = addDays(offset); const k = entryKey(d.getFullYear(), d.getMonth(), d.getDate());
+    (plannerEntries[k] = plannerEntries[k] || []).push({ text, client, channel });
+  }
+  let invoices = {};
+  function seedInv(key, client, offset, status, items) {
+    const d = addDays(offset);
+    invoices[key] = { client, date: fmtDate(d), y: d.getFullYear(), m: d.getMonth(), status, items };
+  }
+  let libraryItems = [];
+  function seedDoc(type, client, text, offset) { libraryItems.push({ type, client, text, date: addDays(offset).toLocaleDateString('en-GB') }); }
+  let reports = {};
+  let clientDetailMode = 'new';
+
+  // ═══════════ NAV / SHELL ═══════════
+  function goTo(page, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('on'));
+    if (el) el.classList.add('on');
+    closeMobile();
+  }
+  function openMobile() { document.getElementById('side').classList.add('mopen'); document.getElementById('backdrop').classList.add('show'); }
+  function closeMobile() { document.getElementById('side').classList.remove('mopen'); document.getElementById('backdrop').classList.remove('show'); }
+  document.getElementById('railBtn').onclick = openMobile;
+
+  // ═══════════ MODAL (webview-safe replacement for prompt()) ═══════════
+  function openModal(title, bodyHtml, onConfirm) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalBody').innerHTML = bodyHtml;
+    const btn = document.getElementById('modalConfirmBtn');
+    const newBtn = btn.cloneNode(true); btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.onclick = () => { onConfirm(); };
+    document.getElementById('modalOverlay').classList.add('show');
+    const firstInput = document.querySelector('#modalBody input, #modalBody select, #modalBody textarea');
+    if (firstInput) setTimeout(() => firstInput.focus(), 50);
+  }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+  function notice(title, msg) { openModal(title, `<p style="font-size:12.5px;color:var(--dim);line-height:1.6;">${msg}</p>`, closeModal); }
+  function mval(id) { return document.getElementById(id).value.trim(); }
+  function esc(s) { return String(s).replace(/'/g, "\\'"); }
+
+  // ═══════════ SIDEBAR EVENT SELECTOR — single source of context ═══════════
+  function renderSidebarClientSelector() {
+    document.getElementById('pselName').textContent = activeClient;
+    document.getElementById('pselDot').style.background = (clientMeta[activeClient] || {}).color || '#F472C6';
+    document.getElementById('sidebarClientDD').innerHTML = clients.map(name => `
+      <div class="pdd-item ${name===activeClient?'on':''}" onclick="setActiveClient('${esc(name)}')">
+        <div class="pdd-dot" style="background:${clientMeta[name].color}"></div>
+        <div class="pdd-n">${name}</div>
+      </div>`).join('');
+  }
+  function toggleSidebarClientDD() {
+    document.getElementById('sidebarClientDD').classList.toggle('show');
+    document.getElementById('pselArrow').classList.toggle('open');
+  }
+  function closeSidebarClientDD() {
+    document.getElementById('sidebarClientDD').classList.remove('show');
+    document.getElementById('pselArrow').classList.remove('open');
+  }
+  document.addEventListener('click', (e) => { if (!e.target.closest('.side-psel-wrap')) closeSidebarClientDD(); });
+  function refreshAll() {
+    renderSidebarClientSelector(); renderDashboard(); renderClientsTable(); renderBlueprintSummary();
+    renderTasks(); renderPlanner(); refreshInvoicesForActiveClient(); refreshReportsForActiveClient();
+  }
+  function setActiveClient(name) { activeClient = name; insightIdx = 0; closeSidebarClientDD(); refreshAll(); }
+  function deleteClient(e, name) {
+    if (e) e.stopPropagation();
+    if (clients.length <= 1) { notice('Keep at least one event', 'Konsole needs one active event to show the dashboard. Add another event first, then delete this one.'); return; }
+    clients = clients.filter(c => c !== name);
+    if (activeClient === name) activeClient = clients[0];
+    refreshAll();
+  }
+
+  // ═══════════ DASHBOARD / ANALYTICS — per event, per budget category ═══════════
+  function fmtNum(n) { return Math.round(n).toLocaleString('id-ID'); }
+  function fmtRp(n) { return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
+  function dec(x) { return String(+x.toFixed(1)).replace('.', ','); }
+  function abbrRp(n) {
+    if (n >= 1e9) return 'Rp ' + dec(n/1e9) + ' M';
+    if (n >= 1e6) return 'Rp ' + dec(n/1e6) + ' jt';
+    if (n >= 1e3) return 'Rp ' + dec(n/1e3) + ' rb';
+    return fmtRp(n);
+  }
+  function sum(arr, fn) { return arr.reduce((s,x) => s + fn(x), 0); }
+
+  function eventRsvp(name) {
+    const m = clientMetrics[name]; const confirmed = sum(m.weeks, w => w); const invited = parseInt(m.invited) || 0;
+    return { confirmed, invited, rate: invited ? Math.min(100, Math.round(confirmed / invited * 100)) : 0 };
+  }
+  function budgetFor(name, cat) {
+    const total = (clientMetrics[name] || {}).budget || 0;
+    if (cat === 'all') return total;
+    return Math.round(total * (((clientChannels[name] || {})[cat]) || 0) / 100);
+  }
+  function vendorsFor(name, cat) {
+    const out = [];
+    ['todo','progress','done'].forEach(col => taskData[col].forEach(v => { if (v.tag === name && (cat === 'all' || v.cat === cat)) out.push({ col, v }); }));
+    return out;
+  }
+  const vCommitted = (col, v) => col === 'todo' ? 0 : v.amount;
+  const vPaid = (col, v) => col === 'done' ? v.amount : col === 'progress' ? Math.round(v.amount * DP_RATE) : 0;
+
+  // Real numbers: budget from the event, money from the vendor cards' columns.
+  function channelMetrics(name, cat) {
+    const list = vendorsFor(name, cat);
+    const budget = budgetFor(name, cat);
+    const committed = sum(list, x => vCommitted(x.col, x.v));
+    const paid = sum(list, x => vPaid(x.col, x.v));
+    const locked = list.filter(x => x.col !== 'todo').length;
+    return { budget, committed, paid, locked, total: list.length };
+  }
+
+  function generateClientInsights(name) {
+    const cm = channelMetrics(name, 'all'), rs = eventRsvp(name), mix = clientChannels[name] || {};
+    const list = vendorsFor(name, 'all');
+    const pct = cm.budget ? Math.round(cm.committed / cm.budget * 100) : 0;
+    const topCat = catDefs.slice().sort((a,b) => (mix[b.key]||0) - (mix[a.key]||0))[0];
+    const pending = list.filter(x => x.col === 'todo');
+    const insights = [];
+    insights.push(`${pct}% budget sudah committed (${abbrRp(cm.committed)} dari ${abbrRp(cm.budget)}). ${pct>90?'Hampir habis — cek sisa pos sebelum nambah vendor.':'Masih ada ruang buat upgrade dekor atau hiburan.'}`);
+    insights.push(`Pos terbesar: ${topCat.label} (${mix[topCat.key]||0}% alokasi). Lock vendor di pos ini lebih dulu biar harga & tanggal aman.`);
+    if (!list.length) insights.push('Belum ada vendor di event ini. Mulai dari Vendors → + Add, atau upload penawaran vendor di Dashboard.');
+    else if (pending.length) insights.push(`${pending.length} vendor masih di Shortlist, mulai dari ${pending[0].v.title}. Follow up sebelum tanggalnya diambil klien lain.`);
+    else insights.push('Semua vendor sudah booked. Fokus ke pelunasan H-3 dan gladi bersih.');
+    insights.push(`RSVP ${rs.confirmed} dari ${rs.invited} tamu (${rs.rate}%). ${rs.rate<70?'Kirim reminder WA ke tamu yang belum jawab.':'On track — siapkan seating & headcount catering.'}`);
+    return insights;
+  }
+
+  let insightRotateTimer = null, insightIdx = 0;
+  function capText(s, max) { return s.length > max ? s.slice(0, max - 1).trim() + '…' : s; }
+  function renderInsightCard() {
+    const insights = generateClientInsights(activeClient);
+    if (insightIdx >= insights.length) insightIdx = 0;
+    const dots = insights.map((_,i) => `<span class="kx-insight-dot ${i===insightIdx?'on':''}"></span>`).join('');
+    document.getElementById('kxInsight').innerHTML = `
+      <div class="kx-top"><div class="kx-title">AI Insight — ${activeClient}</div><span class="kx-ai-badge">AI</span></div>
+      <div class="kx-insight">${capText(insights[insightIdx], 170)}</div>
+      <div class="kx-insight-dots">${dots}</div>`;
+    if (insightRotateTimer) clearInterval(insightRotateTimer);
+    insightRotateTimer = setInterval(() => {
+      insightIdx = (insightIdx + 1) % generateClientInsights(activeClient).length;
+      renderInsightCard();
+    }, 4500);
+  }
+
+  function renderChannelTabs() {
+    document.getElementById('chanTabs').innerHTML = channelDefs.map(c =>
+      `<div class="chan-tab ${c.key===activeChannel?'on':''}" onclick="setActiveChannel('${c.key}')">${c.label}</div>`).join('');
+  }
+  function setActiveChannel(key) { activeChannel = key; renderDashboard(); }
+
+  function renderKpiGrid() {
+    const cm = channelMetrics(activeClient, activeChannel);
+    const mix = (clientChannels[activeClient] || {})[activeChannel];
+    const pctCommitted = cm.budget ? Math.round(cm.committed / cm.budget * 100) : 0;
+    const pctPaid = cm.committed ? Math.round(cm.paid / cm.committed * 100) : 0;
+    const pctLocked = cm.total ? Math.round(cm.locked / cm.total * 100) : 0;
+    const over = cm.committed > cm.budget;
+    const cards = [
+      { label:'Budget',         value: abbrRp(cm.budget),     chg: activeChannel === 'all' ? 'Total' : (mix||0) + '%' },
+      { label:'Committed',      value: abbrRp(cm.committed),  chg: pctCommitted + '%', warn: over },
+      { label:'Paid',           value: abbrRp(cm.paid),       chg: pctPaid + '% of contracts' },
+      { label:'Vendors Locked', value: cm.locked + '/' + cm.total, chg: pctLocked + '%' },
+    ];
+    document.getElementById('kpiGrid').innerHTML = cards.map(c => `
+      <div class="kpi-card">
+        <div class="kpi-top"><div class="kpi-label">${c.label}</div><span class="kpi-badge ${c.warn?'warn':'up'}">${c.chg}</span></div>
+        <div class="kpi-value teal">${c.value}</div>
+      </div>`).join('');
+  }
+
+  const funnelMetricOptions = [
+    { key:'vendors',  label:'Vendors' },
+    { key:'contract', label:'Contract Value' },
+    { key:'paid',     label:'Paid' },
+  ];
+  let funnelStageMetric = ['vendors','vendors','vendors'];
+  function funnelValue(key, set) {
+    if (key === 'vendors') return set.length;
+    if (key === 'contract') return sum(set, x => x.v.amount);
+    return sum(set, x => vPaid(x.col, x.v));
+  }
+  function setFunnelStageMetric(i, val) { funnelStageMetric[i] = val; renderFunnel(); }
+  function renderFunnel() {
+    const list = vendorsFor(activeClient, activeChannel);
+    const sets = [list, list.filter(x => x.col !== 'todo'), list.filter(x => x.col === 'done')];
+    const stageNames = ['Shortlisted','Booked (DP)','Paid in Full'];
+    const colors = ['#F472C6','#C084FC','#67E8F9'];
+    const values = funnelStageMetric.map((k,i) => funnelValue(k, sets[i]));
+
+    const W = 280, stageH = 26, gap = 12;
+    const fracs = [1, 0.68, 0.42]; // fixed, gentle taper — a funnel silhouette, not driven by raw value ratios
+    const segX = (frac) => (W - W*frac) / 2;
+    let y = 0, shapes = '';
+    for (let i = 0; i < 3; i++) {
+      const fTop = fracs[i];
+      const fBot = i < 2 ? fracs[i+1] : fracs[i]*0.8;
+      const xTL = segX(fTop), xTR = xTL + W*fTop;
+      const xBL = segX(fBot), xBR = xBL + W*fBot;
+      const dispVal = funnelStageMetric[i] === 'vendors' ? fmtNum(values[i]) : abbrRp(values[i]);
+      shapes += `<polygon points="${xTL},${y} ${xTR},${y} ${xBR},${y+stageH} ${xBL},${y+stageH}" fill="${colors[i]}"/>`;
+      shapes += `<text x="${W/2}" y="${y+stageH/2+4}" text-anchor="middle" font-size="9.5" font-weight="800" fill="#1A0714" font-family="DM Mono, monospace">${dispVal}</text>`;
+      y += stageH + gap;
+    }
+    const totalH = y - gap;
+    document.getElementById('funnelCard').innerHTML = `
+      <div class="kx-top" style="margin-bottom:8px;"><div class="kx-cat">Vendor Funnel</div></div>
+      <svg viewBox="0 0 ${W} ${totalH}" style="width:100%;height:${totalH}px;display:block;" preserveAspectRatio="xMidYMid meet">${shapes}</svg>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">
+        ${stageNames.map((name,i) => `
+          <div class="funnel-shape-row">
+            <div class="funnel-dot" style="background:${colors[i]};"></div>
+            <div class="funnel-shape-meta">
+              <span style="color:var(--dim);font-weight:700;">${name}</span>
+              <select class="funnel-metric-sel-sm" onchange="setFunnelStageMetric(${i}, this.value)">
+                ${funnelMetricOptions.map(o => `<option value="${o.key}" ${o.key===funnelStageMetric[i]?'selected':''}>${o.label}</option>`).join('')}
+              </select>
+              ${i>0 ? `<span>↓ ${((values[i]/(values[i-1]||1))*100).toFixed(1)}% of prev</span>` : `<span style="color:var(--mute);">baseline</span>`}
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function renderChannelMixCard() {
+    const mix = clientChannels[activeClient] || {};
+    const chArr = catDefs.map(c => [c.label, mix[c.key] || 0, c.color]).sort((a,b) => b[1]-a[1]);
+    let offset = 0; const circ = 2*Math.PI*36;
+    const arcs = chArr.map(([label,pct,color]) => { const len = (pct/100)*circ; const seg = `<circle cx="44" cy="44" r="36" fill="none" stroke="${color}" stroke-width="14" stroke-dasharray="${len} ${circ}" stroke-dashoffset="${-offset}" transform="rotate(-90 44 44)"/>`; offset += len; return seg; }).join('');
+    document.getElementById('kxChannelMix').innerHTML = `
+      <div class="kx-top" style="margin-bottom:10px;"><div class="kx-title">Budget Mix — ${activeClient}</div></div>
+      <div class="kx-donut-wrap">
+        <svg class="kx-donut-svg" viewBox="0 0 88 88"><circle cx="44" cy="44" r="36" fill="none" stroke="#1F0E1B" stroke-width="14"/>${arcs}
+          <text x="44" y="49" text-anchor="middle" fill="#F7EEF4" font-size="14" font-weight="800">${chArr[0][1]}%</text></svg>
+        <div class="kx-legend">${chArr.map(([l,p,c]) => `<div class="kx-legend-row"><div style="display:flex;align-items:center;gap:5px;min-width:0;"><div class="kx-legend-dot" style="background:${c}"></div><div class="kx-legend-label">${l}</div></div><div class="kx-legend-val">${p}%</div></div>`).join('')}</div>
+      </div>`;
+  }
+
+  // Progress trend — demo/simulated build-up curve ending on the event's real current value,
+  // seeded per event+category+metric so it stays stable instead of re-randomizing each render.
+  const trendMetrics = [
+    { key:'committed', label:'Committed' },
+    { key:'paid',      label:'Paid' },
+    { key:'rsvp',      label:'RSVP Confirmed' },
+    { key:'locked',    label:'Vendors Locked %' },
+  ];
+  let trendMetricSel = 'committed';
+  function setTrendMetric(val) { trendMetricSel = val; renderFunnelPerformanceCard(); }
+  function hashStr(s) { let h = 0; for (let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
+  function seededRand(seed) { const x = Math.sin(seed) * 10000; return x - Math.floor(x); }
+  function trendSeries(metricKey) {
+    const cm = channelMetrics(activeClient, activeChannel), rs = eventRsvp(activeClient);
+    const baseMap = { committed: cm.committed, paid: cm.paid, rsvp: rs.confirmed, locked: cm.total ? cm.locked / cm.total * 100 : 0 };
+    const base = baseMap[metricKey] || 0;
+    const shape = [0.10, 0.20, 0.32, 0.45, 0.60, 0.74, 0.88, 1];
+    const seed = hashStr(activeClient + activeChannel + metricKey);
+    const s = shape.map((v,i) => base * v * (0.96 + seededRand(seed + i*3.7) * 0.08));
+    s[s.length-1] = base;
+    return s;
+  }
+  function renderFunnelPerformanceCard() {
+    const series = trendSeries(trendMetricSel);
+    const max = Math.max(...series, 1);
+    const w = 260, h = 84, padX = 4, padY = 8;
+    const stepX = (w - padX*2) / (series.length-1);
+    const pts = series.map((v,i) => [padX + i*stepX, padY + (h - padY*2) * (1 - v/max)]);
+    const pathD = pts.map((p,i) => (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    const areaD = pathD + ` L ${pts[pts.length-1][0].toFixed(1)} ${h} L ${pts[0][0].toFixed(1)} ${h} Z`;
+    const labels = [];
+    for (let i = series.length-1; i >= 0; i--) { const d = new Date(today); d.setDate(d.getDate()-i); labels.push(d.getDate()+' '+monthNames[d.getMonth()].slice(0,3)); }
+    const last = series[series.length-1];
+    const fmtVal = (v) => trendMetricSel==='locked' ? Math.round(v)+'%' : (trendMetricSel==='rsvp' ? fmtNum(v) : abbrRp(Math.round(v)));
+    document.getElementById('funnelPerfCard').innerHTML = `
+      <div class="kx-top" style="margin-bottom:6px;">
+        <div class="kx-title">Progress Trend</div>
+        <select class="trend-metric-sel" onchange="setTrendMetric(this.value)">
+          ${trendMetrics.map(m => `<option value="${m.key}" ${m.key===trendMetricSel?'selected':''}>${m.label}</option>`).join('')}
+        </select>
+      </div>
+      <div style="flex:1;min-height:0;position:relative;">
+        <svg viewBox="0 0 ${w} ${h}" style="width:100%;height:100%;display:block;position:absolute;inset:0;" preserveAspectRatio="none">
+          <defs><linearGradient id="tgrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F472C6" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#F472C6" stop-opacity="0"/>
+          </linearGradient></defs>
+          <path d="${areaD}" fill="url(#tgrad)" stroke="none"/>
+          <path d="${pathD}" fill="none" stroke="#F472C6" stroke-width="2"/>
+          <circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="3" fill="#F472C6"/>
+        </svg>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:8px;color:var(--mute);margin-top:4px;">
+        <span>${labels[0]}</span><span>${labels[labels.length-1]}</span>
+      </div>
+      <div style="font-size:10.5px;color:var(--dim);margin-top:4px;">Latest: <b style="color:var(--white);">${fmtVal(last)}</b></div>`;
+  }
+
+  function renderDashboard() {
+    const rs = eventRsvp(activeClient);
+    document.getElementById('dashSub').textContent = `${activeClient} · RSVP ${rs.confirmed}/${rs.invited} (${rs.rate}%)`;
+    renderChannelTabs();
+    renderInsightCard();
+    renderChannelMixCard();
+    renderKpiGrid();
+    renderFunnel();
+    renderFunnelPerformanceCard();
+  }
+
+  // ═══════════ Upload Vendor Quote → AI Extractor (simulated read for this demo) ═══════════
+  const quotePool = [
+    { title:'Lumen Lighting Co.',     cat:'ent',   amount:9500000 },
+    { title:'Rasa Kita Catering',     cat:'fnb',   amount:26000000 },
+    { title:'Atelier Petal — Dekor',  cat:'decor', amount:14500000 },
+    { title:'Nada Live Music',        cat:'ent',   amount:18000000 },
+  ];
+  let quoteIdx = 0;
+  function triggerScreenshotUpload() { document.getElementById('ssUploadInput').click(); }
+  function handleScreenshotUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const btn = document.getElementById('aiExtractBtn');
+    const original = btn.textContent;
+    btn.textContent = 'Reading…'; btn.disabled = true;
+    setTimeout(() => {
+      const q = quotePool[quoteIdx++ % quotePool.length];
+      taskData.todo.push({ id: taskIdSeq++, title: q.title, tag: activeClient, cat: q.cat, amount: q.amount, subs: mkSubs('todo', true) });
+      renderTasks(); renderDashboard();
+      btn.textContent = '✓ Quote added to Shortlist';
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1600);
+    }, 900);
+    input.value = '';
+  }
+
+  // ═══════════ EVENTS ═══════════
+  function renderClientsTable() {
+    document.getElementById('clientsTableWrap').innerHTML = '<table><tr><th>Event</th><th>Type</th><th>Status</th><th></th></tr>' +
+      clients.map(name => `<tr class="clickable" onclick="openClient('${esc(name)}')"><td>${name}</td><td>${clientMeta[name].handle}</td><td><span class="tier-badge ${clientMeta[name].tier.toLowerCase()}">${clientMeta[name].tier}</span></td><td onclick="event.stopPropagation()"><button class="icon-btn del" onclick="deleteClient(event,'${esc(name)}')">✕</button></td></tr>`).join('') + '</table>';
+  }
+  function fillClientForm(name, isNew) {
+    document.getElementById('ovName').value = isNew ? '' : name;
+    document.getElementById('ovHandle').value = isNew ? '' : clientMeta[name].handle;
+    document.getElementById('ovTier').value = isNew ? 'Planning' : clientMeta[name].tier;
+    document.getElementById('ovHost').value = isNew ? '' : (clientMeta[name].host || '');
+    const m = isNew ? { weeks:[0,0,0,0], invited:'', budget:'', best:'' } : clientMetrics[name];
+    for (let i = 1; i <= 4; i++) document.getElementById('mWeek'+i).value = m.weeks[i-1] || '';
+    document.getElementById('mInvited').value = m.invited; document.getElementById('mBudget').value = m.budget || ''; document.getElementById('mBest').value = m.best;
+    const ch = isNew ? { fnb:45, decor:30, ent:25 } : clientChannels[name];
+    document.getElementById('chFnb').value = ch.fnb; document.getElementById('chDecor').value = ch.decor; document.getElementById('chEnt').value = ch.ent;
+    window.tempGuests = isNew ? [] : [...(clientGuests[name] || [])];
+    renderCompetitorChips();
+    document.getElementById('guestStatus').textContent = '';
+    const bp = isNew ? null : blueprints[name];
+    document.getElementById('bqTone').value = bp ? bp.tone : 'Festive'; document.getElementById('bqGoal').value = bp ? bp.goal : 'Indoor';
+    document.getElementById('bqUsp').value = bp ? bp.usp : ''; document.getElementById('bqAudience').value = bp ? bp.audience : ''; document.getElementById('bqPillars').value = bp ? bp.pillars : '';
+  }
+  function renderCompetitorChips() {
+    document.getElementById('competitorChips').innerHTML = (window.tempGuests || []).map((c,i) => `<div class="chip">${c}<button onclick="window.tempGuests.splice(${i},1);renderCompetitorChips()">✕</button></div>`).join('') || '<span style="font-size:11px;color:var(--mute);">No guests yet.</span>';
+  }
+  function addCompetitor() { const v = document.getElementById('newCompetitor').value.trim(); if (!v) return; window.tempGuests.push(v); document.getElementById('newCompetitor').value = ''; renderCompetitorChips(); }
+
+  // Upload guest list → simulated read (auto-fills a guest name). Not wired to a real OCR/CRM here —
+  // that's a production integration step.
+  function triggerGuestUpload() { document.getElementById('guestUploadInput').click(); }
+  function handleGuestUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const status = document.getElementById('guestStatus');
+    status.textContent = 'Membaca daftar tamu…';
+    setTimeout(() => {
+      const nameField = document.getElementById('newCompetitor');
+      if (!nameField.value.trim()) nameField.value = 'Pak Wayan (VIP)';
+      status.textContent = '✓ Daftar tamu terbaca — 24 nama terdeteksi. Klik + Add buat simpan tamu VIP.';
+    }, 900);
+    input.value = '';
+  }
+
+  function openAddClient() {
+    clientDetailMode = 'new';
+    document.getElementById('clientsListView').style.display = 'none'; document.getElementById('clientDetailView').style.display = 'block';
+    document.getElementById('clientDetailHeading').textContent = 'New Event'; document.getElementById('clientDetailHint').style.display = 'block';
+    document.getElementById('clientSaveBtn').textContent = 'Create Event & Generate Brief';
+    fillClientForm(null, true);
+    document.getElementById('blueprintResult').classList.remove('show');
+    switchClientTab(document.querySelector('#clientDetailView .tab-btn'), 'overview');
+  }
+  function openClient(name) {
+    clientDetailMode = 'edit';
+    document.getElementById('clientsListView').style.display = 'none'; document.getElementById('clientDetailView').style.display = 'block';
+    document.getElementById('clientDetailHeading').textContent = name; document.getElementById('clientDetailHint').style.display = 'none';
+    document.getElementById('clientSaveBtn').textContent = 'Save Changes';
+    fillClientForm(name, false);
+    document.getElementById('blueprintResult').classList.remove('show');
+    switchClientTab(document.querySelector('#clientDetailView .tab-btn'), 'overview');
+    window.editingClientOriginalName = name;
+  }
+  function closeClientDetail() { document.getElementById('clientDetailView').style.display = 'none'; document.getElementById('clientsListView').style.display = 'block'; renderClientsTable(); }
+  function switchClientTab(el, tab) {
+    document.querySelectorAll('#clientDetailView .tab-btn').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('#clientDetailView .tab-panel').forEach(p => p.classList.remove('on'));
+    el.classList.add('on'); document.getElementById('tab-' + tab).classList.add('on');
+  }
+  function saveClient() {
+    const name = document.getElementById('ovName').value.trim();
+    if (!name) { notice('Event name is required', 'Give the event a name first (Overview tab), then save again.'); return; }
+    if (clientDetailMode === 'new' && clients.includes(name)) { notice('Name already used', 'Another event already has this name. Pick a different one.'); return; }
+    const handle = document.getElementById('ovHandle').value.trim(), tier = document.getElementById('ovTier').value, host = document.getElementById('ovHost').value.trim();
+    const weeks = [1,2,3,4].map(n => parseInt(document.getElementById('mWeek'+n).value) || 0);
+    const invited = document.getElementById('mInvited').value, best = document.getElementById('mBest').value;
+    const budget = parseInt(String(document.getElementById('mBudget').value).replace(/\D/g,'')) || 0;
+    const chVals = { fnb: parseInt(document.getElementById('chFnb').value) || 0, decor: parseInt(document.getElementById('chDecor').value) || 0, ent: parseInt(document.getElementById('chEnt').value) || 0 };
+    const tone = document.getElementById('bqTone').value, goal = document.getElementById('bqGoal').value;
+    const usp = document.getElementById('bqUsp').value.trim(), audience = document.getElementById('bqAudience').value.trim(), pillars = document.getElementById('bqPillars').value.trim();
+
+    if (clientDetailMode === 'new') {
+      clients.push(name); clientMeta[name] = { color: palette[clients.length % palette.length], handle, tier, host };
+    } else {
+      const oldName = window.editingClientOriginalName;
+      if (oldName !== name) {
+        clients = clients.map(c => c === oldName ? name : c);
+        clientMeta[name] = clientMeta[oldName]; delete clientMeta[oldName];
+        clientMetrics[name] = clientMetrics[oldName]; delete clientMetrics[oldName];
+        clientChannels[name] = clientChannels[oldName]; delete clientChannels[oldName];
+        clientGuests[name] = clientGuests[oldName]; delete clientGuests[oldName];
+        if (blueprints[oldName]) { blueprints[name] = blueprints[oldName]; delete blueprints[oldName]; }
+        Object.values(invoices).forEach(inv => { if (inv.client === oldName) inv.client = name; });
+        Object.values(reports).forEach(r => { if (r.client === oldName) r.client = name; });
+        Object.values(plannerEntries).forEach(list => list.forEach(e => { if (e.client === oldName) e.client = name; }));
+        libraryItems.forEach(it => { if (it.client === oldName) it.client = name; });
+        ['todo','progress','done'].forEach(col => taskData[col].forEach(v => { if (v.tag === oldName) v.tag = name; }));
+        if (activeClient === oldName) activeClient = name;
+      }
+      clientMeta[name].handle = handle; clientMeta[name].tier = tier; clientMeta[name].host = host;
+    }
+    clientMetrics[name] = { weeks, invited, budget, best };
+    clientChannels[name] = chVals;
+    clientGuests[name] = [...(window.tempGuests || [])];
+    if (usp || audience || pillars) {
+      blueprints[name] = { tone, goal, usp: usp || '(not filled in yet)', audience: audience || '(not filled in yet)', pillars: pillars || '(not filled in yet)' };
+      const r = document.getElementById('blueprintResult');
+      r.innerHTML = `<span class="kx-ai-badge">AI</span><div style="margin-top:8px;">EVENT BRIEF — ${name}\n\nVibe: ${tone}\nFormat: ${goal}\nConcept: ${blueprints[name].usp}\nBudget & Payment: ${blueprints[name].audience}\nMust-haves: ${blueprints[name].pillars}</div>`;
+      r.classList.add('show');
+    }
+    activeClient = name;
+    refreshAll();
+    if (clientDetailMode === 'new') { closeClientDetail(); }
+  }
+  function renderBlueprintSummary() {
+    const bp = blueprints[activeClient]; const el = document.getElementById('blueprintSummary');
+    if (!bp) { el.innerHTML = `No Event Brief yet for <b>${activeClient}</b>. Fill it in via Events → open this event → Event Brief tab.`; return; }
+    const usp = bp.usp.replace(/\.$/, '');
+    el.innerHTML = `
+      <div class="bp-label">Event Brief</div>
+      <div>Vibe <b>${bp.tone}</b>, format ${bp.goal.toLowerCase()}.</div>
+      <div style="margin-top:5px;">Concept: ${usp}.</div>
+      <div style="margin-top:5px;">Payment: ${bp.audience}</div>
+      <div style="margin-top:5px;">Must-haves: ${bp.pillars}</div>`;
+  }
+
+  // ═══════════ GENERATOR ═══════════
+  function switchGenTab(el, tab) {
+    document.querySelectorAll('.gen-tab').forEach(t => t.classList.remove('on')); el.classList.add('on');
+    document.querySelectorAll('.gen-tab-panel').forEach(p => p.style.display = 'none');
+    document.querySelector(`.gen-tab-panel[data-tab="${tab}"]`).style.display = 'block';
+  }
+  const genHeadings = { contract:'Event Service Agreement', rundown:'Run of Show', vendor:'Vendor Brief', rsvp:'RSVP Message', invite:'Invitation Copy', poster:'Poster Prompt' };
+  const genTemplates = {
+    contract: (t,bp) => `PERJANJIAN JASA EVENT ORGANIZER — ${activeClient}\n\nDetail acara: ${t}\n\nKonsep: ${bp?bp.usp:'belum diisi'}\nVibe ${bp?bp.tone:'-'}, format ${bp?bp.goal:'-'}.\nBudget & pembayaran: ${bp?bp.audience:'belum diisi'}.\nKetentuan: ${bp?bp.pillars:'belum diisi'}.\n\nPihak Pertama (Event Organizer) dan Pihak Kedua (Klien) sepakat menjalankan acara sesuai brief di atas. Perubahan konsep atau jumlah tamu setelah H-14 dihitung sebagai addendum biaya.`,
+    rundown: (t) => `RUN OF SHOW — ${activeClient}\n\nDetail: ${t}\n\n13:00  Crew & vendor loading in\n15:00  Technical check (sound, lighting, LED)\n16:30  Gladi bersih bareng MC\n17:30  Registrasi tamu dibuka\n18:00  Opening & sambutan\n18:30  Makan malam + hiburan\n20:30  Acara utama\n21:30  Closing & foto bersama\n22:00  Load out`,
+    vendor: (t,bp) => `Halo tim vendor, ini brief ${activeClient}:\n\n${t}\n\nKonsep: ${bp?bp.usp:'-'}\nVibe ${bp?bp.tone:'-'}, format ${bp?bp.goal:'-'}.\nMust-have: ${bp?bp.pillars:'-'}.\nPembayaran: ${bp?bp.audience:'-'}.\n\nMohon konfirmasi ketersediaan + penawaran final maksimal 3 hari. Terima kasih!`,
+    rsvp: (t) => `Halo! Kamu diundang ke ${activeClient}.\n\n${t}\n\nMohon konfirmasi kehadiran (RSVP) maksimal H-7 ya. Info dress code & lokasi menyusul. Sampai jumpa!`,
+    invite: (t,bp) => `${activeClient}\n${t}\n\n${bp?bp.usp:'Konsep acara belum diisi.'}\nSave the date dan siapkan diri buat malam yang seru!`,
+    poster: (t,bp) => `Prompt poster: "${activeClient}, ${t}, vibe ${bp?bp.tone.toLowerCase():'festive'}, palet warna hangat, tipografi elegan, ruang kosong untuk detail acara, gaya editorial."`,
+  };
+  let currentGen = 'contract';
+  function selectGen(el, key) {
+    document.querySelectorAll('.gen-card').forEach(i => i.classList.remove('active')); el.classList.add('active');
+    currentGen = key; document.getElementById('genHeading').textContent = genHeadings[key];
+    document.getElementById('genOutput').classList.remove('show'); document.getElementById('saveLibBtn').style.display = 'none';
+  }
+  function generateContent() {
+    const topic = document.getElementById('genTopic').value.trim() || 'detail acara kamu';
+    const out = document.getElementById('genOutput');
+    out.innerHTML = `<span class="kx-ai-badge">AI</span><div class="gen-output-text">${genTemplates[currentGen](topic, blueprints[activeClient])}</div>`;
+    out.classList.add('show'); document.getElementById('saveLibBtn').style.display = 'inline-flex';
+  }
+  function saveToLibrary() {
+    libraryItems.push({ type: genHeadings[currentGen], client: activeClient, text: document.querySelector('#genOutput .gen-output-text').textContent, date: new Date().toLocaleDateString('en-GB') });
+    renderLibrary();
+  }
+  function renderLibrary() {
+    const el = document.getElementById('libraryList');
+    if (libraryItems.length === 0) { el.innerHTML = '<div class="lib-empty">No saved documents yet.</div>'; return; }
+    const badgeFor = (type) => {
+      if (type === 'Poster Prompt') return '<span class="kx-ai-badge" style="margin-right:6px;border-color:var(--gold-soft);color:var(--gold-soft);">🖼</span>';
+      if (type === 'Manual Content') return '<span class="kx-ai-badge" style="margin-right:6px;border-color:var(--mute);color:var(--mute);">M</span>';
+      return '<span class="kx-ai-badge" style="margin-right:6px;">AI</span>';
+    };
+    el.innerHTML = '<div class="table-wrap"><table><tr><th>Type</th><th>Event</th><th>Date</th><th></th></tr>' +
+      libraryItems.map((item,i) => `<tr><td>${badgeFor(item.type)}${item.type}</td><td>${item.client}</td><td>${item.date}</td><td><button class="icon-btn del" onclick="deleteLibItem(${i})">✕</button></td></tr>`).join('') + '</table></div>';
+  }
+  function deleteLibItem(i) { libraryItems.splice(i,1); renderLibrary(); }
+
+  // ═══════════ CALENDAR ═══════════
+  function changeMonth(dir) {
+    plannerMonth += dir;
+    if (plannerMonth > 11) { plannerMonth = 0; plannerYear++; }
+    if (plannerMonth < 0) { plannerMonth = 11; plannerYear--; }
+    renderPlanner();
+  }
+  function renderPlanner() {
+    document.getElementById('plannerMonth').textContent = monthNames[plannerMonth] + ' ' + plannerYear;
+    const firstDow = new Date(plannerYear, plannerMonth, 1).getDay();
+    const days = new Date(plannerYear, plannerMonth + 1, 0).getDate();
+    let html = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => `<div class="cal-dow">${d}</div>`).join('');
+    for (let i = 0; i < firstDow; i++) html += '<div class="cal-cell empty"></div>';
+    for (let d = 1; d <= days; d++) {
+      const key = entryKey(plannerYear, plannerMonth, d);
+      const entries = plannerEntries[key] || [];
+      const posts = entries.filter(p => p.client === activeClient).map(p => {
+        const realIdx = entries.indexOf(p);
+        return `<div class="cal-post" title="${p.channel} • ${p.text}"><span>${p.channel} · ${p.text}</span><span class="x" onclick="event.stopPropagation();removeEntry('${key}',${realIdx})">✕</span></div>`;
+      }).join('');
+      html += `<div class="cal-cell" onclick="addEntry('${key}',${d})"><div>${d}</div>${posts}</div>`;
+    }
+    document.getElementById('calGrid').innerHTML = html;
+  }
+  const channelOptions = ['Prep','Event Day'];
+  function addEntry(key, day) {
+    const libIdx = libraryItems.map((it,i) => ({...it, _i:i})).filter(it => it.client === activeClient);
+    openModal('Add Milestone — ' + monthNames[plannerMonth] + ' ' + day, `
+      <div class="field"><label>Source</label><select id="mEntrySource" onchange="toggleEntrySource(this.value)">
+        <option value="new">Write new milestone</option>
+        ${libIdx.length ? `<option value="library">Pick from Documents</option>` : ''}
+      </select></div>
+      <div id="mEntryNewWrap">
+        <div class="field" style="margin-top:10px;"><label>Type</label><select id="mEntryChannel">${channelOptions.map(c => `<option>${c}</option>`).join('')}</select></div>
+        <div class="field" style="margin-top:10px;"><label>Milestone Note</label><input id="mEntryText" placeholder="e.g. Tasting menu — Dapur Nusa"></div>
+      </div>
+      <div id="mEntryLibWrap" style="display:none;">
+        <div class="field" style="margin-top:10px;"><label>Saved Document</label><select id="mEntryLibItem">${libIdx.map(it => `<option value="${it._i}">${it.type} — ${it.text.slice(0,36)}…</option>`).join('')}</select></div>
+        <div class="field" style="margin-top:10px;"><label>Type</label><select id="mEntryChannel2">${channelOptions.map(c => `<option>${c}</option>`).join('')}</select></div>
+      </div>
+    `, () => {
+      if (!plannerEntries[key]) plannerEntries[key] = [];
+      const source = document.getElementById('mEntrySource').value;
+      if (source === 'library') {
+        const idx = parseInt(document.getElementById('mEntryLibItem').value);
+        const item = libraryItems[idx];
+        const channel = document.getElementById('mEntryChannel2').value;
+        plannerEntries[key].push({ text: item.type, client: activeClient, channel });
+      } else {
+        const text = mval('mEntryText'); if (!text) return;
+        const channel = document.getElementById('mEntryChannel').value;
+        plannerEntries[key].push({ text, client: activeClient, channel });
+      }
+      renderPlanner(); closeModal();
+    });
+  }
+  function toggleEntrySource(val) {
+    document.getElementById('mEntryNewWrap').style.display = val === 'new' ? 'block' : 'none';
+    document.getElementById('mEntryLibWrap').style.display = val === 'library' ? 'block' : 'none';
+  }
+  function removeEntry(key, idx) { plannerEntries[key].splice(idx,1); if (!plannerEntries[key].length) delete plannerEntries[key]; renderPlanner(); }
+
+  // ═══════════ VENDORS — kanban filtered to the sidebar's active event, id-based ═══════════
+  const taskCols = [ {key:'todo', title:'Shortlist'}, {key:'progress', title:'Booked · DP'}, {key:'done', title:'Paid in Full'} ];
+  function findTask(id) {
+    for (const c of taskCols) {
+      const idx = taskData[c.key].findIndex(t => t.id === id);
+      if (idx > -1) return { col: c.key, idx, task: taskData[c.key][idx] };
+    }
+    return null;
+  }
+  function renderTasks() {
+    const withLists = taskCols.map(c => ({ ...c, list: taskData[c.key].filter(t => t.tag === activeClient) }));
+    const ordered = withLists.slice().sort((a,b) => (b.list.length>0) - (a.list.length>0));
+    document.getElementById('taskCols').innerHTML = ordered.map(c => {
+      const list = c.list;
+      return `
+      <div class="task-col" data-col="${c.key}">
+        <div class="task-col-head">
+          <div class="task-col-title-wrap"><div class="task-col-title">${c.title}</div><span class="task-col-count">${list.length}</span></div>
+          <button class="task-add-btn" onclick="addTask('${c.key}')">+ Add</button>
+        </div>
+        ${list.map(t => `
+          <div class="task-card"><button class="task-card-del" onclick="deleteTask(${t.id})">✕</button>
+            <div class="task-card-title">${t.title}</div>
+            <div class="vd-meta"><span><i class="vd-dot" style="background:${catColor(t.cat)}"></i>${catLabel(t.cat)}</span><span>${abbrRp(t.amount)}</span></div>
+            <select class="task-status-sel" onchange="moveTask(${t.id}, this.value)">
+              ${taskCols.map(oc => `<option value="${oc.key}" ${oc.key===c.key?'selected':''}>${oc.title}</option>`).join('')}
+            </select>
+            ${t.subs.map((s,si) => `<div class="task-sub ${s.done?'done':''}"><input type="checkbox" ${s.done?'checked':''} onchange="toggleSub(${t.id},${si},this.checked)"><span class="task-sub-label">${s.t}</span></div>`).join('')}
+            <div class="task-add-sub" onclick="addSub(${t.id})">+ sub-step</div>
+            <div class="task-progress-bar"><div class="task-progress-fill" style="width:${progressPct(t)}%"></div></div>
+          </div>`).join('') || `<p style="font-size:11px;color:var(--mute);text-align:center;padding:14px 0;">No vendors for ${activeClient} here.</p>`}
+      </div>`;
+    }).join('');
+  }
+  function progressPct(t) { if (!t.subs.length) return 0; return Math.round((t.subs.filter(s=>s.done).length / t.subs.length) * 100); }
+  function toggleSub(id, si, val) { findTask(id).task.subs[si].done = val; renderTasks(); }
+  function moveTask(id, newCol) {
+    const found = findTask(id); if (!found || found.col === newCol) return;
+    taskData[found.col].splice(found.idx, 1);
+    const t = found.task;
+    if (newCol === 'done') t.subs.forEach(s => s.done = true);
+    else if (newCol === 'progress') t.subs.forEach((s,i) => s.done = i < Math.min(3, t.subs.length));
+    taskData[newCol].push(t);
+    renderTasks(); renderDashboard();
+  }
+  function addTask(col) {
+    openModal('New Vendor — ' + activeClient, `
+      <div class="field"><label>Vendor & Role</label><input id="mTaskTitle" placeholder="e.g. Dapur Nusa — Catering"></div>
+      <div class="field" style="margin-top:10px;"><label>Category</label><select id="mTaskCat">${catDefs.map(c => `<option value="${c.key}">${c.label}</option>`).join('')}</select></div>
+      <div class="field" style="margin-top:10px;"><label>Contract Value (Rp)</label><input id="mTaskAmt" value="10000000"></div>
+    `, () => {
+      const title = mval('mTaskTitle'); if (!title) return;
+      const cat = document.getElementById('mTaskCat').value;
+      const amount = parseInt(String(mval('mTaskAmt')).replace(/\D/g,'')) || 0;
+      taskData[col].push({ id: taskIdSeq++, title, tag: activeClient, cat, amount, subs: mkSubs(col, false) });
+      renderTasks(); renderDashboard(); closeModal();
+    });
+  }
+  function deleteTask(id) { const found = findTask(id); if (!found) return; taskData[found.col].splice(found.idx, 1); renderTasks(); renderDashboard(); }
+  function addSub(id) {
+    openModal('New Sub-step', `<div class="field"><label>Sub-step</label><input id="mSubText"></div>`, () => {
+      const t = mval('mSubText'); if (!t) return;
+      findTask(id).task.subs.push({t, done:false}); renderTasks(); closeModal();
+    });
+  }
+
+  // ═══════════ INVOICES ═══════════
+  function invTotal(inv) { return inv.items.reduce((s,i) => s + i.qty*i.price, 0); }
+  let activeInvoice = null;
+  function renderInvoiceList() {
+    const keys = Object.keys(invoices).filter(k => invoices[k].client === activeClient);
+    document.getElementById('invList').innerHTML = keys.length ? keys.map(key => {
+      const inv = invoices[key];
+      return `<div class="inv-list-item ${key===activeInvoice?'on':''}" onclick="loadInvoice('${key}')">
+        <div><div class="inv-li-name">${inv.client}</div><div class="inv-li-sub">INV-${key} • ${inv.date}</div></div>
+        <div style="text-align:right;display:flex;align-items:center;gap:8px;">
+          <div><div class="inv-li-amt">${fmtRp(invTotal(inv))}</div><span class="tier-badge ${inv.status}">${inv.status==='paid'?'Paid':'Unpaid'}</span></div>
+          <button class="icon-btn del" onclick="event.stopPropagation();deleteInvoice('${key}')">✕</button>
+        </div>
+      </div>`;
+    }).join('') : `<p class="muted" style="font-size:12px;">No invoices yet for ${activeClient}.</p>`;
+  }
+  function refreshInvoicesForActiveClient() {
+    const keys = Object.keys(invoices).filter(k => invoices[k].client === activeClient);
+    activeInvoice = keys[0] || null;
+    renderInvoiceList();
+    if (activeInvoice) loadInvoice(activeInvoice); else document.getElementById('invoicePreview').innerHTML = '<p class="muted">No invoice yet.</p>';
+  }
+  function deleteInvoice(key) {
+    delete invoices[key];
+    const remaining = Object.keys(invoices).filter(k => invoices[k].client === activeClient);
+    if (activeInvoice === key) activeInvoice = remaining[0] || null;
+    renderInvoiceList();
+    if (activeInvoice) loadInvoice(activeInvoice); else document.getElementById('invoicePreview').innerHTML = '<p class="muted">No invoice yet.</p>';
+  }
+  function loadInvoice(key) {
+    activeInvoice = key; renderInvoiceList();
+    const inv = invoices[key]; const host = (clientMeta[inv.client] || {}).host;
+    document.getElementById('invoicePreview').innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+        <h2>Invoice INV-${key}</h2>
+        <select class="no-print" style="border:1px solid #ccc;border-radius:6px;padding:3px 6px;font-size:11px;" onchange="setInvStatus('${key}',this.value)">
+          <option value="unpaid" ${inv.status==='unpaid'?'selected':''}>Unpaid</option><option value="paid" ${inv.status==='paid'?'selected':''}>Paid</option>
+        </select>
+      </div>
+      <div class="muted">Konsole. — Party I/O</div><div class="muted">Bill to: ${host ? host + ' — ' : ''}${inv.client}</div>
+      <div class="doc-table-wrap"><table class="doc-table"><tr><th>Item</th><th>Qty</th><th>Price</th></tr>
+        ${inv.items.map(it => `<tr><td>${it.name}</td><td>${it.qty}</td><td>${fmtRp(it.price)}</td></tr>`).join('')}</table></div>
+      <div class="doc-add-item no-print" onclick="addInvoiceItem('${key}')">+ Add item from rate card</div>
+      <div class="doc-total">Total: ${fmtRp(invTotal(inv))}</div>
+      <div class="doc-actions no-print"><button class="btn btn-ghost btn-sm" onclick="window.print()">Print / Export PDF</button><button class="btn btn-ghost btn-sm">Send</button></div>`;
+  }
+  function setInvStatus(key, val) { invoices[key].status = val; renderInvoiceList(); }
+  function addInvoiceItem(key) {
+    openModal('Add item from rate card', `
+      <div class="field"><label>Service</label><select id="mItemService">${services.map((s,i) => `<option value="${i}">${s.name} (${fmtRp(s.price)})</option>`).join('')}</select></div>
+      <div class="field" style="margin-top:10px;"><label>Qty</label><input id="mItemQty" value="1"></div>
+    `, () => {
+      const idx = parseInt(document.getElementById('mItemService').value);
+      const qty = parseInt(mval('mItemQty')) || 1;
+      invoices[key].items.push({ name: services[idx].name, qty, price: services[idx].price });
+      loadInvoice(key); closeModal();
+    });
+  }
+  function newInvoice() {
+    const next = Math.max(-1, ...Object.keys(invoices).map(Number)) + 1;
+    const key = String(next).padStart(3,'0');
+    const now = new Date();
+    invoices[key] = { client: activeClient, date: fmtDate(now), y: now.getFullYear(), m: now.getMonth(), status:'unpaid', items:[] };
+    renderInvoiceList(); loadInvoice(key);
+  }
+
+  // ═══════════ REPORTS (saved list + delete, like Invoices) — per event & per budget category ═══════════
+  let activeReport = null;
+  function buildReport(client, y, m, channel, status) {
+    const cm = channelMetrics(client, channel), rs = eventRsvp(client);
+    return { client, y, m, channel, status, budget: fmtRp(cm.budget), committed: fmtRp(cm.committed), paid: fmtRp(cm.paid), vendors: cm.locked + ' / ' + cm.total, rsvp: rs.confirmed + ' / ' + rs.invited, best: (clientMetrics[client] || {}).best || '' };
+  }
+  function renderReportMonthOptions() {
+    let opts = '';
+    for (let i = 0; i < 6; i++) {
+      let y = plannerYear, m = plannerMonth - i;
+      while (m < 0) { m += 12; y--; }
+      opts += `<option value="${y}-${m}">${monthNames[m]} ${y}</option>`;
+    }
+    document.getElementById('reportMonth').innerHTML = opts;
+    document.getElementById('reportChannel').innerHTML = channelDefs.map(c => `<option value="${c.key}">${c.label}</option>`).join('');
+  }
+  function generateReport() {
+    const client = activeClient; if (!clientMetrics[client]) return;
+    const [ry, rm] = document.getElementById('reportMonth').value.split('-').map(Number);
+    const channel = document.getElementById('reportChannel').value;
+    const key = String(Date.now());
+    reports[key] = buildReport(client, ry, rm, channel, 'draft');
+    activeReport = key;
+    renderReportList(); loadReport(key);
+  }
+  function renderReportList() {
+    const keys = Object.keys(reports).filter(k => reports[k].client === activeClient);
+    document.getElementById('reportList').innerHTML = keys.length ? keys.map(key => {
+      const r = reports[key];
+      const chLabel = (channelDefs.find(c => c.key === r.channel) || channelDefs[0]).label;
+      return `<div class="inv-list-item ${key===activeReport?'on':''}" onclick="loadReport('${key}')">
+        <div><div class="inv-li-name">${r.client}</div><div class="inv-li-sub">${monthNames[r.m]} ${r.y} • ${chLabel}</div></div>
+        <div style="text-align:right;display:flex;align-items:center;gap:8px;">
+          <span class="tier-badge ${r.status}">${r.status==='draft'?'Draft':'Published'}</span>
+          <button class="icon-btn del" onclick="event.stopPropagation();deleteReport('${key}')">✕</button>
+        </div>
+      </div>`;
+    }).join('') : `<p class="muted" style="font-size:12px;">No report yet for ${activeClient} — pick a month & category, then Generate Report.</p>`;
+  }
+  function refreshReportsForActiveClient() {
+    const keys = Object.keys(reports).filter(k => reports[k].client === activeClient);
+    activeReport = keys[0] || null;
+    renderReportList();
+    if (activeReport) loadReport(activeReport); else document.getElementById('reportPreview').style.display = 'none';
+  }
+  function deleteReport(key) {
+    delete reports[key];
+    const remaining = Object.keys(reports).filter(k => reports[k].client === activeClient);
+    if (activeReport === key) activeReport = remaining[0] || null;
+    renderReportList();
+    if (activeReport) loadReport(activeReport); else document.getElementById('reportPreview').style.display = 'none';
+  }
+  function loadReport(key) {
+    activeReport = key; renderReportList();
+    const r = reports[key];
+    const chLabel = (channelDefs.find(c => c.key === r.channel) || channelDefs[0]).label;
+    const prev = document.getElementById('reportPreview');
+    prev.style.display = 'block';
+    prev.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;"><h2>Monthly Report — ${monthNames[r.m]} ${r.y}</h2>
+        <select class="no-print" style="border:1px solid #ccc;border-radius:6px;padding:3px 6px;font-size:11px;" onchange="setReportStatus('${key}',this.value)">
+          <option value="draft" ${r.status==='draft'?'selected':''}>Draft</option><option value="published" ${r.status==='published'?'selected':''}>Published</option>
+        </select>
+      </div>
+      <div class="muted">${r.client} — ${chLabel} — prepared by Konsole.</div>
+      <div class="doc-table-wrap"><table class="doc-table"><tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Budget</td><td><input value="${r.budget}"></td></tr>
+        <tr><td>Committed</td><td><input value="${r.committed}"></td></tr>
+        <tr><td>Paid</td><td><input value="${r.paid}"></td></tr>
+        <tr><td>Vendors Locked</td><td><input value="${r.vendors}"></td></tr>
+        <tr><td>RSVP Confirmed</td><td><input value="${r.rsvp}"></td></tr>
+        <tr><td>Highlight</td><td><input value="${String(r.best).replace(/"/g,'&quot;')}"></td></tr></table></div>
+      <p class="muted no-print" style="margin-top:8px;">Numbers above are pulled from the event's Analytics data for this budget category — edit directly if needed before printing.</p>
+      <div class="doc-actions no-print"><button class="btn btn-ghost btn-sm" onclick="window.print()">Print / Export PDF</button></div>`;
+  }
+  function setReportStatus(key, val) { reports[key].status = val; renderReportList(); }
+
+  // ═══════════ SETTINGS ═══════════
+  function renderRates() {
+    document.getElementById('ratesList').innerHTML = services.map((s,i) => `<div class="rate-row"><div>${s.name}</div><div style="display:flex;align-items:center;gap:10px;"><span style="font-family:'DM Mono',monospace;">${fmtRp(s.price)}</span><button class="icon-btn del" onclick="deleteService(${i})">✕</button></div></div>`).join('');
+  }
+  function addService() {
+    openModal('New Service', `
+      <div class="field"><label>Service Name</label><input id="mSvcName"></div>
+      <div class="field" style="margin-top:10px;"><label>Price (Rp)</label><input id="mSvcPrice" value="5000000"></div>
+    `, () => {
+      const name = mval('mSvcName'); if (!name) return;
+      const price = parseInt(String(mval('mSvcPrice')).replace(/\D/g,'')) || 0;
+      services.push({name, price}); renderRates(); closeModal();
+    });
+  }
+  function deleteService(i) { services.splice(i,1); renderRates(); }
+
+  // ═══════════ INIT — seed demo data relative to today, then render ═══════════
+  const E1 = 'Sweet 17 — Nadia', E2 = 'Intimate Wedding — Ayu & Bram', E3 = 'Year-End Gathering — PT Nusa', E4 = 'Product Launch — Kopi Kenari';
+  seedEntry(E1, 3,  'Tasting menu — Dapur Nusa', 'Prep');          seedEntry(E1, 9,  'Technical check sound & lighting', 'Prep');   seedEntry(E1, 16, 'Sweet 17 — Event Day', 'Event Day');
+  seedEntry(E2, 5,  'Fitting & rundown meeting', 'Prep');          seedEntry(E2, 12, 'Site visit Villa Cempaka', 'Prep');           seedEntry(E2, 24, 'Wedding — Event Day', 'Event Day');
+  seedEntry(E3, 4,  'Meeting vendor panggung', 'Prep');            seedEntry(E3, 10, 'Tasting ballroom Aruna', 'Prep');             seedEntry(E3, 20, 'Gathering — Event Day', 'Event Day');
+  seedEntry(E4, 7,  'Press list & undangan media', 'Prep');        seedEntry(E4, 14, 'Gladi bersih', 'Prep');                       seedEntry(E4, 26, 'Launch — Event Day', 'Event Day');
+  seedInv('005', E4, -8,  'unpaid', [{name:'Event Planning Fee', qty:1, price:15000000},{name:'Decor & Styling Concept', qty:1, price:5000000}]);
+  seedInv('004', E3, -20, 'paid',   [{name:'Event Planning Fee', qty:1, price:15000000}]);
+  seedInv('003', E2, -10, 'unpaid', [{name:'Day-of Coordination', qty:1, price:8000000},{name:'Decor & Styling Concept', qty:1, price:5000000}]);
+  seedInv('002', E2, -35, 'paid',   [{name:'Wedding Planning Fee', qty:1, price:30000000}]);
+  seedInv('001', E1, -12, 'unpaid', [{name:'Vendor Sourcing & Management', qty:1, price:6000000},{name:'MC & Rundown Handling', qty:1, price:3000000}]);
+  seedInv('000', E1, -40, 'paid',   [{name:'Event Planning Fee', qty:1, price:15000000}]);
+  seedDoc('Event Service Agreement', E1, 'Perjanjian jasa EO Sweet 17, 120 tamu, DP 30% saat kontrak.', -38);
+  seedDoc('Run of Show', E2, 'Rundown pemberkatan outdoor + dinner sit-down, total 5 jam.', -20);
+  seedDoc('Vendor Brief', E3, 'Brief panggung, sound, dan LED untuk gathering 200 karyawan.', -15);
+  seedDoc('RSVP Message', E4, 'Pesan undangan & konfirmasi hadir untuk media dan influencer.', -6);
+  { const pm = new Date(plannerYear, plannerMonth - 1, 1); reports['1000'] = buildReport(E1, pm.getFullYear(), pm.getMonth(), 'all', 'published'); }
+
+  renderSidebarClientSelector();
+  renderPlanner(); renderDashboard(); renderClientsTable(); renderBlueprintSummary(); renderTasks(); renderLibrary();
+  renderReportMonthOptions(); refreshInvoicesForActiveClient(); refreshReportsForActiveClient(); renderRates();
+</script>
+
+
+<!-- KODEFLUX DEMO LAYER -->
+<style>
+@media print{html{display:none!important}}
+#kfDemo{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;display:flex;align-items:center;gap:10px;max-width:calc(100% - 24px);padding:8px 10px 8px 14px;border-radius:99px;background:rgba(14,12,18,.92);border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 40px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);font:500 12.5px/1.3 Inter,system-ui,sans-serif;color:#f4f1ea}
+#kfDemo b{font:500 10.5px/1 "DM Mono",ui-monospace,monospace;letter-spacing:.1em;color:#e7b565}
+#kfDemo a.kfb{padding:7px 12px;border-radius:99px;background:linear-gradient(135deg,#7b4fd8,#c8578f);color:#fff;font-weight:600;text-decoration:none;white-space:nowrap}
+#kfDemo button{background:none;border:0;color:#a29eab;font-size:18px;line-height:1;cursor:pointer;padding:0 4px}
+#kfToast{position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:99999;padding:10px 16px;border-radius:12px;background:#1b1722;border:1px solid rgba(255,255,255,.2);color:#f4f1ea;font:500 13px Inter,system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .2s}
+#kfToast.on{opacity:1}
+@media(max-width:560px){#kfDemo span.kft{display:none}}
+</style>
+<div id="kfDemo" role="note"><b>DEMO</b><span class="kft">Sample data. Nothing is saved.</span><a class="kfb" href="/play#bundles">Get the full version</a><button type="button" aria-label="Hide" onclick="this.parentNode.remove()">&times;</button></div>
+<div id="kfToast" role="status"></div>
+<script>
+(function(){
+  var t=document.getElementById('kfToast'),tm;
+  function toast(m){t.textContent=m;t.classList.add('on');clearTimeout(tm);tm=setTimeout(function(){t.classList.remove('on')},2600)}
+  window.print=function(){toast('Print and PDF export are part of the full version.')};
+  window.addEventListener('beforeprint',function(e){});
+})();
+</script>
+<!-- kf-embed-loop -->
+<script>
+(function(){
+  if(!/[?&]embed=loop\b/.test(location.search))return;
+  var st=document.createElement('style');
+  st.textContent='.top,#kfDemo,.hbtn,.backdrop{display:none!important}html,body{height:100%;overflow:hidden}body{min-height:0;pointer-events:none;-webkit-user-select:none;user-select:none}.shell{min-height:0;height:100%}.body{height:100%}.side{height:100%}.main{overflow:hidden;height:100%}.page-content{padding:18px 22px 0}';
+  document.head.appendChild(st);
+  var items=[].slice.call(document.querySelectorAll('.nav-list .nav-item'));
+  if(!items.length)return;
+  var i=0,t=null,run=true,still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function step(){ if(!run||still)return; i=(i+1)%items.length; items[i].click(); window.scrollTo(0,0); }
+  function start(){ if(!t&&!still)t=setInterval(step,3400); }
+  function stop(){ clearInterval(t); t=null; }
+  window.addEventListener('message',function(e){ var d=e.data||{}; if(d.kfLoop==='pause'){run=false;stop()} if(d.kfLoop==='play'){run=true;start()} });
+  document.addEventListener('visibilitychange',function(){ if(document.hidden)stop(); else if(run)start(); });
+  start();
+})();
+</script>
+</body>
+</html>
