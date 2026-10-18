@@ -1142,16 +1142,6 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .rdemo-day.booked{border-color:rgba(245,194,66,.5);color:#f5c242;background:rgba(245,194,66,.08)}
 .rdemo-day.booked::after{content:"";position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:#f5c242}
 
-.rdemo-cursor{
-  position:absolute;z-index:10;width:12px;height:12px;border-radius:50%;
-  border:2px solid #fff;background:rgba(139,92,246,.8);
-  box-shadow:0 0 0 4px rgba(139,92,246,.18);
-  transform:translate(-50%,-50%);
-  transition:left .55s var(--ease),top .55s var(--ease),transform .18s ease;
-  pointer-events:none
-}
-.rdemo-cursor.click{transform:translate(-50%,-50%) scale(.65)}
-
 @media(max-width:900px){
   .plh-frame{max-width:620px;margin-inline:auto}
 }
@@ -1166,6 +1156,51 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   .rdemo-asset{padding:7px 6px;font-size:.48rem}
   .rdemo-main .rdemo-head h3{font-size:.76rem}
 }
+
+
+/* Rental dashboard — mirrors actual Kluster information hierarchy */
+.rdemo-panel[data-panel="0"]{
+  top:54px!important;
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  gap:8px;
+}
+.rdemo-topgrid{display:grid;grid-template-columns:1.25fr .75fr;gap:8px;margin-top:14px}
+.rdemo-insight{min-height:92px;display:flex;flex-direction:column;justify-content:space-between}
+.rdemo-insight-top,.rdemo-mix-top,.rdemo-funnel-top{display:flex;align-items:center;gap:6px}
+.rdemo-ai-badge{margin-left:auto;padding:3px 5px;border:1px solid rgba(245,194,66,.55);border-radius:5px;font:700 .44rem var(--mono);color:#f5c242}
+.rdemo-insight-copy{font-size:.50rem;line-height:1.42;color:#9d97a6}
+.rdemo-dots{display:flex;gap:4px}.rdemo-dots i{width:4px;height:4px;border-radius:50%;background:#3a3540}.rdemo-dots i.on{background:#f5c242}
+.rdemo-mix{min-height:92px}
+.rdemo-mix-body{display:grid;grid-template-columns:54px 1fr;align-items:center;gap:8px;margin-top:7px}
+.rdemo-donut{width:54px;height:54px;border-radius:50%;background:conic-gradient(#f5c242 0 58%,#8b5cf6 58% 100%);position:relative}
+.rdemo-donut::after{content:"58%";position:absolute;inset:10px;border-radius:50%;background:#151319;display:grid;place-items:center;font-size:.56rem;font-weight:800;color:#f4f1ea}
+.rdemo-legend{display:grid;gap:5px}.rdemo-legend div{display:flex;justify-content:space-between;gap:7px;font-size:.45rem;color:#8f8996}
+.rdemo-legend span{display:flex;align-items:center;gap:4px}.rdemo-legend i{width:5px;height:5px;border-radius:50%}
+.rdemo-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.rdemo-kpi{min-width:0;padding:7px 7px 8px}.rdemo-kpi span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.39rem}
+.rdemo-kpi b{font-size:.68rem;margin-top:3px}.rdemo-up{margin-top:2px;font-size:.37rem;color:#4ade80}
+.rdemo-bottomgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:8px;min-height:0}
+.rdemo-funnel,.rdemo-performance{min-height:0;height:100%}
+.rdemo-funnel-shape{height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;margin-top:4px}
+.rdemo-funnel-shape i{display:block;height:17px;clip-path:polygon(6% 0,94% 0,80% 100%,20% 100%);font-style:normal;font:800 .43rem var(--mono);color:#0b0a0e;text-align:center;line-height:17px}
+.rdemo-funnel-shape i:nth-child(1){width:82%;background:#f5c242}.rdemo-funnel-shape i:nth-child(2){width:62%;background:#a78bfa}.rdemo-funnel-shape i:nth-child(3){width:44%;background:#8b5cf6}
+.rdemo-funnel-legend{display:grid;gap:3px;margin-top:3px}.rdemo-funnel-legend div{display:flex;align-items:center;gap:5px;font-size:.40rem;color:#7e7886}
+.rdemo-funnel-legend i{width:5px;height:5px;border-radius:2px;flex:none}
+.rdemo-perf-head{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.rdemo-perf-select{padding:3px 5px;border-radius:5px;border:1px solid rgba(255,255,255,.11);background:#1c1921;color:#8f8996;font-size:.40rem}
+.rdemo-chart{position:relative;height:93px;margin-top:7px;border-left:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);overflow:hidden}
+.rdemo-chart svg{width:100%;height:100%;display:block}.rdemo-chart-meta{display:flex;justify-content:space-between;margin-top:4px;font-size:.38rem;color:#625d69}
+.rdemo-latest{margin-top:3px;font-size:.42rem;color:#7e7886}.rdemo-latest b{color:#f4f1ea}
+@media(max-width:560px){
+  .rdemo-panel[data-panel="0"]{top:46px!important;gap:5px}
+  .rdemo-topgrid{margin-top:10px}
+  .rdemo-topgrid{grid-template-columns:1.12fr .88fr;gap:5px}
+  .rdemo-kpis{gap:4px}.rdemo-bottomgrid{gap:5px}.rdemo-card{padding:7px}
+  .rdemo-insight-copy{font-size:.43rem}.rdemo-kpi{padding:5px}.rdemo-kpi b{font-size:.59rem}
+  .rdemo-chart{height:72px}.rdemo-funnel-shape{height:68px}
+}
+
 </style>
 
 </head>
@@ -1281,17 +1316,77 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
                   </div>
 
                   <section class="rdemo-panel on" data-panel="0">
-                    <div class="rdemo-card rdemo-ai">
-                      <h4>AI Insight — Honda Brio RS</h4>
-                      <p>Bookings naik minggu ini. Weekend demand tinggi — pertimbangkan dynamic pricing.</p>
+                    <div class="rdemo-topgrid">
+                      <div class="rdemo-card rdemo-ai rdemo-insight">
+                        <div class="rdemo-insight-top">
+                          <h4>AI Insight — Honda Brio RS</h4>
+                          <span class="rdemo-ai-badge">AI</span>
+                        </div>
+                        <p class="rdemo-insight-copy">Booking minggu ini naik 66.7%. Momentum bagus — pertimbangkan naikkan harga di periode ramai.</p>
+                        <div class="rdemo-dots"><i class="on"></i><i></i><i></i><i></i></div>
+                      </div>
+
+                      <div class="rdemo-card rdemo-mix">
+                        <div class="rdemo-mix-top"><h4>Booking Type Mix</h4></div>
+                        <div class="rdemo-mix-body">
+                          <div class="rdemo-donut"></div>
+                          <div class="rdemo-legend">
+                            <div><span><i style="background:#f5c242"></i>Daily</span><b>58%</b></div>
+                            <div><span><i style="background:#8b5cf6"></i>Long-term</span><b>42%</b></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="rdemo-grid">
-                      <div class="rdemo-kpi"><span>Bookings</span><b>12</b></div>
-                      <div class="rdemo-kpi"><span>Revenue</span><b>Rp 8.4M</b></div>
+
+                    <div class="rdemo-kpis">
+                      <div class="rdemo-kpi">
+                        <span>Total Bookings</span><b>22</b><div class="rdemo-up">+12.4%</div>
+                      </div>
+                      <div class="rdemo-kpi">
+                        <span>Revenue</span><b>Rp 36.3M</b><div class="rdemo-up">+8.1%</div>
+                      </div>
+                      <div class="rdemo-kpi">
+                        <span>Utilization Rate</span><b>78%</b><div class="rdemo-up">+1.9%</div>
+                      </div>
+                      <div class="rdemo-kpi">
+                        <span>Repeat Customer Rate</span><b>46%</b><div class="rdemo-up">+2.0%</div>
+                      </div>
                     </div>
-                    <div class="rdemo-card" style="margin-top:8px">
-                      <h4>Booking trend</h4>
-                      <div class="rdemo-bars"><i style="height:46%"></i><i></i><i></i><i></i><i></i></div>
+
+                    <div class="rdemo-bottomgrid">
+                      <div class="rdemo-card rdemo-funnel">
+                        <div class="rdemo-funnel-top"><h4>Funnel Flow</h4></div>
+                        <div class="rdemo-funnel-shape">
+                          <i>40</i><i>22</i><i>20</i>
+                        </div>
+                        <div class="rdemo-funnel-legend">
+                          <div><i style="background:#f5c242"></i>Inquiries <span style="margin-left:auto">baseline</span></div>
+                          <div><i style="background:#a78bfa"></i>Bookings <span style="margin-left:auto">↓55.0% CVR</span></div>
+                          <div><i style="background:#8b5cf6"></i>Completed <span style="margin-left:auto">↓90.9% CVR</span></div>
+                        </div>
+                      </div>
+
+                      <div class="rdemo-card rdemo-performance">
+                        <div class="rdemo-perf-head">
+                          <h4>Funnel Performance</h4>
+                          <span class="rdemo-perf-select">Utilization Rate</span>
+                        </div>
+                        <div class="rdemo-chart">
+                          <svg viewBox="0 0 220 90" preserveAspectRatio="none" aria-hidden="true">
+                            <defs>
+                              <linearGradient id="rdemoPerfGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#f5c242" stop-opacity=".32"/>
+                                <stop offset="100%" stop-color="#f5c242" stop-opacity="0"/>
+                              </linearGradient>
+                            </defs>
+                            <path d="M4 58 L35 70 L66 74 L98 74 L130 72 L163 68 L195 62 L216 18 L216 90 L4 90 Z" fill="url(#rdemoPerfGrad)"/>
+                            <path d="M4 58 L35 70 L66 74 L98 74 L130 72 L163 68 L195 62 L216 18" fill="none" stroke="#f5c242" stroke-width="2"/>
+                            <circle cx="216" cy="18" r="3" fill="#f5c242"/>
+                          </svg>
+                        </div>
+                        <div class="rdemo-chart-meta"><span>11 Oct</span><span>18 Oct</span></div>
+                        <div class="rdemo-latest">Latest: <b>90.6%</b></div>
+                      </div>
                     </div>
                   </section>
 
@@ -1331,9 +1426,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
                     </div>
                     <div class="rdemo-card" style="margin-top:8px"><h4>19–21 Oct</h4><p>Honda Brio RS · Alya Putri · Confirmed</p></div>
                   </section>
-
-                  <div class="rdemo-cursor" id="rDemoCursor" style="left:20%;top:26%"></div>
-                </div>
+</div>
               </div>
             </div>
           </div>
@@ -1455,14 +1548,13 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   var title=document.getElementById('rDemoTitle');
   var sub=document.getElementById('rDemoSub');
   var chip=document.getElementById('rDemoChip');
-  var cursor=document.getElementById('rDemoCursor');
   var typer=document.getElementById('rDemoType');
 
   var steps=[
-    {title:'Analytics',sub:'Live rental performance',chip:'AI insight',x:'18%',y:'20%'},
-    {title:'Generator',sub:'Create handover documents',chip:'Smart form',x:'18%',y:'31%'},
-    {title:'Agreements',sub:'Documents & signatures',chip:'Signed',x:'18%',y:'41%'},
-    {title:'Calendar',sub:'Bookings & availability',chip:'Confirmed',x:'18%',y:'51%'}
+    {title:'Analytics',sub:'Live rental performance',chip:'AI insight'},
+    {title:'Generator',sub:'Create handover documents',chip:'Smart form'},
+    {title:'Agreements',sub:'Documents & signatures',chip:'Signed'},
+    {title:'Calendar',sub:'Bookings & availability',chip:'Confirmed'}
   ];
   var idx=0,timer=null,typingTimer=null;
 
@@ -1483,10 +1575,6 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     title.textContent=steps[n].title;
     sub.textContent=steps[n].sub;
     chip.textContent=steps[n].chip;
-    cursor.classList.add('click');
-    cursor.style.left=steps[n].x;
-    cursor.style.top=steps[n].y;
-    setTimeout(function(){cursor.classList.remove('click')},180);
     if(n===1) setTimeout(typeVehicle,450);
   }
 
