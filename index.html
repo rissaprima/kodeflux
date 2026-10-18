@@ -352,7 +352,7 @@ html.js .type.go .ln{animation:type .9s steps(30,end) both;animation-delay:calc(
 .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
 .socials a{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--muted);transition:transform .35s var(--ease),color .25s,border-color .25s,background .25s}
 .socials a:hover{transform:translateY(-4px);color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
-footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--dim);font-size:.85rem}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--dim);font-size:.85rem}footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.ft-soc{display:flex;gap:6px}.ft-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);color:var(--dim);transition:.2s ease}.ft-soc a:hover,.ft-soc a:focus-visible{color:var(--fg);border-color:var(--line2);outline:none}.ft-soc .ic{width:15px;height:15px}@media(max-width:560px){footer .wrap{justify-content:center;text-align:center}}
 
 /* ---------- reveal (cards only) ---------- */
 html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
@@ -819,7 +819,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .offer .soon{margin-top:auto;align-self:flex-start;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid var(--line2);border-radius:99px;padding:.22rem .65rem}
 @media(max-width:860px){.offers{grid-template-columns:1fr}}
 /* faq */
-.pl-faq{margin-top:26px;display:grid;gap:10px;max-width:46rem}
+.pl-faq{margin:26px auto 0;display:grid;gap:10px;max-width:46rem}
 .pl-faq details{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);padding:0 18px}
 .pl-faq summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:600}
 .pl-faq summary::-webkit-details-marker{display:none}
@@ -1237,20 +1237,6 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </section>
 
 
-<!-- CUSTOM TOOLS -->
-<section class="custom-tools" aria-label="Custom Tools" style="padding-top:0">
-  <div class="wrap">
-    <div class="card rv" style="padding:28px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap">
-      <div style="max-width:650px">
-        <div class="section-kicker">CUSTOM TOOLS</div>
-        <h3 style="margin-top:8px;font-size:clamp(1.35rem,3vw,1.8rem)">Belum ada tool buat industrimu?</h3>
-        <p style="margin-top:8px;color:var(--muted)">Ceritain workflow yang mau kamu rapihin. Kita bisa bikin tool yang sesuai kebutuhan bisnismu.</p>
-      </div>
-      <a class="btn btn-glass" href="#" data-toolreq="index">Request a tool <svg class="ic"><use href="#i-arrow"/></svg></a>
-    </div>
-  </div>
-</section>
-
 <!-- CORP -->
 <section id="corp" class="corp-sec fx-teaser">
   <div class="wrap">
@@ -1295,25 +1281,10 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   </div>
 </section>
 
-<section id="join">
-  <div class="wrap">
-    <div class="join rv">
-      <h2>Stay in the loop.</h2>
-      <p>Cari tahu lewat FACT, lanjut eksplorasi bareng di FUN, coba tools lewat PLAY, atau bawa kebutuhan bisnis ke CORP.</p>
-      <div class="socials">
-        <a href="#join" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
-        <a href="#join" aria-label="Threads"><svg class="ic"><use href="#i-th"/></svg></a>
-        <a href="#join" aria-label="TikTok"><svg class="ic ic-fill"><use href="#i-tt"/></svg></a>
-        <a href="#join" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a>
-        <a href="#join" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a>
-      </div>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer>
-  <div class="wrap">© Kodeflux 2026. All rights reserved.</div>
+  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><div class="ft-soc" id="join"><a href="#join" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="#join" aria-label="Threads"><svg class="ic"><use href="#i-th"/></svg></a><a href="#join" aria-label="TikTok"><svg class="ic ic-fill"><use href="#i-tt"/></svg></a><a href="#join" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="#join" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
 </footer>
 
 <script>
@@ -1523,7 +1494,5 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
   });
 })();
 </script>
-<form name="kodeflux-toolreq" data-netlify="true" hidden><input name="who"><input name="messiest"><input name="current_setup"><input name="dream_tool"><input name="urgency"><input name="page"><input name="name"><input name="role"><input name="whatsapp"><input name="email"></form>
-<script src="/toolreq.js" defer></script>
 </body>
 </html>

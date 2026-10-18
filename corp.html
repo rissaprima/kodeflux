@@ -351,7 +351,7 @@ html.js .type.go .ln{animation:type .9s steps(30,end) both;animation-delay:calc(
 .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
 .socials a{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--muted);transition:transform .35s var(--ease),color .25s,border-color .25s,background .25s}
 .socials a:hover{transform:translateY(-4px);color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
-footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--dim);font-size:.85rem}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--dim);font-size:.85rem}footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.ft-soc{display:flex;gap:6px}.ft-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);color:var(--dim);transition:.2s ease}.ft-soc a:hover,.ft-soc a:focus-visible{color:var(--fg);border-color:var(--line2);outline:none}.ft-soc .ic{width:15px;height:15px}@media(max-width:560px){footer .wrap{justify-content:center;text-align:center}}
 
 /* ---------- reveal (cards only) ---------- */
 html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
@@ -955,7 +955,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   .d-cols{gap:10px;padding:10px 14px 0}.d-box,.d-chart{padding:13px 14px}.d-box h4,.d-chart h4{font-size:.64rem}.row{font-size:.78rem}.act{font-size:.76rem}
   .d-bottom{gap:10px;padding:10px 14px 14px;grid-template-columns:1fr 1fr}.bars{height:74px}.kb{min-height:74px}.kb b{font-size:.52rem}.kb i{font-size:.6rem}
 }
-</style>
+#request .wrap{text-align:center}#request h2{text-align:center;margin-left:auto;margin-right:auto}#request .sub{text-align:center}#request .sub{margin-left:auto;margin-right:auto;max-width:40rem}</style>
 </head>
 <body>
 
@@ -1274,7 +1274,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </main>
 
 <footer>
-  <div class="wrap">© Kodeflux 2026. All rights reserved.</div>
+  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><div class="ft-soc" id="join"><a href="#join" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="#join" aria-label="Threads"><svg class="ic"><use href="#i-th"/></svg></a><a href="#join" aria-label="TikTok"><svg class="ic ic-fill"><use href="#i-tt"/></svg></a><a href="#join" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="#join" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
 </footer>
 
 <script>

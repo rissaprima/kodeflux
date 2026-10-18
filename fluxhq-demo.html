@@ -388,6 +388,7 @@ html.loop .main{padding:0}
 html.loop .dtop{display:grid!important;grid-template-columns:minmax(0,1fr);gap:12px;margin:0}
 @media(min-width:760px){html.loop .dtop{grid-template-columns:minmax(0,3fr) minmax(0,1fr)}html.loop .fxcol{display:flex;flex-direction:column;gap:12px}html.loop .fxcard{order:0}}
 @media(max-width:759px){html.loop .fxcol{display:flex;flex-direction:column;gap:12px}html.loop .fxcard{order:0}html.loop .dtop .feed{order:0}}
+@media(min-width:760px){html.loop .dtop{align-items:stretch}html.loop .fxcol{display:flex;flex-direction:column;gap:12px;position:relative;contain:size;min-height:0}html.loop .fxcol .fxcard:first-child{flex:0 0 auto}html.loop .fxcol .feed{position:relative;flex:1 1 0;min-height:0;overflow:hidden}html.loop .fxcol .feed ol{position:absolute;left:18px;right:12px;top:44px;bottom:12px;max-height:none;overflow:hidden;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}}
 </style>
 </head>
 <body>
@@ -696,7 +697,7 @@ var FxOffice=(function(){
   function T(en,id,v){var s=(LANG==='id'&&id!=null)?id:en;if(v)s=s.replace(/\{(\w+)\}/g,function(m,n){return v[n]!=null?v[n]:m});return s}
   function L(p){return LANG==='id'?p[1]:p[0]}
   function LL(a){return a.map(L)}
-  var PAYMENT_URL='';
+  var PAYMENT_URL='/corp#bundles';
   var TABS=[['dash',['Dashboard','Dashboard'],-1,['Operate','Operasional']],['inquiry',['Inquiries','Inquiry'],1,['Outputs','Hasil kerja']],['sow',['Proposals','Proposal'],2],['timeline',['Schedule','Jadwal'],3],['brief',['Briefs','Brief'],4],['invoice',['Invoices','Invoice'],5],['summary',['Reports','Laporan'],0],['setup',['Settings','Pengaturan'],-1,['System','Sistem']],['conn',['Integrations','Integrasi'],-1]];
   var ALWAYS={dash:1,setup:1,conn:1};
   var DESK_KEY={0:'summary',1:'inquiry',2:'sow',3:'timeline',4:'brief',5:'invoice'};
@@ -995,7 +996,7 @@ var FxOffice=(function(){
   }
   function finCta(){
     var c='<button class="btn sm" type="button" data-act="again">'+T('Try with other data','Coba dengan data lain')+'</button>';
-    if(PAYMENT_URL)c='<a class="btn pri" href="'+esc(PAYMENT_URL)+'">'+T('Get FluxHQ for your agency','Pasang FluxHQ untuk agency-mu')+'</a>'+c;
+    if(PAYMENT_URL)c='<a class="btn pri" href="'+esc(PAYMENT_URL)+'" target="_top">'+T('Get FluxHQ for your agency','Pasang FluxHQ untuk agency-mu')+'</a>'+c;
     $('finCta').innerHTML=c;
   }
   applyAgents();Brain.setTools(Math.max(3,nTools()));capText();

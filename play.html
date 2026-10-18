@@ -351,7 +351,7 @@ html.js .type.go .ln{animation:type .9s steps(30,end) both;animation-delay:calc(
 .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
 .socials a{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--muted);transition:transform .35s var(--ease),color .25s,border-color .25s,background .25s}
 .socials a:hover{transform:translateY(-4px);color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
-footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;color:var(--dim);font-size:.85rem}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--dim);font-size:.85rem}footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.ft-soc{display:flex;gap:6px}.ft-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);color:var(--dim);transition:.2s ease}.ft-soc a:hover,.ft-soc a:focus-visible{color:var(--fg);border-color:var(--line2);outline:none}.ft-soc .ic{width:15px;height:15px}@media(max-width:560px){footer .wrap{justify-content:center;text-align:center}}
 
 /* ---------- reveal (cards only) ---------- */
 html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
@@ -959,7 +959,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .pl-hqbox{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.035)}
 .pl-hqbox p{color:var(--muted);max-width:38rem}
 .pl-hqbox .row{display:flex;flex-wrap:wrap;gap:10px}
-.pl-faq{margin-top:26px;display:grid;gap:10px;max-width:46rem}
+.pl-faq{margin:26px auto 0;display:grid;gap:10px;max-width:46rem}
 .pl-faq details{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);padding:0 18px}
 .pl-faq summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:600}
 .pl-faq summary::-webkit-details-marker{display:none}
@@ -968,7 +968,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .pl-faq p{padding:0 0 16px;color:var(--muted);font-size:.95rem}
 @media(max-width:900px){.pg{grid-template-columns:1fr}}
 
-</style>
+#request .wrap{text-align:center}#request h2{text-align:center;margin-left:auto;margin-right:auto}#request .sub{text-align:center}#request .sub{margin-left:auto;margin-right:auto;max-width:40rem}.pl-hero .hq-hero-grid{grid-template-columns:minmax(0,1fr)}@media(min-width:1000px){.pl-hero .hq-hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px}}.pl-hero .cta{justify-content:flex-start}.pl-hero h1{font-size:clamp(2.2rem,4.3vw,3.6rem);max-width:none}.plh{min-width:0}.plh-chips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}.plh-chips button{font:600 .78rem var(--sans);padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);cursor:pointer;transition:.2s ease}.plh-chips button:hover{color:var(--fg);border-color:var(--line2)}.plh-chips button.on{color:var(--fg);border-color:rgba(231,181,101,.7);background:rgba(231,181,101,.09)}.plh-frame{position:relative;aspect-ratio:1100/690;border-radius:16px;border:1px solid var(--line2);overflow:hidden;background:#0d0a12;box-shadow:0 30px 80px -40px rgba(123,79,216,.7)}.plh-frame iframe{position:absolute;left:0;top:0;width:1100px;height:690px;border:0;transform-origin:0 0;pointer-events:none;transition:opacity .35s ease}.plh-frame iframe.fade{opacity:0}.plh-cap{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.8rem;color:var(--dim)}.plh-cap i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.15)}.plh-cap span{color:var(--fg);font-weight:600}.plh-cap em{font-style:normal;margin-left:auto;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}</style>
 </head>
 <body>
 
@@ -1038,12 +1038,26 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 <main>
 <section class="pl-hero" id="top">
   <div class="wrap">
-    <span class="pill rv"><i class="dot"></i>Digital Playground</span>
-    <h1 class="rv">Coba langsung. <span class="hero-grad">Miliki selamanya.</span></h1>
-    <p class="lead rv">Empat tool industri dengan data contoh. Buka demonya, lihat cara kerjanya, lalu pilih bundle yang pas. Seat lifetime early-bird dibuka dalam tiga fase harga.</p>
-    <div class="cta rv">
-      <a class="btn btn-primary btn-lg" href="#bundles">See bundles <svg class="ic"><use href="#i-arrow"/></svg></a>
-      <a class="btn btn-glass btn-lg" href="#tools">Try the demos</a>
+    <div class="hq-hero-grid">
+      <div>
+        <span class="pill rv"><i class="dot"></i>Digital Playground</span>
+        <h1 class="rv">Coba langsung. <span class="hero-grad">Miliki selamanya.</span></h1>
+        <p class="lead rv">Empat tool industri dengan data contoh. Buka demonya, lihat cara kerjanya, lalu pilih bundle yang pas. Seat lifetime early-bird dibuka dalam tiga fase harga.</p>
+        <div class="cta rv">
+          <a class="btn btn-primary btn-lg" href="#bundles">See bundles <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-glass btn-lg" href="#tools">Try the demos</a>
+        </div>
+      </div>
+      <div class="plh rv" id="plh" role="img" aria-label="Preview dashboard Flux I/O yang berganti antar industri">
+        <div class="plh-chips" role="tablist">
+          <button type="button" class="on" data-src="/tools/kluster.html" data-n="Rental I/O">Rental</button>
+          <button type="button" data-src="/tools/kruiser.html" data-n="Travel I/O">Travel</button>
+          <button type="button" data-src="/tools/konsole.html" data-n="Party I/O">Party</button>
+          <button type="button" data-src="/tools/kubicle.html" data-n="Mentor I/O">Mentor</button>
+        </div>
+        <div class="plh-frame"><iframe src="/tools/kluster.html?embed=loop" tabindex="-1" scrolling="no" title="Preview dashboard Flux I/O"></iframe></div>
+        <div class="plh-cap"><i></i><span id="plhN">Rental I/O</span><em>Live preview</em></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1115,7 +1129,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </main>
 
 <footer>
-  <div class="wrap">© Kodeflux 2026. All rights reserved.</div>
+  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><div class="ft-soc" id="join"><a href="#join" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="#join" aria-label="Threads"><svg class="ic"><use href="#i-th"/></svg></a><a href="#join" aria-label="TikTok"><svg class="ic ic-fill"><use href="#i-tt"/></svg></a><a href="#join" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="#join" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
 </footer>
 
 <script>
@@ -1129,6 +1143,19 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     var io=new IntersectionObserver(function(es){es.forEach(function(e){var f=e.target.querySelector('iframe');if(f&&f.contentWindow)f.contentWindow.postMessage({kfLoop:e.isIntersecting?'play':'pause'},'*')})},{threshold:.25});
     boxes.forEach(function(b){io.observe(b);var f=b.querySelector('iframe');f.addEventListener('load',function(){fit(b)})});
   }
+})();
+</script>
+<script>
+(function(){
+  var box=document.getElementById('plh');if(!box)return;
+  var fr=box.querySelector('.plh-frame'),f=fr.querySelector('iframe'),chips=[].slice.call(box.querySelectorAll('.plh-chips button')),nm=document.getElementById('plhN'),i=0,t=null,vis=true;
+  function fit(){f.style.transform='scale('+(fr.clientWidth/1100)+')'}
+  fit();window.addEventListener('resize',fit);if('ResizeObserver' in window)new ResizeObserver(fit).observe(fr);
+  function go(n){i=n;chips.forEach(function(c,k){c.classList.toggle('on',k===n)});nm.textContent=chips[n].dataset.n;f.classList.add('fade');setTimeout(function(){f.src=chips[n].dataset.src+'?embed=loop';},300)}
+  f.addEventListener('load',function(){fit();f.classList.remove('fade')});
+  function arm(){clearInterval(t);t=setInterval(function(){if(vis&&!document.hidden)go((i+1)%chips.length)},8000)}
+  chips.forEach(function(c,k){c.onclick=function(){go(k);arm()}});arm();
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(box);
 })();
 </script>
 <script src="/bundles.js" defer></script>
