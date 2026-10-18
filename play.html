@@ -1122,10 +1122,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 
 
 
-.fxm-view{display:none}
-.fxm-view.on{display:grid;gap:8px;animation:fxmViewIn .42s var(--ease) both}
-@keyframes fxmViewIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-@media(min-width:901px){.fxm-view.on{gap:10px}}
+
 
 .rental-form{display:grid;gap:8px}
 .rental-form label{display:grid;gap:4px;font-size:.58rem;color:var(--km)}
@@ -1146,34 +1143,70 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .rental-cal span.booked{border-color:rgba(245,194,66,.6);background:rgba(245,194,66,.08);color:#F5C242}
 .rental-booking p{margin:0;color:var(--kd);font-size:.64rem}
 
-/* FIXED PREVIEW HEIGHT — switching views must never resize the dashboard */
-.fxm.rental-fxm{
-  height:100%!important;
-  min-height:0!important;
+/* HEIGHT LOCK — Dashboard view defines the frame height at all times */
+.rental-fxm .fxm-main{
+  position:relative;
+  overflow:hidden;
 }
-.fxm-body{
-  height:calc(100% - 40px)!important;
-  min-height:0!important;
+
+/* Dashboard remains in normal flow as the permanent natural-height sizer. */
+.rental-fxm .fxm-view[data-view="0"]{
+  position:relative;
+  display:grid;
+  gap:8px;
+  width:100%;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
 }
-.fxm-main{
-  height:100%!important;
-  min-height:0!important;
-  overflow:hidden!important;
+
+/* When Dashboard is active, simply reveal the sizer itself. */
+.rental-fxm .fxm-view[data-view="0"].on{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  animation:fxmViewIn .42s var(--ease) both;
 }
-.fxm-view{
-  width:100%!important;
-  height:100%!important;
-  min-height:0!important;
-  overflow:hidden!important;
+
+/* Every other menu is an overlay, so it can never change frame height. */
+.rental-fxm .fxm-view:not([data-view="0"]){
+  position:absolute;
+  inset:0;
+  display:grid;
+  gap:8px;
+  align-content:start;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
 }
-.fxm-view.on{
-  display:grid!important;
-  grid-auto-rows:max-content!important;
-  align-content:start!important;
-  height:100%!important;
-  min-height:0!important;
-  overflow:hidden!important;
+
+.rental-fxm .fxm-view:not([data-view="0"]).on{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  animation:fxmViewIn .42s var(--ease) both;
 }
+
+@keyframes fxmViewIn{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:none}
+}
+
+@media(min-width:901px){
+  .rental-fxm .fxm-view[data-view="0"],
+  .rental-fxm .fxm-view:not([data-view="0"]){
+    gap:10px;
+  }
+}
+
+/* HEIGHT LOCK: JS freezes the natural Dashboard/Corp height in pixels */
+.fxm.rental-fxm{overflow:hidden!important}
+.fxm.rental-fxm .fxm-body{overflow:hidden!important}
+.fxm.rental-fxm .fxm-main{overflow:hidden!important}
+.fxm.rental-fxm .fxm-view{overflow:hidden!important}
 </style>
 
 
@@ -1528,7 +1561,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   var nav=[].slice.call(root.querySelectorAll('.fxm-nav')).slice(0,4);
   var views=[].slice.call(root.querySelectorAll('.fxm-view'));
   var typeTarget=document.getElementById('rentalTypeTarget');
-  var index=0, timer=null, typing=null;
+  var index=0, timer=null, typing=null, lockedHeight=0, lastWidth=0;
 
   function typeVehicle(){
     if(!typeTarget)return;
@@ -1545,20 +1578,58 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     },42);
   }
 
-  function show(n){
+  function render(n){
     index=n;
     nav.forEach(function(item,k){item.classList.toggle('on',k===n)});
     views.forEach(function(view,k){view.classList.toggle('on',k===n)});
     if(n===1)setTimeout(typeVehicle,280);
   }
 
-  function arm(){
-    clearInterval(timer);
-    timer=setInterval(function(){show((index+1)%views.length)},2600);
+  function lockToDashboardHeight(restoreIndex){
+    var previous=typeof restoreIndex==='number'?restoreIndex:index;
+
+    /* Measure the exact natural height of the Dashboard state. */
+    root.style.height='auto';
+    root.style.minHeight='0';
+    nav.forEach(function(item,k){item.classList.toggle('on',k===0)});
+    views.forEach(function(view,k){view.classList.toggle('on',k===0)});
+
+    /* Force layout, then freeze that exact dashboard height in px. */
+    lockedHeight=Math.ceil(root.getBoundingClientRect().height);
+    root.style.height=lockedHeight+'px';
+    root.style.minHeight=lockedHeight+'px';
+    root.style.maxHeight=lockedHeight+'px';
+
+    render(previous);
   }
 
-  show(0);
-  arm();
+  function arm(){
+    clearInterval(timer);
+    timer=setInterval(function(){render((index+1)%views.length)},2600);
+  }
+
+  /* Start on Dashboard, let fonts/layout settle, then lock its natural Corp height. */
+  render(0);
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      lastWidth=Math.round(root.getBoundingClientRect().width);
+      lockToDashboardHeight(0);
+      arm();
+    });
+  });
+
+  /* Re-measure only when responsive width actually changes. */
+  var resizeTimer=null;
+  window.addEventListener('resize',function(){
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(function(){
+      var w=Math.round(root.getBoundingClientRect().width);
+      if(Math.abs(w-lastWidth)>2){
+        lastWidth=w;
+        lockToDashboardHeight(index);
+      }
+    },120);
+  });
 })();
 </script>
 
