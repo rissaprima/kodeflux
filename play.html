@@ -968,7 +968,54 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .pl-faq p{padding:0 0 16px;color:var(--muted);font-size:.95rem}
 @media(max-width:900px){.pg{grid-template-columns:1fr}}
 
-#request .wrap{text-align:center}#request h2{text-align:center;margin-left:auto;margin-right:auto}#request .sub{text-align:center}#request .sub{margin-left:auto;margin-right:auto;max-width:40rem}.pl-hero .hq-hero-grid{grid-template-columns:minmax(0,1fr)}@media(min-width:1000px){.pl-hero .hq-hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px}}.pl-hero .cta{justify-content:flex-start}.pl-hero h1{font-size:clamp(2.2rem,4.3vw,3.6rem);max-width:none}.plh{min-width:0}.plh-chips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}.plh-chips button{font:600 .78rem var(--sans);padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);cursor:pointer;transition:.2s ease}.plh-chips button:hover{color:var(--fg);border-color:var(--line2)}.plh-chips button.on{color:var(--fg);border-color:rgba(231,181,101,.7);background:rgba(231,181,101,.09)}.plh-frame{position:relative;aspect-ratio:1100/690;border-radius:16px;border:1px solid var(--line2);overflow:hidden;background:#0d0a12;box-shadow:0 30px 80px -40px rgba(123,79,216,.7)}.plh-frame iframe{position:absolute;left:0;top:0;width:1100px;height:690px;border:0;transform-origin:0 0;pointer-events:none;transition:opacity .35s ease}.plh-frame iframe.fade{opacity:0}.plh-cap{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.8rem;color:var(--dim)}.plh-cap i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.15)}.plh-cap span{color:var(--fg);font-weight:600}.plh-cap em{font-style:normal;margin-left:auto;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}</style>
+#request .wrap{text-align:center}#request h2{text-align:center;margin-left:auto;margin-right:auto}#request .sub{text-align:center}#request .sub{margin-left:auto;margin-right:auto;max-width:40rem}.pl-hero .hq-hero-grid{grid-template-columns:minmax(0,1fr)}@media(min-width:1000px){.pl-hero .hq-hero-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px}}.pl-hero .cta{justify-content:flex-start}.pl-hero h1{font-size:clamp(2.2rem,4.3vw,3.6rem);max-width:none}.plh{min-width:0}
+.plh-chips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.plh-chips button{font:600 .78rem var(--sans);padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--dim);cursor:pointer;transition:color .25s,border-color .25s,background .25s,transform .25s}
+.plh-chips button:hover{color:var(--fg);border-color:var(--line2)}
+.plh-chips button.on{color:var(--fg);border-color:rgba(231,181,101,.7);background:rgba(231,181,101,.09);transform:translateY(-1px)}
+.plh-frame{position:relative;border-radius:16px;border:1px solid var(--line2);overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(10,8,14,.72));box-shadow:0 30px 80px -40px rgba(123,79,216,.7);min-height:300px}
+.plh-stage{position:relative;min-height:300px}
+.plh-preview{position:absolute;inset:0;padding:18px;opacity:0;transform:translateY(10px) scale(.985);pointer-events:none;transition:opacity .42s ease,transform .5s var(--ease)}
+.plh-preview.on{opacity:1;transform:none}
+.plh-preview .pv{margin:0;height:264px;border-radius:14px;border-color:rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(10,8,14,.62));box-shadow:0 18px 54px -34px rgba(123,79,216,.9)}
+.plh-preview .pv-bar{padding:12px 15px;font-size:.76rem}
+.plh-preview .pv-bar i{width:8px;height:8px}
+.plh-preview .pv-bar b{font-size:.82rem}
+.plh-preview .pv-bar em{font-size:.66rem;padding:.12rem .55rem}
+.plh-preview .pv-body{padding:16px;gap:11px}
+.plh-preview .fleet{gap:8px}
+.plh-preview .fleet .fr{grid-template-columns:72px 1fr;gap:10px}
+.plh-preview .fleet .nm{font-size:.7rem}
+.plh-preview .fleet .dh{font-size:.66rem}
+.plh-preview .fleet .tl{height:25px}
+.plh-preview .route{height:70px}
+.plh-preview .days span{font-size:.72rem;padding:.3rem 0}
+.plh-preview .lg{font-size:.7rem}
+.plh-preview .ros{gap:7px}
+.plh-preview .ros .rw{grid-template-columns:52px 1fr;padding:.28rem .65rem;font-size:.74rem}
+.plh-preview .ros .rw b{font-size:.9rem}
+.plh-preview .mn{grid-template-columns:82px 1fr;gap:20px}
+.plh-preview .ring,.plh-preview .ring svg{width:82px;height:82px}
+.plh-preview .ring span{font-size:1.35rem}
+.plh-preview .chk{font-size:.75rem;gap:8px}
+.plh-preview .mm{gap:8px}
+.plh-cap{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.8rem;color:var(--dim)}
+.plh-cap i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.15)}
+.plh-cap span{color:var(--fg);font-weight:600}
+.plh-cap em{font-style:normal;margin-left:auto;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:640px){
+  .plh-frame,.plh-stage{min-height:238px}
+  .plh-preview{padding:10px}
+  .plh-preview .pv{height:218px}
+  .plh-preview .pv-bar{padding:9px 11px}
+  .plh-preview .pv-body{padding:11px;gap:8px}
+  .plh-preview .fleet .fr{grid-template-columns:58px 1fr;gap:8px}
+  .plh-preview .fleet .tl{height:20px}
+  .plh-preview .route{height:50px}
+  .plh-preview .mn{grid-template-columns:64px 1fr;gap:14px}
+  .plh-preview .ring,.plh-preview .ring svg{width:64px;height:64px}
+  .plh-preview .chk{font-size:.68rem;gap:6px}
+}</style>
 </head>
 <body>
 
@@ -1048,14 +1095,91 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
           <a class="btn btn-glass btn-lg" href="#tools">Try the demos</a>
         </div>
       </div>
-      <div class="plh rv" id="plh" role="img" aria-label="Preview dashboard Flux I/O yang berganti antar industri">
-        <div class="plh-chips" role="tablist">
-          <button type="button" class="on" data-src="/tools/kluster.html" data-n="Rental I/O">Rental</button>
-          <button type="button" data-src="/tools/kruiser.html" data-n="Travel I/O">Travel</button>
-          <button type="button" data-src="/tools/konsole.html" data-n="Party I/O">Party</button>
-          <button type="button" data-src="/tools/kubicle.html" data-n="Mentor I/O">Mentor</button>
+      <div class="plh rv" id="plh" aria-label="Preview dashboard Flux I/O yang berganti antar industri">
+        <div class="plh-chips" role="tablist" aria-label="Flux I/O industries">
+          <button type="button" class="on" data-n="Rental I/O" aria-selected="true">Rental</button>
+          <button type="button" data-n="Travel I/O" aria-selected="false">Travel</button>
+          <button type="button" data-n="Party I/O" aria-selected="false">Party</button>
+          <button type="button" data-n="Mentor I/O" aria-selected="false">Mentor</button>
         </div>
-        <div class="plh-frame"><iframe src="/tools/kluster.html?embed=loop" tabindex="-1" scrolling="no" title="Preview dashboard Flux I/O"></iframe></div>
+        <div class="plh-frame"><div class="plh-stage">
+
+          <div class="plh-preview on" data-preview="0" aria-hidden="false">
+            <div class="pv">
+              <div class="pv-bar"><i></i><i></i><i></i><b>Fleet board</b><em>Preview</em></div>
+              <div class="pv-body">
+                <div class="fleet">
+                  <div class="fr"><span></span><div class="dh"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></div>
+                  <div class="fr r1"><span class="nm">Brio RS</span><div class="tl"><span class="bk" style="--l:0%;--w:28.57%;--d:0s"></span><span class="bk" style="--l:42.86%;--w:42.86%;--d:2.2s"></span></div></div>
+                  <div class="fr r2"><span class="nm">Vario 160</span><div class="tl"><span class="bk" style="--l:14.29%;--w:57.14%;--d:.6s"></span></div></div>
+                  <div class="fr r3"><span class="nm">Genset 5K</span><div class="tl"><span class="bk" style="--l:0%;--w:42.86%;--d:1.2s"></span><span class="bk" style="--l:71.43%;--w:28.57%;--d:3s"></span></div></div>
+                </div>
+                <div class="days"><span style="--d:0s">KTP ✓</span><span style="--d:3s">Agreement</span><span style="--d:6s">Handover</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plh-preview" data-preview="1" aria-hidden="true">
+            <div class="pv">
+              <div class="pv-bar"><i></i><i></i><i></i><b>Trip planner</b><em>Preview</em></div>
+              <div class="pv-body">
+                <svg class="route" viewBox="0 0 300 50" preserveAspectRatio="xMidYMid meet">
+                  <defs><linearGradient id="plh-rg" x1="0" x2="1"><stop offset="0" stop-color="#4f70de"/><stop offset=".55" stop-color="#7b4fd8"/><stop offset="1" stop-color="#e7b565"/></linearGradient></defs>
+                  <path class="base" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
+                  <path class="path" style="stroke:url(#plh-rg)" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
+                  <circle class="pin" style="--d:.4s" cx="24" cy="36" r="5" fill="#4f70de"/>
+                  <circle class="pin" style="--d:1.9s" cx="150" cy="24" r="5" fill="#7b4fd8"/>
+                  <circle class="pin" style="--d:3.4s" cx="276" cy="30" r="5" fill="#e7b565"/>
+                </svg>
+                <div class="days"><span style="--d:0s">Day 1</span><span style="--d:3s">Day 2</span><span style="--d:6s">Day 3</span></div>
+                <div class="cost">
+                  <div class="seg"><i style="--d:.2s"></i><i style="--d:.8s"></i><i style="--d:1.4s"></i></div>
+                  <div class="lg"><span>Flight</span><span>Stay</span><span>Activities</span><span class="tot">≈ Rp 4,8 jt</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plh-preview" data-preview="2" aria-hidden="true">
+            <div class="pv">
+              <div class="pv-bar"><i></i><i></i><i></i><b>Run of show</b><em>Preview</em></div>
+              <div class="pv-body">
+                <div class="ros">
+                  <div class="rw" style="--d:.2s"><b>17:30</b><span>Registrasi tamu</span></div>
+                  <div class="rw" style="--d:2.4s"><b>18:30</b><span>Makan malam &amp; hiburan</span></div>
+                  <div class="rw" style="--d:4.6s"><b>20:30</b><span>Acara utama</span></div>
+                </div>
+                <div class="bud"><div class="bar"><i></i></div><div class="lg"><span>Vendor booked 3/4</span><span class="tot">Budget 64%</span></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="plh-preview" data-preview="3" aria-hidden="true">
+            <div class="pv">
+              <div class="pv-bar"><i></i><i></i><i></i><b>Program tracker</b><em>Preview</em></div>
+              <div class="pv-body">
+                <div class="mn">
+                  <div class="ring">
+                    <svg viewBox="0 0 64 64">
+                      <defs><linearGradient id="plh-mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b4fd8"/><stop offset="1" stop-color="#c8578f"/></linearGradient></defs>
+                      <circle class="bg" cx="32" cy="32" r="26"/><circle class="fg" style="stroke:url(#plh-mg)" cx="32" cy="32" r="26"/>
+                    </svg><span>4/6</span>
+                  </div>
+                  <ul class="chk">
+                    <li><i style="--d:.6s"><svg viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></i>Kickoff session</li>
+                    <li><i style="--d:1.8s"><svg viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></i>Set goals</li>
+                    <li><i style="--d:3s"><svg viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></i>Weekly review</li>
+                  </ul>
+                </div>
+                <div class="mm">
+                  <div class="rw" style="--pc:#c8578f"><span class="av">A</span><span class="bar"><i style="--w:82%;--d:.4s"></i></span></div>
+                  <div class="rw" style="--pc:#3fa6ad"><span class="av">B</span><span class="bar"><i style="--w:56%;--d:1.2s"></i></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
         <div class="plh-cap"><i></i><span id="plhN">Rental I/O</span><em>Live preview</em></div>
       </div>
     </div>
@@ -1148,14 +1272,35 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 <script>
 (function(){
   var box=document.getElementById('plh');if(!box)return;
-  var fr=box.querySelector('.plh-frame'),f=fr.querySelector('iframe'),chips=[].slice.call(box.querySelectorAll('.plh-chips button')),nm=document.getElementById('plhN'),i=0,t=null,vis=true;
-  function fit(){f.style.transform='scale('+(fr.clientWidth/1100)+')'}
-  fit();window.addEventListener('resize',fit);if('ResizeObserver' in window)new ResizeObserver(fit).observe(fr);
-  function go(n){i=n;chips.forEach(function(c,k){c.classList.toggle('on',k===n)});nm.textContent=chips[n].dataset.n;f.classList.add('fade');setTimeout(function(){f.src=chips[n].dataset.src+'?embed=loop';},300)}
-  f.addEventListener('load',function(){fit();f.classList.remove('fade')});
-  function arm(){clearInterval(t);t=setInterval(function(){if(vis&&!document.hidden)go((i+1)%chips.length)},8000)}
-  chips.forEach(function(c,k){c.onclick=function(){go(k);arm()}});arm();
-  if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(box);
+  var chips=[].slice.call(box.querySelectorAll('.plh-chips button'));
+  var previews=[].slice.call(box.querySelectorAll('.plh-preview'));
+  var nm=document.getElementById('plhN'),i=0,t=null,vis=true;
+  function go(n){
+    i=n;
+    chips.forEach(function(c,k){
+      var on=k===n;
+      c.classList.toggle('on',on);
+      c.setAttribute('aria-selected',on?'true':'false');
+    });
+    previews.forEach(function(p,k){
+      var on=k===n;
+      p.classList.toggle('on',on);
+      p.setAttribute('aria-hidden',on?'false':'true');
+    });
+    nm.textContent=chips[n].dataset.n;
+  }
+  function arm(){
+    clearInterval(t);
+    t=setInterval(function(){if(vis&&!document.hidden)go((i+1)%chips.length)},3200);
+  }
+  chips.forEach(function(c,k){c.onclick=function(){go(k);arm()}});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){vis=es[0].isIntersecting},{threshold:.15}).observe(box);
+  }
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){clearInterval(t);t=null}else if(!t){arm()}
+  });
+  go(0);arm();
 })();
 </script>
 <script src="/bundles.js" defer></script>
