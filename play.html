@@ -1171,7 +1171,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 /* Every other menu is an overlay, so it can never change frame height. */
 .rental-fxm .fxm-view:not([data-view="0"]){
   position:absolute;
-  inset:0;
+  inset:12px;
   display:grid;
   gap:8px;
   align-content:start;
@@ -1196,8 +1196,11 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 }
 
 @media(min-width:901px){
-  .rental-fxm .fxm-view[data-view="0"],
+  .rental-fxm .fxm-view[data-view="0"]{
+    gap:10px;
+  }
   .rental-fxm .fxm-view:not([data-view="0"]){
+    inset:14px;
     gap:10px;
   }
 }
@@ -1207,6 +1210,8 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fxm.rental-fxm .fxm-body{overflow:hidden!important}
 .fxm.rental-fxm .fxm-main{overflow:hidden!important}
 .fxm.rental-fxm .fxm-view{overflow:hidden!important}
+
+
 </style>
 
 
@@ -1561,7 +1566,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   var nav=[].slice.call(root.querySelectorAll('.fxm-nav')).slice(0,4);
   var views=[].slice.call(root.querySelectorAll('.fxm-view'));
   var typeTarget=document.getElementById('rentalTypeTarget');
-  var index=0, timer=null, typing=null, lockedHeight=0, lastWidth=0;
+  var index=0, timer=null, typing=null;
 
   function typeVehicle(){
     if(!typeTarget)return;
@@ -1578,58 +1583,20 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     },42);
   }
 
-  function render(n){
+  function show(n){
     index=n;
     nav.forEach(function(item,k){item.classList.toggle('on',k===n)});
     views.forEach(function(view,k){view.classList.toggle('on',k===n)});
-    if(n===1)setTimeout(typeVehicle,280);
-  }
-
-  function lockToDashboardHeight(restoreIndex){
-    var previous=typeof restoreIndex==='number'?restoreIndex:index;
-
-    /* Measure the exact natural height of the Dashboard state. */
-    root.style.height='auto';
-    root.style.minHeight='0';
-    nav.forEach(function(item,k){item.classList.toggle('on',k===0)});
-    views.forEach(function(view,k){view.classList.toggle('on',k===0)});
-
-    /* Force layout, then freeze that exact dashboard height in px. */
-    lockedHeight=Math.ceil(root.getBoundingClientRect().height);
-    root.style.height=lockedHeight+'px';
-    root.style.minHeight=lockedHeight+'px';
-    root.style.maxHeight=lockedHeight+'px';
-
-    render(previous);
+    if(n===1)setTimeout(typeVehicle,260);
   }
 
   function arm(){
     clearInterval(timer);
-    timer=setInterval(function(){render((index+1)%views.length)},2600);
+    timer=setInterval(function(){show((index+1)%views.length)},2600);
   }
 
-  /* Start on Dashboard, let fonts/layout settle, then lock its natural Corp height. */
-  render(0);
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      lastWidth=Math.round(root.getBoundingClientRect().width);
-      lockToDashboardHeight(0);
-      arm();
-    });
-  });
-
-  /* Re-measure only when responsive width actually changes. */
-  var resizeTimer=null;
-  window.addEventListener('resize',function(){
-    clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(function(){
-      var w=Math.round(root.getBoundingClientRect().width);
-      if(Math.abs(w-lastWidth)>2){
-        lastWidth=w;
-        lockToDashboardHeight(index);
-      }
-    },120);
-  });
+  show(0);
+  arm();
 })();
 </script>
 
