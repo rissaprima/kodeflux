@@ -379,7 +379,7 @@ async function getReply(q){
   try{const{s,j}=await api({action:'chat',lang,messages:hist});
     if(s===401){hist.pop();gate(false);return x.aiSess}
     if(j.ok&&j.text){hist.push({r:'m',t:j.text});return j.text}
-    hist.pop();return s===500?x.aiOff:x.aiBusy}
+    hist.pop();return s===500?x.aiOff:x.aiBusy+(j.detail?'\n('+j.detail+')':'')}
   catch(e){hist.pop();return x.aiNet}}
 async function ask(q){
   q=q.trim();if(!q||busy)return;openChat(true);add(q,true);busy=true;$('#prog').style.width='0%';
