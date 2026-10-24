@@ -6,7 +6,8 @@
 const crypto = require('crypto');
 
 const COOKIE = 'fluxe_session';
-const MODELS = ['gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.5-flash-lite'];
+const CHAT_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.6-flash', 'gemini-3.8-flash']; // fastest first
+const STT_MODELS = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.5-flash-lite'];
 
 const sign = (data, secret) => crypto.createHmac('sha256', secret).update(data).digest('base64url');
 
@@ -49,33 +50,48 @@ const PERSONA =
   'Never pretend you did. When a request needs that, say so in one sentence and offer what you can do now: think it through, draft, plan, compare options, decide. ' +
   'Keep answers easy to speak aloud.';
 
-async function gemini(key, body) {
-  const models = [process.env.GEMINI_MODEL, ...MODELS].filter((m, i, a) => m && a.indexOf(m) === i);
+let lastGood = ''; // remembered while this function instance stays warm
+
+// Netlify stops a function after ~10 s, so this keeps its own clock and always answers in time.
+async function gemini(key, body, order, budgetMs = 8000) {
+  const t0 = Date.now();
+  const models = [process.env.GEMINI_MODEL, lastGood, ...order].filter((m, i, a) => m && a.indexOf(m) === i);
   let detail = '';
+  let status = 0;
   for (const m of models) {
+    const left = budgetMs - (Date.now() - t0);
+    if (left < 1500) { detail = detail || `${m}: out of time`; break; }
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), Math.min(left, 5500));
     let r, j;
     try {
       r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
         body: JSON.stringify(body),
+        signal: ctl.signal,
       });
       j = await r.json();
     } catch (e) {
-      detail = `${m}: network`;
+      clearTimeout(timer);
+      detail = `${m}: ${e && e.name === 'AbortError' ? 'too slow' : 'network'}`;
+      status = 0;
       continue;
     }
+    clearTimeout(timer);
     if (r.ok) {
       const c = (j.candidates && j.candidates[0]) || {};
       const parts = (c.content && c.content.parts) || [];
       const text = parts.map((p) => p.text || '').join('').trim();
-      if (!text) { detail = `${m}: empty reply (${c.finishReason || (j.promptFeedback && j.promptFeedback.blockReason) || 'no reason'})`; continue; }
-      return { ok: true, text, model: m };
+      if (!text) { detail = `${m}: empty reply (${c.finishReason || (j.promptFeedback && j.promptFeedback.blockReason) || 'no reason'})`; status = 200; continue; }
+      lastGood = m;
+      return { ok: true, text, model: m, ms: Date.now() - t0 };
     }
+    status = r.status;
     detail = `${m}: ${r.status} ${String((j.error && j.error.message) || '').slice(0, 160)}`.split(key).join('***');
     if (![404, 429, 500, 503].includes(r.status)) break; // key or request problem: other models will not help
   }
-  return { ok: false, detail };
+  return { ok: false, detail, status, ms: Date.now() - t0 };
 }
 
 // Gemini wants alternating turns that start with the user.
@@ -110,15 +126,16 @@ exports.handler = async (event) => {
     let r = await gemini(GEMINI_API_KEY, {
       systemInstruction: { parts: [{ text: persona }] },
       contents,
-      generationConfig: { maxOutputTokens: 2048, thinkingConfig: { thinkingLevel: 'low' } },
-    });
-    if (!r.ok) {
-      // second try with the plainest possible request: persona goes inside the first message
+      generationConfig: { maxOutputTokens: 1024, thinkingConfig: { thinkingLevel: 'low' } },
+    }, CHAT_MODELS, 7500);
+    if (!r.ok && r.status === 400) {
+      // the request itself was refused: retry once in the plainest form (persona inside the first message)
       const plain = contents.map((c) => ({ role: c.role, parts: [{ text: c.parts[0].text }] }));
       plain[0].parts[0].text = persona + '\n\nUser: ' + plain[0].parts[0].text;
-      const r2 = await gemini(GEMINI_API_KEY, { contents: plain });
+      const r2 = await gemini(GEMINI_API_KEY, { contents: plain }, CHAT_MODELS, 4000);
       if (r2.ok) r = r2; else r.detail = `${r.detail} | retry ${r2.detail}`;
     }
+    console.log('chat', r.ok ? r.model : 'FAIL', r.ms + 'ms', r.ok ? '' : r.detail);
     if (!r.ok) return reply(502, { ok: false, error: 'ai', detail: r.detail });
     return reply(200, { ok: true, text: r.text, model: r.model });
   }
@@ -135,7 +152,8 @@ exports.handler = async (event) => {
         ],
       }],
       generationConfig: { maxOutputTokens: 512, temperature: 0, thinkingConfig: { thinkingLevel: 'low' } },
-    });
+    }, STT_MODELS, 7500);
+    console.log('stt', r.ok ? r.model : 'FAIL', r.ms + 'ms', r.ok ? '' : r.detail);
     if (!r.ok) return reply(502, { ok: false, error: 'ai', detail: r.detail });
     return reply(200, { ok: true, text: r.text });
   }
