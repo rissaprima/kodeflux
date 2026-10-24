@@ -102,7 +102,7 @@ body.chat-open .peek{display:none}
 .tag.hi{color:var(--p1);border-color:rgba(167,139,250,.5);background:var(--tint)}
 @media(min-width:900px){
   body{padding-block:20px}
-  .app{grid-template-columns:260px minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr);gap:14px}
+  .app{grid-template-columns:clamp(240px,25vw,320px) minmax(0,1fr) clamp(240px,25vw,320px);grid-template-rows:auto minmax(0,1fr);gap:14px}
   .top{grid-column:1/-1}
   .side{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto}
   .chatpanel{position:static;opacity:1;visibility:visible;transform:none;max-height:none;height:100%;min-height:0}
@@ -231,7 +231,7 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 const T={
  id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',sample:'contoh',
   pToday:'Hari ini',pDecide:'Menunggu keputusan',pSystem:'Sistem',urgent:'Mendesak',normal:'Biasa',sLink:'Neural link',sCtx:'Konteks founder',sMode:'Mode',
-  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micOff:'Suara aktif setelah di situs Kodeflux',
+  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
   boot:['Memuat inti Flux-E','Menyambungkan neural link','Sinkronisasi konteks founder','Semua sistem siap'],
@@ -240,7 +240,7 @@ const T={
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
  en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',sample:'sample',
   pToday:'Today',pDecide:'Pending decisions',pSystem:'System',urgent:'Urgent',normal:'Normal',sLink:'Neural link',sCtx:'Founder context',sMode:'Mode',
-  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micOff:'Voice works once it is on the Kodeflux site',
+  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
   boot:['Loading Flux-E core','Connecting neural link','Syncing founder context','All systems ready'],
@@ -389,12 +389,15 @@ function stopListen(msg){listening=false;mic.setAttribute('aria-pressed','false'
 mic.onclick=()=>{
   if(listening){try{rec&&rec.stop()}catch(e){}stopListen();return}
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){listening=true;stopListen(T[lang].micNo);return}
   listening=true;mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
-  if(!SR){setTimeout(()=>stopListen(T[lang].micOff),2000);return}
-  try{rec=new SR();rec.lang=T[lang].loc;rec.interimResults=false;
-    rec.onresult=e=>{const t=e.results[0][0].transcript;stopListen();ask(t)};
-    rec.onerror=()=>stopListen(T[lang].micOff);rec.onend=()=>{if(listening)stopListen()};rec.start()}
-  catch(e){stopListen(T[lang].micOff)}};
+  let got=false;
+  try{rec=new SR();rec.lang=T[lang].loc;rec.interimResults=false;rec.maxAlternatives=1;
+    rec.onresult=e=>{got=true;const t=e.results[0][0].transcript;stopListen();ask(t)};
+    rec.onerror=ev=>{const c=ev&&ev.error;stopListen(c==='not-allowed'||c==='service-not-allowed'?T[lang].micBlock:(c==='no-speech'||c==='aborted')?T[lang].micNone:T[lang].micErr)};
+    rec.onend=()=>{if(listening)stopListen(got?'':T[lang].micNone)};
+    rec.start()}
+  catch(e){stopListen(T[lang].micErr)}};
 
 /* ---- keep the chat sheet above the dock ---- */
 new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
