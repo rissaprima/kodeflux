@@ -1,0 +1,16 @@
+{
+  "name": "Flux-E",
+  "short_name": "Flux-E",
+  "description": "Flux-E, founder assistant for the Kodeflux / FluxOS ecosystem",
+  "start_url": "/ai.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0e0c12",
+  "theme_color": "#0e0c12",
+  "icons": [
+    { "src": "/fluxe-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/fluxe-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/fluxe-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
