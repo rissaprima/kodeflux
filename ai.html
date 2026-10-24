@@ -209,6 +209,9 @@ html,body{overscroll-behavior:none}
   html{background:var(--bg)}
   body{position:fixed;inset:0;height:auto;overflow:hidden;padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:max(14px,env(safe-area-inset-bottom,0px))}
 }
+/* iPhone home-screen app can report a viewport that stops short of the home indicator: size to the real screen instead (--sh is set by script) */
+html.sa body{top:0;left:0;right:0;bottom:auto;height:var(--sh,100%)}
+html.sa #bgfx{top:0;bottom:auto;height:var(--sh,100%)}
 </style>
 </head>
 <body>
@@ -783,6 +786,16 @@ function localCmd(q){
 /* ---- keep the chat sheet above the dock ---- */
 new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
 add(T[lang].hello);applyLang();
+/* ---- home-screen app: fill the whole screen, even the strip under the home indicator ---- */
+(function(){
+  const sa=(window.matchMedia&&matchMedia('(display-mode:standalone)').matches)||navigator.standalone===true;
+  if(!sa)return;const de=document.documentElement;de.classList.add('sa');
+  function fit(){const land=innerWidth>innerHeight,a=Math.max(screen.width,screen.height),b=Math.min(screen.width,screen.height);
+    const full=land?b:a;de.style.setProperty('--sh',Math.max(innerHeight,full)+'px');dispatchEvent(new Event('resize'))}
+  let busy=false;const run=()=>{if(busy)return;busy=true;requestAnimationFrame(()=>{busy=false;fit()})};
+  addEventListener('orientationchange',()=>setTimeout(run,300));addEventListener('pageshow',run);
+  fit()
+})();
 </script>
 </body>
 </html>
