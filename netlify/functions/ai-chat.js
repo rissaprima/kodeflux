@@ -130,7 +130,7 @@ exports.handler = async (event) => {
       contents: [{
         role: 'user',
         parts: [
-          { text: `Transcribe the speech in this audio exactly as spoken. It is most likely ${langName}, but may be Indonesian or English. Output only the transcript, nothing else. If there is no clear speech, output nothing.` },
+          { text: `This is a short voice command from a founder talking to an assistant. Transcribe exactly what was said, even if it is only one or two words such as "hey", "hello", "halo" or "hi Flux". The language is most likely ${langName}, but may be Indonesian or English; do not translate. Do not guess or invent words: if there is no clear speech, output nothing. Output only the transcript.` },
           { inlineData: { mimeType: 'audio/wav', data: audio } },
         ],
       }],
