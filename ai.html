@@ -78,36 +78,71 @@ input:focus{outline:none}
   opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .25s,transform .25s,visibility .25s}
 body.chat-open .chatpanel{opacity:1;visibility:visible;transform:none}
 body.chat-open .peek{display:none}
-.chead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font:600 14px var(--sans)}
+.chead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .chead .ib{width:32px;height:32px}
 .msgs{flex:1;min-height:140px;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
-.m{max-width:86%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5;opacity:0;animation:in .3s forwards;overflow-wrap:anywhere}
+.m{max-width:86%;padding:10px 14px;border-radius:12px;font-size:12.5px;line-height:1.45;opacity:0;animation:in .3s forwards;overflow-wrap:anywhere}
 .m.bot{align-self:flex-start;background:var(--glass2);border:1px solid var(--line)}
 .m.me{align-self:flex-end;background:var(--tint);border:1px solid rgba(167,139,250,.3)}
 @keyframes in{to{opacity:1;transform:none}}
 .chips{display:flex;gap:8px;padding:10px 16px 14px;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--line)}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;font:500 12.5px var(--sans);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+.chip{flex:none;font:500 12px var(--sans);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer;white-space:nowrap}
 .chip:hover,.chip:focus-visible{color:var(--fg);border-color:var(--p2);outline:none}
 /* side panels: tablet / desktop only */
 .side{display:none}
 .panel{padding:14px 16px}
 .panel h3{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:8px}
 .panel h3 em{font-style:normal;font-weight:400;color:var(--dim);text-transform:none;letter-spacing:0}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px;height:36px;border-top:1px solid var(--line);font-size:13.5px}
-.row:first-of-type{border-top:0}
-.row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .m{white-space:pre-wrap}
-.row small{font:400 12px var(--mono);color:var(--dim);flex:none}
-.tag{font:500 11px var(--sans);padding:2px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);flex:none}
-.tag.hi{color:var(--p1);border-color:rgba(167,139,250,.5);background:var(--tint)}
+/* Flux Agents panel: FluxOS orbit + live activity + approval card */
+.ag{display:flex;flex-direction:column;gap:8px;padding:12px 14px}
+.panel h3 .hr{display:flex;align-items:center;gap:8px}
+.agwrap{position:relative;flex:0 1 auto;width:100%;aspect-ratio:1/1;min-height:190px;max-height:56%}
+#agnet{position:absolute;inset:0;width:100%;height:100%;display:block}
+.aglegend{flex:none;display:flex;justify-content:space-between;gap:16px;font:400 9px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);pointer-events:none;white-space:nowrap}
+.aglegend i{display:inline-block;margin-right:6px;vertical-align:middle}
+.aglegend .hu{margin-left:2px}
+.aglegend>span:last-child{text-align:right}
+.aglegend .ai{width:6px;height:6px;border-radius:50%;background:var(--p2);box-shadow:0 0 6px var(--p3)}
+.aglegend .hu{width:6px;height:6px;border:1px solid var(--fg);transform:rotate(45deg)}
+.agstats{flex:none;display:flex;justify-content:space-between;gap:10px;font:400 10.5px var(--mono);letter-spacing:.04em;color:var(--dim);font-variant-numeric:tabular-nums}
+.agstats b{font-weight:500;color:var(--p1)}
+.decide{flex:none;display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid rgba(167,139,250,.4);background:rgba(139,92,246,.1);animation:dglow 2.4s ease-in-out infinite}
+.decide[hidden]{display:none}
+@keyframes dglow{50%{border-color:rgba(167,139,250,.75);box-shadow:0 0 18px -6px rgba(139,92,246,.7)}}
+.dhead{display:flex;align-items:center;gap:8px;font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--p1)}
+.blink{flex:none;width:7px;height:7px;border-radius:50%;background:var(--p1);box-shadow:0 0 10px var(--p2);animation:blink 1s ease-in-out infinite}
+.decide p{font-size:12.5px;line-height:1.45;color:var(--fg)}
+.dbtns{display:flex;gap:8px}
+.gb{flex:1;height:34px;border-radius:99px;border:1px solid var(--line2);background:var(--glass2);color:var(--muted);font:600 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.gb:hover,.gb:focus-visible{color:var(--fg);border-color:rgba(167,139,250,.6);outline:none}
+.gb.pri{border-color:rgba(167,139,250,.55);background:rgba(139,92,246,.32);color:#fff}
+.gb.pri:hover,.gb.pri:focus-visible{background:rgba(139,92,246,.5)}
+.agfeed{flex:1 1 0;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:7px;padding-top:9px;border-top:1px solid var(--line);-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+.fr{display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+.fr time{font:400 10.5px var(--mono);color:var(--dim);padding-top:1px}
+.fr p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fr b{font:600 11px var(--mono);color:var(--p1);margin-right:5px}
+.fr.new{animation:rowin .45s ease both}
+@keyframes rowin{from{opacity:0;transform:translateY(-6px)}}
+.hd{display:inline-block;width:6px;height:6px;border:1px solid var(--fg);transform:rotate(45deg);margin-right:7px;vertical-align:1px}
+.agclose{width:28px;height:28px;display:none}
+.ib.plus{position:relative}
+body.has-pending #agbtn::after{content:"";margin-left:auto;width:7px;height:7px;border-radius:50%;background:var(--p1);box-shadow:0 0 10px var(--p2);animation:blink 1s ease-in-out infinite}
+@media(max-width:899px){
+  body.has-pending:not(.ag-open) .ib.plus::after{content:"";position:absolute;top:5px;right:5px;width:8px;height:8px;border-radius:50%;background:var(--p1);box-shadow:0 0 10px var(--p2);animation:blink 1s ease-in-out infinite}
+  body.ag-open .side{display:flex;position:fixed;inset:0;z-index:8;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(14,12,18,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  body.ag-open .side .panel{width:100%;max-width:440px;height:min(780px,100%)}
+  .agclose{display:grid}
+}
 @media(min-width:900px){
   body{padding-block:20px}
   .app{grid-template-columns:clamp(240px,25vw,320px) minmax(0,1fr) clamp(240px,25vw,320px);grid-template-rows:auto minmax(0,1fr);gap:14px}
   .top{grid-column:1/-1}
   .side{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto}
   .side .panel{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
-  .side .row{flex:1 1 0;height:auto;min-height:34px}
+  #agbtn{display:none}
   .chatpanel{position:static;opacity:1;visibility:visible;transform:none;max-height:none;height:100%;min-height:0}
   .chead .ib.close{display:none}
   .peek{display:none}
@@ -179,21 +214,18 @@ body.locked .login{display:flex}
     </form>
   </section>
 
-  <aside class="side">
-    <section class="glass panel"><h3><span data-t="pToday"></span><em data-t="sample"></em></h3>
-      <div class="row"><span>Review landing Komplex</span><small>10:00</small></div>
-      <div class="row"><span>Sync Cabo Bali</span><small>13:30</small></div>
-      <div class="row"><span>Konten Fluxman</span><small>16:00</small></div>
-    </section>
-    <section class="glass panel"><h3><span data-t="pDecide"></span><em data-t="sample"></em></h3>
-      <div class="row"><span>Pilot Flux-E</span><span class="tag hi" data-t="urgent"></span></div>
-      <div class="row"><span>Hosting Netlify</span><span class="tag" data-t="normal"></span></div>
-      <div class="row"><span>Paket early-bird</span><span class="tag" data-t="normal"></span></div>
-    </section>
-    <section class="glass panel"><h3><span data-t="pSystem"></span></h3>
-      <div class="row"><span data-t="sLink"></span><small>online</small></div>
-      <div class="row"><span data-t="sCtx"></span><small>synced</small></div>
-      <div class="row"><span data-t="sMode"></span><small>demo</small></div>
+  <aside class="side" id="agside">
+    <section class="glass panel ag" aria-label="Flux Agents">
+      <h3><span data-t="agTitle"></span><span class="hr"><em data-t="demo"></em><button class="ib agclose" id="agclose" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></span></h3>
+      <div class="aglegend"><span><i class="ai"></i><span data-t="agLegAI"></span></span><span><i class="hu"></i><span data-t="agLegHu"></span></span></div>
+      <div class="agwrap"><canvas id="agnet" aria-label="FluxOS with six divisions, eighteen agents and three human checkpoints"></canvas></div>
+      <div class="agstats"><span data-t="agCount"></span><span><b id="agauto">0</b> <span data-t="agAuto"></span></span></div>
+      <div class="decide" id="agdec" hidden>
+        <div class="dhead"><i class="blink"></i><span data-t="decTitle"></span></div>
+        <p id="agdp"></p>
+        <div class="dbtns"><button class="gb" id="agrev" type="button" data-t="revise"></button><button class="gb pri" id="agok" type="button" data-t="approve"></button></div>
+      </div>
+      <div class="agfeed" id="agfeed" aria-live="off"></div>
     </section>
   </aside>
 
@@ -206,6 +238,7 @@ body.locked .login{display:flex}
         <button type="button" role="menuitem" data-t="aFile"></button>
         <button type="button" role="menuitem" data-t="aPhoto"></button>
         <button type="button" role="menuitem" data-t="aNote"></button>
+        <button type="button" role="menuitem" id="agbtn" data-t="aAgents"></button>
         <button type="button" role="menuitem" id="spk"></button>
         <button type="button" role="menuitem" id="signout" data-t="aOut"></button>
       </div>
@@ -233,8 +266,8 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 
 /* ---- text (ID / EN) ---- */
 const T={
- id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',sample:'contoh',
-  pToday:'Hari ini',pDecide:'Menunggu keputusan',pSystem:'Sistem',urgent:'Mendesak',normal:'Biasa',sLink:'Neural link',sCtx:'Konteks founder',sMode:'Mode',
+ id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',demo:'demo',
+  aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Tutup',agLegAI:'Agent AI',agLegHu:'Persetujuan manusia',agCount:'18 agent · 6 divisi',agAuto:'tugas otomatis',decTitle:'Butuh persetujuanmu',approve:'Setujui',revise:'Revisi',revPre:'Revisi: ',you:'Kamu',sys1:'FluxOS aktif · 18 agent + 3 titik persetujuan manusia di 6 divisi',sys2:'AI menyiapkan pekerjaan, kamu menyetujui langkah pentingnya',revReq:'Revisi diminta · Flux-E menyusun ulang',revRdy:'Draf revisi siap · menunggu persetujuanmu',apprd:'Disetujui',cmdOk:'Disetujui.',cmdRev:'Oke, kurevisi dulu dan kubawa lagi ke kamu sebentar lagi.',cmdNone:'Tidak ada yang menunggu persetujuanmu saat ini.',cmdPend:'Menunggu kamu: ',cmdHow:' Bilang "setuju" atau "revisi".',
   aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',spk:'Balasan suara',spk_voice:'saat aku bicara',spk_always:'selalu',spk_off:'mati',speaking:'Berbicara…',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
@@ -242,8 +275,8 @@ const T={
   kinds:[[/briefing|ringkas|hari ini|pagi/i,['Memahami permintaan','Mengumpulkan kabar dari semua sumber','Menyusun briefing']],[/keputusan|risiko|prioritas|pilih/i,['Memahami permintaan','Menimbang opsi dan risikonya','Mengurutkan prioritas']],[/uang|cashflow|budget|biaya|mrr|invoice|harga/i,['Memahami permintaan','Menghitung angka','Menyusun ringkasan']]],
   def:['Memahami permintaan','Mengumpulkan konteks','Menyusun jawaban'],
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
- en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',sample:'sample',
-  pToday:'Today',pDecide:'Pending decisions',pSystem:'System',urgent:'Urgent',normal:'Normal',sLink:'Neural link',sCtx:'Founder context',sMode:'Mode',
+ en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',demo:'demo',
+  aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Close',agLegAI:'AI agent',agLegHu:'Human checkpoint',agCount:'18 agents · 6 divisions',agAuto:'auto tasks',decTitle:'Needs your approval',approve:'Approve',revise:'Revise',revPre:'Revised: ',you:'You',sys1:'FluxOS online · 18 agents + 3 human checkpoints across 6 divisions',sys2:'AI prepares the work, you approve the key steps',revReq:'Revision requested · Flux-E is redrafting',revRdy:'Revised draft ready · waiting for your approval',apprd:'Approved',cmdOk:'Approved.',cmdRev:"Okay, I'll revise it and bring it back to you shortly.",cmdNone:'Nothing is waiting for your approval right now.',cmdPend:'Waiting for you: ',cmdHow:' Say "approve" or "revise".',
   aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',spk:'Voice replies',spk_voice:'when I speak',spk_always:'always',spk_off:'off',speaking:'Speaking…',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
@@ -252,7 +285,7 @@ const T={
   def:['Understanding the request','Gathering context','Drafting the answer'],
   r:["Morning briefing: three things need your attention today. Once I'm connected to your calendar and inbox, this fills in from your real data.",'I gather the pending decisions, add risk and impact to each option, then rank them from most urgent.','Want a three-scenario cashflow simulation: conservative, realistic and aggressive?',"Got it. Tell me what you need and I'll break it into small steps."]}
 };
-try{const s=localStorage.getItem('fluxe-lang2');if(s==='en'||s==='id')lang=s}catch(e){}
+try{const s=localStorage.getItem('fluxe-lang3');if(s==='en'||s==='id')lang=s}catch(e){}
 
 /* ---- boot sequence ---- */
 (function(){
@@ -278,7 +311,7 @@ $('#lf').onsubmit=async e=>{e.preventDefault();const b=$('#go'),x=T[lang];$('#er
   catch(err){$('#err').textContent=x.net}
   b.disabled=false;b.textContent=x.signin};
 $('#signout').onclick=async()=>{try{stopSpeak()}catch(e){}try{await fetch('/.netlify/functions/ai-auth',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'logout'})})}catch(e){}
-  openChat(false);gate(false)};
+  openChat(false);agOpen(false);gate(false)};
 
 /* ---- clock ---- */
 function tick(){const d=new Date(),p=n=>String(n).padStart(2,'0');
@@ -364,8 +397,8 @@ function applyLang(){const x=T[lang];document.documentElement.lang=lang;
   $('#chips').innerHTML='';x.chips.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=s;b.onclick=()=>ask(s);$('#chips').appendChild(b)});
   if(!busy&&!listening)setStatus(x.ready,false);
   $('#spk').textContent=x.spk+': '+x['spk_'+speak];
-  $('#peek').textContent=lastBot||x.hello;tick()}
-$$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('fluxe-lang2',lang)}catch(e){}applyLang()});
+  $('#peek').textContent=lastBot||x.hello;tick();if(window.AG||typeof AG!=='undefined')try{AG.lang()}catch(e){}}
+$$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('fluxe-lang3',lang)}catch(e){}applyLang()});
 
 /* ---- chat ---- */
 const msgs=$('#msgs'),sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -386,7 +419,10 @@ async function getReply(q){
     hist.pop();replyErr=true;return s===500?x.aiOff:x.aiBusy+'\n('+(j.detail||'HTTP '+s)+')'}
   catch(e){hist.pop();replyErr=true;return x.aiNet}}
 async function ask(q,viaVoice){
-  q=q.trim();if(!q||busy)return;stopSpeak();openChat(true);add(q,true);busy=true;$('#prog').style.width='0%';
+  q=q.trim();if(!q||busy)return;stopSpeak();openChat(true);add(q,true);
+  const lc=localCmd(q);
+  if(lc!==null){add(lc);hist.push({r:'u',t:q},{r:'m',t:lc});if(hist.length>12)hist.splice(0,hist.length-12);if(speak==='always'||(speak==='voice'&&viaVoice))speakText(lc);return}
+  busy=true;$('#prog').style.width='0%';
   const x=T[lang],k=x.kinds.find(k=>k[0].test(q)),st=k?k[1]:x.def;
   let done=false,r='';const p=getReply(q).then(v=>{r=v;done=true});
   for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await sleep(RED?100:700);if(done)break}
@@ -399,8 +435,14 @@ $('#f').onsubmit=e=>{e.preventDefault();const v=$('#q').value;$('#q').value='';$
 const pop=$('#pop'),plus=$('#plus');
 plus.onclick=e=>{e.stopPropagation();const o=!pop.classList.contains('open');pop.classList.toggle('open',o);plus.setAttribute('aria-expanded',o)};
 document.addEventListener('click',e=>{if(!pop.contains(e.target)){pop.classList.remove('open');plus.setAttribute('aria-expanded','false')}});
-$$('#pop button:not(#signout):not(#spk)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
+$$('#pop button:not(#signout):not(#spk):not(#agbtn)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
 
+
+const agOpen=v=>document.body.classList.toggle('ag-open',v);
+$('#agbtn').onclick=()=>{pop.classList.remove('open');plus.setAttribute('aria-expanded','false');agOpen(true)};
+$('#agclose').onclick=()=>agOpen(false);
+$('#agside').addEventListener('click',e=>{if(e.target===$('#agside'))agOpen(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')agOpen(false)});
 
 /* ---- Flux-E voice (Gemini TTS, browser voice as backup) ---- */
 let pctx=null,spkSrc=null,spkTok=0;
@@ -499,6 +541,175 @@ mic.onclick=()=>{
   stopSpeak();
   if(listening){if(rc)rc.stop();else{listening=false;stopListen()}return}
   startRec()};
+
+/* ---- Flux Agents: FluxOS orbit, 6 divisions, 18 agents, 3 human checkpoints. You are the human, through Flux-E. ---- */
+const AG=(function(){
+  const cv=$('#agnet'),g=cv.getContext('2d'),feed=$('#agfeed'),decEl=$('#agdec');
+  const COLORS=['#c4b5fd','#a78bfa','#b794f6','#9fa8ff','#cdb4ff','#9a86f2'],HUM='#f4f1ea';
+  const DIV=[
+    {k:'director',n:'DIRECTOR',a:{en:['Priorities','Decisions','Briefing'],id:['Prioritas','Keputusan','Briefing']}},
+    {k:'marketing',n:'MARKETING',a:{en:['Content','Campaigns','Insights'],id:['Konten','Kampanye','Insight']}},
+    {k:'sales',n:'SALES',a:{en:['Leads','Proposals','Follow-up'],id:['Prospek','Proposal','Tindak lanjut']}},
+    {k:'operation',n:'OPERATION',a:{en:['Schedule','Tasks','Reminders'],id:['Jadwal','Tugas','Pengingat']}},
+    {k:'production',n:'PRODUCTION',a:{en:['Briefs','QC','Delivery'],id:['Brief','QC','Pengiriman']}},
+    {k:'finance',n:'FINANCE',a:{en:['Invoices','Payments','Reports'],id:['Invoice','Pembayaran','Laporan']}}];
+  const di=k=>DIV.findIndex(d=>d.k===k);
+  const Li=()=>lang==='id'?1:0;
+  /* [from, to, en, id, weight, {dec, ok}]  (the last item marks a step where YOU decide) */
+  const RAW={
+    morning:[
+      ['operation','director','Daily plan built from your calendar · 3 priorities ranked','Rencana harian dari kalendermu · 3 prioritas diurutkan',4],
+      ['finance','director','Overnight payments matched · cash position updated','Pembayaran semalam dicocokkan · posisi kas diperbarui',4],
+      ['sales','operation','2 new inquiries logged · follow-ups scheduled','2 inquiry baru dicatat · tindak lanjut dijadwalkan',4],
+      ['marketing','production','Content calendar synced · 3 posts queued for review','Kalender konten disinkron · 3 post antre review',3],
+      ['production','marketing','Brief prepared · assets requested from the team','Brief disiapkan · aset diminta dari tim',3],
+      ['director','sales','Proposal draft ready · waiting for your approval','Draf proposal siap · menunggu persetujuanmu',3,{dec:['Send the Rp 42,000,000 proposal to Aruna Villas?','Kirim proposal Rp 42.000.000 ke Aruna Villas?'],ok:['Proposal sent · follow-up set for Friday','Proposal terkirim · tindak lanjut dijadwalkan Jumat']}]],
+    day:[
+      ['sales','finance','Deal confirmed · DP invoice drafted','Deal dikonfirmasi · invoice DP disusun',3],
+      ['marketing','director','Weekly insight refreshed · best hook flagged','Insight mingguan diperbarui · hook terbaik ditandai',3],
+      ['operation','production','Task handed over · QC checklist attached','Tugas diserahkan · checklist QC dilampirkan',4],
+      ['production','operation','Deliverable passed QC · scheduled for delivery','Deliverable lolos QC · dijadwalkan terkirim',4],
+      ['finance','director','Weekly report compiled · 2 variances flagged','Laporan mingguan disusun · 2 selisih ditandai',3],
+      ['sales','marketing','Lead feedback shared · messaging adjusted','Masukan prospek dibagikan · pesan disesuaikan',3],
+      ['operation','director','Calendar conflict resolved · meeting moved to 15:00','Bentrok jadwal selesai · meeting dipindah ke 15:00',3],
+      ['finance','sales','DP invoice ready · waiting for your approval','Invoice DP siap · menunggu persetujuanmu',3,{dec:['Send the DP invoice of Rp 12,600,000?','Kirim invoice DP Rp 12.600.000?'],ok:['Invoice sent to the client','Invoice terkirim ke klien']}],
+      ['director','marketing','Caption set ready · waiting for your approval','Set caption siap · menunggu persetujuanmu',2,{dec:["Approve the captions for Friday's posts?",'Setujui caption untuk post hari Jumat?'],ok:['Posts scheduled for Friday 09:00','Post dijadwalkan Jumat 09:00']}]],
+    evening:[
+      ['finance','operation','Day closed · expenses categorized','Hari ditutup · pengeluaran dikategorikan',4],
+      ['marketing','sales','Engagement spike detected · warm leads flagged','Lonjakan engagement terdeteksi · prospek hangat ditandai',4],
+      ['production','director','Tomorrow\'s deliverables checked · 1 at risk','Deliverable besok dicek · 1 berisiko',3],
+      ['sales','finance','Follow-up sent · payment reminder queued','Tindak lanjut terkirim · pengingat bayar diantrekan',3],
+      ['operation','marketing','Reminders queued for tomorrow','Pengingat untuk besok diantrekan',3],
+      ['director','operation','Tomorrow\'s plan ready · waiting for your approval','Rencana besok siap · menunggu persetujuanmu',3,{dec:["Lock tomorrow's schedule with 4 meetings?",'Kunci jadwal besok dengan 4 meeting?'],ok:['Schedule locked · reminders set','Jadwal dikunci · pengingat dipasang']}]],
+    night:[
+      ['sales','director','Overnight inquiry logged · reply drafted for morning','Inquiry semalam dicatat · balasan disiapkan untuk pagi',4],
+      ['finance','director','Bank feed synced · no anomalies found','Mutasi bank disinkron · tidak ada anomali',4],
+      ['marketing','production','Repurposed cuts prepared for tomorrow','Potongan konten ulang disiapkan untuk besok',3],
+      ['operation','director','Tomorrow\'s agenda pre-built','Agenda besok disiapkan lebih awal',3],
+      ['sales','director','Reply held · waiting for your approval','Balasan ditahan · menunggu persetujuanmu',1,{dec:['Send the reply to the 02:14 inquiry?','Kirim balasan untuk inquiry pukul 02:14?'],ok:['Reply sent to the client','Balasan terkirim ke klien']}]]
+  };
+  const POOLS={};for(const k in RAW)POOLS[k]=RAW[k].map(r=>({from:r[0],to:r[1],t:[r[2],r[3]],w:r[4]||1,h:!!r[5],dec:r[5]&&r[5].dec,ok:r[5]&&r[5].ok}));
+  const TEMPO={night:3400,morning:1900,day:2000,evening:2400};
+  const pad=n=>n<10?'0'+n:String(n),nowHM=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+  const phase=()=>{const h=new Date().getHours();return h>=21||h<5?'night':h<11?'morning':h<18?'day':'evening'};
+  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const who=w=>w==='you'?T[lang].you:w==='sys'?'FluxOS':DIV[di(w)].n[0]+DIV[di(w)].n.slice(1).toLowerCase();
+
+  /* ---- feed ---- */
+  let hist=[];
+  const mk=(r,anim)=>{const e=document.createElement('div');e.className='fr'+(anim?' new':'');
+    e.innerHTML='<time>'+r.time+'</time><p><b>'+esc(who(r.who))+'</b>'+(r.h?'<i class="hd"></i>':'')+esc(r.t[Li()])+'</p>';return e};
+  function row(r){r.time=nowHM();hist.unshift(r);hist=hist.slice(0,8);feed.prepend(mk(r,true));while(feed.children.length>8)feed.lastChild.remove()}
+  function renderFeed(){feed.innerHTML='';hist.forEach(r=>feed.appendChild(mk(r,false)))}
+
+  /* ---- decision card (you are the human checkpoint) ---- */
+  let pend=null,revising=false,auto=0,sinceHuman=3,recent=[];
+  function showDec(){
+    document.body.classList.toggle('has-pending',!!pend);
+    if(!pend){decEl.hidden=true;return}
+    decEl.hidden=false;$('#agdp').textContent=(pend.rev?T[lang].revPre:'')+pend.f.dec[Li()]}
+  const setAuto=n=>{auto=n;$('#agauto').textContent=n};
+  function approve(){
+    if(!pend)return null;const p=pend;pend=null;showDec();humanPulse[p.hk]=1;
+    const hl=links.filter(l=>l.tool&&l.hk===p.hk)[0];if(hl)spawn(hl,true);
+    const to=di(p.f.to);if(to>=0){tgt[to]=1;const c=linkOf(to,null);if(c)setTimeout(()=>spawn(c,true),260)}
+    row({who:'you',h:1,t:[T.en.apprd+' · '+p.f.ok[0],T.id.apprd+' · '+p.f.ok[1]]});setAuto(auto+2);return p.f}
+  function revise(){
+    if(!pend)return null;const p=pend;pend=null;revising=true;showDec();
+    row({who:'you',h:1,t:[T.en.revReq,T.id.revReq]});
+    setTimeout(()=>{revising=false;const hl=links.filter(l=>l.tool&&l.hk===p.hk)[0];if(hl){humanPulse[p.hk]=1;spawn(hl,false)}
+      row({who:p.f.from,h:1,t:[T.en.revRdy,T.id.revRdy]});pend={f:p.f,hk:p.hk,rev:true};showDec()},3800);return p.f}
+  $('#agok').onclick=approve;$('#agrev').onclick=revise;
+
+  /* ---- canvas ---- */
+  let W=0,H=0,DPR=1,nodes=[],links=[],mem=[],parts=[],act=[0,0,0,0,0,0],tgt=[0,0,0,0,0,0],lastAmb=0,lastAct=[0,0,0,0,0,0],humanPulse=[0,0,0];
+  const rgba=(hex,a)=>{const n=parseInt(hex.replace('#',''),16);return'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'};
+  const rc=(i,a)=>rgba(COLORS[i],a);
+  function build(){
+    const r=cv.getBoundingClientRect();if(!r.width||!r.height)return;
+    DPR=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);g.setTransform(DPR,0,0,DPR,0,0);
+    const R=Math.min(W,H)/2*.88;nodes=[];links=[];mem=[];
+    for(let k=0;k<54;k++)mem.push({a:Math.random()*6.283,r:Math.sqrt(Math.random())*R*.17,s:(Math.random()*.8+.3)*(Math.random()<.5?-1:1),z:Math.random()});
+    const C={t:'c'};nodes.push(C);
+    for(let i=0;i<6;i++){const a=(-90+i*60)*Math.PI/180,dn={t:'d',i,a,r:R*.41,ph:Math.random()*6};nodes.push(dn);links.push({from:C,to:dn,i});
+      for(let k=0;k<3;k++){const an={t:'a',i,k,a:a+(k-1)*.36,r:R*.73,ph:Math.random()*6};nodes.push(an);links.push({from:dn,to:an,i,k})}}
+    const divs=nodes.filter(n=>n.t==='d');
+    for(let k=0;k<3;k++){const ta=-Math.PI/2+(k+.5)*(6.283/3)+.25,near=((Math.round((ta*180/Math.PI+90)/60)%6)+6)%6;
+      const tn={t:'h',k,a:ta,r:R*.94,ph:Math.random()*6};nodes.push(tn);links.push({from:tn,to:divs[near],i:near,tool:true,hk:k})}}
+  const pos=(n,T)=>{if(n.t==='c')return{x:W/2,y:H/2};const a=n.a+T*.000028,w=Math.sin(T*.0007+n.ph)*2.2;return{x:W/2+Math.cos(a)*(n.r+w),y:H/2+Math.sin(a)*(n.r+w)}};
+  const spawn=(l,fw)=>parts.push({l,t:0,s:.0011+Math.random()*.0007,fw:fw!==false});
+  const linkOf=(i,k)=>links.filter(l=>l.i===i&&!l.tool&&(k==null?l.k==null:l.k===k))[0];
+  const humanLinks=i=>links.filter(l=>l.tool&&l.i===i);
+  function frame(T){
+    if(!W)return;
+    const live=cv.getBoundingClientRect();
+    if(Math.abs(live.width-W)>1||Math.abs(live.height-H)>1||cv.width!==Math.round(W*DPR)){build();if(!W)return}
+    g.setTransform(DPR,0,0,DPR,0,0);g.clearRect(0,0,W,H);if(RED)T=0;
+    const R=Math.min(W,H)/2*.88,cx=W/2,cy=H/2,u=R/120,uu=Math.max(.9,u),mf='"JetBrains Mono",ui-monospace,monospace';
+    for(let i=0;i<6;i++)act[i]+=(tgt[i]-act[i])*.07;
+    for(let k=0;k<3;k++)humanPulse[k]*=.96;
+    if(pend)humanPulse[pend.hk]=.55+.45*Math.sin(Date.now()/170);
+    g.lineWidth=1;g.strokeStyle='rgba(255,255,255,.05)';[.41,.73,.94].forEach(f=>{g.beginPath();g.arc(cx,cy,R*f,0,6.283);g.stroke()});
+    nodes.forEach(n=>n.p=pos(n,T));
+    links.forEach(l=>{const a=l.from.p,b=l.to.p,s=act[l.i];g.strokeStyle=s>.03?rc(l.i,.1+s*.4):'rgba(255,255,255,'+(l.tool?.07:.1)+')';g.lineWidth=1;g.beginPath();g.moveTo(a.x,a.y);g.lineTo(b.x,b.y);g.stroke()});
+    const gr=g.createRadialGradient(cx,cy,0,cx,cy,R*.26);gr.addColorStop(0,'rgba(139,92,246,'+(.2+.22*energy)+')');gr.addColorStop(1,'rgba(139,92,246,0)');
+    g.fillStyle=gr;g.beginPath();g.arc(cx,cy,R*.26,0,6.283);g.fill();
+    mem.forEach(m=>{const a=m.a+T*.00035*m.s,x=cx+Math.cos(a)*m.r,y=cy+Math.sin(a)*m.r*.92,al=.3+.5*Math.abs(Math.sin(T*.001*m.s+m.z*6));
+      g.fillStyle=m.z>.8?'rgba(244,241,234,'+al*.4+')':'rgba(196,181,253,'+al*.5+')';g.beginPath();g.arc(x,y,m.z>.8?1.5:1.1,0,6.283);g.fill()});
+    for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=p.s*16;if(p.t>=1){parts.splice(i,1);continue}
+      const a2=p.fw?p.l.from.p:p.l.to.p,b2=p.fw?p.l.to.p:p.l.from.p,x=a2.x+(b2.x-a2.x)*p.t,y=a2.y+(b2.y-a2.y)*p.t,col=p.l.tool?HUM:COLORS[p.l.i];
+      g.fillStyle=rgba(col,.85);g.shadowColor=rgba(col,.6);g.shadowBlur=5;g.beginPath();g.arc(x,y,1.7,0,6.283);g.fill();g.shadowBlur=0}
+    nodes.forEach(n=>{const p=n.p;
+      if(n.t==='h'){const s=7*u,hp=humanPulse[n.k];g.save();g.translate(p.x,p.y);g.rotate(Math.PI/4);
+        g.fillStyle='#14111c';g.strokeStyle=rgba(HUM,.5+hp*.5);g.lineWidth=1.3;if(hp>.05){g.shadowColor=HUM;g.shadowBlur=12*hp}
+        g.beginPath();g.rect(-s/2,-s/2,s,s);g.fill();g.stroke();g.restore();g.shadowBlur=0;
+        g.font=(6.4*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rgba(HUM,.55+hp*.4);g.fillText('HUMAN',p.x,p.y+(p.y>cy?15:-11)*uu);return}
+      if(n.t==='a'){const on=act[n.i]>.18&&((Math.floor(T/320)+n.k+n.i)%3===0);
+        g.fillStyle=rc(n.i,on?1:.5+act[n.i]*.4);if(on){g.shadowColor=rc(n.i,1);g.shadowBlur=10}
+        g.beginPath();g.arc(p.x,p.y,(on?3.6:2.8)*u,0,6.283);g.fill();g.shadowBlur=0;
+        if(on){g.font=(6.6*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rc(n.i,.9);g.fillText(DIV[n.i].a[lang==='id'?'id':'en'][n.k],p.x,p.y+(p.y>cy?12:-8)*uu)}return}
+      if(n.t==='d'){const s=act[n.i];g.fillStyle='#0e0c12';g.strokeStyle=rc(n.i,.55+s*.45);g.lineWidth=1.5;if(s>.05){g.shadowColor=rc(n.i,1);g.shadowBlur=14*s}
+        g.beginPath();g.arc(p.x,p.y,8.5*u,0,6.283);g.fill();g.stroke();g.shadowBlur=0;
+        g.fillStyle=rc(n.i,.95);g.beginPath();g.arc(p.x,p.y,2.6*u,0,6.283);g.fill();
+        g.font=(7.4*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rc(n.i,.85);g.fillText(DIV[n.i].n,p.x,p.y+(p.y>cy?17:-13)*uu)}});
+    g.font='600 '+(7.6*uu)+'px '+mf;g.textAlign='center';g.textBaseline='middle';g.fillStyle='rgba(224,214,255,'+(.8+.2*energy)+')';g.fillText('FLUXOS',cx,cy);g.textBaseline='alphabetic';
+    if(!RED){
+      if(T-lastAmb>(energy>.4?240:650)){lastAmb=T;const l=links[Math.floor(Math.random()*links.length)];if(l)spawn(l,Math.random()<.5)}
+      for(let i=0;i<6;i++)if(tgt[i]>0&&T-lastAct[i]>240){lastAct[i]=T;const c=linkOf(i,null);if(c)spawn(c,true);const q=linkOf(i,Math.floor(Math.random()*3));if(q)spawn(q,true)}}}
+  (function loop(T){requestAnimationFrame(loop);if(cv.getClientRects().length&&!document.hidden)frame(T)})(0);
+
+  /* ---- flow engine: this is the one door every task goes through; later it is fed by real tools instead of this script ---- */
+  function pick(){
+    let list=POOLS[phase()];
+    if(pend||revising)list=list.filter(x=>!x.h);
+    else if(sinceHuman>=5){const hs=list.filter(x=>x.h);if(hs.length)list=hs}
+    const ex=[];list.forEach(x=>{for(let i=0;i<x.w;i++)ex.push(x)});
+    let p=ex[Math.floor(Math.random()*ex.length)],n=0;
+    while(recent.includes(p.t[0])&&n++<20)p=ex[Math.floor(Math.random()*ex.length)];
+    recent.push(p.t[0]);if(recent.length>3)recent.shift();return p}
+  function run(f){
+    const from=di(f.from),to=di(f.to);for(let i=0;i<6;i++)tgt[i]=0;tgt[from]=1;tgt[to]=1;
+    const s=linkOf(from,null),d=linkOf(to,null);if(s)spawn(s,false);setTimeout(()=>{if(d)spawn(d,true)},260);
+    row({who:f.from,h:f.h,t:f.t});
+    if(f.h){const hl=humanLinks(from)[0]||humanLinks(to)[0]||links.filter(l=>l.tool)[Math.floor(Math.random()*3)];
+      if(hl){pend={f,hk:hl.hk};showDec();setTimeout(()=>spawn(hl,false),120)}sinceHuman=0}
+    else{sinceHuman++;setAuto(auto+1)}}
+  function loopFlow(){run(pick());setTimeout(loopFlow,TEMPO[phase()])}
+
+  addEventListener('resize',build);new ResizeObserver(build).observe(cv);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(build,100)});
+  hist=[{who:'sys',t:[T.en.sys2,T.id.sys2],time:nowHM()},{who:'sys',t:[T.en.sys1,T.id.sys1],time:nowHM()}];
+  build();renderFeed();setTimeout(loopFlow,900);
+  return{approve,revise,pending:()=>pend,lang(){renderFeed();showDec()}};
+})();
+/* typed or spoken commands that Flux-E handles on the spot */
+function localCmd(q){
+  const x=T[lang],p=AG.pending();
+  if(/^\W*(yes\W+)?(i approve|approve|approved|setuju|setujui|saya setuju|aku setuju|acc)\b/i.test(q)){
+    if(!p)return x.cmdNone;const f=AG.approve();return x.cmdOk+' '+f.ok[lang==='id'?1:0].split(' · ').join('. ')+'.'}
+  if(/^\W*(revise|revision|please revise|revisi|perbaiki)\b/i.test(q)){if(!p)return x.cmdNone;AG.revise();return x.cmdRev}
+  if(/pending decision|keputusan(\s+yang)?\s+menunggu|what.?s waiting|any decisions/i.test(q))return p?x.cmdPend+p.f.dec[lang==='id'?1:0]+x.cmdHow:x.cmdNone;
+  return null}
 
 /* ---- keep the chat sheet above the dock ---- */
 new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
