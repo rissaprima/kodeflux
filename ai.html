@@ -97,6 +97,7 @@ body.chat-open .peek{display:none}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px;height:36px;border-top:1px solid var(--line);font-size:13.5px}
 .row:first-of-type{border-top:0}
 .row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.m{white-space:pre-wrap}
 .row small{font:400 12px var(--mono);color:var(--dim);flex:none}
 .tag{font:500 11px var(--sans);padding:2px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);flex:none}
 .tag.hi{color:var(--p1);border-color:rgba(167,139,250,.5);background:var(--tint)}
@@ -233,7 +234,7 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 const T={
  id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',sample:'contoh',
   pToday:'Hari ini',pDecide:'Menunggu keputusan',pSystem:'Sistem',urgent:'Mendesak',normal:'Biasa',sLink:'Neural link',sCtx:'Konteks founder',sMode:'Mode',
-  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',
+  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
   boot:['Memuat inti Flux-E','Menyambungkan neural link','Sinkronisasi konteks founder','Semua sistem siap'],
@@ -242,7 +243,7 @@ const T={
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
  en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',sample:'sample',
   pToday:'Today',pDecide:'Pending decisions',pSystem:'System',urgent:'Urgent',normal:'Normal',sLink:'Neural link',sCtx:'Founder context',sMode:'Mode',
-  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',
+  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
   boot:['Loading Flux-E core','Connecting neural link','Syncing founder context','All systems ready'],
@@ -349,7 +350,8 @@ function createOrb(cv,getE,umax,label){
     requestAnimationFrame(draw)}
   draw();
 }
-(function ease(){energy+=(((busy||listening)?1:0)-energy)*.06;requestAnimationFrame(ease)})();
+let micLevel=0;
+(function ease(){const tg=busy?1:listening?.4+.6*micLevel:0;energy+=(tg-energy)*(listening&&!busy?.2:.06);requestAnimationFrame(ease)})();
 createOrb($('#core'),()=>energy,190,true);
 
 /* ---- UI text + language ---- */
@@ -370,13 +372,22 @@ function openChat(v){document.body.classList.toggle('chat-open',v);if(v)msgs.scr
 $('#peek').onclick=()=>openChat(true);$('#close').onclick=()=>openChat(false);$('.orbwrap').onclick=()=>openChat(false);
 $('#q').addEventListener('focus',()=>openChat(true));
 $('#q').addEventListener('input',()=>$('#send').classList.toggle('ready',!!$('#q').value.trim()));
-/* TAHAP 2: ganti getReply dengan panggilan ke backend (Gemini / Claude). Key API cukup di sisi server. */
-async function getReply(q){const x=T[lang],i=x.kinds.findIndex(k=>k[0].test(q));return x.r[i<0?3:i]}
+const hist=[];
+async function api(body){const r=await fetch('/.netlify/functions/ai-chat',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let j={};try{j=await r.json()}catch(e){}return{s:r.status,j}}
+async function getReply(q){
+  const x=T[lang];hist.push({r:'u',t:q});if(hist.length>12)hist.splice(0,hist.length-12);
+  try{const{s,j}=await api({action:'chat',lang,messages:hist});
+    if(s===401){hist.pop();gate(false);return x.aiSess}
+    if(j.ok&&j.text){hist.push({r:'m',t:j.text});return j.text}
+    hist.pop();return s===500?x.aiOff:x.aiBusy}
+  catch(e){hist.pop();return x.aiNet}}
 async function ask(q){
   q=q.trim();if(!q||busy)return;openChat(true);add(q,true);busy=true;$('#prog').style.width='0%';
   const x=T[lang],k=x.kinds.find(k=>k[0].test(q)),st=k?k[1]:x.def;
-  for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await sleep(RED?100:850)}
-  const r=await getReply(q);add(r);busy=false;setStatus(listening?T[lang].listen:T[lang].ready,listening)}
+  let done=false,r='';const p=getReply(q).then(v=>{r=v;done=true});
+  for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await sleep(RED?100:700);if(done)break}
+  await p;$('#prog').style.width='100%';
+  add(r);busy=false;setStatus(listening?T[lang].listen:T[lang].ready,listening)}
 $('#f').onsubmit=e=>{e.preventDefault();const v=$('#q').value;$('#q').value='';$('#send').classList.remove('ready');ask(v)};
 
 /* ---- + menu ---- */
@@ -386,31 +397,51 @@ document.addEventListener('click',e=>{if(!pop.contains(e.target)){pop.classList.
 $$('#pop button:not(#signout)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
 
 /* ---- mic ---- */
-const mic=$('#mic');let rec=null,vtxt='',vT1=null,vT2=null,vdbg='';
-function stopListen(msg){listening=false;mic.setAttribute('aria-pressed','false');if(!busy){setStatus(msg||T[lang].ready,false);if(msg)setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},2400)}}
-function voiceDone(msg){
-  if(!listening)return;
-  clearTimeout(vT1);clearTimeout(vT2);
-  const t=vtxt.trim(),r=rec;rec=null;try{r&&r.stop()}catch(e){}
-  const q=$('#q');q.value='';$('#send').classList.remove('ready');
-  if(t){stopListen();ask(t)}else stopListen((msg||T[lang].micNone)+' ['+(vdbg||'-')+']')}
+const mic=$('#mic');let rc=null;
+function stopListen(msg){listening=false;micLevel=0;mic.setAttribute('aria-pressed','false');if(!busy){setStatus(msg||T[lang].ready,false);if(msg)setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},2400)}}
+/* record raw audio, downsample to 16 kHz mono and wrap it as a WAV file (works the same on every browser) */
+function wavB64(chunks,rate){
+  let n=0;chunks.forEach(c=>n+=c.length);const all=new Float32Array(n);let o=0;chunks.forEach(c=>{all.set(c,o);o+=c.length});
+  const ratio=rate/16000,len=Math.floor(all.length/ratio),pcm=new Int16Array(len);
+  for(let i=0;i<len;i++){const a=Math.floor(i*ratio),b=Math.min(all.length,Math.max(a+1,Math.floor((i+1)*ratio)));let sum=0;for(let j=a;j<b;j++)sum+=all[j];pcm[i]=Math.max(-1,Math.min(1,sum/(b-a)))*0x7fff}
+  const buf=new ArrayBuffer(44+len*2),v=new DataView(buf),w=(p,t)=>{for(let i=0;i<t.length;i++)v.setUint8(p+i,t.charCodeAt(i))};
+  w(0,'RIFF');v.setUint32(4,36+len*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,len*2,true);
+  new Int16Array(buf,44,len).set(pcm);
+  const bytes=new Uint8Array(buf);let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(bin)}
+async function startRec(){
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){listening=true;stopListen(T[lang].micNo);return}
+  listening=true;mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
+  const ctx=new AC();try{ctx.resume()}catch(e){}
+  let stream;
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}
+  catch(e){try{ctx.close()}catch(_){}stopListen(T[lang].micBlock);return}
+  if(!listening){stream.getTracks().forEach(t=>t.stop());try{ctx.close()}catch(e){}return}
+  const src=ctx.createMediaStreamSource(stream),proc=ctx.createScriptProcessor(4096,1,1),mute=ctx.createGain();mute.gain.value=0;
+  const chunks=[];let spoke=false,quiet=0,peak=0;const t0=Date.now(),rate=ctx.sampleRate;
+  const finish=async()=>{
+    if(!rc)return;rc=null;proc.onaudioprocess=null;
+    try{proc.disconnect();src.disconnect();mute.disconnect()}catch(e){}
+    stream.getTracks().forEach(t=>t.stop());try{ctx.close()}catch(e){}
+    if(!spoke){stopListen(peak<.004?T[lang].micSilent:T[lang].micNone);return}
+    listening=false;micLevel=0;mic.setAttribute('aria-pressed','false');if(!busy)setStatus(T[lang].stt,true);
+    try{const{s,j}=await api({action:'stt',lang,audio:wavB64(chunks,rate)});
+      if(s===401){gate(false);stopListen(T[lang].aiSess);return}
+      const t=(j.text||'').trim();
+      if(j.ok&&t){if(!busy)setStatus('',false);ask(t)}else stopListen(j.ok?T[lang].micNone:(s===500?T[lang].aiOff:T[lang].aiBusy))}
+    catch(e){stopListen(T[lang].aiNet)}};
+  proc.onaudioprocess=e=>{
+    const d=e.inputBuffer.getChannelData(0);chunks.push(new Float32Array(d));
+    let sum=0;for(let i=0;i<d.length;i++)sum+=d[i]*d[i];const rms=Math.sqrt(sum/d.length);
+    peak=Math.max(peak,rms);micLevel=Math.min(1,rms*10);
+    const el=Date.now()-t0;
+    if(rms>.015){spoke=true;quiet=0}else if(spoke){quiet+=d.length/rate;if(quiet>1.5)finish()}
+    if((!spoke&&el>7000)||el>25000)finish()};
+  src.connect(proc);proc.connect(mute);mute.connect(ctx.destination);
+  rc={stop:finish}}
 mic.onclick=()=>{
-  if(listening){voiceDone();return}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){listening=true;stopListen(T[lang].micNo);return}
-  listening=true;vtxt='';mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
-  try{rec=new SR();rec.lang=T[lang].loc;rec.continuous=false;rec.interimResults=true;rec.maxAlternatives=1;vdbg='';
-    rec.onaudiostart=()=>{vdbg+='a'};rec.onsoundstart=()=>{vdbg+='s'};rec.onspeechstart=()=>{vdbg+='p'};
-    rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++)s+=e.results[i][0].transcript+' ';vtxt=s;
-      const q=$('#q');q.value=s.trim();$('#send').classList.toggle('ready',!!q.value);
-      clearTimeout(vT1);vT1=setTimeout(()=>voiceDone(),1700)};
-    rec.onerror=ev=>{const c=ev&&ev.error;if(c==='no-speech'||c==='aborted'){voiceDone();return}
-      clearTimeout(vT1);clearTimeout(vT2);rec=null;$('#q').value='';
-      stopListen(c==='not-allowed'||c==='service-not-allowed'?T[lang].micBlock:T[lang].micErr+' ('+(c||'?')+')')};
-    rec.onend=()=>{if(listening)voiceDone()};
-    rec.start();
-    vT2=setTimeout(()=>{if(listening&&!vtxt)voiceDone()},9000)}
-  catch(e){stopListen(T[lang].micErr+' ('+(e&&e.name||'?')+')')}};
+  if(listening){if(rc)rc.stop();else{listening=false;stopListen()}return}
+  startRec()};
 
 /* ---- keep the chat sheet above the dock ---- */
 new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
