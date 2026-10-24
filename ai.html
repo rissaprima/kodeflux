@@ -763,7 +763,7 @@ function localCmd(q){
   if(/^\W*(yes\W+)?(i approve|approve|approved|setuju|setujui|saya setuju|aku setuju|acc)\b/i.test(q)){
     if(!p)return x.cmdNone;const f=AG.approve();return x.cmdOk+' '+f.ok[lang==='id'?1:0].split(' · ').join('. ')+'.'}
   if(/^\W*(revise|revision|please revise|revisi|perbaiki)\b/i.test(q)){if(!p)return x.cmdNone;AG.revise();return x.cmdRev}
-  if(/pending decision|keputusan(\s+yang)?\s+menunggu|what.?s waiting|any decisions/i.test(q))return p?x.cmdPend+p.f.dec[lang==='id'?1:0]+x.cmdHow:x.cmdNone;
+  if(/pending decision|keputusan(\s+yang)?\s+menunggu|what.?s waiting|any decisions|(perlu|butuh|harus|mesti|need).{0,12}(di\s?)?(approve|disetujui|persetujuan|acc)|(menunggu|nunggu|waiting).{0,12}(persetujuan|approval|approve)|apa.{0,10}(yang\s)?(di)?approve/i.test(q))return p?x.cmdPend+p.f.dec[lang==='id'?1:0]+x.cmdHow:x.cmdNone;
   return null}
 
 /* ---- keep the chat sheet above the dock ---- */
