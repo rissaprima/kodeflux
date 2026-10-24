@@ -204,6 +204,11 @@ body.locked .login{display:flex}
 .bootmeta b{font:500 12px var(--mono);color:var(--p1);font-variant-numeric:tabular-nums}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.m,.bootlog div{opacity:1;transform:none}}
 html,body{overscroll-behavior:none}
+/* installed on the home screen (standalone): fill the whole screen incl. the home-indicator strip, and sit below the status bar */
+@media all and (display-mode:standalone){
+  html{background:var(--bg)}
+  body{position:fixed;inset:0;height:auto;overflow:hidden;padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:max(14px,env(safe-area-inset-bottom,0px))}
+}
 </style>
 </head>
 <body>
