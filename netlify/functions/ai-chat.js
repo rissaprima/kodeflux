@@ -7,6 +7,7 @@ const crypto = require('crypto');
 
 const COOKIE = 'fluxe_session';
 const CHAT_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.6-flash', 'gemini-3.8-flash']; // fastest first
+const TTS_MODELS = ['gemini-3.8-flash-tts', 'gemini-3.8-flash-lite-tts'];
 const STT_MODELS = ['gemini-3.6-flash', 'gemini-3.8-flash', 'gemini-3.5-flash-lite'];
 
 const sign = (data, secret) => crypto.createHmac('sha256', secret).update(data).digest('base64url');
@@ -94,6 +95,52 @@ async function gemini(key, body, order, budgetMs = 8000) {
   return { ok: false, detail, status, ms: Date.now() - t0 };
 }
 
+
+// Text to speech. The docs show two ways to name the voice, so both are tried if the first is refused.
+async function speak(key, text, voice) {
+  const t0 = Date.now();
+  let detail = '';
+  for (const m of TTS_MODELS) {
+    for (const voiceConfig of [{ voice }, { prebuiltVoiceConfig: { voiceName: voice } }]) {
+      const left = 8000 - (Date.now() - t0);
+      if (left < 1500) return { ok: false, detail: detail || 'out of time' };
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), Math.min(left, 6500));
+      let r, j;
+      try {
+        r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text }] }],
+            generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig } },
+          }),
+          signal: ctl.signal,
+        });
+        j = await r.json();
+      } catch (e) {
+        clearTimeout(timer);
+        detail = `${m}: ${e && e.name === 'AbortError' ? 'too slow' : 'network'}`;
+        break; // next model
+      }
+      clearTimeout(timer);
+      if (r.ok) {
+        const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
+        const p = parts.find((x) => (x.inlineData && x.inlineData.data) || (x.inline_data && x.inline_data.data));
+        const d = p && (p.inlineData || p.inline_data);
+        if (d && d.data) return { ok: true, audio: d.data, mime: d.mimeType || d.mime_type || 'audio/wav', model: m, ms: Date.now() - t0 };
+        detail = `${m}: no audio in reply`;
+        break;
+      }
+      detail = `${m}: ${r.status} ${String((j.error && j.error.message) || '').slice(0, 140)}`.split(key).join('***');
+      if (r.status === 400) continue; // try the other voice format
+      if ([404, 429, 500, 503].includes(r.status)) break; // try the next model
+      return { ok: false, detail };
+    }
+  }
+  return { ok: false, detail };
+}
+
 // Gemini wants alternating turns that start with the user.
 function cleanTurns(list) {
   const out = [];
@@ -156,6 +203,15 @@ exports.handler = async (event) => {
     console.log('stt', r.ok ? r.model : 'FAIL', r.ms + 'ms', r.ok ? '' : r.detail);
     if (!r.ok) return reply(502, { ok: false, error: 'ai', detail: r.detail });
     return reply(200, { ok: true, text: r.text });
+  }
+
+  if (body.action === 'tts') {
+    const text = String(body.text || '').replace(/\s+/g, ' ').trim().slice(0, 500);
+    if (!text) return reply(400, { ok: false, error: 'empty' });
+    const r = await speak(GEMINI_API_KEY, text, process.env.FLUXE_VOICE || 'Kore');
+    console.log('tts', r.ok ? r.model : 'FAIL', (r.ms || '') + 'ms', r.ok ? '' : r.detail);
+    if (!r.ok) return reply(502, { ok: false, error: 'tts', detail: r.detail });
+    return reply(200, { ok: true, audio: r.audio, mime: r.mime });
   }
 
   return reply(400, { ok: false });
