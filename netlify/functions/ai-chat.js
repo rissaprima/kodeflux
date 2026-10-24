@@ -110,7 +110,7 @@ exports.handler = async (event) => {
     let r = await gemini(GEMINI_API_KEY, {
       systemInstruction: { parts: [{ text: persona }] },
       contents,
-      generationConfig: { maxOutputTokens: 2048 },
+      generationConfig: { maxOutputTokens: 2048, thinkingConfig: { thinkingLevel: 'low' } },
     });
     if (!r.ok) {
       // second try with the plainest possible request: persona goes inside the first message
@@ -130,11 +130,11 @@ exports.handler = async (event) => {
       contents: [{
         role: 'user',
         parts: [
-          { text: `This is a short voice command from a founder talking to an assistant. Transcribe exactly what was said, even if it is only one or two words such as "hey", "hello", "halo" or "hi Flux". The language is most likely ${langName}, but may be Indonesian or English; do not translate. Do not guess or invent words: if there is no clear speech, output nothing. Output only the transcript.` },
+          { text: `This is a short voice command from a founder talking to an assistant. The assistant's name is Flux-E (said as "Flux" or "Flux E") and the company is Kodeflux. Transcribe exactly what was said, even if it is only one or two words such as "hey", "hello", "halo" or "hi Flux". The language is most likely ${langName}, but may be Indonesian or English; do not translate. Do not guess or invent words: if there is no clear speech, output nothing. Output only the transcript.` },
           { inlineData: { mimeType: 'audio/wav', data: audio } },
         ],
       }],
-      generationConfig: { maxOutputTokens: 512, temperature: 0 },
+      generationConfig: { maxOutputTokens: 512, temperature: 0, thinkingConfig: { thinkingLevel: 'low' } },
     });
     if (!r.ok) return reply(502, { ok: false, error: 'ai', detail: r.detail });
     return reply(200, { ok: true, text: r.text });
