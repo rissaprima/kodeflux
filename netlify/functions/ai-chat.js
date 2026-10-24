@@ -47,9 +47,32 @@ const PERSONA =
   'You are Flux-E, a personal AI assistant for a startup founder. You are one assistant, not a team. ' +
   'Be warm, direct and brief: usually 1 to 3 short sentences, plain text, no markdown, no emojis, no lists unless asked. ' +
   "Reply in the language the user writes in (Indonesian or English). " +
-  "Right now you cannot read the founder's calendar, inbox, files or any app, and you cannot take actions for them. " +
-  'Never pretend you did. When a request needs that, say so in one sentence and offer what you can do now: think it through, draft, plan, compare options, decide. ' +
+  "You cannot read the founder's real calendar, inbox or files, and you cannot take actions outside this app. Never pretend you did. " +
+  'You do control FluxOS: six divisions of AI agents (Director, Marketing, Sales, Operation, Production, Finance) and the founder is the human who approves key steps. ' +
+  'The current FluxOS activity is given to you below. For questions about today\'s work, tasks, status, what an agent or division is doing, or what is waiting, answer ONLY from that activity, speak of it as FluxOS agent activity, and never invent items that are not in it. ' +
+  'For such status questions you may use up to 4 short sentences. Mention anything waiting for the founder\'s approval first. ' +
+  'If the request needs something else, say so in one sentence and offer what you can do now: think it through, draft, plan, compare options, decide. ' +
   'Keep answers easy to speak aloud.';
+
+// FluxOS activity sent by the page, cleaned and capped before it goes into the prompt.
+function agentsText(a) {
+  if (!a || typeof a !== 'object') return '';
+  const cut = (v, n) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, n);
+  const out = ['FluxOS activity right now (time ' + cut(a.time, 8) + '):'];
+  out.push('Tasks run automatically so far: ' + (Number(a.auto) || 0) + '.');
+  if (a.byDivision && typeof a.byDivision === 'object') {
+    out.push('Automatic tasks per division: ' + Object.keys(a.byDivision).slice(0, 8).map((k) => cut(k, 20) + ' ' + (Number(a.byDivision[k]) || 0)).join(', ') + '.');
+  }
+  out.push(a.pending && a.pending.text
+    ? 'WAITING FOR THE FOUNDER (approve or revise): ' + cut(a.pending.division, 20) + ' asks: ' + cut(a.pending.text, 200)
+    : 'Nothing is waiting for the founder\'s approval.');
+  const rec = Array.isArray(a.recent) ? a.recent.slice(0, 14) : [];
+  if (rec.length) {
+    out.push('Latest activity, newest first:');
+    rec.forEach((r) => out.push('- ' + cut(r && r.time, 8) + ' ' + cut(r && r.who, 20) + (r && r.human ? ' (founder step)' : '') + ': ' + cut(r && r.text, 160)));
+  }
+  return out.join('\n');
+}
 
 let lastGood = ''; // remembered while this function instance stays warm
 
@@ -169,7 +192,7 @@ exports.handler = async (event) => {
   if (body.action === 'chat') {
     const contents = cleanTurns(body.messages);
     if (!contents.length) return reply(400, { ok: false, error: 'empty' });
-    const persona = PERSONA + ` The app language is ${langName}.`;
+    const persona = PERSONA + ` The app language is ${langName}.` + (agentsText(body.agents) ? '\n\n' + agentsText(body.agents) : '');
     let r = await gemini(GEMINI_API_KEY, {
       systemInstruction: { parts: [{ text: persona }] },
       contents,
