@@ -206,6 +206,7 @@ body.locked .login{display:flex}
         <button type="button" role="menuitem" data-t="aFile"></button>
         <button type="button" role="menuitem" data-t="aPhoto"></button>
         <button type="button" role="menuitem" data-t="aNote"></button>
+        <button type="button" role="menuitem" id="spk"></button>
         <button type="button" role="menuitem" id="signout" data-t="aOut"></button>
       </div>
       <button class="peek" id="peek" type="button"></button>
@@ -234,7 +235,7 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 const T={
  id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',sample:'contoh',
   pToday:'Hari ini',pDecide:'Menunggu keputusan',pSystem:'Sistem',urgent:'Mendesak',normal:'Biasa',sLink:'Neural link',sCtx:'Konteks founder',sMode:'Mode',
-  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
+  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',spk:'Balasan suara',spk_voice:'saat aku bicara',spk_always:'selalu',spk_off:'mati',speaking:'Berbicara…',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
   boot:['Memuat inti Flux-E','Menyambungkan neural link','Sinkronisasi konteks founder','Semua sistem siap'],
@@ -243,7 +244,7 @@ const T={
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
  en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',sample:'sample',
   pToday:'Today',pDecide:'Pending decisions',pSystem:'System',urgent:'Urgent',normal:'Normal',sLink:'Neural link',sCtx:'Founder context',sMode:'Mode',
-  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
+  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',spk:'Voice replies',spk_voice:'when I speak',spk_always:'always',spk_off:'off',speaking:'Speaking…',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
   boot:['Loading Flux-E core','Connecting neural link','Syncing founder context','All systems ready'],
@@ -276,7 +277,7 @@ $('#lf').onsubmit=async e=>{e.preventDefault();const b=$('#go'),x=T[lang];$('#er
     if(r.ok&&d.ok){$('#pw').value='';gate(true)}else $('#err').textContent=d.error==='not_configured'?x.cfg:x.bad}
   catch(err){$('#err').textContent=x.net}
   b.disabled=false;b.textContent=x.signin};
-$('#signout').onclick=async()=>{try{await fetch('/.netlify/functions/ai-auth',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'logout'})})}catch(e){}
+$('#signout').onclick=async()=>{try{stopSpeak()}catch(e){}try{await fetch('/.netlify/functions/ai-auth',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'logout'})})}catch(e){}
   openChat(false);gate(false)};
 
 /* ---- clock ---- */
@@ -350,8 +351,9 @@ function createOrb(cv,getE,umax,label){
     requestAnimationFrame(draw)}
   draw();
 }
-let micLevel=0;
-(function ease(){const tg=busy?1:listening?.1+.9*micLevel:0;energy+=(tg-energy)*(listening&&!busy?.28:.06);requestAnimationFrame(ease)})();
+let micLevel=0,spkLevel=0,spkFake=false,speaking=false,speak='voice';
+try{const v=localStorage.getItem('fluxe-speak');if(v==='voice'||v==='always'||v==='off')speak=v}catch(e){}
+(function ease(){const sv=spkFake?.45+.35*Math.sin(Date.now()/150):spkLevel;const tg=busy?1:listening?.1+.9*micLevel:speaking?.3+.7*sv:0;energy+=(tg-energy)*((listening||speaking)&&!busy?.28:.06);requestAnimationFrame(ease)})();
 createOrb($('#core'),()=>energy,190,true);
 
 /* ---- UI text + language ---- */
@@ -361,6 +363,7 @@ function applyLang(){const x=T[lang];document.documentElement.lang=lang;
   $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
   $('#chips').innerHTML='';x.chips.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=s;b.onclick=()=>ask(s);$('#chips').appendChild(b)});
   if(!busy&&!listening)setStatus(x.ready,false);
+  $('#spk').textContent=x.spk+': '+x['spk_'+speak];
   $('#peek').textContent=lastBot||x.hello;tick()}
 $$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('fluxe-lang2',lang)}catch(e){}applyLang()});
 
@@ -374,27 +377,72 @@ $('#q').addEventListener('focus',()=>openChat(true));
 $('#q').addEventListener('input',()=>$('#send').classList.toggle('ready',!!$('#q').value.trim()));
 const hist=[];
 async function api(body){const r=await fetch('/.netlify/functions/ai-chat',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let j={};try{j=await r.json()}catch(e){}return{s:r.status,j}}
+let replyErr=false;
 async function getReply(q){
-  const x=T[lang];hist.push({r:'u',t:q});if(hist.length>12)hist.splice(0,hist.length-12);
+  const x=T[lang];replyErr=false;hist.push({r:'u',t:q});if(hist.length>12)hist.splice(0,hist.length-12);
   try{const{s,j}=await api({action:'chat',lang,messages:hist});
-    if(s===401){hist.pop();gate(false);return x.aiSess}
+    if(s===401){hist.pop();gate(false);replyErr=true;return x.aiSess}
     if(j.ok&&j.text){hist.push({r:'m',t:j.text});return j.text}
-    hist.pop();return s===500?x.aiOff:x.aiBusy+'\n('+(j.detail||'HTTP '+s)+')'}
-  catch(e){hist.pop();return x.aiNet}}
-async function ask(q){
-  q=q.trim();if(!q||busy)return;openChat(true);add(q,true);busy=true;$('#prog').style.width='0%';
+    hist.pop();replyErr=true;return s===500?x.aiOff:x.aiBusy+'\n('+(j.detail||'HTTP '+s)+')'}
+  catch(e){hist.pop();replyErr=true;return x.aiNet}}
+async function ask(q,viaVoice){
+  q=q.trim();if(!q||busy)return;stopSpeak();openChat(true);add(q,true);busy=true;$('#prog').style.width='0%';
   const x=T[lang],k=x.kinds.find(k=>k[0].test(q)),st=k?k[1]:x.def;
   let done=false,r='';const p=getReply(q).then(v=>{r=v;done=true});
   for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await sleep(RED?100:700);if(done)break}
   await p;$('#prog').style.width='100%';
-  add(r);busy=false;setStatus(listening?T[lang].listen:T[lang].ready,listening)}
+  add(r);busy=false;setStatus(listening?T[lang].listen:T[lang].ready,listening);
+  if(!replyErr&&(speak==='always'||(speak==='voice'&&viaVoice)))speakText(r)}
 $('#f').onsubmit=e=>{e.preventDefault();const v=$('#q').value;$('#q').value='';$('#send').classList.remove('ready');ask(v)};
 
 /* ---- + menu ---- */
 const pop=$('#pop'),plus=$('#plus');
 plus.onclick=e=>{e.stopPropagation();const o=!pop.classList.contains('open');pop.classList.toggle('open',o);plus.setAttribute('aria-expanded',o)};
 document.addEventListener('click',e=>{if(!pop.contains(e.target)){pop.classList.remove('open');plus.setAttribute('aria-expanded','false')}});
-$$('#pop button:not(#signout)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
+$$('#pop button:not(#signout):not(#spk)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
+
+
+/* ---- Flux-E voice (Gemini TTS, browser voice as backup) ---- */
+let pctx=null,spkSrc=null,spkTok=0;
+function unlockAudio(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!pctx&&AC)pctx=new AC();
+  if(pctx&&pctx.state==='suspended')pctx.resume();
+  if(pctx&&!pctx._u){const b=pctx.createBuffer(1,1,22050),sr=pctx.createBufferSource();sr.buffer=b;sr.connect(pctx.destination);sr.start(0);pctx._u=1}}catch(e){}}
+['pointerdown','touchend','keydown'].forEach(ev=>document.addEventListener(ev,unlockAudio,{passive:true}));
+function stopSpeak(){spkTok++;try{spkSrc&&spkSrc.stop()}catch(e){}spkSrc=null;try{speechSynthesis.cancel()}catch(e){}
+  spkFake=false;spkLevel=0;if(speaking){speaking=false;if(!busy&&!listening)setStatus(T[lang].ready,false)}}
+function cutText(t){t=t.replace(/\s+/g,' ').trim();if(t.length<=420)return t;const c=t.slice(0,420),i=Math.max(c.lastIndexOf('. '),c.lastIndexOf('? '),c.lastIndexOf('! '));return i>120?c.slice(0,i+1):c}
+async function speakText(text){
+  const my=++spkTok;try{speechSynthesis.cancel()}catch(e){}
+  text=cutText(text);if(!text)return;
+  unlockAudio();try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+  speaking=true;if(!busy&&!listening)setStatus(T[lang].speaking,true);
+  let played=false;
+  try{
+    const{s,j}=await api({action:'tts',lang,text});
+    if(my!==spkTok)return;
+    if(s===401)gate(false);
+    else if(j.ok&&j.audio&&pctx){
+      const bin=atob(j.audio),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+      const buf=await new Promise((res,rej)=>{const r=pctx.decodeAudioData(u8.buffer,res,rej);if(r&&r.catch)r.catch(rej)});
+      if(my!==spkTok)return;
+      await pctx.resume();
+      const src=pctx.createBufferSource();src.buffer=buf;
+      const an=pctx.createAnalyser();an.fftSize=512;src.connect(an);an.connect(pctx.destination);
+      spkSrc=src;const data=new Uint8Array(an.fftSize);
+      (function lv(){if(spkSrc!==src)return;an.getByteTimeDomainData(data);let m=0;for(let i=0;i<data.length;i++){const v=(data[i]-128)/128;m+=v*v}spkLevel=spkLevel*.5+Math.min(1,Math.sqrt(m/data.length)*5)*.5;requestAnimationFrame(lv)})();
+      played=true;
+      await new Promise(res=>{src.onended=res;src.start(0)});
+    }
+  }catch(e){}
+  if(my!==spkTok)return;
+  if(!played&&'speechSynthesis' in window){
+    spkFake=true;
+    await new Promise(res=>{const u=new SpeechSynthesisUtterance(text);u.lang=T[lang].loc;u.onend=res;u.onerror=res;speechSynthesis.speak(u)});
+  }
+  if(my===spkTok){spkFake=false;spkLevel=0;spkSrc=null;speaking=false;if(!busy&&!listening)setStatus(T[lang].ready,false)}
+}
+$('#spk').onclick=e=>{e.stopPropagation();const o=['voice','always','off'];speak=o[(o.indexOf(speak)+1)%3];try{localStorage.setItem('fluxe-speak',speak)}catch(_){}
+  $('#spk').textContent=T[lang].spk+': '+T[lang]['spk_'+speak];if(speak==='off')stopSpeak()};
 
 /* ---- mic ---- */
 const mic=$('#mic');let rc=null,warm=null;
@@ -413,6 +461,7 @@ function wavB64(chunks,rate){
 async function startRec(){
   const AC=window.AudioContext||window.webkitAudioContext;
   if(!AC||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){listening=true;stopListen(T[lang].micNo);return}
+  try{if(navigator.audioSession)navigator.audioSession.type='auto'}catch(e){}
   listening=true;mic.setAttribute('aria-pressed','true');
   let ctx,stream;
   if(warm&&warm.ctx.state!=='closed'&&warm.stream.getTracks().every(t=>t.readyState==='live')){clearTimeout(warm.t);ctx=warm.ctx;stream=warm.stream;try{ctx.resume()}catch(e){}}
@@ -434,7 +483,7 @@ async function startRec(){
     try{const{s,j}=await api({action:'stt',lang,audio:wavB64(chunks,rate)});
       if(s===401){gate(false);stopListen(T[lang].aiSess);return}
       const t=(j.text||'').trim();
-      if(j.ok&&t){if(!busy)setStatus('',false);ask(t)}else stopListen(j.ok?T[lang].micNone:(s===500?T[lang].aiOff:T[lang].aiBusy))}
+      if(j.ok&&t){if(!busy)setStatus('',false);ask(t,true)}else stopListen(j.ok?T[lang].micNone:(s===500?T[lang].aiOff:T[lang].aiBusy))}
     catch(e){stopListen(T[lang].aiNet)}};
   proc.onaudioprocess=e=>{
     if(!live){live=true;if(!busy)setStatus(T[lang].listen,true)}
@@ -447,6 +496,7 @@ async function startRec(){
   src.connect(proc);proc.connect(mute);mute.connect(ctx.destination);
   rc={stop:finish}}
 mic.onclick=()=>{
+  stopSpeak();
   if(listening){if(rc)rc.stop();else{listening=false;stopListen()}return}
   startRec()};
 
