@@ -234,7 +234,7 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 const T={
  id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',sample:'contoh',
   pToday:'Hari ini',pDecide:'Menunggu keputusan',pSystem:'Sistem',urgent:'Mendesak',normal:'Biasa',sLink:'Neural link',sCtx:'Konteks founder',sMode:'Mode',
-  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
+  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
   boot:['Memuat inti Flux-E','Menyambungkan neural link','Sinkronisasi konteks founder','Semua sistem siap'],
@@ -243,7 +243,7 @@ const T={
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
  en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',sample:'sample',
   pToday:'Today',pDecide:'Pending decisions',pSystem:'System',urgent:'Urgent',normal:'Normal',sLink:'Neural link',sCtx:'Founder context',sMode:'Mode',
-  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
+  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
   boot:['Loading Flux-E core','Connecting neural link','Syncing founder context','All systems ready'],
@@ -397,7 +397,8 @@ document.addEventListener('click',e=>{if(!pop.contains(e.target)){pop.classList.
 $$('#pop button:not(#signout)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
 
 /* ---- mic ---- */
-const mic=$('#mic');let rc=null;
+const mic=$('#mic');let rc=null,warm=null;
+function coolDown(){if(warm){try{warm.stream.getTracks().forEach(t=>t.stop())}catch(e){}try{warm.ctx.close()}catch(e){}warm=null}}
 function stopListen(msg){listening=false;micLevel=0;mic.setAttribute('aria-pressed','false');if(!busy){setStatus(msg||T[lang].ready,false);if(msg)setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},2400)}}
 /* record raw audio, downsample to 16 kHz mono and wrap it as a WAV file (works the same on every browser) */
 function wavB64(chunks,rate){
@@ -412,18 +413,22 @@ function wavB64(chunks,rate){
 async function startRec(){
   const AC=window.AudioContext||window.webkitAudioContext;
   if(!AC||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){listening=true;stopListen(T[lang].micNo);return}
-  listening=true;mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
-  const ctx=new AC();try{ctx.resume()}catch(e){}
-  let stream;
-  try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}
-  catch(e){try{ctx.close()}catch(_){}stopListen(T[lang].micBlock);return}
-  if(!listening){stream.getTracks().forEach(t=>t.stop());try{ctx.close()}catch(e){}return}
+  listening=true;mic.setAttribute('aria-pressed','true');
+  let ctx,stream;
+  if(warm&&warm.ctx.state!=='closed'&&warm.stream.getTracks().every(t=>t.readyState==='live')){clearTimeout(warm.t);ctx=warm.ctx;stream=warm.stream;try{ctx.resume()}catch(e){}}
+  else{
+    coolDown();if(!busy)setStatus(T[lang].starting,true);
+    ctx=new AC();try{ctx.resume()}catch(e){}
+    try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}
+    catch(e){try{ctx.close()}catch(_){}stopListen(T[lang].micBlock);return}
+    if(!listening){stream.getTracks().forEach(t=>t.stop());try{ctx.close()}catch(e){}return}
+    warm={ctx,stream,t:0}}
   const src=ctx.createMediaStreamSource(stream),proc=ctx.createScriptProcessor(4096,1,1),mute=ctx.createGain();mute.gain.value=0;
-  const chunks=[];let spoke=false,quiet=0,peak=0,ref=.02;const t0=Date.now(),rate=ctx.sampleRate;
+  const chunks=[];let spoke=false,quiet=0,peak=0,ref=.02,live=false;const t0=Date.now(),rate=ctx.sampleRate;
   const finish=async()=>{
     if(!rc)return;rc=null;proc.onaudioprocess=null;
     try{proc.disconnect();src.disconnect();mute.disconnect()}catch(e){}
-    stream.getTracks().forEach(t=>t.stop());try{ctx.close()}catch(e){}
+    if(warm){clearTimeout(warm.t);warm.t=setTimeout(coolDown,25000)}
     if(!spoke){stopListen(peak<.004?T[lang].micSilent:T[lang].micNone);return}
     listening=false;micLevel=0;mic.setAttribute('aria-pressed','false');if(!busy)setStatus(T[lang].stt,true);
     try{const{s,j}=await api({action:'stt',lang,audio:wavB64(chunks,rate)});
@@ -432,11 +437,12 @@ async function startRec(){
       if(j.ok&&t){if(!busy)setStatus('',false);ask(t)}else stopListen(j.ok?T[lang].micNone:(s===500?T[lang].aiOff:T[lang].aiBusy))}
     catch(e){stopListen(T[lang].aiNet)}};
   proc.onaudioprocess=e=>{
+    if(!live){live=true;if(!busy)setStatus(T[lang].listen,true)}
     const d=e.inputBuffer.getChannelData(0);chunks.push(new Float32Array(d));
     let sum=0;for(let i=0;i<d.length;i++)sum+=d[i]*d[i];const rms=Math.sqrt(sum/d.length);
     peak=Math.max(peak,rms);ref=Math.max(ref*.994,rms,.02);micLevel=micLevel*.4+Math.pow(Math.min(1,rms/ref),.7)*.6;
     const el=Date.now()-t0;
-    if(rms>.012){spoke=true;if(rms>Math.max(.01,ref*.2))quiet=0}if(spoke&&rms<=Math.max(.01,ref*.2)){quiet+=d.length/rate;if(quiet>1.5)finish()}
+    if(rms>.012){spoke=true;if(rms>Math.max(.01,ref*.2))quiet=0}if(spoke&&rms<=Math.max(.01,ref*.2)){quiet+=d.length/rate;if(quiet>1.1)finish()}
     if((!spoke&&el>7000)||el>25000)finish()};
   src.connect(proc);proc.connect(mute);mute.connect(ctx.destination);
   rc={stop:finish}}
