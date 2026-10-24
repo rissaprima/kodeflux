@@ -105,6 +105,8 @@ body.chat-open .peek{display:none}
   .app{grid-template-columns:clamp(240px,25vw,320px) minmax(0,1fr) clamp(240px,25vw,320px);grid-template-rows:auto minmax(0,1fr);gap:14px}
   .top{grid-column:1/-1}
   .side{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto}
+  .side .panel{flex:1 1 0;min-height:0;display:flex;flex-direction:column}
+  .side .row{flex:1 1 0;height:auto;min-height:34px}
   .chatpanel{position:static;opacity:1;visibility:visible;transform:none;max-height:none;height:100%;min-height:0}
   .chead .ib.close{display:none}
   .peek{display:none}
@@ -384,20 +386,31 @@ document.addEventListener('click',e=>{if(!pop.contains(e.target)){pop.classList.
 $$('#pop button:not(#signout)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
 
 /* ---- mic ---- */
-const mic=$('#mic');let rec=null;
+const mic=$('#mic');let rec=null,vtxt='',vT1=null,vT2=null,vdbg='';
 function stopListen(msg){listening=false;mic.setAttribute('aria-pressed','false');if(!busy){setStatus(msg||T[lang].ready,false);if(msg)setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},2400)}}
+function voiceDone(msg){
+  if(!listening)return;
+  clearTimeout(vT1);clearTimeout(vT2);
+  const t=vtxt.trim(),r=rec;rec=null;try{r&&r.stop()}catch(e){}
+  const q=$('#q');q.value='';$('#send').classList.remove('ready');
+  if(t){stopListen();ask(t)}else stopListen((msg||T[lang].micNone)+' ['+(vdbg||'-')+']')}
 mic.onclick=()=>{
-  if(listening){try{rec&&rec.stop()}catch(e){}stopListen();return}
+  if(listening){voiceDone();return}
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){listening=true;stopListen(T[lang].micNo);return}
-  listening=true;mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
-  let got=false;
-  try{rec=new SR();rec.lang=T[lang].loc;rec.interimResults=false;rec.maxAlternatives=1;
-    rec.onresult=e=>{got=true;const t=e.results[0][0].transcript;stopListen();ask(t)};
-    rec.onerror=ev=>{const c=ev&&ev.error;stopListen(c==='not-allowed'||c==='service-not-allowed'?T[lang].micBlock:(c==='no-speech'||c==='aborted')?T[lang].micNone:T[lang].micErr)};
-    rec.onend=()=>{if(listening)stopListen(got?'':T[lang].micNone)};
-    rec.start()}
-  catch(e){stopListen(T[lang].micErr)}};
+  listening=true;vtxt='';mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
+  try{rec=new SR();rec.lang=T[lang].loc;rec.continuous=false;rec.interimResults=true;rec.maxAlternatives=1;vdbg='';
+    rec.onaudiostart=()=>{vdbg+='a'};rec.onsoundstart=()=>{vdbg+='s'};rec.onspeechstart=()=>{vdbg+='p'};
+    rec.onresult=e=>{let s='';for(let i=0;i<e.results.length;i++)s+=e.results[i][0].transcript+' ';vtxt=s;
+      const q=$('#q');q.value=s.trim();$('#send').classList.toggle('ready',!!q.value);
+      clearTimeout(vT1);vT1=setTimeout(()=>voiceDone(),1700)};
+    rec.onerror=ev=>{const c=ev&&ev.error;if(c==='no-speech'||c==='aborted'){voiceDone();return}
+      clearTimeout(vT1);clearTimeout(vT2);rec=null;$('#q').value='';
+      stopListen(c==='not-allowed'||c==='service-not-allowed'?T[lang].micBlock:T[lang].micErr+' ('+(c||'?')+')')};
+    rec.onend=()=>{if(listening)voiceDone()};
+    rec.start();
+    vT2=setTimeout(()=>{if(listening&&!vtxt)voiceDone()},9000)}
+  catch(e){stopListen(T[lang].micErr+' ('+(e&&e.name||'?')+')')}};
 
 /* ---- keep the chat sheet above the dock ---- */
 new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
