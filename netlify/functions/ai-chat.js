@@ -66,7 +66,7 @@ function agentsText(a) {
   out.push(a.pending && a.pending.text
     ? 'WAITING FOR THE FOUNDER (approve or revise): ' + cut(a.pending.division, 20) + ' asks: ' + cut(a.pending.text, 200)
     : 'Nothing is waiting for the founder\'s approval.');
-  const rec = Array.isArray(a.recent) ? a.recent.slice(0, 14) : [];
+  const rec = Array.isArray(a.recent) ? a.recent.slice(0, 10) : [];
   if (rec.length) {
     out.push('Latest activity, newest first:');
     rec.forEach((r) => out.push('- ' + cut(r && r.time, 8) + ' ' + cut(r && r.who, 20) + (r && r.human ? ' (founder step)' : '') + ': ' + cut(r && r.text, 160)));
