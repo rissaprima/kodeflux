@@ -413,7 +413,7 @@ async function api(body){const r=await fetch('/.netlify/functions/ai-chat',{meth
 let replyErr=false;
 async function getReply(q){
   const x=T[lang];replyErr=false;hist.push({r:'u',t:q});if(hist.length>12)hist.splice(0,hist.length-12);
-  try{const{s,j}=await api({action:'chat',lang,messages:hist});
+  try{const{s,j}=await api({action:'chat',lang,messages:hist,agents:AG.snapshot()});
     if(s===401){hist.pop();gate(false);replyErr=true;return x.aiSess}
     if(j.ok&&j.text){hist.push({r:'m',t:j.text});return j.text}
     hist.pop();replyErr=true;return s===500?x.aiOff:x.aiBusy+'\n('+(j.detail||'HTTP '+s)+')'}
@@ -599,7 +599,8 @@ const AG=(function(){
   let hist=[];
   const mk=(r,anim)=>{const e=document.createElement('div');e.className='fr'+(anim?' new':'');
     e.innerHTML='<time>'+r.time+'</time><p><b>'+esc(who(r.who))+'</b>'+(r.h?'<i class="hd"></i>':'')+esc(r.t[Li()])+'</p>';return e};
-  function row(r){r.time=nowHM();hist.unshift(r);hist=hist.slice(0,8);feed.prepend(mk(r,true));while(feed.children.length>8)feed.lastChild.remove()}
+  const full=[];
+  function row(r){r.time=nowHM();full.push({time:r.time,who:r.who,h:!!r.h,t:r.t});if(full.length>40)full.shift();hist.unshift(r);hist=hist.slice(0,8);feed.prepend(mk(r,true));while(feed.children.length>8)feed.lastChild.remove()}
   function renderFeed(){feed.innerHTML='';hist.forEach(r=>feed.appendChild(mk(r,false)))}
 
   /* ---- decision card (you are the human checkpoint) ---- */
@@ -700,7 +701,12 @@ const AG=(function(){
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(build,100)});
   hist=[{who:'sys',t:[T.en.sys2,T.id.sys2],time:nowHM()},{who:'sys',t:[T.en.sys1,T.id.sys1],time:nowHM()}];
   build();renderFeed();setTimeout(loopFlow,900);
-  return{approve,revise,pending:()=>pend,lang(){renderFeed();showDec()}};
+  function snapshot(){
+    const by={};DIV.forEach(d=>by[d.n[0]+d.n.slice(1).toLowerCase()]=0);
+    full.forEach(r=>{if(r.who!=='sys'&&r.who!=='you'&&!r.h)by[who(r.who)]++});
+    return{time:nowHM(),auto,pending:pend?{division:who(pend.f.from),text:(pend.rev?T[lang].revPre:'')+pend.f.dec[Li()]}:null,byDivision:by,
+      recent:full.filter(r=>r.who!=='sys').slice(-14).reverse().map(r=>({time:r.time,who:who(r.who),human:r.h,text:r.t[Li()]}))}}
+  return{approve,revise,snapshot,pending:()=>pend,lang(){renderFeed();showDec()}};
 })();
 /* typed or spoken commands that Flux-E handles on the spot */
 function localCmd(q){
