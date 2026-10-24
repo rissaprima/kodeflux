@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Flux-E</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 /* Layout: phone = orb + one glass pill (+ / mic / send), chat opens as a sheet on tap. iPad/Mac = three columns (panels, orb, conversation). Kodeflux glass: 8px blur, hairline borders, radius 12/16/pill, violet only. */
 :root{
@@ -99,6 +99,11 @@ body.chat-open .peek{display:none}
 .m{white-space:pre-wrap}
 /* Flux Agents panel: FluxOS orbit + live activity + approval card */
 .ag{display:flex;flex-direction:column;gap:8px;padding:12px 14px}
+.ag h3{margin:-12px -14px 0;padding:12px 16px;border-bottom:1px solid var(--line);align-items:center}
+.panel h3 em{text-transform:uppercase;font-weight:300;font-size:10.5px;letter-spacing:.16em;color:var(--dim)}
+/* the two big cards: lighter, more see-through glass */
+.glass.panel,.glass.chatpanel{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));border-color:rgba(255,255,255,.13);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.chead{border-bottom-color:var(--line)}
 .panel h3 .hr{display:flex;align-items:center;gap:8px}
 .agwrap{position:relative;flex:0 1 auto;width:100%;aspect-ratio:1/1;min-height:190px;max-height:56%}
 #agnet{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -270,7 +275,7 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 const T={
  id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',demo:'demo',
   aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Tutup',agLegAI:'Agent AI',agLegHu:'Persetujuan manusia',agCount:'18 agent · 6 divisi',agAuto:'tugas otomatis',decTitle:'Butuh persetujuanmu',approve:'Setujui',revise:'Revisi',revPre:'Revisi: ',you:'Kamu',sys1:'FluxOS aktif · 18 agent + 3 titik persetujuan manusia di 6 divisi',sys2:'AI menyiapkan pekerjaan, kamu menyetujui langkah pentingnya',revReq:'Revisi diminta · Flux-E menyusun ulang',revRdy:'Draf revisi siap · menunggu persetujuanmu',apprd:'Disetujui',cmdOk:'Disetujui.',cmdRev:'Oke, kurevisi dulu dan kubawa lagi ke kamu sebentar lagi.',cmdNone:'Tidak ada yang menunggu persetujuanmu saat ini.',cmdPend:'Menunggu kamu: ',cmdHow:' Bilang "setuju" atau "revisi".',
-  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',spk:'Balasan suara',spk_voice:'saat aku bicara',spk_always:'selalu',spk_off:'mati',speaking:'Berbicara…',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
+  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',spk:'Balasan suara',spk_voice:'saat aku bicara',spk_always:'selalu',spk_off:'mati',speaking:'Berbicara…',noVoice:'Suara tidak tersedia, jawaban dalam teks',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
   boot:['Memuat inti Flux-E','Menyambungkan neural link','Sinkronisasi konteks founder','Semua sistem siap'],
@@ -279,7 +284,7 @@ const T={
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
  en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',demo:'demo',
   aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Close',agLegAI:'AI agent',agLegHu:'Human checkpoint',agCount:'18 agents · 6 divisions',agAuto:'auto tasks',decTitle:'Needs your approval',approve:'Approve',revise:'Revise',revPre:'Revised: ',you:'You',sys1:'FluxOS online · 18 agents + 3 human checkpoints across 6 divisions',sys2:'AI prepares the work, you approve the key steps',revReq:'Revision requested · Flux-E is redrafting',revRdy:'Revised draft ready · waiting for your approval',apprd:'Approved',cmdOk:'Approved.',cmdRev:"Okay, I'll revise it and bring it back to you shortly.",cmdNone:'Nothing is waiting for your approval right now.',cmdPend:'Waiting for you: ',cmdHow:' Say "approve" or "revise".',
-  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',spk:'Voice replies',spk_voice:'when I speak',spk_always:'always',spk_off:'off',speaking:'Speaking…',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
+  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',spk:'Voice replies',spk_voice:'when I speak',spk_always:'always',spk_off:'off',speaking:'Speaking…',noVoice:'Voice unavailable, answer is in text',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
   boot:['Loading Flux-E core','Connecting neural link','Syncing founder context','All systems ready'],
@@ -460,7 +465,7 @@ function stopSpeak(){spkTok++;try{spkSrc&&spkSrc.stop()}catch(e){}spkSrc=null;tr
   spkFake=false;spkLevel=0;if(speaking){speaking=false;saidAt=Date.now();if(!busy&&!listening)setStatus(T[lang].ready,false)}}
 function cutText(t){t=t.replace(/\s+/g,' ').trim();if(t.length<=420)return t;const c=t.slice(0,420),i=Math.max(c.lastIndexOf('. '),c.lastIndexOf('? '),c.lastIndexOf('! '));return i>120?c.slice(0,i+1):c}
 /* the first sentence is voiced as soon as it is ready; the rest is fetched at the same time and plays right after */
-function splitSpeech(t){const m=t.slice(25).search(/[.!?]\s/);if(t.length<110||m<0)return[t];const i=m+26,a=t.slice(0,i).trim(),b=t.slice(i).trim();return b?[a,b]:[a]}
+function splitSpeech(t){const m=t.slice(25).search(/[.!?]\s/);if(t.length<180||m<0)return[t];const i=m+26,a=t.slice(0,i).trim(),b=t.slice(i).trim();return b?[a,b]:[a]}
 async function playAudio(my,b64){
   const bin=atob(b64),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
   const buf=await new Promise((res,rej)=>{const r=pctx.decodeAudioData(u8.buffer,res,rej);if(r&&r.catch)r.catch(rej)});
@@ -474,14 +479,15 @@ async function playAudio(my,b64){
   const an=pctx.createAnalyser();an.fftSize=512;src.connect(gn);gn.connect(cp);cp.connect(an);an.connect(pctx.destination);
   spkSrc=src;const data=new Uint8Array(an.fftSize);
   (function lv(){if(spkSrc!==src)return;an.getByteTimeDomainData(data);let m=0;for(let i=0;i<data.length;i++){const v=(data[i]-128)/128;m+=v*v}spkLevel=spkLevel*.5+Math.min(1,Math.sqrt(m/data.length)*5)*.5;requestAnimationFrame(lv)})();
-  await new Promise(res=>{src.onended=res;src.start(0)});
+  await new Promise(res=>{const to=setTimeout(res,buf.duration*1000+2500);src.onended=()=>{clearTimeout(to);res()};src.start(0)});
   return true}
 async function speakText(text){
   const my=++spkTok;try{speechSynthesis.cancel()}catch(e){}
   text=cutText(text);if(!text)return;lastSaid=text;
   unlockAudio();try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
   speaking=true;if(!busy&&!listening)setStatus(T[lang].speaking,true);
-  const parts=splitSpeech(text),reqs=parts.map(t=>api({action:'tts',lang,text:t}).catch(()=>null));
+  const ttsReq=async t=>{for(let k=0;k<2;k++){try{const r=await api({action:'tts',lang,text:t});if(r.s===401||(r.j&&r.j.ok&&r.j.audio))return r}catch(e){}await sleep(500)}return null};
+  const parts=splitSpeech(text),reqs=parts.map(ttsReq);
   let done=0;
   try{
     for(let i=0;i<reqs.length;i++){
@@ -493,11 +499,14 @@ async function speakText(text){
   }catch(e){}
   if(my!==spkTok)return;
   const left=parts.slice(done).join(' ');
-  if(left&&'speechSynthesis' in window){
-    spkFake=true;
-    await new Promise(res=>{const u=new SpeechSynthesisUtterance(left);u.lang=T[lang].loc;u.onend=res;u.onerror=res;speechSynthesis.speak(u)});
+  if(left){
+    setStatus(T[lang].noVoice,false);
+    if('speechSynthesis' in window){
+      spkFake=true;
+      await new Promise(res=>{let d=false;const fin=()=>{if(!d){d=true;clearTimeout(to);res()}},u=new SpeechSynthesisUtterance(left),to=setTimeout(fin,Math.min(15000,3000+left.length*90));u.lang=T[lang].loc;u.onend=fin;u.onerror=fin;speechSynthesis.speak(u)});
+    }else await sleep(1500);
   }
-  if(my===spkTok){spkFake=false;spkLevel=0;spkSrc=null;speaking=false;saidAt=Date.now();if(!busy&&!listening)setStatus(T[lang].ready,false)}
+  if(my===spkTok){spkFake=false;spkLevel=0;spkSrc=null;speaking=false;saidAt=Date.now();if(left)setTimeout(()=>{if(!busy&&!listening&&!speaking)setStatus(T[lang].ready,false)},2400);else if(!busy&&!listening)setStatus(T[lang].ready,false)}
 }
 $('#spk').onclick=e=>{e.stopPropagation();const o=['voice','always','off'];speak=o[(o.indexOf(speak)+1)%3];try{localStorage.setItem('fluxe-speak',speak)}catch(_){}
   $('#spk').textContent=T[lang].spk+': '+T[lang]['spk_'+speak];if(speak==='off')stopSpeak()};
