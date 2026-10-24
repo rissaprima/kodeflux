@@ -66,8 +66,11 @@ async function gemini(key, body) {
       continue;
     }
     if (r.ok) {
-      const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
-      return { ok: true, text: parts.map((p) => p.text || '').join('').trim(), model: m };
+      const c = (j.candidates && j.candidates[0]) || {};
+      const parts = (c.content && c.content.parts) || [];
+      const text = parts.map((p) => p.text || '').join('').trim();
+      if (!text) { detail = `${m}: empty reply (${c.finishReason || (j.promptFeedback && j.promptFeedback.blockReason) || 'no reason'})`; continue; }
+      return { ok: true, text, model: m };
     }
     detail = `${m}: ${r.status} ${String((j.error && j.error.message) || '').slice(0, 160)}`.split(key).join('***');
     if (![404, 429, 500, 503].includes(r.status)) break; // key or request problem: other models will not help
@@ -103,11 +106,19 @@ exports.handler = async (event) => {
   if (body.action === 'chat') {
     const contents = cleanTurns(body.messages);
     if (!contents.length) return reply(400, { ok: false, error: 'empty' });
-    const r = await gemini(GEMINI_API_KEY, {
-      systemInstruction: { parts: [{ text: PERSONA + ` The app language is ${langName}.` }] },
+    const persona = PERSONA + ` The app language is ${langName}.`;
+    let r = await gemini(GEMINI_API_KEY, {
+      systemInstruction: { parts: [{ text: persona }] },
       contents,
-      generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+      generationConfig: { maxOutputTokens: 2048 },
     });
+    if (!r.ok) {
+      // second try with the plainest possible request: persona goes inside the first message
+      const plain = contents.map((c) => ({ role: c.role, parts: [{ text: c.parts[0].text }] }));
+      plain[0].parts[0].text = persona + '\n\nUser: ' + plain[0].parts[0].text;
+      const r2 = await gemini(GEMINI_API_KEY, { contents: plain });
+      if (r2.ok) r = r2; else r.detail = `${r.detail} | retry ${r2.detail}`;
+    }
     if (!r.ok) return reply(502, { ok: false, error: 'ai', detail: r.detail });
     return reply(200, { ok: true, text: r.text, model: r.model });
   }
