@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e0c12">
+<meta name="robots" content="noindex,nofollow">
+<title>Flux-E</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: phone = orb + one glass pill (+ / mic / send), chat opens as a sheet on tap. iPad/Mac = three columns (panels, orb, conversation). Kodeflux glass: 8px blur, hairline borders, radius 12/16/pill, violet only. */
+:root{
+  --bg:#0e0c12; --fg:#f4f1ea; --muted:#a29eab; --dim:#6f6b78;
+  --p1:#c4b5fd; --p2:#a78bfa; --p3:#8b5cf6; --p4:#7c4fd8;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --glass:rgba(14,12,18,.55); --glass2:rgba(255,255,255,.05); --tint:rgba(139,92,246,.18);
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --display:"Rajdhani","Arial Narrow",sans-serif;
+  --dockh:96px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background-color:var(--bg);background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:24px 24px;color:var(--fg);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:max(14px,env(safe-area-inset-top,0px));padding-bottom:max(14px,env(safe-area-inset-bottom,0px))}
+#bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.app{position:relative;z-index:1;height:100%;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:10px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:16px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+/* top: time + language */
+.top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;min-height:28px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.online{justify-self:start;display:flex;align-items:center;gap:8px;font-weight:600;color:var(--p1);text-shadow:0 0 10px rgba(167,139,250,.55)}
+.online .dot{width:7px;height:7px;background:var(--p1);box-shadow:0 0 10px var(--p2);animation:blink 1.2s ease-in-out infinite}
+.online.off{color:var(--dim);text-shadow:none}
+.online.off .dot{background:var(--dim);box-shadow:none;animation:none}
+.clock{justify-self:center;display:flex;align-items:center;gap:10px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lang{justify-self:end;display:flex;height:28px;padding:2px;border-radius:99px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.lang button{border:0;background:transparent;color:var(--muted);font:500 11px var(--mono);letter-spacing:.12em;padding:0 10px;border-radius:99px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--tint);color:var(--p1)}
+.lang button:focus-visible{outline:2px solid var(--p2);outline-offset:1px}
+/* center */
+.center{display:flex;flex-direction:column;min-height:0;gap:6px}
+.orbwrap{flex:1;min-height:200px;position:relative}
+#core{position:absolute;inset:0;width:100%;height:100%;display:block}
+.status{display:flex;align-items:center;justify-content:center;gap:8px;font:500 13px var(--sans);color:var(--muted);min-height:20px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--p2);box-shadow:0 0 8px var(--p3);flex:none}
+.working .dot{animation:blink .8s infinite}
+.status.empty .dot{opacity:0}
+@keyframes blink{50%{opacity:.3}}
+.prog{width:120px;height:2px;border-radius:99px;background:var(--line);overflow:hidden;opacity:0;transition:opacity .3s;margin:2px auto 8px}
+.working .prog{opacity:1}
+.prog i{display:block;height:100%;width:0;background:var(--p2);border-radius:99px;transition:width .6s ease}
+/* dock */
+.dock{position:relative;width:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.peek{align-self:stretch;text-align:left;border:1px solid var(--line);background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--muted);font:400 13.5px var(--sans);padding:10px 14px;border-radius:12px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{display:flex;align-items:center;gap:4px;height:56px;padding:0 8px;border-radius:99px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.pill:focus-within{border-color:rgba(167,139,250,.45)}
+.ib{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid transparent;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.ib svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ib:hover{background:var(--glass2);color:var(--fg)}
+.ib:focus-visible{outline:2px solid var(--p2);outline-offset:2px}
+.ib.plus{background:var(--glass2);border-color:var(--line)}
+.ib.mic[aria-pressed="true"]{color:var(--p1);background:var(--tint);animation:micp 1.4s ease-out infinite}
+@keyframes micp{0%{box-shadow:0 0 0 0 rgba(139,92,246,.4)}100%{box-shadow:0 0 0 12px rgba(139,92,246,0)}}
+.ib.send{background:var(--glass2);border-color:var(--line);color:var(--dim)}
+.ib.send.ready{background:rgba(139,92,246,.4);border-color:rgba(167,139,250,.55);color:#fff}
+input{flex:1;min-width:0;height:44px;background:transparent;border:0;padding:0 8px;color:var(--fg);font:16px var(--sans)}
+input::placeholder{color:var(--dim)}
+input:focus{outline:none}
+.pop{position:absolute;left:0;bottom:calc(100% + 8px);min-width:200px;padding:6px;border-radius:12px;display:none;z-index:5}
+.pop.open{display:block}
+.pop button{display:flex;align-items:center;gap:10px;width:100%;height:40px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:var(--fg);font:400 14px var(--sans);cursor:pointer;text-align:left}
+.pop button:hover,.pop button:focus-visible{background:var(--glass2);outline:none}
+.pop svg{width:18px;height:18px;stroke:var(--p2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* chat panel: sheet on phone */
+.chatpanel{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(var(--dockh) + 20px + env(safe-area-inset-bottom,0px));max-height:calc(100dvh - var(--dockh) - 130px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));z-index:4;display:flex;flex-direction:column;overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(14px);transition:opacity .25s,transform .25s,visibility .25s}
+body.chat-open .chatpanel{opacity:1;visibility:visible;transform:none}
+body.chat-open .peek{display:none}
+.chead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font:600 14px var(--sans)}
+.chead .ib{width:32px;height:32px}
+.msgs{flex:1;min-height:140px;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.m{max-width:86%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5;opacity:0;animation:in .3s forwards;overflow-wrap:anywhere}
+.m.bot{align-self:flex-start;background:var(--glass2);border:1px solid var(--line)}
+.m.me{align-self:flex-end;background:var(--tint);border:1px solid rgba(167,139,250,.3)}
+@keyframes in{to{opacity:1;transform:none}}
+.chips{display:flex;gap:8px;padding:10px 16px 14px;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--line)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:500 12.5px var(--sans);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer;white-space:nowrap}
+.chip:hover,.chip:focus-visible{color:var(--fg);border-color:var(--p2);outline:none}
+/* side panels: tablet / desktop only */
+.side{display:none}
+.panel{padding:14px 16px}
+.panel h3{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:8px}
+.panel h3 em{font-style:normal;font-weight:400;color:var(--dim);text-transform:none;letter-spacing:0}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;height:36px;border-top:1px solid var(--line);font-size:13.5px}
+.row:first-of-type{border-top:0}
+.row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.row small{font:400 12px var(--mono);color:var(--dim);flex:none}
+.tag{font:500 11px var(--sans);padding:2px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);flex:none}
+.tag.hi{color:var(--p1);border-color:rgba(167,139,250,.5);background:var(--tint)}
+@media(min-width:900px){
+  body{padding-block:20px}
+  .app{grid-template-columns:260px minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr);gap:14px}
+  .top{grid-column:1/-1}
+  .side{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto}
+  .chatpanel{position:static;opacity:1;visibility:visible;transform:none;max-height:none;height:100%;min-height:0}
+  .chead .ib.close{display:none}
+  .peek{display:none}
+  .center{padding-bottom:4px}
+}
+/* login gate */
+body:not(.authed) .side,body:not(.authed) .center,body:not(.authed) .chatpanel{display:none}
+.login{display:none;grid-column:1/-1;place-self:center;width:100%;max-width:380px;flex-direction:column;align-items:center;gap:12px;padding:24px 22px 22px;border-radius:16px;border:1px solid var(--line);background:var(--glass);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+body.locked .login{display:flex}
+.login canvas{width:150px;height:150px;display:block}
+.login h1{font:700 20px var(--display);letter-spacing:.4em;padding-left:.4em;font-weight:700}
+.login p{color:var(--muted);font-size:13px;text-align:center;margin-top:-4px}
+.lf{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:6px}
+.lf input{flex:none;width:100%;height:46px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:0 14px;color:var(--fg);font:16px var(--sans)}
+.lf input:focus{outline:2px solid var(--p2);outline-offset:1px}
+.lf button{height:46px;border-radius:99px;border:1px solid rgba(167,139,250,.5);background:rgba(139,92,246,.35);color:#fff;font:600 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.lf button:hover,.lf button:focus-visible{background:rgba(139,92,246,.5);outline:none}
+.lf button[disabled]{opacity:.6;cursor:default}
+.err{min-height:18px;font:400 12.5px var(--sans);color:#f0a3b8;text-align:center}
+/* boot */
+#boot{position:fixed;inset:0;z-index:50;background:var(--bg);background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:24px 24px;display:grid;place-items:center;transition:opacity .7s ease,visibility .7s;padding:24px}
+#boot::before{content:"";position:absolute;width:70vmin;height:70vmin;border-radius:50%;background:radial-gradient(circle,rgba(124,79,216,.35),rgba(124,79,216,0) 68%);filter:blur(20px)}
+#boot.gone{opacity:0;visibility:hidden}
+.bootbox{position:relative;width:min(340px,100%);display:grid;gap:16px;justify-items:center;padding:28px 24px 22px;border-radius:16px;border:1px solid var(--line);background:rgba(14,12,18,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.bootorb{width:150px;height:150px;display:block}
+.bootring{width:96px;height:96px}
+.bootring svg{width:100%;height:100%;overflow:visible}
+.bootring .b1{animation:spin 8s linear infinite;transform-origin:48px 48px}
+.bootring .core{animation:bpulse 1.8s ease-in-out infinite;transform-origin:48px 48px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bpulse{50%{transform:scale(1.15);opacity:.6}}
+.bootname{color:var(--fg);font:700 20px var(--display);letter-spacing:.4em;padding-left:.4em}
+.track{width:100%;height:8px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--line);position:relative;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
+.track i{position:absolute;inset:0 auto 0 0;width:0;border-radius:99px;background:linear-gradient(90deg,#6d3fd0,#8b5cf6 45%,#c4b5fd);box-shadow:0 0 12px rgba(139,92,246,.7)}
+.track i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-100%);animation:shine 1.4s linear infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+.bootmeta{width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:400 12px var(--sans);color:var(--muted)}
+.bootmeta b{font:500 12px var(--mono);color:var(--p1);font-variant-numeric:tabular-nums}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.m,.bootlog div{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="boot" role="status" aria-live="polite">
+  <div class="bootbox">
+    <canvas id="bootorb" class="bootorb" aria-hidden="true"></canvas>
+    <div class="bootname">FLUX-E</div>
+    <div class="track"><i id="bootbar"></i></div>
+    <div class="bootmeta"><span id="bootmsg"></span><b id="bootpct">0%</b></div>
+  </div>
+</div>
+
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<div class="app">
+  <div class="top">
+    <div class="online" id="online"><i class="dot"></i><span id="onl">Online</span></div>
+    <div class="clock"><span id="date">--:--:----</span><span id="time">--:--</span></div>
+    <div class="lang" role="group" aria-label="Language"><button type="button" data-l="id" aria-pressed="true">ID</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
+  </div>
+
+  <section class="login" id="login" aria-label="Sign in">
+    <canvas id="loginorb" aria-hidden="true"></canvas>
+    <h1>FLUX-E</h1>
+    <p data-t="loginSub"></p>
+    <form class="lf" id="lf" autocomplete="on">
+      <input id="em" type="email" name="email" autocomplete="username" inputmode="email" autocapitalize="off" required>
+      <input id="pw" type="password" name="password" autocomplete="current-password" required>
+      <div class="err" id="err" role="alert"></div>
+      <button type="submit" id="go" data-t="signin"></button>
+    </form>
+  </section>
+
+  <aside class="side">
+    <section class="glass panel"><h3><span data-t="pToday"></span><em data-t="sample"></em></h3>
+      <div class="row"><span>Review landing Komplex</span><small>10:00</small></div>
+      <div class="row"><span>Sync Cabo Bali</span><small>13:30</small></div>
+      <div class="row"><span>Konten Fluxman</span><small>16:00</small></div>
+    </section>
+    <section class="glass panel"><h3><span data-t="pDecide"></span><em data-t="sample"></em></h3>
+      <div class="row"><span>Pilot Flux-E</span><span class="tag hi" data-t="urgent"></span></div>
+      <div class="row"><span>Hosting Netlify</span><span class="tag" data-t="normal"></span></div>
+      <div class="row"><span>Paket early-bird</span><span class="tag" data-t="normal"></span></div>
+    </section>
+    <section class="glass panel"><h3><span data-t="pSystem"></span></h3>
+      <div class="row"><span data-t="sLink"></span><small>online</small></div>
+      <div class="row"><span data-t="sCtx"></span><small>synced</small></div>
+      <div class="row"><span data-t="sMode"></span><small>demo</small></div>
+    </section>
+  </aside>
+
+  <main class="center">
+    <div class="orbwrap"><canvas id="core" aria-label="Flux-E"></canvas></div>
+    <div class="status" aria-live="polite"><i class="dot"></i><span id="status"></span></div>
+    <div class="prog"><i id="prog"></i></div>
+    <div class="dock" id="dock">
+      <div class="glass pop" id="pop" role="menu">
+        <button type="button" role="menuitem" data-t="aFile"></button>
+        <button type="button" role="menuitem" data-t="aPhoto"></button>
+        <button type="button" role="menuitem" data-t="aNote"></button>
+        <button type="button" role="menuitem" id="signout" data-t="aOut"></button>
+      </div>
+      <button class="peek" id="peek" type="button"></button>
+      <form class="pill" id="f">
+        <button class="ib plus" id="plus" type="button" aria-label="Tambah" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <input id="q" autocomplete="off">
+        <button class="ib mic" id="mic" type="button" aria-pressed="false"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+        <button class="ib send" id="send" type="submit"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+      </form>
+    </div>
+  </main>
+
+  <section class="glass chatpanel" id="chat">
+    <div class="chead"><span data-t="chat"></span><button class="ib close" id="close" type="button"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>
+    <div class="msgs" id="msgs"></div>
+    <div class="chips" id="chips"></div>
+  </section>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sessionP=fetch('/.netlify/functions/ai-auth',{credentials:'same-origin',cache:'no-store'}).then(r=>r.json()).catch(()=>({ok:false}));
+let busy=false,listening=false,energy=0,lang='en',lastBot='';
+
+/* ---- text (ID / EN) ---- */
+const T={
+ id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',sample:'contoh',
+  pToday:'Hari ini',pDecide:'Menunggu keputusan',pSystem:'Sistem',urgent:'Mendesak',normal:'Biasa',sLink:'Neural link',sCtx:'Konteks founder',sMode:'Mode',
+  aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micOff:'Suara aktif setelah di situs Kodeflux',
+  hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
+  chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
+  boot:['Memuat inti Flux-E','Menyambungkan neural link','Sinkronisasi konteks founder','Semua sistem siap'],
+  kinds:[[/briefing|ringkas|hari ini|pagi/i,['Memahami permintaan','Mengumpulkan kabar dari semua sumber','Menyusun briefing']],[/keputusan|risiko|prioritas|pilih/i,['Memahami permintaan','Menimbang opsi dan risikonya','Mengurutkan prioritas']],[/uang|cashflow|budget|biaya|mrr|invoice|harga/i,['Memahami permintaan','Menghitung angka','Menyusun ringkasan']]],
+  def:['Memahami permintaan','Mengumpulkan konteks','Menyusun jawaban'],
+  r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
+ en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',sample:'sample',
+  pToday:'Today',pDecide:'Pending decisions',pSystem:'System',urgent:'Urgent',normal:'Normal',sLink:'Neural link',sCtx:'Founder context',sMode:'Mode',
+  aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micOff:'Voice works once it is on the Kodeflux site',
+  hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
+  chips:['Morning briefing','Pending decisions','Summarize cashflow'],
+  boot:['Loading Flux-E core','Connecting neural link','Syncing founder context','All systems ready'],
+  kinds:[[/briefing|summar|today|morning/i,['Understanding the request','Gathering updates from every source','Writing the briefing']],[/decision|risk|priorit|choose/i,['Understanding the request','Weighing options and risks','Ranking priorities']],[/money|cash|budget|cost|mrr|invoice|price/i,['Understanding the request','Crunching the numbers','Writing the summary']]],
+  def:['Understanding the request','Gathering context','Drafting the answer'],
+  r:["Morning briefing: three things need your attention today. Once I'm connected to your calendar and inbox, this fills in from your real data.",'I gather the pending decisions, add risk and impact to each option, then rank them from most urgent.','Want a three-scenario cashflow simulation: conservative, realistic and aggressive?',"Got it. Tell me what you need and I'll break it into small steps."]}
+};
+try{const s=localStorage.getItem('fluxe-lang2');if(s==='en'||s==='id')lang=s}catch(e){}
+
+/* ---- boot sequence ---- */
+(function(){
+  createOrb($('#bootorb'),()=>.75,60,false);
+  const lines=T[lang].boot,bar=$('#bootbar'),msg=$('#bootmsg'),pct=$('#bootpct');let i=0;const step=(RED?300:2600)/lines.length;
+  function next(){
+    if(i<lines.length){msg.textContent=lines[i]+(i===lines.length-1?'':'…');i++;
+      bar.style.transition='width '+step+'ms ease-out';bar.style.width=(i/lines.length*100)+'%';
+      const from=Math.round((i-1)/lines.length*100),to=Math.round(i/lines.length*100),t0=performance.now();
+      (function count(n){const k=Math.min(1,(n-t0)/step);pct.textContent=Math.round(from+(to-from)*k)+'%';if(k<1)requestAnimationFrame(count)})(t0);
+      setTimeout(next,step)}
+    else setTimeout(async()=>{const r=await sessionP;gate(!!r.ok);$('#boot').classList.add('gone');setTimeout(()=>{const b=$('#boot');if(b){b.style.display='none';b.remove()}},800)},350)}
+  next();
+})();
+
+/* ---- login gate ---- */
+function gate(ok){document.body.classList.toggle('authed',ok);document.body.classList.toggle('locked',!ok)}
+createOrb($('#loginorb'),()=>.5,60,false);
+$('#lf').onsubmit=async e=>{e.preventDefault();const b=$('#go'),x=T[lang];$('#err').textContent='';b.disabled=true;b.textContent=x.signing;
+  try{const r=await fetch('/.netlify/functions/ai-auth',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',email:$('#em').value,password:$('#pw').value})});
+    const d=await r.json().catch(()=>({}));
+    if(r.ok&&d.ok){$('#pw').value='';gate(true)}else $('#err').textContent=d.error==='not_configured'?x.cfg:x.bad}
+  catch(err){$('#err').textContent=x.net}
+  b.disabled=false;b.textContent=x.signin};
+$('#signout').onclick=async()=>{try{await fetch('/.netlify/functions/ai-auth',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'logout'})})}catch(e){}
+  openChat(false);gate(false)};
+
+/* ---- clock ---- */
+function tick(){const d=new Date(),p=n=>String(n).padStart(2,'0');
+  $('#time').textContent=p(d.getHours())+':'+p(d.getMinutes());
+  $('#date').textContent=p(d.getDate())+':'+p(d.getMonth()+1)+':'+d.getFullYear()}
+function net(){const on=navigator.onLine;$('#online').classList.toggle('off',!on);$('#onl').textContent=on?'Online':'Offline'}
+addEventListener('online',net);addEventListener('offline',net);net();
+setInterval(tick,5000);
+
+/* ---- soft violet lights only ---- */
+(function(){
+  const cv=$('#bgfx'),g=cv.getContext('2d');let W,H,D,N=[],L=[],last=0;
+  const PAL=['196,181,253','167,139,250','139,92,246','124,79,216'];
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  function build(){W=innerWidth;H=innerHeight;D=Math.min(1.5,devicePixelRatio||1);cv.width=W*D;cv.height=H*D;g.setTransform(D,0,0,D,0,0);
+        L=[{bx:.2,by:.18,r:.55,c:'124,79,216',a:.22,sp:.00011,ph:0},{bx:.85,by:.35,r:.45,c:'139,92,246',a:.13,sp:.00009,ph:2},{bx:.5,by:.9,r:.55,c:'124,79,216',a:.17,sp:.00012,ph:4}]}
+  function draw(T,dt){g.clearRect(0,0,W,H);
+    for(const m of L){const x=W*(m.bx+Math.sin(T*m.sp+m.ph)*.16),y=H*(m.by+Math.cos(T*m.sp*.8+m.ph)*.14),R=Math.max(W*.5,H*.8)*m.r;
+      const gr=g.createRadialGradient(x,y,0,x,y,R);gr.addColorStop(0,`rgba(${m.c},${m.a})`);gr.addColorStop(1,`rgba(${m.c},0)`);g.fillStyle=gr;g.fillRect(x-R,y-R,R*2,R*2)}
+  }
+  build();addEventListener('resize',build);
+  (function loop(T){requestAnimationFrame(loop);if(document.hidden)return;const dt=Math.min(48,T-last||16);last=T;draw(RED?0:T,RED?0:dt)})(0);
+})();
+
+/* ---- Flux-E core: sparkle swarm + equalizer + FluxHQ light orbits, one violet tone ---- */
+function createOrb(cv,getE,umax,label){
+  const g=cv.getContext('2d');let W,H,D,t=0;
+  function fit(){D=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*D;cv.height=H*D;g.setTransform(D,0,0,D,0,0)}
+  addEventListener('resize',fit);new ResizeObserver(fit).observe(cv);fit();
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  // soft lights gliding along the dotted orbits: [start angle, speed, length in radians]
+  const RINGS=[{r:.58,lw:.55,dash:[.55,2.4],lm:.7,l:[[0,.6,1.5],[3.3,.6,1.1]]},{r:.78,lw:1.05,dash:[1.05,3.8],lm:1.5,l:[[1,-.42,1.8],[4.1,-.42,1.2]]},{r:.96,lw:.75,dash:[.75,3.1],lm:1,l:[[.4,.27,2.0],[2.5,.27,1.3],[4.6,.27,1.6]]}];
+  function draw(){
+    if(!cv.isConnected)return;
+    if(!W||!H){requestAnimationFrame(draw);return}
+    t+=RED?0:.016;
+    g.clearRect(0,0,W,H);const k=Math.min(W/2,H/2,umax)*.94/56;g.save();g.translate(W/2,H/2);g.scale(k,k);const cx=0,cy=0,u=56,e=getE(); // drawn at one design size, scaled up, so every size looks like the loading orb
+    // aura
+    const A=g.createRadialGradient(cx,cy,0,cx,cy,u*.7);A.addColorStop(0,`rgba(124,79,216,${(label?.15:.34)+.08*Math.sin(t*1.9)+(label?.08:.16)*e})`);A.addColorStop(1,'rgba(124,79,216,0)');
+    g.fillStyle=A;g.beginPath();g.arc(cx,cy,u*.7,0,7);g.fill();
+    // dotted rings, flowing
+    g.lineCap='round';
+    RINGS.forEach((o,k)=>{g.lineWidth=o.lw;g.setLineDash(o.dash);g.lineDashOffset=-t*(16+k*4)*(k%2?-1:1);g.strokeStyle=`rgba(196,181,253,${.2+.07*k+.14*e})`;g.beginPath();g.arc(cx,cy,u*o.r,0,7);g.stroke()});
+    g.setLineDash([]);
+    // equalizer: inner ring (stronger) and an outer ring (softer)
+    const eq=(n,r0,base,amp,alpha,ph,lw,ev=e)=>{for(let i=0;i<n;i++){const a=i/n*6.283,w=Math.sin(a*5+t*(2+ev*8)+ph)+Math.sin(a*3-t*3.1+ph),len=u*(base+.01*w+ev*(amp+amp*.7*w));
+      g.strokeStyle=`rgba(196,181,253,${alpha[0]+alpha[1]*ev})`;g.lineWidth=lw;g.beginPath();g.moveTo(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0);g.lineTo(cx+Math.cos(a)*(r0+len),cy+Math.sin(a)*(r0+len));g.stroke()}};
+    const ee=label?.5+.5*e:e;
+    eq(64,u*(label?.34:.3),.04,.05,[.34,.5],0,1.7,ee);
+    eq(96,u*.84,.02,.04,[.1,.2],1.7,1.2,label?.75+.25*e:e); // same liveliness as the loading orb
+    // lights gliding on the orbits: a glowing arc that fades toward its tail
+    g.lineCap='round';
+    RINGS.forEach(o=>o.l.forEach(([a0,sp,len])=>{const r=u*o.r,spd=sp*(1+e*2.2),head=a0+t*spd,dir=Math.sign(spd),N=22;
+      for(let k=0;k<N;k++){const f=1-k/N,aa=head-dir*k*(len/N),ab=head-dir*(k+1)*(len/N)-dir*.012;
+        g.strokeStyle=`rgba(210,196,255,${.85*f*f*(.7+.3*e)})`;g.lineWidth=(.5+1.0*f)*o.lm;g.shadowColor='rgba(167,139,250,.9)';g.shadowBlur=10*f*k;
+        g.beginPath();g.arc(cx,cy,r,Math.min(aa,ab),Math.max(aa,ab));g.stroke()}
+      g.shadowBlur=0}));
+    // name in the centre
+    if(label){
+      // soft glow behind the name (plain gradient, no canvas shadow)
+      const GL=g.createRadialGradient(cx,cy,0,cx,cy,22);GL.addColorStop(0,`rgba(167,139,250,${.22+.1*Math.sin(t*2.2)+.12*e})`);GL.addColorStop(1,'rgba(167,139,250,0)');
+      g.fillStyle=GL;g.beginPath();g.arc(cx,cy,22,0,7);g.fill();
+      // name, letter by letter, with a light travelling across it
+      g.font='700 7.4px Rajdhani,sans-serif';g.textAlign='left';g.textBaseline='middle';
+      const word='FLUX-E',gap=1,ws=[...word].map(c=>g.measureText(c).width),total=ws.reduce((a,b)=>a+b,0)+gap*(word.length-1);
+      const pos=((t*(.45+.8*e))%1.7)-.35,cl=v=>Math.max(0,Math.min(1,v)),G=g.createLinearGradient(cx-total/2,0,cx+total/2,0),base='rgba(196,181,253,.9)';
+      G.addColorStop(0,base);G.addColorStop(cl(pos-.18),base);G.addColorStop(cl(pos),'rgba(255,255,255,1)');G.addColorStop(cl(pos+.18),base);G.addColorStop(1,base);
+      g.fillStyle=G;let x=cx-total/2;[...word].forEach((c,n)=>{g.fillText(c,x,cy+.4);x+=ws[n]+gap})}
+    g.restore();
+    requestAnimationFrame(draw)}
+  draw();
+}
+(function ease(){energy+=(((busy||listening)?1:0)-energy)*.06;requestAnimationFrame(ease)})();
+createOrb($('#core'),()=>energy,190,true);
+
+/* ---- UI text + language ---- */
+function applyLang(){const x=T[lang];document.documentElement.lang=lang;
+  $$('[data-t]').forEach(el=>el.textContent=x[el.dataset.t]);
+  $('#q').placeholder=x.ph;$('#em').placeholder=x.phEm;$('#pw').placeholder=x.phPw;$('#plus').setAttribute('aria-label',lang==='id'?'Tambah':'Add');$('#mic').setAttribute('aria-label',lang==='id'?'Suara':'Voice');$('#send').setAttribute('aria-label',lang==='id'?'Kirim':'Send');$('#close').setAttribute('aria-label',lang==='id'?'Tutup percakapan':'Close conversation');
+  $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
+  $('#chips').innerHTML='';x.chips.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=s;b.onclick=()=>ask(s);$('#chips').appendChild(b)});
+  if(!busy&&!listening)setStatus(x.ready,false);
+  $('#peek').textContent=lastBot||x.hello;tick()}
+$$('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('fluxe-lang2',lang)}catch(e){}applyLang()});
+
+/* ---- chat ---- */
+const msgs=$('#msgs'),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function add(txt,me){const d=document.createElement('div');d.className='m '+(me?'me':'bot');d.textContent=txt;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;if(!me){lastBot=txt;$('#peek').textContent=txt}return d}
+function setStatus(txt,work){$('#status').textContent=txt;$('.status').classList.toggle('empty',!txt);document.body.classList.toggle('working',!!work)}
+function openChat(v){document.body.classList.toggle('chat-open',v);if(v)msgs.scrollTop=msgs.scrollHeight}
+$('#peek').onclick=()=>openChat(true);$('#close').onclick=()=>openChat(false);$('.orbwrap').onclick=()=>openChat(false);
+$('#q').addEventListener('focus',()=>openChat(true));
+$('#q').addEventListener('input',()=>$('#send').classList.toggle('ready',!!$('#q').value.trim()));
+/* TAHAP 2: ganti getReply dengan panggilan ke backend (Gemini / Claude). Key API cukup di sisi server. */
+async function getReply(q){const x=T[lang],i=x.kinds.findIndex(k=>k[0].test(q));return x.r[i<0?3:i]}
+async function ask(q){
+  q=q.trim();if(!q||busy)return;openChat(true);add(q,true);busy=true;$('#prog').style.width='0%';
+  const x=T[lang],k=x.kinds.find(k=>k[0].test(q)),st=k?k[1]:x.def;
+  for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await sleep(RED?100:850)}
+  const r=await getReply(q);add(r);busy=false;setStatus(listening?T[lang].listen:T[lang].ready,listening)}
+$('#f').onsubmit=e=>{e.preventDefault();const v=$('#q').value;$('#q').value='';$('#send').classList.remove('ready');ask(v)};
+
+/* ---- + menu ---- */
+const pop=$('#pop'),plus=$('#plus');
+plus.onclick=e=>{e.stopPropagation();const o=!pop.classList.contains('open');pop.classList.toggle('open',o);plus.setAttribute('aria-expanded',o)};
+document.addEventListener('click',e=>{if(!pop.contains(e.target)){pop.classList.remove('open');plus.setAttribute('aria-expanded','false')}});
+$$('#pop button:not(#signout)').forEach(b=>b.onclick=()=>{pop.classList.remove('open');setStatus(T[lang].soon,false);setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},1800)});
+
+/* ---- mic ---- */
+const mic=$('#mic');let rec=null;
+function stopListen(msg){listening=false;mic.setAttribute('aria-pressed','false');if(!busy){setStatus(msg||T[lang].ready,false);if(msg)setTimeout(()=>{if(!busy&&!listening)setStatus(T[lang].ready,false)},2400)}}
+mic.onclick=()=>{
+  if(listening){try{rec&&rec.stop()}catch(e){}stopListen();return}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  listening=true;mic.setAttribute('aria-pressed','true');if(!busy)setStatus(T[lang].listen,true);
+  if(!SR){setTimeout(()=>stopListen(T[lang].micOff),2000);return}
+  try{rec=new SR();rec.lang=T[lang].loc;rec.interimResults=false;
+    rec.onresult=e=>{const t=e.results[0][0].transcript;stopListen();ask(t)};
+    rec.onerror=()=>stopListen(T[lang].micOff);rec.onend=()=>{if(listening)stopListen()};rec.start()}
+  catch(e){stopListen(T[lang].micOff)}};
+
+/* ---- keep the chat sheet above the dock ---- */
+new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
+add(T[lang].hello);applyLang();
+</script>
+</body>
+</html>
