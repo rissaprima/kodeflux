@@ -119,46 +119,58 @@ async function gemini(key, body, order, budgetMs = 8000) {
 }
 
 
-// Text to speech. The docs show two ways to name the voice, so both are tried if the first is refused.
+// Text to speech. The docs show two ways to name the voice, so both are tried; the one that worked last is tried first.
+// If the model refuses the bare text (it sometimes tries to "answer" it instead of reading it), the text is retried with a short reading instruction.
+const VOICE_FORMATS = [(v) => ({ voice: v }), (v) => ({ prebuiltVoiceConfig: { voiceName: v } })];
+let goodFormat = 1;
 async function speak(key, text, voice) {
   const t0 = Date.now();
   let detail = '';
+  const order = goodFormat === 1 ? [1, 0] : [0, 1];
   for (const m of TTS_MODELS) {
-    for (const voiceConfig of [{ voice }, { prebuiltVoiceConfig: { voiceName: voice } }]) {
-      const left = 8000 - (Date.now() - t0);
-      if (left < 1500) return { ok: false, detail: detail || 'out of time' };
-      const ctl = new AbortController();
-      const timer = setTimeout(() => ctl.abort(), Math.min(left, 6500));
-      let r, j;
-      try {
-        r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-          body: JSON.stringify({
-            contents: [{ role: 'user', parts: [{ text }] }],
-            generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig } },
-          }),
-          signal: ctl.signal,
-        });
-        j = await r.json();
-      } catch (e) {
+    let nextModel = false;
+    for (const input of [text, 'Say in a calm, natural voice: ' + text]) {
+      for (const fi of order) {
+        const left = 8000 - (Date.now() - t0);
+        if (left < 1500) return { ok: false, detail: detail || 'out of time' };
+        const ctl = new AbortController();
+        const timer = setTimeout(() => ctl.abort(), Math.min(left, 6500));
+        let r, j;
+        try {
+          r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+            body: JSON.stringify({
+              contents: [{ role: 'user', parts: [{ text: input }] }],
+              generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: VOICE_FORMATS[fi](voice) } },
+            }),
+            signal: ctl.signal,
+          });
+          j = await r.json();
+        } catch (e) {
+          clearTimeout(timer);
+          detail = `${m}: ${e && e.name === 'AbortError' ? 'too slow' : 'network'}`;
+          nextModel = true;
+          break;
+        }
         clearTimeout(timer);
-        detail = `${m}: ${e && e.name === 'AbortError' ? 'too slow' : 'network'}`;
-        break; // next model
+        if (r.ok) {
+          const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
+          const p = parts.find((x) => (x.inlineData && x.inlineData.data) || (x.inline_data && x.inline_data.data));
+          const d = p && (p.inlineData || p.inline_data);
+          if (d && d.data) {
+            goodFormat = fi;
+            return { ok: true, audio: d.data, mime: d.mimeType || d.mime_type || 'audio/wav', model: m, ms: Date.now() - t0 };
+          }
+          detail = `${m}: no audio in reply`;
+          continue; // retry with the reading instruction
+        }
+        detail = `${m}: ${r.status} ${String((j.error && j.error.message) || '').slice(0, 140)}`.split(key).join('***');
+        if (r.status === 400) continue; // other voice format, then the reading instruction
+        if ([404, 429, 500, 503].includes(r.status)) { nextModel = true; break; }
+        return { ok: false, detail };
       }
-      clearTimeout(timer);
-      if (r.ok) {
-        const parts = (j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts) || [];
-        const p = parts.find((x) => (x.inlineData && x.inlineData.data) || (x.inline_data && x.inline_data.data));
-        const d = p && (p.inlineData || p.inline_data);
-        if (d && d.data) return { ok: true, audio: d.data, mime: d.mimeType || d.mime_type || 'audio/wav', model: m, ms: Date.now() - t0 };
-        detail = `${m}: no audio in reply`;
-        break;
-      }
-      detail = `${m}: ${r.status} ${String((j.error && j.error.message) || '').slice(0, 140)}`.split(key).join('***');
-      if (r.status === 400) continue; // try the other voice format
-      if ([404, 429, 500, 503].includes(r.status)) break; // try the next model
-      return { ok: false, detail };
+      if (nextModel) break;
     }
   }
   return { ok: false, detail };
