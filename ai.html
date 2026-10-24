@@ -41,7 +41,8 @@ body{background-color:var(--bg);background-image:radial-gradient(rgba(255,255,25
 .lang button:focus-visible{outline:2px solid var(--p2);outline-offset:1px}
 /* center */
 .center{display:flex;flex-direction:column;min-height:0;gap:6px}
-.orbwrap{flex:1;min-height:200px;position:relative}
+.orbwrap{flex:1;min-height:200px;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;border-radius:16px}
+.orbwrap:focus-visible{outline:2px solid var(--p2);outline-offset:-2px}
 #core{position:absolute;inset:0;width:100%;height:100%;display:block}
 .status{display:flex;align-items:center;justify-content:center;gap:8px;font:500 13px var(--sans);color:var(--muted);min-height:20px}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--p2);box-shadow:0 0 8px var(--p3);flex:none}
@@ -230,7 +231,7 @@ body.locked .login{display:flex}
   </aside>
 
   <main class="center">
-    <div class="orbwrap"><canvas id="core" aria-label="Flux-E"></canvas></div>
+    <div class="orbwrap" id="orbtap" role="button" tabindex="0"><canvas id="core" aria-label="Flux-E"></canvas></div>
     <div class="status" aria-live="polite"><i class="dot"></i><span id="status"></span></div>
     <div class="prog"><i id="prog"></i></div>
     <div class="dock" id="dock">
@@ -392,7 +393,7 @@ createOrb($('#core'),()=>energy,190,true);
 /* ---- UI text + language ---- */
 function applyLang(){const x=T[lang];document.documentElement.lang=lang;
   $$('[data-t]').forEach(el=>el.textContent=x[el.dataset.t]);
-  $('#q').placeholder=x.ph;$('#em').placeholder=x.phEm;$('#pw').placeholder=x.phPw;$('#plus').setAttribute('aria-label',lang==='id'?'Tambah':'Add');$('#mic').setAttribute('aria-label',lang==='id'?'Suara':'Voice');$('#send').setAttribute('aria-label',lang==='id'?'Kirim':'Send');$('#close').setAttribute('aria-label',lang==='id'?'Tutup percakapan':'Close conversation');
+  $('#q').placeholder=x.ph;$('#em').placeholder=x.phEm;$('#pw').placeholder=x.phPw;$('#orbtap').setAttribute('aria-label',lang==='id'?'Ketuk untuk bicara':'Tap to talk');$('#plus').setAttribute('aria-label',lang==='id'?'Tambah':'Add');$('#mic').setAttribute('aria-label',lang==='id'?'Suara':'Voice');$('#send').setAttribute('aria-label',lang==='id'?'Kirim':'Send');$('#close').setAttribute('aria-label',lang==='id'?'Tutup percakapan':'Close conversation');
   $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
   $('#chips').innerHTML='';x.chips.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=s;b.onclick=()=>ask(s);$('#chips').appendChild(b)});
   if(!busy&&!listening)setStatus(x.ready,false);
@@ -405,7 +406,8 @@ const msgs=$('#msgs'),sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function add(txt,me){const d=document.createElement('div');d.className='m '+(me?'me':'bot');d.textContent=txt;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;if(!me){lastBot=txt;$('#peek').textContent=txt}return d}
 function setStatus(txt,work){$('#status').textContent=txt;$('.status').classList.toggle('empty',!txt);document.body.classList.toggle('working',!!work)}
 function openChat(v){document.body.classList.toggle('chat-open',v);if(v)msgs.scrollTop=msgs.scrollHeight}
-$('#peek').onclick=()=>openChat(true);$('#close').onclick=()=>openChat(false);$('.orbwrap').onclick=()=>openChat(false);
+$('#peek').onclick=()=>openChat(true);$('#close').onclick=()=>openChat(false);$('.orbwrap').onclick=()=>$('#mic').click();
+$('.orbwrap').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#mic').click()}};
 $('#q').addEventListener('focus',()=>openChat(true));
 $('#q').addEventListener('input',()=>$('#send').classList.toggle('ready',!!$('#q').value.trim()));
 const hist=[];
@@ -425,7 +427,7 @@ async function ask(q,viaVoice){
   busy=true;$('#prog').style.width='0%';
   const x=T[lang],k=x.kinds.find(k=>k[0].test(q)),st=k?k[1]:x.def;
   let done=false,r='';const p=getReply(q).then(v=>{r=v;done=true});
-  for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await sleep(RED?100:700);if(done)break}
+  for(let i=0;i<st.length;i++){setStatus(st[i]+'…',true);$('#prog').style.width=((i+1)/st.length*100)+'%';await Promise.race([sleep(RED?100:700),p]);if(done)break}
   await p;$('#prog').style.width='100%';
   add(r);busy=false;setStatus(listening?T[lang].listen:T[lang].ready,listening);
   if(!replyErr&&(speak==='always'||(speak==='voice'&&viaVoice)))speakText(r)}
@@ -453,33 +455,39 @@ function unlockAudio(){try{const AC=window.AudioContext||window.webkitAudioConte
 function stopSpeak(){spkTok++;try{spkSrc&&spkSrc.stop()}catch(e){}spkSrc=null;try{speechSynthesis.cancel()}catch(e){}
   spkFake=false;spkLevel=0;if(speaking){speaking=false;if(!busy&&!listening)setStatus(T[lang].ready,false)}}
 function cutText(t){t=t.replace(/\s+/g,' ').trim();if(t.length<=420)return t;const c=t.slice(0,420),i=Math.max(c.lastIndexOf('. '),c.lastIndexOf('? '),c.lastIndexOf('! '));return i>120?c.slice(0,i+1):c}
+/* the first sentence is voiced as soon as it is ready; the rest is fetched at the same time and plays right after */
+function splitSpeech(t){const m=t.slice(25).search(/[.!?]\s/);if(t.length<110||m<0)return[t];const i=m+26,a=t.slice(0,i).trim(),b=t.slice(i).trim();return b?[a,b]:[a]}
+async function playAudio(my,b64){
+  const bin=atob(b64),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+  const buf=await new Promise((res,rej)=>{const r=pctx.decodeAudioData(u8.buffer,res,rej);if(r&&r.catch)r.catch(rej)});
+  if(my!==spkTok)return false;
+  await pctx.resume();
+  const src=pctx.createBufferSource();src.buffer=buf;
+  const an=pctx.createAnalyser();an.fftSize=512;src.connect(an);an.connect(pctx.destination);
+  spkSrc=src;const data=new Uint8Array(an.fftSize);
+  (function lv(){if(spkSrc!==src)return;an.getByteTimeDomainData(data);let m=0;for(let i=0;i<data.length;i++){const v=(data[i]-128)/128;m+=v*v}spkLevel=spkLevel*.5+Math.min(1,Math.sqrt(m/data.length)*5)*.5;requestAnimationFrame(lv)})();
+  await new Promise(res=>{src.onended=res;src.start(0)});
+  return true}
 async function speakText(text){
   const my=++spkTok;try{speechSynthesis.cancel()}catch(e){}
   text=cutText(text);if(!text)return;
   unlockAudio();try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
   speaking=true;if(!busy&&!listening)setStatus(T[lang].speaking,true);
-  let played=false;
+  const parts=splitSpeech(text),reqs=parts.map(t=>api({action:'tts',lang,text:t}).catch(()=>null));
+  let done=0;
   try{
-    const{s,j}=await api({action:'tts',lang,text});
-    if(my!==spkTok)return;
-    if(s===401)gate(false);
-    else if(j.ok&&j.audio&&pctx){
-      const bin=atob(j.audio),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
-      const buf=await new Promise((res,rej)=>{const r=pctx.decodeAudioData(u8.buffer,res,rej);if(r&&r.catch)r.catch(rej)});
-      if(my!==spkTok)return;
-      await pctx.resume();
-      const src=pctx.createBufferSource();src.buffer=buf;
-      const an=pctx.createAnalyser();an.fftSize=512;src.connect(an);an.connect(pctx.destination);
-      spkSrc=src;const data=new Uint8Array(an.fftSize);
-      (function lv(){if(spkSrc!==src)return;an.getByteTimeDomainData(data);let m=0;for(let i=0;i<data.length;i++){const v=(data[i]-128)/128;m+=v*v}spkLevel=spkLevel*.5+Math.min(1,Math.sqrt(m/data.length)*5)*.5;requestAnimationFrame(lv)})();
-      played=true;
-      await new Promise(res=>{src.onended=res;src.start(0)});
-    }
+    for(let i=0;i<reqs.length;i++){
+      const r=await reqs[i];if(my!==spkTok)return;
+      if(r&&r.s===401){gate(false);break}
+      if(!(r&&r.j.ok&&r.j.audio&&pctx))break;
+      const ok=await playAudio(my,r.j.audio);if(my!==spkTok)return;
+      if(!ok)break;done=i+1}
   }catch(e){}
   if(my!==spkTok)return;
-  if(!played&&'speechSynthesis' in window){
+  const left=parts.slice(done).join(' ');
+  if(left&&'speechSynthesis' in window){
     spkFake=true;
-    await new Promise(res=>{const u=new SpeechSynthesisUtterance(text);u.lang=T[lang].loc;u.onend=res;u.onerror=res;speechSynthesis.speak(u)});
+    await new Promise(res=>{const u=new SpeechSynthesisUtterance(left);u.lang=T[lang].loc;u.onend=res;u.onerror=res;speechSynthesis.speak(u)});
   }
   if(my===spkTok){spkFake=false;spkLevel=0;spkSrc=null;speaking=false;if(!busy&&!listening)setStatus(T[lang].ready,false)}
 }
