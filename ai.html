@@ -351,7 +351,7 @@ function createOrb(cv,getE,umax,label){
   draw();
 }
 let micLevel=0;
-(function ease(){const tg=busy?1:listening?.4+.6*micLevel:0;energy+=(tg-energy)*(listening&&!busy?.2:.06);requestAnimationFrame(ease)})();
+(function ease(){const tg=busy?1:listening?.1+.9*micLevel:0;energy+=(tg-energy)*(listening&&!busy?.28:.06);requestAnimationFrame(ease)})();
 createOrb($('#core'),()=>energy,190,true);
 
 /* ---- UI text + language ---- */
@@ -402,8 +402,9 @@ function stopListen(msg){listening=false;micLevel=0;mic.setAttribute('aria-press
 /* record raw audio, downsample to 16 kHz mono and wrap it as a WAV file (works the same on every browser) */
 function wavB64(chunks,rate){
   let n=0;chunks.forEach(c=>n+=c.length);const all=new Float32Array(n);let o=0;chunks.forEach(c=>{all.set(c,o);o+=c.length});
+  let pk=0;for(let i=0;i<all.length;i++){const a=Math.abs(all[i]);if(a>pk)pk=a}const gain=pk>.002?Math.min(20,.9/pk):1;
   const ratio=rate/16000,len=Math.floor(all.length/ratio),pcm=new Int16Array(len);
-  for(let i=0;i<len;i++){const a=Math.floor(i*ratio),b=Math.min(all.length,Math.max(a+1,Math.floor((i+1)*ratio)));let sum=0;for(let j=a;j<b;j++)sum+=all[j];pcm[i]=Math.max(-1,Math.min(1,sum/(b-a)))*0x7fff}
+  for(let i=0;i<len;i++){const a=Math.floor(i*ratio),b=Math.min(all.length,Math.max(a+1,Math.floor((i+1)*ratio)));let sum=0;for(let j=a;j<b;j++)sum+=all[j];pcm[i]=Math.max(-1,Math.min(1,gain*sum/(b-a)))*0x7fff}
   const buf=new ArrayBuffer(44+len*2),v=new DataView(buf),w=(p,t)=>{for(let i=0;i<t.length;i++)v.setUint8(p+i,t.charCodeAt(i))};
   w(0,'RIFF');v.setUint32(4,36+len*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,16000,true);v.setUint32(28,32000,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,len*2,true);
   new Int16Array(buf,44,len).set(pcm);
@@ -418,7 +419,7 @@ async function startRec(){
   catch(e){try{ctx.close()}catch(_){}stopListen(T[lang].micBlock);return}
   if(!listening){stream.getTracks().forEach(t=>t.stop());try{ctx.close()}catch(e){}return}
   const src=ctx.createMediaStreamSource(stream),proc=ctx.createScriptProcessor(4096,1,1),mute=ctx.createGain();mute.gain.value=0;
-  const chunks=[];let spoke=false,quiet=0,peak=0;const t0=Date.now(),rate=ctx.sampleRate;
+  const chunks=[];let spoke=false,quiet=0,peak=0,ref=.02;const t0=Date.now(),rate=ctx.sampleRate;
   const finish=async()=>{
     if(!rc)return;rc=null;proc.onaudioprocess=null;
     try{proc.disconnect();src.disconnect();mute.disconnect()}catch(e){}
@@ -433,9 +434,9 @@ async function startRec(){
   proc.onaudioprocess=e=>{
     const d=e.inputBuffer.getChannelData(0);chunks.push(new Float32Array(d));
     let sum=0;for(let i=0;i<d.length;i++)sum+=d[i]*d[i];const rms=Math.sqrt(sum/d.length);
-    peak=Math.max(peak,rms);micLevel=Math.min(1,rms*10);
+    peak=Math.max(peak,rms);ref=Math.max(ref*.994,rms,.02);micLevel=micLevel*.4+Math.pow(Math.min(1,rms/ref),.7)*.6;
     const el=Date.now()-t0;
-    if(rms>.015){spoke=true;quiet=0}else if(spoke){quiet+=d.length/rate;if(quiet>1.5)finish()}
+    if(rms>.012){spoke=true;if(rms>Math.max(.01,ref*.2))quiet=0}if(spoke&&rms<=Math.max(.01,ref*.2)){quiet+=d.length/rate;if(quiet>1.5)finish()}
     if((!spoke&&el>7000)||el>25000)finish()};
   src.connect(proc);proc.connect(mute);mute.connect(ctx.destination);
   rc={stop:finish}}
