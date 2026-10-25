@@ -785,6 +785,19 @@ function localCmd(q){
 /* ---- keep the chat sheet above the dock ---- */
 new ResizeObserver(()=>document.documentElement.style.setProperty('--dockh',$('#dock').offsetHeight+'px')).observe($('#dock'));
 add(T[lang].hello);applyLang();
+/* ---- screen check: tap the date 5 times to show how this phone reports its screen (for fixing layout quirks) ---- */
+(function(){
+  const clk=document.querySelector('.clock');if(!clk)return;let n=0,tm=0,box=null,iv=0;
+  function probe(){const d=document.createElement('div');d.style.cssText='position:fixed;left:0;top:0;visibility:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)';document.body.appendChild(d);const cs=getComputedStyle(d),r=[cs.paddingTop,cs.paddingRight,cs.paddingBottom,cs.paddingLeft].join(' / ');d.remove();return r}
+  function show(){
+    if(box){box.remove();box=null;clearInterval(iv);document.documentElement.style.outline='';return}
+    box=document.createElement('pre');box.style.cssText='position:fixed;left:8px;right:8px;top:30%;z-index:99;margin:0;padding:12px;border-radius:12px;background:rgba(0,0,0,.88);border:1px solid #a78bfa;color:#e9e3ff;font:12px/1.45 ui-monospace,monospace;white-space:pre-wrap';
+    document.body.appendChild(box);document.documentElement.style.outline='3px solid #ff3b6b';document.documentElement.style.outlineOffset='-3px';
+    const up=()=>{const vv=window.visualViewport,b=document.body.getBoundingClientRect(),a=document.querySelector('.app').getBoundingClientRect();
+      box.textContent=['innerWxH  '+innerWidth+' x '+innerHeight,'screen    '+screen.width+' x '+screen.height,'visualVp  '+(vv?Math.round(vv.width)+' x '+Math.round(vv.height)+' top '+Math.round(vv.offsetTop):'-'),'docEl     '+document.documentElement.clientWidth+' x '+document.documentElement.clientHeight,'body      '+Math.round(b.top)+' to '+Math.round(b.bottom),'app       '+Math.round(a.top)+' to '+Math.round(a.bottom),'safe t/r/b/l  '+probe(),'standalone  '+(navigator.standalone===true)+' / '+matchMedia('(display-mode:standalone)').matches,'tap date 5x again to close'].join('\n')};
+    up();iv=setInterval(up,700)}
+  clk.addEventListener('click',()=>{n++;clearTimeout(tm);tm=setTimeout(()=>{n=0},1500);if(n>=5){n=0;show()}})
+})();
 </script>
 </body>
 </html>
