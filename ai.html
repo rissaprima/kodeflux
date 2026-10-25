@@ -298,7 +298,7 @@ let busy=false,listening=false,energy=0,lang='en',lastBot='';
 /* ---- text (ID / EN) ---- */
 const T={
  id:{loc:'id-ID',ph:'Ketik atau ucapkan perintah…',ready:'',listen:'Mendengarkan…',chat:'Percakapan',demo:'demo',
-  aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Tutup',agLegAI:'Agent AI',agLegHu:'Persetujuan manusia',agCount:'18 agent · 6 divisi',agAuto:'tugas otomatis',decTitle:'Butuh persetujuanmu',approve:'Setujui',revise:'Revisi',revPre:'Revisi: ',you:'Kamu',sys1:'FluxOS aktif · 18 agent + 3 titik persetujuan manusia di 6 divisi',sys2:'AI menyiapkan pekerjaan, kamu menyetujui langkah pentingnya',revReq:'Revisi diminta · Flux-E menyusun ulang',revRdy:'Draf revisi siap · menunggu persetujuanmu',apprd:'Disetujui',cmdOk:'Disetujui.',cmdRev:'Oke, kurevisi dulu dan kubawa lagi ke kamu sebentar lagi.',cmdNone:'Tidak ada yang menunggu persetujuanmu saat ini.',cmdPend:'Menunggu kamu: ',cmdHow:' Bilang "setuju" atau "revisi".',
+  aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Tutup',agLegAI:'Agent AI',agLegHu:'Persetujuan manusia',agCount:'18 agent · 8 bisnis',agAuto:'tugas otomatis',decTitle:'Butuh persetujuanmu',approve:'Setujui',revise:'Revisi',revPre:'Revisi: ',you:'Kamu',sys1:'FluxOS aktif · 18 agent + 3 titik persetujuan manusia di 6 divisi',sys2:'AI menyiapkan pekerjaan, kamu menyetujui langkah pentingnya',revReq:'Revisi diminta · Flux-E menyusun ulang',revRdy:'Draf revisi siap · menunggu persetujuanmu',apprd:'Disetujui',cmdOk:'Disetujui.',cmdRev:'Oke, kurevisi dulu dan kubawa lagi ke kamu sebentar lagi.',cmdNone:'Tidak ada yang menunggu persetujuanmu saat ini.',cmdPend:'Menunggu kamu: ',cmdHow:' Bilang "setuju" atau "revisi".',
   aFile:'Lampirkan file',aOut:'Keluar',loginSub:'Akses privat. Masuk untuk melanjutkan.',signin:'Masuk',signing:'Memeriksa…',phEm:'Email',phPw:'Kata sandi',bad:'Email atau kata sandi salah.',cfg:'Login belum diatur di Netlify.',net:'Tidak bisa terhubung. Coba lagi.',aPhoto:'Ambil dari galeri',aNote:'Catatan cepat',soon:'Segera hadir',micBlock:'Mic diblokir. Izinkan di pengaturan Safari',micNone:'Tidak terdengar. Coba lagi',micErr:'Suara tidak tersedia. Pakai mic keyboard',micNo:'Browser ini belum mendukung suara',micSilent:'Mic tidak menangkap suara. Cek mic iPad',starting:'Menyiapkan mic…',spk:'Balasan suara',spk_voice:'saat aku bicara',spk_always:'selalu',spk_off:'mati',speaking:'Berbicara…',noVoice:'Suara tidak tersedia, jawaban dalam teks',noQuota:'Kuota suara habis untuk sekarang, jawaban dalam teks',stt:'Memproses suara…',aiBusy:'Flux-E sedang sibuk. Coba lagi sebentar.',aiOff:'AI belum diatur di Netlify.',aiNet:'Tidak bisa terhubung. Coba lagi.',aiSess:'Sesi habis. Silakan masuk lagi.',
   hello:'Siap, aku Flux-E. Kasih perintah lewat teks atau suara, dan kamu bisa lihat prosesnya langsung di sini.',
   chips:['Briefing pagi ini','Keputusan yang menunggu','Ringkas cashflow'],
@@ -307,7 +307,7 @@ const T={
   def:['Memahami permintaan','Mengumpulkan konteks','Menyusun jawaban'],
   r:['Briefing pagi: ada tiga hal yang perlu perhatianmu hari ini. Setelah terhubung ke kalender dan inbox, ini terisi otomatis dari data aslimu.','Aku kumpulkan keputusan yang menunggu, tiap opsi kuberi risiko dan dampaknya, lalu kuurutkan dari yang paling mendesak.','Mau kubikin simulasi cashflow tiga skenario: konservatif, realistis, dan agresif?','Siap. Ceritain aja maunya apa, nanti kupecah jadi langkah kecil.']},
  en:{loc:'en-US',ph:'Type or speak a command…',ready:'',listen:'Listening…',chat:'Conversation',demo:'demo',
-  aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Close',agLegAI:'AI agent',agLegHu:'Human checkpoint',agCount:'18 agents · 6 divisions',agAuto:'auto tasks',decTitle:'Needs your approval',approve:'Approve',revise:'Revise',revPre:'Revised: ',you:'You',sys1:'FluxOS online · 18 agents + 3 human checkpoints across 6 divisions',sys2:'AI prepares the work, you approve the key steps',revReq:'Revision requested · Flux-E is redrafting',revRdy:'Revised draft ready · waiting for your approval',apprd:'Approved',cmdOk:'Approved.',cmdRev:"Okay, I'll revise it and bring it back to you shortly.",cmdNone:'Nothing is waiting for your approval right now.',cmdPend:'Waiting for you: ',cmdHow:' Say "approve" or "revise".',
+  aAgents:'Flux Agents',agTitle:'Flux Agents',agClose:'Close',agLegAI:'AI agent',agLegHu:'Human checkpoint',agCount:'18 agents · 8 businesses',agAuto:'auto tasks',decTitle:'Needs your approval',approve:'Approve',revise:'Revise',revPre:'Revised: ',you:'You',sys1:'FluxOS online · 18 agents + 3 human checkpoints across 6 divisions',sys2:'AI prepares the work, you approve the key steps',revReq:'Revision requested · Flux-E is redrafting',revRdy:'Revised draft ready · waiting for your approval',apprd:'Approved',cmdOk:'Approved.',cmdRev:"Okay, I'll revise it and bring it back to you shortly.",cmdNone:'Nothing is waiting for your approval right now.',cmdPend:'Waiting for you: ',cmdHow:' Say "approve" or "revise".',
   aFile:'Attach a file',aOut:'Sign out',loginSub:'Private access. Sign in to continue.',signin:'Sign in',signing:'Checking…',phEm:'Email',phPw:'Password',bad:'Wrong email or password.',cfg:'Login is not set up in Netlify yet.',net:'Cannot connect. Try again.',aPhoto:'Choose from gallery',aNote:'Quick note',soon:'Coming soon',micBlock:'Mic blocked. Allow it in Safari settings',micNone:"Didn't catch that. Try again",micErr:'Voice unavailable. Use the keyboard mic',micNo:'Voice is not supported in this browser',micSilent:'The mic picked up no sound. Check the iPad mic',starting:'Starting mic…',spk:'Voice replies',spk_voice:'when I speak',spk_always:'always',spk_off:'off',speaking:'Speaking…',noVoice:'Voice unavailable, answer is in text',noQuota:'Voice quota is used up for now, answer is in text',stt:'Processing voice…',aiBusy:'Flux-E is busy. Try again in a moment.',aiOff:'AI is not set up in Netlify yet.',aiNet:'Cannot connect. Try again.',aiSess:'Session expired. Please sign in again.',
   hello:"Ready. I'm Flux-E. Give me a command by text or voice and you can watch the work happen right here.",
   chips:['Morning briefing','Pending decisions','Summarize cashflow'],
@@ -610,63 +610,126 @@ mic.onclick=()=>{
 /* ---- Flux Agents: FluxOS orbit, 6 divisions, 18 agents, 3 human checkpoints. You are the human, through Flux-E. ---- */
 const AG=(function(){
   const cv=$('#agnet'),g=cv.getContext('2d'),feed=$('#agfeed'),decEl=$('#agdec');
-  const COLORS=['#c4b5fd','#a78bfa','#b794f6','#9fa8ff','#cdb4ff','#9a86f2'],HUM='#f4f1ea';
-  const DIV=[
-    {k:'director',n:'DIRECTOR',a:{en:['Priorities','Decisions','Briefing'],id:['Prioritas','Keputusan','Briefing']}},
-    {k:'marketing',n:'MARKETING',a:{en:['Content','Campaigns','Insights'],id:['Konten','Kampanye','Insight']}},
-    {k:'sales',n:'SALES',a:{en:['Leads','Proposals','Follow-up'],id:['Prospek','Proposal','Tindak lanjut']}},
-    {k:'operation',n:'OPERATION',a:{en:['Schedule','Tasks','Reminders'],id:['Jadwal','Tugas','Pengingat']}},
-    {k:'production',n:'PRODUCTION',a:{en:['Briefs','QC','Delivery'],id:['Brief','QC','Pengiriman']}},
-    {k:'finance',n:'FINANCE',a:{en:['Invoices','Payments','Reports'],id:['Invoice','Pembayaran','Laporan']}}];
-  const di=k=>DIV.findIndex(d=>d.k===k);
-  const Li=()=>lang==='id'?1:0;
-  /* [from, to, en, id, weight, {dec, ok}]  (the last item marks a step where YOU decide) */
+  /* ---- the 8 businesses, in 3 groups, each group with the same 6 divisions ---- */
+  const GRP=[{n:'SERVICE'},{n:'TECH'},{n:'RETAIL'}];
+  const DIV=[{k:'dir',n:'Director',s:'DIR'},{k:'mkt',n:'Marketing',s:'MKT'},{k:'sls',n:'Sales',s:'SLS'},{k:'ops',n:'Operation',s:'OPS'},{k:'prd',n:'Production',s:'PRD'},{k:'fin',n:'Finance',s:'FIN'}];
+  const BIZ={kx:{n:'Komplex',g:0},kp:{n:'Kapsule',g:0},kf:{n:'Kodeflux',g:1},kl:{n:'Klubhouse',g:1},as:{n:'Aroma Senja',g:2},ml:{n:'Melestari',g:2},kt:{n:'Kerta',g:2},kn:{n:'Kenami',g:2}};
+  const dIx=k=>DIV.findIndex(d=>d.k===k);
+  /* [business, division, to-business ('' = same), to-division ('flux' = reports to Flux-E, 'human' = needs you), en, id, weight, {dec, ok} for your decisions]
+     {n} {k} {m} {p} {pc} {jt} {d} {r} are numbers that change every day, so the same hour is never the same story twice. */
   const RAW={
     morning:[
-      ['operation','director','Daily plan built from your calendar · 3 priorities ranked','Rencana harian dari kalendermu · 3 prioritas diurutkan',4],
-      ['finance','director','Overnight payments matched · cash position updated','Pembayaran semalam dicocokkan · posisi kas diperbarui',4],
-      ['sales','operation','2 new inquiries logged · follow-ups scheduled','2 inquiry baru dicatat · tindak lanjut dijadwalkan',4],
-      ['marketing','production','Content calendar synced · 3 posts queued for review','Kalender konten disinkron · 3 post antre review',3],
-      ['production','marketing','Brief prepared · assets requested from the team','Brief disiapkan · aset diminta dari tim',3],
-      ['director','sales','Proposal draft ready · waiting for your approval','Draf proposal siap · menunggu persetujuanmu',3,{dec:['Send the Rp 42,000,000 proposal to Aruna Villas?','Kirim proposal Rp 42.000.000 ke Aruna Villas?'],ok:['Proposal sent · follow-up set for Friday','Proposal terkirim · tindak lanjut dijadwalkan Jumat']}]],
+      ["kx","fin","","flux","Overnight bookings reconciled · {n} new reservations across channels","Booking semalam direkonsiliasi · {n} reservasi baru dari berbagai kanal",4],
+      ["kx","ops","","flux","Housekeeping schedule built · {n} turnovers today","Jadwal housekeeping disusun · {n} turnover hari ini",4],
+      ["kx","sls","","flux","Booking pace checked · {pc}% occupancy for the next 14 days","Booking pace dicek · okupansi {pc}% untuk 14 hari ke depan",3],
+      ["kp","ops","","flux","Daily plan built · {n} deliverables due this week, none overdue","Rencana harian disusun · {n} deliverable minggu ini, tidak ada yang telat",4],
+      ["kp","mkt","","prd","Content calendar synced · {n} posts queued for review","Kalender konten disinkron · {n} post antre review",3],
+      ["kp","sls","","flux","{k} new leads from the Pulse brand check · replies drafted","{k} lead baru dari Pulse brand check · balasan disiapkan",3],
+      ["kf","mkt","","flux","Freelancer newsletter drafted · scheduled for 10:00","Newsletter freelancer disusun · dijadwalkan pukul 10.00",3],
+      ["kf","ops","","flux","Workshop reminders sent · {m} participants confirmed","Pengingat workshop terkirim · {m} peserta konfirmasi",3],
+      ["kl","prd","","flux","Energy and waste readings synced from {n} client sites","Data energi dan limbah disinkron dari {n} lokasi klien",3],
+      ["kt","ops","","flux","Stock count done · {n} SKUs below reorder level","Stok dihitung · {n} SKU di bawah batas pesan ulang",4],
+      ["as","prd","","flux","Roast batch {n} logged · cupping QC passed","Batch roasting {n} dicatat · QC cupping lolos",3],
+      ["ml","prd","","flux","Soap tablet batch curing · day {d} of 28","Batch sabun tablet sedang curing · hari ke-{d} dari 28",3],
+      ["kn","sls","","flux","{m} online orders overnight · all packed for pickup","{m} order online semalam · semua dikemas untuk pickup",4],
+      ["kn","fin","","flux","Marketplace payouts matched · {n} settlements cleared","Pencairan marketplace dicocokkan · {n} settlement masuk",3],
+      ["kt","sls","kx","ops","Kerta candle and tea amenities accepted by Komplex · {n} villas","Amenity lilin dan teh Kerta diterima Komplex · {n} villa",3],
+      ["kx","mkt","kp","mkt","Brief sent to Kapsule · refreshed listing photos for {k} villas","Brief dikirim ke Kapsule · foto listing baru untuk {k} villa",3],
+      ["kx","fin","","human","Owner statement ready · waiting for your approval","Owner statement siap · menunggu persetujuanmu",2,{dec:["Komplex · Send the owner statement for Villa Lintang · net Rp {jt} million?","Komplex · Kirim owner statement Villa Lintang · bersih Rp {jt} juta?"],ok:["Statement sent to the owner","Statement terkirim ke pemilik"]}],
+      ["kp","sls","","human","Proposal draft ready · waiting for your approval","Draf proposal siap · menunggu persetujuanmu",2,{dec:["Kapsule · Send the Rp {jt} million rebrand proposal to a new villa client?","Kapsule · Kirim proposal rebrand Rp {jt} juta ke klien villa baru?"],ok:["Proposal sent · follow-up set for Thursday","Proposal terkirim · tindak lanjut diatur Kamis"]}],
+      ["kt","prd","","human","Supplier quote ready · waiting for your approval","Penawaran supplier siap · menunggu persetujuanmu",2,{dec:["Kerta · Reorder dried herbs for the next batch · Rp {jt} million?","Kerta · Pesan ulang herbal kering untuk batch berikutnya · Rp {jt} juta?"],ok:["Purchase order sent to the supplier","PO terkirim ke supplier"]}]
+    ],
     day:[
-      ['sales','finance','Deal confirmed · DP invoice drafted','Deal dikonfirmasi · invoice DP disusun',3],
-      ['marketing','director','Weekly insight refreshed · best hook flagged','Insight mingguan diperbarui · hook terbaik ditandai',3],
-      ['operation','production','Task handed over · QC checklist attached','Tugas diserahkan · checklist QC dilampirkan',4],
-      ['production','operation','Deliverable passed QC · scheduled for delivery','Deliverable lolos QC · dijadwalkan terkirim',4],
-      ['finance','director','Weekly report compiled · 2 variances flagged','Laporan mingguan disusun · 2 selisih ditandai',3],
-      ['sales','marketing','Lead feedback shared · messaging adjusted','Masukan prospek dibagikan · pesan disesuaikan',3],
-      ['operation','director','Calendar conflict resolved · meeting moved to 15:00','Bentrok jadwal selesai · meeting dipindah ke 15:00',3],
-      ['finance','sales','DP invoice ready · waiting for your approval','Invoice DP siap · menunggu persetujuanmu',3,{dec:['Send the DP invoice of Rp 12,600,000?','Kirim invoice DP Rp 12.600.000?'],ok:['Invoice sent to the client','Invoice terkirim ke klien']}],
-      ['director','marketing','Caption set ready · waiting for your approval','Set caption siap · menunggu persetujuanmu',2,{dec:["Approve the captions for Friday's posts?",'Setujui caption untuk post hari Jumat?'],ok:['Posts scheduled for Friday 09:00','Post dijadwalkan Jumat 09:00']}]],
+      ["kx","sls","","flux","Rate adjustment applied · weekend pricing up {p}% on 3 listings","Penyesuaian harga diterapkan · harga akhir pekan naik {p}% di 3 listing",3],
+      ["kx","ops","","flux","Maintenance ticket closed · AC repaired in unit {n}","Tiket maintenance selesai · AC diperbaiki di unit {n}",3],
+      ["kx","mkt","","flux","Guest review replied · rating holding at 4.{r}","Review tamu dibalas · rating bertahan di 4,{r}",3],
+      ["kp","prd","","flux","Reel edit delivered for client review · v{k}","Edit reel dikirim untuk review klien · v{k}",3],
+      ["kp","fin","","flux","Invoice batch generated · {n} clients, all on terms","Batch invoice dibuat · {n} klien, semua sesuai termin",3],
+      ["kp","ops","","prd","Brief handed to production · shoot scheduled for Thursday","Brief diserahkan ke produksi · syuting dijadwalkan Kamis",3],
+      ["kf","sls","","flux","Consulting lead qualified · discovery call booked","Lead konsultasi dikualifikasi · discovery call dijadwalkan",3],
+      ["kf","prd","","flux","FluxHQ setup delivered to a client · onboarding checklist sent","Setup FluxHQ diserahkan ke klien · checklist onboarding terkirim",3],
+      ["kf","fin","","flux","Course sales settled · {n} new learners this week","Penjualan kelas dicocokkan · {n} peserta baru minggu ini",2],
+      ["kl","sls","","flux","Pilot proposal drafted · green-ops audit for a hotel group","Draf proposal pilot · audit green-ops untuk grup hotel",2],
+      ["kl","prd","","flux","Circularity report built · {p}% of waste diverted this month","Laporan sirkularitas disusun · {p}% limbah dialihkan bulan ini",3],
+      ["as","sls","","flux","Wholesale order confirmed · {n} cafes restocked","Order grosir dikonfirmasi · {n} kafe di-restock",3],
+      ["ml","mkt","","flux","Refill campaign live · conversions up {p}%","Kampanye refill tayang · konversi naik {p}%",2],
+      ["kt","prd","","flux","Candle pour QC passed · batch released for packing","QC tuang lilin lolos · batch dirilis untuk packing",3],
+      ["kn","ops","","flux","Courier pickup booked · {m} parcels today","Pickup kurir dijadwalkan · {m} paket hari ini",3],
+      ["kx","mkt","kp","mkt","Villa launch campaign requested from Kapsule · brief attached","Kampanye launch villa diminta ke Kapsule · brief terlampir",3],
+      ["kp","dir","kf","sls","Kapsule client needs an AI workflow · routed to Kodeflux","Klien Kapsule butuh workflow AI · diarahkan ke Kodeflux",3],
+      ["kl","sls","kx","sls","Klubhouse green-ops add-on proposed to a Komplex client","Add-on green-ops Klubhouse ditawarkan ke klien Komplex",2],
+      ["ml","sls","kx","ops","Eco amenity set (soap and shampoo tablets) quoted for Komplex villas","Paket amenity eco (sabun dan shampoo tablet) ditawarkan ke villa Komplex",2],
+      ["as","sls","kp","ops","Coffee for Kapsule client workshops ordered","Kopi untuk workshop klien Kapsule dipesan",2],
+      ["kp","fin","","human","Invoice ready · waiting for your approval","Invoice siap · menunggu persetujuanmu",2,{dec:["Kapsule · Send the final invoice of Rp {jt} million to a villa client?","Kapsule · Kirim invoice akhir Rp {jt} juta ke klien villa?"],ok:["Invoice sent to the client","Invoice terkirim ke klien"]}],
+      ["ml","mkt","","human","Campaign captions ready · waiting for your approval","Caption kampanye siap · menunggu persetujuanmu",2,{dec:["Melestari · Approve the refill campaign captions for Friday?","Melestari · Setujui caption kampanye refill untuk hari Jumat?"],ok:["Posts scheduled for Friday 09:00","Post dijadwalkan Jumat pukul 09.00"]}],
+      ["kx","fin","","human","Vendor payment waiting · needs your approval","Pembayaran vendor menunggu · butuh persetujuanmu",2,{dec:["Komplex · Release the Rp {jt} million maintenance vendor payment?","Komplex · Cairkan pembayaran vendor maintenance Rp {jt} juta?"],ok:["Payment released","Pembayaran dicairkan"]}],
+      ["kf","dir","","human","Pricing change drafted · waiting for your approval","Perubahan harga disusun · menunggu persetujuanmu",1,{dec:["Kodeflux · Raise the AI consulting day rate by {p}% for new clients?","Kodeflux · Naikkan tarif harian konsultasi AI sebesar {p}% untuk klien baru?"],ok:["New rate applied to new proposals","Tarif baru dipakai di proposal baru"]}]
+    ],
     evening:[
-      ['finance','operation','Day closed · expenses categorized','Hari ditutup · pengeluaran dikategorikan',4],
-      ['marketing','sales','Engagement spike detected · warm leads flagged','Lonjakan engagement terdeteksi · prospek hangat ditandai',4],
-      ['production','director','Tomorrow\'s deliverables checked · 1 at risk','Deliverable besok dicek · 1 berisiko',3],
-      ['sales','finance','Follow-up sent · payment reminder queued','Tindak lanjut terkirim · pengingat bayar diantrekan',3],
-      ['operation','marketing','Reminders queued for tomorrow','Pengingat untuk besok diantrekan',3],
-      ['director','operation','Tomorrow\'s plan ready · waiting for your approval','Rencana besok siap · menunggu persetujuanmu',3,{dec:["Lock tomorrow's schedule with 4 meetings?",'Kunci jadwal besok dengan 4 meeting?'],ok:['Schedule locked · reminders set','Jadwal dikunci · pengingat dipasang']}]],
+      ["kx","fin","","flux","Day closed · {n} owner payouts scheduled","Hari ditutup · {n} pembayaran ke pemilik dijadwalkan",3],
+      ["kx","ops","","flux","Tomorrow's arrivals prepared · welcome messages queued","Kedatangan besok disiapkan · pesan sambutan diantrekan",3],
+      ["kp","prd","","flux","Tomorrow's shoot checked · gear and call sheet confirmed","Syuting besok dicek · alat dan call sheet dikonfirmasi",3],
+      ["kp","mkt","","flux","Engagement report compiled · best post {p}% above average","Laporan engagement disusun · post terbaik {p}% di atas rata-rata",3],
+      ["kf","sls","","flux","Follow-up sent to {n} consulting leads","Tindak lanjut terkirim ke {n} lead konsultasi",3],
+      ["kf","prd","","flux","Course module QA done · captions and handouts attached","QA modul kelas selesai · caption dan handout dilampirkan",2],
+      ["kl","fin","","flux","Pilot invoices reconciled · {n} paid, none overdue","Invoice pilot dicocokkan · {n} lunas, tidak ada yang telat",2],
+      ["as","ops","","flux","Barley supply checked · enough for {n} weeks of production","Pasokan barley dicek · cukup untuk {n} minggu produksi",3],
+      ["ml","ops","","flux","Packaging stock counted · reorder planned for next week","Stok kemasan dihitung · pesan ulang direncanakan minggu depan",3],
+      ["kt","mkt","","flux","Evening ritual post scheduled · tea and candle bundle","Post ritual malam dijadwalkan · bundel teh dan lilin",3],
+      ["kn","prd","","flux","Bamboo fabric lot inspected · {pc}% pass rate","Lot kain bambu diinspeksi · tingkat lolos {pc}%",3],
+      ["kn","fin","","flux","Day closed · online sales reconciled, no mismatches","Hari ditutup · penjualan online dicocokkan, tidak ada selisih",3],
+      ["kn","sls","kx","ops","Kenami bamboo towels quoted for Komplex guest rooms","Handuk bambu Kenami ditawarkan untuk kamar tamu Komplex",2],
+      ["kx","dir","kp","dir","Komplex marketing requests routed to Kapsule · {n} open","Permintaan marketing Komplex diteruskan ke Kapsule · {n} terbuka",3],
+      ["as","sls","kp","ops","Kapsule ordered coffee for next week's client sessions","Kapsule memesan kopi untuk sesi klien minggu depan",2],
+      ["kx","dir","","human","Tomorrow's plan ready · waiting for your approval","Rencana besok siap · menunggu persetujuanmu",2,{dec:["Komplex · Lock tomorrow's schedule with {k} meetings across your businesses?","Komplex · Kunci jadwal besok dengan {k} meeting lintas bisnismu?"],ok:["Schedule locked · reminders set","Jadwal dikunci · pengingat diatur"]}],
+      ["ml","fin","","human","Supplier invoice waiting · needs your approval","Invoice supplier menunggu · butuh persetujuanmu",2,{dec:["Melestari · Pay the Rp {jt} million packaging supplier invoice?","Melestari · Bayar invoice supplier kemasan Rp {jt} juta?"],ok:["Payment scheduled","Pembayaran dijadwalkan"]}],
+      ["kf","dir","","human","Partnership reply drafted · waiting for your approval","Balasan kemitraan disusun · menunggu persetujuanmu",2,{dec:["Kodeflux · Send the partnership reply to a corporate training client?","Kodeflux · Kirim balasan kemitraan ke klien pelatihan korporat?"],ok:["Reply sent","Balasan terkirim"]}]
+    ],
     night:[
-      ['sales','director','Overnight inquiry logged · reply drafted for morning','Inquiry semalam dicatat · balasan disiapkan untuk pagi',4],
-      ['finance','director','Bank feed synced · no anomalies found','Mutasi bank disinkron · tidak ada anomali',4],
-      ['marketing','production','Repurposed cuts prepared for tomorrow','Potongan konten ulang disiapkan untuk besok',3],
-      ['operation','director','Tomorrow\'s agenda pre-built','Agenda besok disiapkan lebih awal',3],
-      ['sales','director','Reply held · waiting for your approval','Balasan ditahan · menunggu persetujuanmu',1,{dec:['Send the reply to the 02:14 inquiry?','Kirim balasan untuk inquiry pukul 02:14?'],ok:['Reply sent to the client','Balasan terkirim ke klien']}]]
+      ["kx","fin","","flux","Bank feed synced · no anomalies found","Mutasi bank disinkron · tidak ada anomali",4],
+      ["kx","sls","","flux","Overnight guest inquiry answered · booking held for 24h","Pertanyaan tamu semalam dijawab · booking ditahan 24 jam",3],
+      ["kp","mkt","","flux","Repurposed cuts prepared for tomorrow","Potongan konten ulang disiapkan untuk besok",3],
+      ["kp","ops","","flux","Backups verified · client files archived","Backup diverifikasi · file klien diarsipkan",2],
+      ["kf","ops","","flux","Platform health check · all tools running normally","Cek kesehatan platform · semua tools berjalan normal",3],
+      ["kf","mkt","","flux","Course email sequence queued for tomorrow morning","Urutan email kelas diantrekan untuk besok pagi",2],
+      ["kl","prd","","flux","Nightly data sync · {n} sites updated, no gaps","Sinkron data malam · {n} lokasi diperbarui, tanpa celah",3],
+      ["kt","ops","","flux","Marketplace stock synced · {n} SKUs updated","Stok marketplace disinkron · {n} SKU diperbarui",3],
+      ["as","sls","","flux","Overnight wholesale inquiry logged · quote drafted","Inquiry grosir semalam dicatat · penawaran disiapkan",3],
+      ["ml","mkt","","flux","Refill reminder emails scheduled for tomorrow","Email pengingat refill dijadwalkan untuk besok",3],
+      ["kn","ops","","flux","Tomorrow's dispatch list built · {m} parcels","Daftar pengiriman besok disusun · {m} paket",3],
+      ["kn","fin","","flux","Daily revenue closed across all channels","Pendapatan harian ditutup di semua kanal",3],
+      ["kx","dir","","flux","Tomorrow's agenda pre-built across all 8 businesses","Agenda besok disusun lebih awal untuk 8 bisnis",3],
+      ["kt","prd","kx","prd","Aromatherapy refill batch queued for a Komplex villa order","Batch refill aromaterapi diantrekan untuk pesanan villa Komplex",2],
+      ["kx","sls","","human","Quote held · waiting for your approval","Penawaran ditahan · menunggu persetujuanmu",1,{dec:["Komplex · Send the Rp {jt} million quote to a late-night villa inquiry?","Komplex · Kirim penawaran Rp {jt} juta untuk inquiry villa tengah malam?"],ok:["Quote sent to the client","Penawaran terkirim ke klien"]}],
+      ["kt","dir","","human","Flash sale drafted · waiting for your approval","Flash sale disusun · menunggu persetujuanmu",1,{dec:["Kerta · Approve a {p}% price promo for tomorrow's flash sale?","Kerta · Setujui promo harga {p}% untuk flash sale besok?"],ok:["Promo scheduled for tomorrow 10:00","Promo dijadwalkan besok pukul 10.00"]}]
+    ]
   };
-  const POOLS={};for(const k in RAW)POOLS[k]=RAW[k].map(r=>({from:r[0],to:r[1],t:[r[2],r[3]],w:r[4]||1,h:!!r[5],dec:r[5]&&r[5].dec,ok:r[5]&&r[5].ok}));
+  const POOLS={};
+  for(const ph in RAW)POOLS[ph]=RAW[ph].map(r=>{const b=r[0],tb=r[2]||b;return{id:ph+'|'+r[0]+r[1]+'|'+r[4].slice(0,22),b,d:dIx(r[1]),tb:r[2]||'',td:r[3]==='flux'?-1:r[3]==='human'?-2:dIx(r[3]),fg:BIZ[b].g,tg:BIZ[tb].g,en:r[4],idt:r[5],w:r[6]||3,h:r[3]==='human',decR:r[7]&&r[7].dec,okR:r[7]&&r[7].ok}});
   const TEMPO={night:3400,morning:1900,day:2000,evening:2400};
-  const pad=n=>n<10?'0'+n:String(n),nowHM=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+  const pad=n=>n<10?'0'+n:String(n),hm=d=>pad(d.getHours())+':'+pad(d.getMinutes()),nowHM=()=>hm(new Date());
   const phase=()=>{const h=new Date().getHours();return h>=21||h<5?'night':h<11?'morning':h<18?'day':'evening'};
   const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  const who=w=>w==='you'?T[lang].you:w==='sys'?'FluxOS':DIV[di(w)].n[0]+DIV[di(w)].n.slice(1).toLowerCase();
+  const Li=()=>lang==='id'?1:0;
+  const lbl=r=>r.who==='you'?T[lang].you:r.who==='sys'?'FluxOS':(r.tb?BIZ[r.b].n+' → '+BIZ[r.tb].n:BIZ[r.b].n+' · '+DIV[r.d].n);
+
+  /* numbers that change per day and per time of day (same inside one phase, so both languages agree) */
+  const hash=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0};
+  const rng=seed=>{let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}};
+  const NUM={n:[3,9],k:[2,4],m:[10,40],p:[5,19],jt:[8,48],pc:[78,96],d:[10,27],r:[5,9]};
+  const dayKey=()=>{const d=new Date();return d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()};
+  const fill=(s,key)=>s.replace(/\{(\w+)\}/g,(m,t)=>{const r=NUM[t];if(!r)return m;return String(r[0]+Math.floor(rng(hash(key+t+dayKey()+phase()))()*(r[1]-r[0]+1)))});
+  const todays=ph=>{const all=POOLS[ph],keep=all.filter(x=>x.h||hash(x.id+dayKey())%100<75);return keep.length>=8?keep:all};
+  function make(p){return{id:p.id,b:p.b,d:p.d,tb:p.tb,td:p.td,fg:p.fg,tg:p.tg,h:p.h,t:[fill(p.en,p.id),fill(p.idt,p.id)],dec:p.decR&&[fill(p.decR[0],p.id),fill(p.decR[1],p.id)],ok:p.okR&&[fill(p.okR[0],p.id),fill(p.okR[1],p.id)]}}
 
   /* ---- feed ---- */
   let hist=[];
   const mk=(r,anim)=>{const e=document.createElement('div');e.className='fr'+(anim?' new':'');
-    e.innerHTML='<time>'+r.time+'</time><p><b>'+esc(who(r.who))+'</b>'+(r.h?'<i class="hd"></i>':'')+esc(r.t[Li()])+'</p>';return e};
+    e.innerHTML='<time>'+r.time+'</time><p><b>'+esc(lbl(r))+'</b>'+(r.h?'<i class="hd"></i>':'')+esc(r.t[Li()])+'</p>';return e};
   const full=[];
-  function row(r){r.time=nowHM();full.push({time:r.time,who:r.who,h:!!r.h,t:r.t});if(full.length>40)full.shift();hist.unshift(r);hist=hist.slice(0,8);feed.prepend(mk(r,true));while(feed.children.length>8)feed.lastChild.remove()}
+  function row(r,time){r.time=time||nowHM();full.push({time:r.time,who:r.who,b:r.b,d:r.d,tb:r.tb,h:!!r.h,t:r.t});if(full.length>40)full.shift();hist.unshift(r);hist=hist.slice(0,8);feed.prepend(mk(r,true));while(feed.children.length>8)feed.lastChild.remove()}
   function renderFeed(){feed.innerHTML='';hist.forEach(r=>feed.appendChild(mk(r,false)))}
+  const taskRow=f=>({who:'task',b:f.b,d:f.d,tb:f.tb||'',h:f.h,t:f.t});
 
   /* ---- decision card (you are the human checkpoint) ---- */
   let pend=null,revising=false,auto=0,sinceHuman=3,recent=[];
@@ -677,100 +740,112 @@ const AG=(function(){
   const setAuto=n=>{auto=n;$('#agauto').textContent=n};
   function approve(){
     if(!pend)return null;const p=pend;pend=null;showDec();humanPulse[p.hk]=1;
-    const hl=links.filter(l=>l.tool&&l.hk===p.hk)[0];if(hl)spawn(hl,true);
-    const to=di(p.f.to);if(to>=0){tgt[to]=1;const c=linkOf(to,null);if(c)setTimeout(()=>spawn(c,true),260)}
+    const hl=humanLink(p.f.fg,p.f.d);spawn(hl,false);setTimeout(()=>spawn(gdLink[p.f.fg*6+p.f.d],false),240);
     row({who:'you',h:1,t:[T.en.apprd+' · '+p.f.ok[0],T.id.apprd+' · '+p.f.ok[1]]});setAuto(auto+2);return p.f}
   function revise(){
     if(!pend)return null;const p=pend;pend=null;revising=true;showDec();
     row({who:'you',h:1,t:[T.en.revReq,T.id.revReq]});
-    setTimeout(()=>{revising=false;const hl=links.filter(l=>l.tool&&l.hk===p.hk)[0];if(hl){humanPulse[p.hk]=1;spawn(hl,false)}
-      row({who:p.f.from,h:1,t:[T.en.revRdy,T.id.revRdy]});pend={f:p.f,hk:p.hk,rev:true};showDec()},3800);return p.f}
+    setTimeout(()=>{revising=false;humanPulse[p.hk]=1;spawn(humanLink(p.f.fg,p.f.d),true);
+      row({who:'task',b:p.f.b,d:p.f.d,tb:'',h:1,t:[T.en.revRdy,T.id.revRdy]});pend={f:p.f,hk:p.hk,rev:true};showDec()},3800);return p.f}
   $('#agok').onclick=approve;$('#agrev').onclick=revise;
 
-  /* ---- canvas ---- */
-  let W=0,H=0,DPR=1,nodes=[],links=[],mem=[],parts=[],act=[0,0,0,0,0,0],tgt=[0,0,0,0,0,0],lastAmb=0,lastAct=[0,0,0,0,0,0],humanPulse=[0,0,0];
+  /* ---- canvas: FluxOS in the middle, 3 groups around it, 6 divisions per group, 3 human checkpoints ---- */
+  const COLORS=['#c4b5fd','#9fa8ff','#cdb4ff'],HUM='#f4f1ea';
+  let W=0,H=0,DPR=1,C=null,Gn=[],Dn=[],Hn=[],nodes=[],links=[],cgLink=[],gdLink=[],hLink={},mem=[],parts=[],lastAmb=0;
+  const actD=new Array(18).fill(0),tgtD=new Array(18).fill(0),actG=[0,0,0],tgtG=[0,0,0],humanPulse=[0,0,0],flashN=['','',''],flashT=[0,0,0];
   const rgba=(hex,a)=>{const n=parseInt(hex.replace('#',''),16);return'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'};
-  const rc=(i,a)=>rgba(COLORS[i],a);
+  const rad=d=>d*Math.PI/180;
   function build(){
     const r=cv.getBoundingClientRect();if(!r.width||!r.height)return;
     DPR=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);g.setTransform(DPR,0,0,DPR,0,0);
-    const R=Math.min(W,H)/2*.88;nodes=[];links=[];mem=[];
-    for(let k=0;k<54;k++)mem.push({a:Math.random()*6.283,r:Math.sqrt(Math.random())*R*.17,s:(Math.random()*.8+.3)*(Math.random()<.5?-1:1),z:Math.random()});
-    const C={t:'c'};nodes.push(C);
-    for(let i=0;i<6;i++){const a=(-90+i*60)*Math.PI/180,dn={t:'d',i,a,r:R*.41,ph:Math.random()*6};nodes.push(dn);links.push({from:C,to:dn,i});
-      for(let k=0;k<3;k++){const an={t:'a',i,k,a:a+(k-1)*.36,r:R*.73,ph:Math.random()*6};nodes.push(an);links.push({from:dn,to:an,i,k})}}
-    const divs=nodes.filter(n=>n.t==='d');
-    for(let k=0;k<3;k++){const ta=-Math.PI/2+(k+.5)*(6.283/3)+.25,near=((Math.round((ta*180/Math.PI+90)/60)%6)+6)%6;
-      const tn={t:'h',k,a:ta,r:R*.94,ph:Math.random()*6};nodes.push(tn);links.push({from:tn,to:divs[near],i:near,tool:true,hk:k})}}
+    const R=Math.min(W,H)/2*.88;nodes=[];links=[];cgLink=[];gdLink=[];hLink={};Gn=[];Dn=[];Hn=[];mem=[];
+    for(let k=0;k<54;k++)mem.push({a:Math.random()*6.283,r:Math.sqrt(Math.random())*R*.15,s:(Math.random()*.8+.3)*(Math.random()<.5?-1:1),z:Math.random()});
+    C={t:'c'};nodes.push(C);
+    for(let gi=0;gi<3;gi++){const ga=-90+gi*120,gn={t:'g',g:gi,a:rad(ga),r:R*.34,ph:Math.random()*6};Gn.push(gn);nodes.push(gn);
+      const cl={from:C,to:gn,g:gi};cgLink[gi]=cl;links.push(cl);
+      for(let i=0;i<6;i++){const dn={t:'d',g:gi,i,a:rad(ga+(i-2.5)*20),r:R*.74,ph:Math.random()*6};Dn[gi*6+i]=dn;nodes.push(dn);
+        const l={from:gn,to:dn,g:gi,i};gdLink[gi*6+i]=l;links.push(l)}}
+    for(let k=0;k<3;k++){const hn={t:'h',k,a:rad(-30+k*120),r:R*.95,ph:Math.random()*6};Hn.push(hn);nodes.push(hn)}}
+  const humanLink=(gi,i)=>{const k=i<3?(gi+2)%3:gi,key=gi*6+i;return hLink[key]||(hLink[key]={from:Dn[key],to:Hn[k],tool:true,hk:k,g:gi})};
   const pos=(n,T)=>{if(n.t==='c')return{x:W/2,y:H/2};const a=n.a+T*.000028,w=Math.sin(T*.0007+n.ph)*2.2;return{x:W/2+Math.cos(a)*(n.r+w),y:H/2+Math.sin(a)*(n.r+w)}};
-  const spawn=(l,fw)=>parts.push({l,t:0,s:.0011+Math.random()*.0007,fw:fw!==false});
-  const linkOf=(i,k)=>links.filter(l=>l.i===i&&!l.tool&&(k==null?l.k==null:l.k===k))[0];
-  const humanLinks=i=>links.filter(l=>l.tool&&l.i===i);
+  const spawn=(l,fw)=>{if(l&&l.from&&l.to)parts.push({l,t:0,s:.0011+Math.random()*.0007,fw:fw!==false})};
   function frame(T){
     if(!W)return;
     const live=cv.getBoundingClientRect();
     if(Math.abs(live.width-W)>1||Math.abs(live.height-H)>1||cv.width!==Math.round(W*DPR)){build();if(!W)return}
     g.setTransform(DPR,0,0,DPR,0,0);g.clearRect(0,0,W,H);if(RED)T=0;
-    const R=Math.min(W,H)/2*.88,cx=W/2,cy=H/2,u=R/120,uu=Math.max(.9,u),mf='"JetBrains Mono",ui-monospace,monospace';
-    for(let i=0;i<6;i++)act[i]+=(tgt[i]-act[i])*.07;
+    const R=Math.min(W,H)/2*.88,cx=W/2,cy=H/2,u=R/120,uu=Math.max(.9,u),mf='"JetBrains Mono",ui-monospace,monospace',now=Date.now();
+    for(let i=0;i<18;i++)actD[i]+=(tgtD[i]-actD[i])*.07;
+    for(let i=0;i<3;i++)actG[i]+=(tgtG[i]-actG[i])*.07;
     for(let k=0;k<3;k++)humanPulse[k]*=.96;
-    if(pend)humanPulse[pend.hk]=.55+.45*Math.sin(Date.now()/170);
-    g.lineWidth=1;g.strokeStyle='rgba(255,255,255,.05)';[.41,.73,.94].forEach(f=>{g.beginPath();g.arc(cx,cy,R*f,0,6.283);g.stroke()});
+    if(pend)humanPulse[pend.hk]=.55+.45*Math.sin(now/170);
+    g.lineWidth=1;g.strokeStyle='rgba(255,255,255,.05)';[.34,.74,.95].forEach(f=>{g.beginPath();g.arc(cx,cy,R*f,0,6.283);g.stroke()});
     nodes.forEach(n=>n.p=pos(n,T));
-    links.forEach(l=>{const a=l.from.p,b=l.to.p,s=act[l.i];g.strokeStyle=s>.03?rc(l.i,.1+s*.4):'rgba(255,255,255,'+(l.tool?.07:.1)+')';g.lineWidth=1;g.beginPath();g.moveTo(a.x,a.y);g.lineTo(b.x,b.y);g.stroke()});
-    const gr=g.createRadialGradient(cx,cy,0,cx,cy,R*.26);gr.addColorStop(0,'rgba(139,92,246,'+(.2+.22*energy)+')');gr.addColorStop(1,'rgba(139,92,246,0)');
-    g.fillStyle=gr;g.beginPath();g.arc(cx,cy,R*.26,0,6.283);g.fill();
+    links.forEach(l=>{const a=l.from.p,b=l.to.p,s=l.i==null?actG[l.g]:actD[l.g*6+l.i];
+      g.strokeStyle=s>.03?rgba(COLORS[l.g],.1+s*.42):'rgba(255,255,255,'+(l.i==null?.12:.07)+')';g.lineWidth=l.i==null?1.2:1;g.beginPath();g.moveTo(a.x,a.y);g.lineTo(b.x,b.y);g.stroke()});
+    const gr=g.createRadialGradient(cx,cy,0,cx,cy,R*.24);gr.addColorStop(0,'rgba(139,92,246,'+(.2+.22*energy)+')');gr.addColorStop(1,'rgba(139,92,246,0)');
+    g.fillStyle=gr;g.beginPath();g.arc(cx,cy,R*.24,0,6.283);g.fill();
     mem.forEach(m=>{const a=m.a+T*.00035*m.s,x=cx+Math.cos(a)*m.r,y=cy+Math.sin(a)*m.r*.92,al=.3+.5*Math.abs(Math.sin(T*.001*m.s+m.z*6));
       g.fillStyle=m.z>.8?'rgba(244,241,234,'+al*.4+')':'rgba(196,181,253,'+al*.5+')';g.beginPath();g.arc(x,y,m.z>.8?1.5:1.1,0,6.283);g.fill()});
-    for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=p.s*16;if(p.t>=1){parts.splice(i,1);continue}
-      const a2=p.fw?p.l.from.p:p.l.to.p,b2=p.fw?p.l.to.p:p.l.from.p,x=a2.x+(b2.x-a2.x)*p.t,y=a2.y+(b2.y-a2.y)*p.t,col=p.l.tool?HUM:COLORS[p.l.i];
+    for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=p.s*16;if(p.t>=1||!p.l.from.p||!p.l.to.p){parts.splice(i,1);continue}
+      const a2=p.fw?p.l.from.p:p.l.to.p,b2=p.fw?p.l.to.p:p.l.from.p,x=a2.x+(b2.x-a2.x)*p.t,y=a2.y+(b2.y-a2.y)*p.t,col=p.l.tool?HUM:COLORS[p.l.g];
       g.fillStyle=rgba(col,.85);g.shadowColor=rgba(col,.6);g.shadowBlur=5;g.beginPath();g.arc(x,y,1.7,0,6.283);g.fill();g.shadowBlur=0}
     nodes.forEach(n=>{const p=n.p;
       if(n.t==='h'){const s=7*u,hp=humanPulse[n.k];g.save();g.translate(p.x,p.y);g.rotate(Math.PI/4);
         g.fillStyle='#14111c';g.strokeStyle=rgba(HUM,.5+hp*.5);g.lineWidth=1.3;if(hp>.05){g.shadowColor=HUM;g.shadowBlur=12*hp}
         g.beginPath();g.rect(-s/2,-s/2,s,s);g.fill();g.stroke();g.restore();g.shadowBlur=0;
         g.font=(6.4*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rgba(HUM,.55+hp*.4);g.fillText('HUMAN',p.x,p.y+(p.y>cy?15:-11)*uu);return}
-      if(n.t==='a'){const on=act[n.i]>.18&&((Math.floor(T/320)+n.k+n.i)%3===0);
-        g.fillStyle=rc(n.i,on?1:.5+act[n.i]*.4);if(on){g.shadowColor=rc(n.i,1);g.shadowBlur=10}
-        g.beginPath();g.arc(p.x,p.y,(on?3.6:2.8)*u,0,6.283);g.fill();g.shadowBlur=0;
-        if(on){g.font=(6.6*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rc(n.i,.9);g.fillText(DIV[n.i].a[lang==='id'?'id':'en'][n.k],p.x,p.y+(p.y>cy?12:-8)*uu)}return}
-      if(n.t==='d'){const s=act[n.i];g.fillStyle='#0e0c12';g.strokeStyle=rc(n.i,.55+s*.45);g.lineWidth=1.5;if(s>.05){g.shadowColor=rc(n.i,1);g.shadowBlur=14*s}
-        g.beginPath();g.arc(p.x,p.y,8.5*u,0,6.283);g.fill();g.stroke();g.shadowBlur=0;
-        g.fillStyle=rc(n.i,.95);g.beginPath();g.arc(p.x,p.y,2.6*u,0,6.283);g.fill();
-        g.font=(7.4*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rc(n.i,.85);g.fillText(DIV[n.i].n,p.x,p.y+(p.y>cy?17:-13)*uu)}});
+      if(n.t==='d'){const s=actD[n.g*6+n.i],col=COLORS[n.g];g.fillStyle='#0e0c12';g.strokeStyle=rgba(col,.5+s*.5);g.lineWidth=1.2;if(s>.05){g.shadowColor=rgba(col,1);g.shadowBlur=11*s}
+        g.beginPath();g.arc(p.x,p.y,(4.4+2.2*s)*u,0,6.283);g.fill();g.stroke();g.shadowBlur=0;
+        g.fillStyle=rgba(col,.55+s*.45);g.beginPath();g.arc(p.x,p.y,1.7*u,0,6.283);g.fill();
+        if(s>.3){g.font=(6.6*uu)+'px '+mf;g.textAlign='center';g.fillStyle=rgba(col,Math.min(1,s));g.fillText(DIV[n.i].s,p.x,p.y+(p.y>cy?15:-10)*uu)}return}
+      if(n.t==='g'){const s=actG[n.g],col=COLORS[n.g];g.fillStyle='#0e0c12';g.strokeStyle=rgba(col,.6+s*.4);g.lineWidth=1.6;if(s>.05){g.shadowColor=rgba(col,1);g.shadowBlur=14*s}
+        g.beginPath();g.arc(p.x,p.y,8.2*u,0,6.283);g.fill();g.stroke();g.shadowBlur=0;
+        g.fillStyle=rgba(col,.95);g.beginPath();g.arc(p.x,p.y,2.6*u,0,6.283);g.fill();
+        const fl=flashT[n.g]>now,txt=fl?flashN[n.g].toUpperCase():GRP[n.g].n;
+        g.font=(fl?'600 ':'')+(7.4*uu)+'px '+mf;g.textAlign='center';g.fillStyle=fl?'rgba(244,241,234,.95)':rgba(col,.85);g.fillText(txt,p.x,p.y+(p.y>cy?18:-14)*uu)}});
     g.font='600 '+(7.6*uu)+'px '+mf;g.textAlign='center';g.textBaseline='middle';g.fillStyle='rgba(224,214,255,'+(.8+.2*energy)+')';g.fillText('FLUXOS',cx,cy);g.textBaseline='alphabetic';
-    if(!RED){
-      if(T-lastAmb>(energy>.4?240:650)){lastAmb=T;const l=links[Math.floor(Math.random()*links.length)];if(l)spawn(l,Math.random()<.5)}
-      for(let i=0;i<6;i++)if(tgt[i]>0&&T-lastAct[i]>240){lastAct[i]=T;const c=linkOf(i,null);if(c)spawn(c,true);const q=linkOf(i,Math.floor(Math.random()*3));if(q)spawn(q,true)}}}
+    if(!RED&&T-lastAmb>650){lastAmb=T;const l=links[Math.floor(Math.random()*links.length)];if(l)spawn(l,Math.random()<.5)}}
   (function loop(T){requestAnimationFrame(loop);if(cv.getClientRects().length&&!document.hidden)frame(T)})(0);
 
-  /* ---- flow engine: this is the one door every task goes through; later it is fed by real tools instead of this script ---- */
-  function pick(){
-    let list=POOLS[phase()];
-    if(pend||revising)list=list.filter(x=>!x.h);
+  /* ---- flow engine: this is the one door every task goes through; later it is fed by the real businesses' reports instead of this script ---- */
+  function pick(nh){
+    let list=todays(phase());
+    if(nh||pend||revising||sinceHuman<3)list=list.filter(x=>!x.h);
     else if(sinceHuman>=5){const hs=list.filter(x=>x.h);if(hs.length)list=hs}
     const ex=[];list.forEach(x=>{for(let i=0;i<x.w;i++)ex.push(x)});
     let p=ex[Math.floor(Math.random()*ex.length)],n=0;
-    while(recent.includes(p.t[0])&&n++<20)p=ex[Math.floor(Math.random()*ex.length)];
-    recent.push(p.t[0]);if(recent.length>3)recent.shift();return p}
+    while(recent.includes(p.id)&&n++<30)p=ex[Math.floor(Math.random()*ex.length)];
+    recent.push(p.id);if(recent.length>12)recent.shift();return make(p)}
+  const flash=(gi,name)=>{flashN[gi]=name;flashT[gi]=Date.now()+2600};
   function run(f){
-    const from=di(f.from),to=di(f.to);for(let i=0;i<6;i++)tgt[i]=0;tgt[from]=1;tgt[to]=1;
-    const s=linkOf(from,null),d=linkOf(to,null);if(s)spawn(s,false);setTimeout(()=>{if(d)spawn(d,true)},260);
-    row({who:f.from,h:f.h,t:f.t});
-    if(f.h){const hl=humanLinks(from)[0]||humanLinks(to)[0]||links.filter(l=>l.tool)[Math.floor(Math.random()*3)];
-      if(hl){pend={f,hk:hl.hk};showDec();setTimeout(()=>spawn(hl,false),120)}sinceHuman=0}
+    const fg=f.fg,fi=f.d,key=fg*6+fi;tgtD.fill(0);tgtG.fill(0);
+    tgtD[key]=1;tgtG[fg]=1;flash(fg,BIZ[f.b].n);
+    spawn(gdLink[key],false);                                       // division -> its group
+    if(f.td===-2){const hl=humanLink(fg,fi);setTimeout(()=>spawn(hl,true),260)}   // up to you
+    else if(f.td===-1){setTimeout(()=>spawn(cgLink[fg],false),260)}               // reports to Flux-E
+    else if(f.tg===fg){tgtD[fg*6+f.td]=1;setTimeout(()=>spawn(gdLink[fg*6+f.td],true),260)}   // inside the same group
+    else{tgtG[f.tg]=1;tgtD[f.tg*6+f.td]=1;flash(f.tg,BIZ[f.tb].n);                // cross-sell: group -> Flux-E -> other group
+      setTimeout(()=>spawn(cgLink[fg],false),260);setTimeout(()=>spawn(cgLink[f.tg],true),560);setTimeout(()=>spawn(gdLink[f.tg*6+f.td],true),860)}
+    row(taskRow(f));
+    if(f.h){const hl=humanLink(fg,fi);pend={f,hk:hl.hk};showDec();sinceHuman=0}
     else{sinceHuman++;setAuto(auto+1)}}
   function loopFlow(){run(pick());setTimeout(loopFlow,TEMPO[phase()])}
 
   addEventListener('resize',build);new ResizeObserver(build).observe(cv);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(build,100)});
-  hist=[{who:'sys',t:[T.en.sys2,T.id.sys2],time:nowHM()},{who:'sys',t:[T.en.sys1,T.id.sys1],time:nowHM()}];
+  /* it is never a blank start: a few tasks already ran in the last minutes, and the counter follows the time of day */
+  {const offs=[36,24,15,8,3],past=[];
+   offs.forEach(o=>{const f=pick(true);past.push({r:taskRow(f),time:hm(new Date(Date.now()-o*60000))})});
+   past.forEach(x=>{x.r.time=x.time;full.push({time:x.time,who:x.r.who,b:x.r.b,d:x.r.d,tb:x.r.tb,h:false,t:x.r.t});hist.unshift(x.r)});
+   hist.push({who:'sys',t:[T.en.sys2,T.id.sys2],time:nowHM()},{who:'sys',t:[T.en.sys1,T.id.sys1],time:nowHM()});hist=hist.slice(0,8);
+   const d=new Date();setAuto(8+Math.floor((d.getHours()*60+d.getMinutes())/60*3.2)+Math.floor(rng(hash(dayKey()))()*7))}
   build();renderFeed();setTimeout(loopFlow,900);
   function snapshot(){
-    const by={};DIV.forEach(d=>by[d.n[0]+d.n.slice(1).toLowerCase()]=0);
-    full.forEach(r=>{if(r.who!=='sys'&&r.who!=='you'&&!r.h)by[who(r.who)]++});
-    return{time:nowHM(),auto,pending:pend?{division:who(pend.f.from),text:(pend.rev?T[lang].revPre:'')+pend.f.dec[Li()]}:null,byDivision:by,
-      recent:full.filter(r=>r.who!=='sys').slice(-14).reverse().map(r=>({time:r.time,who:who(r.who),human:r.h,text:r.t[Li()]}))}}
+    const by={};Object.keys(BIZ).forEach(k=>by[BIZ[k].n]=0);
+    full.forEach(r=>{if(r.b&&!r.h&&by[BIZ[r.b].n]!=null)by[BIZ[r.b].n]++});
+    return{time:nowHM(),auto,pending:pend?{division:BIZ[pend.f.b].n,text:(pend.rev?T[lang].revPre:'')+pend.f.dec[Li()]}:null,byBusiness:by,
+      recent:full.filter(r=>r.who!=='sys').slice(-14).reverse().map(r=>({time:r.time,who:lbl(r),human:r.h,text:r.t[Li()]}))}}
   return{approve,revise,snapshot,pending:()=>pend,lang(){renderFeed();showDec()}};
 })();
 /* typed or spoken commands that Flux-E handles on the spot */
