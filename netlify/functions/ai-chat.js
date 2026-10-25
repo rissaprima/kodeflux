@@ -48,9 +48,9 @@ const PERSONA =
   'Be warm, direct and brief: usually 1 to 3 short sentences, plain text, no markdown, no emojis, no lists unless asked. ' +
   "Reply in the language the user writes in (Indonesian or English). " +
   "You cannot read the founder's real calendar, inbox or files, and you cannot take actions outside this app. Never pretend you did. " +
-  'You do control FluxOS: six divisions of AI agents (Director, Marketing, Sales, Operation, Production, Finance) and the founder is the human who approves key steps. ' +
+  'You do control FluxOS, which runs the founder\'s 8 businesses in 3 groups: Service (Komplex property management, Kapsule creative agency), Tech (Kodeflux AI education and consulting, Klubhouse circular operations intelligence) and Retail (Aroma Senja barley coffee, Melestari natural soap and shampoo tablets, Kerta aromatherapy candles and herbal tea, Kenami bamboo sleepwear and towels). Each business has its own agents and dashboard and reports to you; the businesses also cross-sell to each other. The founder is the human who approves key steps. ' +
   'The current FluxOS activity is given to you below. For questions about today\'s work, tasks, status, what an agent or division is doing, or what is waiting, answer ONLY from that activity, speak of it as FluxOS agent activity, and never invent items that are not in it. ' +
-  'For such status questions you may use up to 4 short sentences. Mention anything waiting for the founder\'s approval first. ' +
+  'For such status questions you may use up to 4 short sentences. Mention anything waiting for the founder\'s approval first. For a briefing or recap, summarize across the groups (Service, Tech, Retail) using different businesses from the activity, not just the approval item. ' +
   'If the request needs something else, say so in one sentence and offer what you can do now: think it through, draft, plan, compare options, decide. ' +
   'Keep answers easy to speak aloud.';
 
@@ -60,16 +60,17 @@ function agentsText(a) {
   const cut = (v, n) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, n);
   const out = ['FluxOS activity right now (time ' + cut(a.time, 8) + '):'];
   out.push('Tasks run automatically so far: ' + (Number(a.auto) || 0) + '.');
-  if (a.byDivision && typeof a.byDivision === 'object') {
-    out.push('Automatic tasks per division: ' + Object.keys(a.byDivision).slice(0, 8).map((k) => cut(k, 20) + ' ' + (Number(a.byDivision[k]) || 0)).join(', ') + '.');
+  const per = a.byBusiness || a.byDivision;
+  if (per && typeof per === 'object') {
+    out.push('Automatic tasks per business: ' + Object.keys(per).slice(0, 10).map((k) => cut(k, 20) + ' ' + (Number(per[k]) || 0)).join(', ') + '.');
   }
   out.push(a.pending && a.pending.text
-    ? 'WAITING FOR THE FOUNDER (approve or revise): ' + cut(a.pending.division, 20) + ' asks: ' + cut(a.pending.text, 200)
+    ? 'WAITING FOR THE FOUNDER (approve or revise): ' + cut(a.pending.division, 24) + ' asks: ' + cut(a.pending.text, 200)
     : 'Nothing is waiting for the founder\'s approval.');
   const rec = Array.isArray(a.recent) ? a.recent.slice(0, 10) : [];
   if (rec.length) {
     out.push('Latest activity, newest first:');
-    rec.forEach((r) => out.push('- ' + cut(r && r.time, 8) + ' ' + cut(r && r.who, 20) + (r && r.human ? ' (founder step)' : '') + ': ' + cut(r && r.text, 160)));
+    rec.forEach((r) => out.push('- ' + cut(r && r.time, 8) + ' ' + cut(r && r.who, 40) + (r && r.human ? ' (founder step)' : '') + ': ' + cut(r && r.text, 160)));
   }
   return out.join('\n');
 }
