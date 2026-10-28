@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kodeflux — AI Learning Lab + Tools untuk Solo Founder</title>
-<meta name="description" content="Kodeflux adalah AI Learning Lab + Community Hub untuk self-made entrepreneurs, solo founders, freelancer, dan side-hustlers: belajar, eksperimen, pakai tools, dan bangun workflow AI yang benar-benar kepake.">
+<meta name="description" content="AI Learning Lab + Community Hub untuk solo founder, freelancer, dan side-hustler: belajar, eksperimen, dan pakai tools AI yang beneran kepake.">
 <meta name="theme-color" content="#0e0c12">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:title" content="Kodeflux — Bikin AI Jadi Teman Kolaborasi">
@@ -34,9 +34,25 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://kodeflux.web.id/#organization","name":"Kodeflux","url":"https://kodeflux.web.id/","logo":"https://kodeflux.web.id/og-image.png"},{"@type":"WebSite","@id":"https://kodeflux.web.id/#website","url":"https://kodeflux.web.id/","name":"Kodeflux","description":"Belajar, coba, dan temukan cara kerja bareng AI yang beneran kepake. Cek levelmu lewat FACT, tumbuh bareng Fluxmates di FUN, dan tetap pegang kendali.","publisher":{"@id":"https://kodeflux.web.id/#organization"},"inLanguage":"id-ID"}]}</script>
+<script>try{if(!sessionStorage.getItem('kfseen')&&!location.hash){document.documentElement.classList.add('kfb');sessionStorage.setItem('kfseen','1')}}catch(e){}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://kodeflux.web.id/#organization","name":"Kodeflux","url":"https://kodeflux.web.id/","logo":"https://kodeflux.web.id/og-image.png","sameAs":["https://instagram.com/kodeflux.id","https://www.youtube.com/@kodeflux"]},{"@type":"WebSite","@id":"https://kodeflux.web.id/#website","url":"https://kodeflux.web.id/","name":"Kodeflux","description":"Belajar, coba, dan temukan cara kerja bareng AI yang beneran kepake. Cek levelmu lewat FACT, tumbuh bareng Fluxmates di FUN, dan tetap pegang kendali.","publisher":{"@id":"https://kodeflux.web.id/#organization"},"inLanguage":"id-ID"}]}</script>
 
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"id-ID","mainEntity":[{"@type":"Question","name":"Apa bedanya Flux I/O dan FluxHQ?","acceptedAnswer":{"@type":"Answer","text":"Flux I/O adalah tool per industri yang kamu jalankan sendiri. FluxHQ adalah kantor virtual dengan enam meja dan 18 agent yang membantu operasional bisnis, dengan persetujuan tetap di tanganmu."}},{"@type":"Question","name":"Perlu paham prompting?","acceptedAnswer":{"@type":"Answer","text":"Tidak. Struktur, prompt, dan hasilnya sudah disiapkan. Kamu cukup mengisi data sendiri dan menyetujui hal yang penting."}},{"@type":"Question","name":"AI mana yang dipakai?","acceptedAnswer":{"@type":"Answer","text":"Kamu pasang API key sendiri dan pilih Claude atau GPT (satu per akun). API key ditagih terpisah dari langganan Claude atau ChatGPT. Tutorialnya akan memandumu langkah demi langkah."}},{"@type":"Question","name":"Apa bedanya demo dengan versi lengkap?","acceptedAnswer":{"@type":"Answer","text":"Demo berjalan dengan data contoh. Menyimpan, mengekspor, dan mencetak ada di versi lengkap."}},{"@type":"Question","name":"Bagaimana cara kerja fase harga?","acceptedAnswer":{"@type":"Answer","text":"Tiap bundle punya 50 seat di harga pertama, lalu 30, lalu 20. Harga naik saat satu fase habis terjual. Jumlah seat di kartu bundle adalah angka sebenarnya."}},{"@type":"Question","name":"Bisa beli lebih dari satu industri?","acceptedAnswer":{"@type":"Answer","text":"Bisa. Tiap bundle mencakup satu industri, dan industri lain dijual terpisah karena tool, e-playbook, dan e-mini course-nya berbeda untuk tiap industri."}},{"@type":"Question","name":"Di mana aku bisa bertanya?","acceptedAnswer":{"@type":"Answer","text":"Di Discord Kodeflux. Di sana juga kabar peluncuran dan update komunitas diumumkan lebih dulu."}}]}</script>
 <style>
+/* loading */
+#kfboot{position:fixed;inset:0;box-sizing:border-box;z-index:9999;background:rgba(14,12,18,.62);-webkit-backdrop-filter:blur(22px) saturate(1.1);backdrop-filter:blur(22px) saturate(1.1);display:grid;place-items:center;padding:24px;transition:opacity .7s ease,visibility .7s}
+#kfboot::before{content:"";position:absolute;width:70vmin;height:70vmin;border-radius:50%;background:radial-gradient(circle,rgba(124,79,216,.35),rgba(124,79,216,0) 68%);filter:blur(20px)}
+#kfboot.gone{opacity:0;visibility:hidden}
+.kfbox{position:relative;width:260px;max-width:calc(100vw - 48px);display:grid;gap:22px;justify-items:center}
+.kforb{width:150px;height:150px;display:block}
+.kftrack{width:100%;height:8px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);position:relative;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.4)}
+.kftrack i{position:absolute;inset:0 auto 0 0;width:0;border-radius:99px;background:linear-gradient(90deg,#6d3fd0,#8b5cf6 45%,#c4b5fd);box-shadow:0 0 12px rgba(139,92,246,.7)}
+.kftrack i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-100%);animation:kfshine 1.4s linear infinite}
+@keyframes kfshine{to{transform:translateX(100%)}}
+html:not(.kfb) #kfboot{display:none}
+html.kfb{overflow:hidden}
+@media(prefers-reduced-motion:reduce){#kfboot{transition:none}.kftrack i::after{animation:none}}
+/* /loading */
 :root{
   --bg:#0e0c12;
   --fg:#f4f1ea;
@@ -352,7 +368,7 @@ html.js .type.go .ln{animation:type .9s steps(30,end) both;animation-delay:calc(
 .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
 .socials a{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.05);color:var(--muted);transition:transform .35s var(--ease),color .25s,border-color .25s,background .25s}
 .socials a:hover{transform:translateY(-4px);color:#fff;border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
-footer{border-top:1px solid var(--line);padding:22px 0;color:var(--dim);font-size:.85rem}footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.ft-soc{display:flex;gap:6px}.ft-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);color:var(--dim);transition:.2s ease}.ft-soc a:hover,.ft-soc a:focus-visible{color:var(--fg);border-color:var(--line2);outline:none}.ft-soc .ic{width:15px;height:15px}@media(max-width:560px){footer .wrap{justify-content:center;text-align:center}}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--dim);font-size:.85rem}footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.ft-links{display:flex;gap:18px;flex-wrap:wrap}.ft-links a:hover{color:var(--fg)}.ft-soc{display:flex;gap:6px}.ft-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);color:var(--dim);transition:.2s ease}.ft-soc a:hover,.ft-soc a:focus-visible{color:var(--fg);border-color:var(--line2);outline:none}.ft-soc .ic{width:15px;height:15px}@media(max-width:560px){footer .wrap{justify-content:center;text-align:center}}
 
 /* ---------- reveal (cards only) ---------- */
 html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
@@ -829,6 +845,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </style>
 </head>
 <body>
+<div id="kfboot" role="status" aria-label="Loading"><div class="kfbox"><canvas id="kforb" class="kforb" aria-hidden="true"></canvas><div class="kftrack"><i id="kfbar"></i></div></div></div>
 
 <!-- icon sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -861,6 +878,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
     <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.5 3c.3 2.1 1.6 3.6 3.5 3.9v2.6c-1.2.1-2.4-.3-3.5-.9v5.9c0 3-2.4 5.5-5.5 5.5S5.5 17 5.5 14s2.4-5.5 5.5-5.5c.3 0 .7 0 1 .1v2.7c-.3-.1-.7-.2-1-.2-1.5 0-2.8 1.3-2.8 2.9 0 1.5 1.3 2.8 2.8 2.8s2.9-1.3 2.9-2.8V3h3.1z"/></symbol>
     <symbol id="i-th" viewBox="0 0 24 24"><path d="M12 3c-4.4 0-7.5 3.1-7.5 7.5 0 5.2 3.1 8 7.5 8 4 0 6.5-2.4 6.7-5.6.1-1.5-.4-3-1.5-4"/><path d="M12.7 8.3c.3 2.3 1 3.5 2.6 3.5 1.2 0 2-.8 2-2 0-1.9-1.6-3.2-3.9-3.2-2.9 0-4.8 2.2-4.8 5.1 0 2.7 1.7 4.5 4.2 4.5 1.1 0 2-.3 2.8-.9"/></symbol>
+    <symbol id="i-yt" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z"/></symbol>
     <symbol id="i-dc" viewBox="0 0 24 24"><path d="M19.3 5.3A17 17 0 0 0 15 4l-.2.4a13 13 0 0 1 3.6 1.8 13.5 13.5 0 0 0-13 .1A13 13 0 0 1 9 4.4L8.8 4a17 17 0 0 0-4.3 1.3C1.7 9.4 1 13.4 1.3 17.3a17 17 0 0 0 5.2 2.6l.4-.6c-.8-.3-1.6-.7-2.3-1.2l.6-.4a12 12 0 0 0 10.4 0l.6.4c-.7.5-1.5.9-2.3 1.2l.4.6a17 17 0 0 0 5.2-2.6c.4-4.5-.6-8.5-2.6-12zM8.5 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2z"/></symbol>
   </defs>
 </svg>
@@ -1100,7 +1118,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     <div class="rv flux-in-fun"><div class="card fluxbar">
       <span class="ico" aria-hidden="true"><svg class="ic"><use href="#i-play"/></svg></span>
       <div><h3>Fluxman</h3><p>Teman navigasi yang nggak sok paling tahu — cerita, eksperimen, dan hal-hal yang sering dialami orang yang lagi belajar kerja bareng AI.</p></div>
-      <a class="btn btn-glass btn-sm" href="#join">Follow Fluxman <svg class="ic"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-glass btn-sm" href="https://instagram.com/kodeflux.id" target="_blank" rel="noopener">Follow Fluxman <svg class="ic"><use href="#i-arrow"/></svg></a>
     </div></div>
   </div>
 </section>
@@ -1284,7 +1302,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 </main>
 
 <footer>
-  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><div class="ft-soc" id="join"><a href="#join" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="#join" aria-label="Threads"><svg class="ic"><use href="#i-th"/></svg></a><a href="#join" aria-label="TikTok"><svg class="ic ic-fill"><use href="#i-tt"/></svg></a><a href="#join" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="#join" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
+  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><nav class="ft-links" aria-label="Footer"><a href="/fact">FACT</a><a href="/corp">FluxHQ</a><a href="/discuss">Discuss</a></nav><div class="ft-soc" id="join"><a href="https://instagram.com/kodeflux.id" target="_blank" rel="noopener me" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="https://www.youtube.com/@kodeflux" target="_blank" rel="noopener me" aria-label="YouTube"><svg class="ic ic-fill"><use href="#i-yt"/></svg></a><a href="https://discord.gg/rMQnT7xZn" target="_blank" rel="noopener me" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="mailto:kodeflux.id@gmail.com" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
 </footer>
 
 <script>
@@ -1492,6 +1510,46 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     if(e.origin!==location.origin||!e.data||e.data.type!=='fluxhq:height')return;
     if(e.source===f.contentWindow)f.style.height=e.data.height+'px';
   });
+})();
+</script>
+<script>window.addEventListener('load',function(){if(location.hash==='#start-fact'){var b=document.getElementById('factStart');if(b){b.scrollIntoView();setTimeout(function(){b.click()},300)}}});</script>
+<script>(function(){
+  var el=document.getElementById('kfboot');if(!el)return;
+  var cv=document.getElementById('kforb'),bar=document.getElementById('kfbar'),root=document.documentElement;
+  var RED=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var DUR=RED?300:2200,alive=true;
+  function orb(){
+    var g=cv.getContext('2d'),W,H,D,t=0,u=56,e=.75;
+    function fit(){D=Math.min(devicePixelRatio||1,2);var r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*D;cv.height=H*D;g.setTransform(D,0,0,D,0,0)}
+    fit();
+    var RINGS=[{r:.58,lw:.55,dash:[.55,2.4],lm:.7,l:[[0,.6,1.5],[3.3,.6,1.1]]},{r:.78,lw:1.05,dash:[1.05,3.8],lm:1.5,l:[[1,-.42,1.8],[4.1,-.42,1.2]]},{r:.96,lw:.75,dash:[.75,3.1],lm:1,l:[[.4,.27,2.0],[2.5,.27,1.3],[4.6,.27,1.6]]}];
+    function draw(){
+      if(!alive)return;
+      t+=RED?0:.016;g.clearRect(0,0,W,H);
+      var k=Math.min(W/2,H/2,60)*.94/56;g.save();g.translate(W/2,H/2);g.scale(k,k);var cx=0,cy=0;
+      var A=g.createRadialGradient(cx,cy,0,cx,cy,u*.7);A.addColorStop(0,'rgba(124,79,216,'+(.34+.08*Math.sin(t*1.9)+.16*e)+')');A.addColorStop(1,'rgba(124,79,216,0)');
+      g.fillStyle=A;g.beginPath();g.arc(cx,cy,u*.7,0,7);g.fill();
+      g.lineCap='round';
+      RINGS.forEach(function(o,k){g.lineWidth=o.lw;g.setLineDash(o.dash);g.lineDashOffset=-t*(16+k*4)*(k%2?-1:1);g.strokeStyle='rgba(196,181,253,'+(.2+.07*k+.14*e)+')';g.beginPath();g.arc(cx,cy,u*o.r,0,7);g.stroke()});
+      g.setLineDash([]);
+      function eq(n,r0,base,amp,alpha,ph,lw){for(var i=0;i<n;i++){var a=i/n*6.283,w=Math.sin(a*5+t*(2+e*8)+ph)+Math.sin(a*3-t*3.1+ph),len=u*(base+.01*w+e*(amp+amp*.7*w));
+        g.strokeStyle='rgba(196,181,253,'+(alpha[0]+alpha[1]*e)+')';g.lineWidth=lw;g.beginPath();g.moveTo(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0);g.lineTo(cx+Math.cos(a)*(r0+len),cy+Math.sin(a)*(r0+len));g.stroke()}}
+      eq(64,u*.3,.04,.05,[.34,.5],0,1.7);eq(96,u*.84,.02,.04,[.1,.2],1.7,1.2);
+      RINGS.forEach(function(o){o.l.forEach(function(L){var r=u*o.r,spd=L[1]*(1+e*2.2),head=L[0]+t*spd,dir=Math.sign(spd),N=22;
+        for(var j=0;j<N;j++){var f=1-j/N,aa=head-dir*j*(L[2]/N),ab=head-dir*(j+1)*(L[2]/N)-dir*.012;
+          g.strokeStyle='rgba(210,196,255,'+(.85*f*f*(.7+.3*e))+')';g.lineWidth=(.5+1.0*f)*o.lm;g.shadowColor='rgba(167,139,250,.9)';g.shadowBlur=10*f*j;
+          g.beginPath();g.arc(cx,cy,r,Math.min(aa,ab),Math.max(aa,ab));g.stroke()}
+        g.shadowBlur=0})});
+      g.restore();requestAnimationFrame(draw)}
+    draw();
+  }
+  orb();
+  bar.style.transition='width '+DUR+'ms cubic-bezier(.3,.6,.3,1)';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){bar.style.width='100%'})});
+  function done(){el.classList.add('gone');setTimeout(function(){alive=false;root.classList.remove('kfb');window.dispatchEvent(new Event('kfboot:done'))},750)}
+  var go=function(){setTimeout(done,DUR+250)};
+  if(document.readyState==='complete')go();else addEventListener('load',go);
+  setTimeout(done,DUR+3500);
 })();
 </script>
 </body>
