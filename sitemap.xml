@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://kodeflux.web.id/</loc>
-    <lastmod>2026-10-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://kodeflux.web.id/corp</loc>
-    <lastmod>2026-10-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://kodeflux.web.id/fluxhq-demo.html</loc>
-    <lastmod>2026-10-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <url><loc>https://kodeflux.web.id/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://kodeflux.web.id/fact</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://kodeflux.web.id/discuss</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://kodeflux.web.id/corp</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://kodeflux.web.id/fluxhq-demo.html</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://kodeflux.web.id/fun</loc><lastmod>2026-10-29</lastmod></url>
+  <url><loc>https://kodeflux.web.id/tools/kinetic.html</loc><lastmod>2026-10-29</lastmod></url>
 </urlset>
