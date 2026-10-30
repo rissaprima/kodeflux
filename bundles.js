@@ -3,7 +3,7 @@
 (function () {
   var CFG = {
     launch: false,            // false = pre-launch (buttons go to Discord). true = checkout buttons live.
-    discord: '',              // paste the Discord invite link here, e.g. 'https://discord.gg/xxxxx'
+    discord: 'https://discord.com/invite/rMQnT7xZn',              // paste the Discord invite link here, e.g. 'https://discord.gg/xxxxx'
     seats: [50, 30, 20],      // seats per price phase (per bundle)
     // Seats and checkout links are tracked PER BUNDLE PER INDUSTRY.
     // buy: { rental: ['phase1 url','phase2 url','phase3 url'], party: [...], ... }
@@ -11,7 +11,8 @@
     groups: [
       { id: 'io', kicker: 'FLUX I/O BUNDLES', title: 'Industry tools',
         inds: [['rental', 'Rental', 'Rental I/O'], ['party', 'Party', 'Party I/O'], ['travel', 'Travel', 'Travel I/O'], ['mentor', 'Mentor', 'Mentor I/O']],
-        sub: 'Pilih industrimu dulu. Tiap bundle mencakup satu industri itu.',
+        unit: '1 bidang', fine: 'Harga naik seiring seat terjual. Harga berlaku untuk satu bidang.', label: 'Bidang',
+        sub: 'Pilih bidangmu dulu. Tiap bundle mencakup satu bidang itu.',
         bundles: [
           { id: 'core',  name: 'Core',  tag: 'Tool-nya saja.',
             items: ['{tool}: the full tool', 'Full version, no demo limits'],
@@ -25,6 +26,7 @@
         ] },
       { id: 'hq', kicker: 'FLUXHQ BUNDLES', title: 'Virtual office',
         inds: [['agency', 'Agency', 'Agency'], ['rental', 'Rental', 'Rental'], ['travel', 'Travel', 'Travel'], ['party', 'Party', 'Party'], ['mentor', 'Mentor', 'Mentor'], ['retail', 'Retail', 'Retail']],
+        unit: '1 industri', fine: 'Harga naik seiring seat terjual. Harga berlaku untuk satu industri.', label: 'Industry',
         sub: 'Pilih industrimu dulu. Enam meja dan 18 agent, berjalan dengan API key Claude atau GPT milikmu.',
         bundles: [
           { id: 'alpha', name: 'Alpha', tag: 'Kantor virtualmu.',
@@ -108,7 +110,7 @@
       : '<span class="btn btn-primary" aria-disabled="true">Checkout opening soon</span>';
   }
 
-  function card(b, ind) {
+  function card(b, ind, g) {
     var cur = phaseOf((b.sold && b.sold[ind[0]]) || 0);
     var showNow = cur.i < 0 ? CFG.seats.length - 1 : cur.i;
     var rows = '';
@@ -123,11 +125,11 @@
     return '<article class="bnd' + (b.feat ? ' feat' : '') + ' rv">' +
       (b.feat ? '<span class="bnd-badge">' + esc(b.feat) + '</span>' : '') +
       '<h3>' + esc(b.name) + '</h3><p class="bnd-tag">' + esc(b.tag) + '</p>' +
-      '<div class="bnd-price"><b>' + k(b.prices[showNow]) + '</b><span>lifetime · 1 industri</span></div>' +
+      '<div class="bnd-price"><b>' + k(b.prices[showNow]) + '</b><span>lifetime · ' + esc(g.unit) + '</span></div>' +
       '<ul>' + items + '</ul>' +
       '<div class="bnd-lad">' + rows + '</div>' +
       '<div class="bnd-cta">' + cta(b, cur, ind) + '</div>' +
-      '<p class="bnd-fine">Harga naik seiring seat terjual. Harga berlaku untuk satu industri.</p>' +
+      '<p class="bnd-fine">' + esc(g.fine) + '</p>' +
       '</article>';
   }
 
@@ -156,8 +158,8 @@
           return '<button type="button" class="bnd-chip' + (x[0] === ind[0] ? ' on' : '') + '" data-g="' + g.id + '" data-i="' + x[0] + '">' + esc(x[1]) + '</button>';
         }).join('');
         out += '<div class="bnd-group"><div class="bnd-gh"><b>' + g.kicker + '</b><span>' + esc(g.sub) + '</span></div>' +
-          '<div class="bnd-chips" role="group" aria-label="Industry">' + chips + '</div>' +
-          '<div class="bnd-grid">' + g.bundles.map(function (b) { return card(b, ind); }).join('') + '</div></div>';
+          '<div class="bnd-chips" role="group" aria-label="' + esc(g.label) + '">' + chips + '</div>' +
+          '<div class="bnd-grid">' + g.bundles.map(function (b) { return card(b, ind, g); }).join('') + '</div></div>';
       });
       m.innerHTML = out;
       [].forEach.call(m.querySelectorAll('.rv'), function (el) { el.classList.add('in'); });

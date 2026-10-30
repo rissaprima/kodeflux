@@ -1,0 +1,9 @@
+# Netlify headers. Only the embeddable widget gets a framing rule.
+# /fluxhq.html is used inside iframes (home teaser + Kapsule). It is NOT disallowed
+# in robots.txt on purpose: Google must be able to read its noindex tag.
+/fluxhq.html
+  Content-Security-Policy: frame-ancestors 'self' https://kodeflux.web.id https://www.kodeflux.web.id https://kapsule.web.id https://*.kapsule.web.id
+  X-Robots-Tag: noindex
+
+/fluxhq-demo.html
+  Content-Security-Policy: frame-ancestors 'self' https://kodeflux.web.id https://www.kodeflux.web.id

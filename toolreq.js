@@ -1,4 +1,4 @@
-/* Kodeflux — "Request a tool" fun flow. Opens from any [data-toolreq]. Netlify form: kodeflux-toolreq */
+/* Kodeflux — "Let’s talk about your work" fun flow. Opens from any [data-toolreq]. Netlify form: kodeflux-toolreq */
 (function(){
 var STEPS=[
  {q:'Who are you building for?',id:'Kamu lagi bikin tool buat siapa?',key:'who',opts:[
@@ -35,7 +35,7 @@ var css='.trq{position:fixed;inset:0;z-index:1400;display:none;align-items:cente
 '@media(max-width:600px){.trq{padding:10px}.trq-card{padding:26px 18px 20px}.trq-opts,.trq-grid{grid-template-columns:1fr}}';
 var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
 
-var h='<div class="trq-card" role="dialog" aria-modal="true" aria-label="Request a tool"><button class="trq-x" type="button" aria-label="Close">×</button><div class="trq-dots">'+STEPS.map(function(){return '<i></i>'}).join('')+'</div>';
+var h='<div class="trq-card" role="dialog" aria-modal="true" aria-label="Talk about your work"><button class="trq-x" type="button" aria-label="Close">×</button><div class="trq-dots">'+STEPS.map(function(){return '<i></i>'}).join('')+'</div>';
 STEPS.forEach(function(s,i){
  h+='<div class="trq-step" data-i="'+i+'"><span class="trq-k">'+String(i+1).padStart(2,'0')+' / '+String(STEPS.length).padStart(2,'0')+'</span><h3>'+s.q+'<span>'+s.id+'</span></h3>';
  if(s.type==='text')h+='<textarea data-t placeholder="'+s.ph+'"></textarea>';
@@ -43,7 +43,7 @@ STEPS.forEach(function(s,i){
  h+='<div class="trq-react"></div><div class="trq-nav"><button class="trq-back" type="button">'+(i?'Back':'')+'</button><button class="trq-go" type="button" disabled>'+(i===STEPS.length-1?'Last one →':'Next →')+'</button></div></div>';
 });
 h+='<div class="trq-lead"><span class="trq-k">Almost there</span><h3>Where do we send the good news?<span>Kemana kami kabari kamu?</span></h3><div class="trq-sum"></div><form name="kodeflux-toolreq" method="POST" data-netlify="true"><input type="hidden" name="form-name" value="kodeflux-toolreq"><input type="hidden" name="who"><input type="hidden" name="messiest"><input type="hidden" name="current_setup"><input type="hidden" name="dream_tool"><input type="hidden" name="urgency"><input type="hidden" name="page"><div class="trq-grid"><div><label>Name</label><input name="name" required autocomplete="name"></div><div><label>Your role / business</label><input name="role" required placeholder="e.g. owner, car rental"></div><div><label>WhatsApp</label><input name="whatsapp" type="tel" autocomplete="tel" placeholder="08xx…"></div><div><label>Email</label><input name="email" type="email" autocomplete="email"></div></div><p style="font-size:.78rem">WhatsApp or email, either one is fine.</p><div class="trq-nav"><button class="trq-back" type="button" data-lb>Back</button><button class="trq-go" type="submit">Send my idea ✨</button></div><div class="trq-st"></div></form></div>';
-h+='<div class="trq-ok"><div class="trq-big">🎉</div><h3>Idea received!<span>Ide kamu sudah masuk.</span></h3><p>Thanks. We read every request, and the ones that many people ask for get built first. We’ll reach out through the contact you shared.</p></div></div>';
+h+='<div class="trq-ok"><div class="trq-big">🎉</div><h3>Idea received!<span>Ide kamu sudah masuk.</span></h3><p>Thanks. We read every idea, and the ones many people ask for get built first. We’ll reach out through the contact you shared.</p></div></div>';
 var m=document.createElement('div');m.className='trq';m.innerHTML=h;document.body.appendChild(m);
 
 var steps=[].slice.call(m.querySelectorAll('.trq-step')),dots=[].slice.call(m.querySelectorAll('.trq-dots i')),lead=m.querySelector('.trq-lead'),ok=m.querySelector('.trq-ok'),form=m.querySelector('form'),A=[],cur=0;

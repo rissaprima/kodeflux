@@ -944,10 +944,10 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .fe-hero h1{font-size:clamp(2.2rem,5vw,3.9rem);line-height:1.04;letter-spacing:-.045em;max-width:16ch}
 .fe-hero .lead{margin-top:20px;max-width:38rem;font-size:clamp(1rem,1.5vw,1.14rem);color:var(--muted)}
 .fe-hero .cta{justify-content:flex-start;margin-top:28px}
-.fe-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:center}
+.fe-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:32px;align-items:center}
 @media(max-width:900px){.fe-grid{grid-template-columns:1fr}.fe-hero{padding-top:120px}}
 .fo{--kb:#0a0a0b;--kp:#111113;--kl:#242427;--kh:#323236;--kw:#F4F4F5;--kd:#A1A1AA;--ktb:#A78BFA;--kg:#E7B565;position:relative;border:1px solid var(--kh);border-radius:18px;background:var(--kb);overflow:hidden;font-family:"Inter",system-ui,sans-serif;color:var(--kw);box-shadow:0 40px 80px -40px rgba(139,92,246,.55);min-height:430px;display:flex;flex-direction:column}
-@media(min-width:901px){.fo{min-width:520px}}
+@media(min-width:901px){.fo{min-width:0;width:100%}}
 .fo-top{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;background:var(--kp);border-bottom:1px solid var(--kl);font-size:11px;flex:none}
 .fo-brand{font-weight:800;font-size:.95rem;letter-spacing:-.02em}
 .fo-on{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.12em;color:#10B981;text-transform:uppercase}
@@ -983,14 +983,14 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 @media(max-width:640px){.fe-body{grid-template-columns:1fr;grid-template-rows:auto 1fr}.fe-ag{border-right:0;border-bottom:1px solid var(--kl);display:grid;grid-template-columns:repeat(3,1fr);padding:10px}.fe-ag h6{grid-column:1/-1}.fe-a{padding:7px 8px}.fe-a em{display:none}.fo{min-height:520px}.fe-chat{min-height:250px}}
 @media(prefers-reduced-motion:reduce){.fe-m,.fe-ap{animation:none;opacity:1;transform:none}.fe-dots i,.fo-on u,.fo-foot u{animation:none}.fe-a u b{transition:none}}
 /* features */
-.fe-feat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px;text-align:left}
-.fe-f{display:flex;flex-direction:column;gap:10px;padding:24px}
+.fe-feat{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:44px auto 0;max-width:920px;text-align:left}
+.fe-feat>.rv{display:flex}
+.fe-f{display:flex;flex-direction:column;gap:10px;padding:26px;width:100%;min-height:208px}
 .fe-f .fe-i{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(123,79,216,.35),rgba(200,87,143,.22));border:1px solid var(--line2);color:#e9defc;margin-bottom:6px}
 .fe-f .fe-i .ic{width:20px;height:20px}
-.fe-f h3{font-size:1.15rem;letter-spacing:-.02em;line-height:1.2}
+.fe-f h3{font-size:1.15rem;letter-spacing:-.02em;line-height:1.2;white-space:nowrap}
 .fe-f p{color:var(--muted);font-size:.92rem;line-height:1.6}
-@media(max-width:1020px){.fe-feat{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.fe-feat{grid-template-columns:1fr}}
+@media(max-width:640px){.fe-feat{grid-template-columns:1fr}.fe-f{min-height:0}}
 .fe-soon{display:block;width:min(100%,320px);margin:30px auto 0;min-height:56px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);font:inherit;font-weight:600;font-size:1.05rem;cursor:not-allowed}
 #features .wrap,#custom .wrap{text-align:center}#features h2,#custom h2{text-align:center;margin-left:auto;margin-right:auto}#features .sub,#custom .sub{text-align:center;margin-left:auto;margin-right:auto;max-width:40rem}
 
@@ -1082,19 +1082,19 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   <h2>Built to do the legwork.</h2>
   <p class="sub">Empat hal yang bikin Flux-E terasa seperti rekan kerja, bukan sekadar kotak obrolan.</p>
   <div class="fe-feat">
-    <div class="rv" style="--d:0ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-chat"/></svg></span><h3>Ngobrol atau bicara</h3><p>Kasih perintah lewat teks atau suara, pakai bahasa sehari-hari. Flux-E paham konteksnya, jadi kamu nggak perlu mengulang.</p></div></div><div class="rv" style="--d:90ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-branch"/></svg></span><h3>Enam agent, satu pintu</h3><p>Director, Marketing, Sales, Operation, Production, dan Finance bekerja di belakang layar. Kamu cukup bicara dengan Flux-E.</p></div></div><div class="rv" style="--d:180ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-building"/></svg></span><h3>Semua bisnis, satu tempat</h3><p>Rekap dari tiap bisnismu masuk ke satu layar, jadi nggak perlu membuka banyak dashboard satu per satu.</p></div></div><div class="rv" style="--d:270ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-lock"/></svg></span><h3>Kamu yang menyetujui</h3><p>Hal penting berhenti dulu di mejamu. Flux-E hanya melanjutkan setelah kamu bilang setuju.</p></div></div>
+    <div class="rv" style="--d:0ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-chat"/></svg></span><h3>Ngobrol atau berbicara</h3><p>Kasih perintah lewat teks atau suara dengan bahasa sehari-hari. Flux-E paham konteksnya, jadi tak perlu diulang.</p></div></div><div class="rv" style="--d:90ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-branch"/></svg></span><h3>Enam agent, satu pintu</h3><p>Director, Marketing, Sales, Operation, Production, dan Finance bekerja di balik layar. Kamu cukup bicara ke Flux-E.</p></div></div><div class="rv" style="--d:180ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-building"/></svg></span><h3>Semua bisnis satu layar</h3><p>Rekap dari tiap bisnismu masuk ke satu tempat, jadi tak perlu membuka banyak dashboard satu per satu secara manual.</p></div></div><div class="rv" style="--d:270ms"><div class="card fe-f"><span class="fe-i"><svg class="ic"><use href="#i-lock"/></svg></span><h3>Kamu tetap menyetujui</h3><p>Hal penting berhenti dulu di mejamu. Flux-E hanya melanjutkan setelah kamu setuju, dan bisa kamu tunda kapan saja.</p></div></div>
   </div>
   <button class="fe-soon" type="button" disabled aria-disabled="true">Coming soon</button>
 </div></section>
 <section class="hq-sec" id="custom"><div class="wrap">
   <div class="section-kicker">NEED SOMETHING CUSTOM?</div>
   <h2>Need a custom app?</h2>
-  <p class="sub">Punya alur kerja yang belum ada di tool mana pun? Ceritakan kebutuhanmu di Discuss, lalu kita bahas bareng apakah bisa dibangun.</p>
+  <p class="sub">Punya alur kerja yang belum ada di tool mana pun? Ceritakan kebutuhanmu lewat ASK, lalu kita bahas bareng apakah bisa dibangun.</p>
   <p style="margin-top:22px"><a class="btn btn-primary" href="/discuss">Talk it through <svg class="ic"><use href="#i-arrow"/></svg></a></p>
 </div></section>
 </main>
 <footer>
-  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><div class="ft-soc" id="join"><a href="https://instagram.com/kodeflux.id" target="_blank" rel="noopener me" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="https://www.youtube.com/@kodeflux" target="_blank" rel="noopener me" aria-label="YouTube"><svg class="ic ic-fill"><use href="#i-yt"/></svg></a><a href="https://discord.gg/rMQnT7xZn" target="_blank" rel="noopener me" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="mailto:kodeflux.id@gmail.com" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
+  <div class="wrap"><span>© Kodeflux 2026. All rights reserved.</span><div class="ft-soc" id="join"><a href="https://instagram.com/kodeflux.id" target="_blank" rel="noopener me" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a><a href="https://www.youtube.com/@kodeflux" target="_blank" rel="noopener me" aria-label="YouTube"><svg class="ic ic-fill"><use href="#i-yt"/></svg></a><a href="https://discord.com/invite/rMQnT7xZn" target="_blank" rel="noopener me" aria-label="Discord"><svg class="ic ic-fill"><use href="#i-dc"/></svg></a><a href="mailto:kodeflux.id@gmail.com" aria-label="Email"><svg class="ic"><use href="#i-mail"/></svg></a></div></div>
 </footer>
 <script>
 (function(){
