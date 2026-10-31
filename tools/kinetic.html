@@ -579,7 +579,7 @@ html,body{
 .dz button.on{border-color:var(--flux-primary-bright);color:var(--flux-primary-bright);background:rgba(139,92,246,.08)}
 .paper{background:#fff;color:#161616;border-radius:8px;padding:0;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:11px;line-height:1.5}
 .paper *{color:inherit}
-.paper h1{font-size:20px;line-height:1.1;margin:0}
+.paper h1,.paper h2{font-size:20px;line-height:1.1;margin:0}
 .paper h4{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;margin:12px 0 4px}
 .paper .ph{width:72px;height:96px;border-radius:4px;object-fit:cover;background:#ddd;flex:none;display:block}
 .k-in{background:var(--line);border:1px solid var(--line-hi);border-radius:7px;padding:8px 9px;color:var(--white);min-height:38px;width:100%;font-size:12.5px}
@@ -646,6 +646,7 @@ html[data-theme=hc] .nav-item.on,html[data-theme=hc] .tab-btn.on{outline:2px sol
 </style>
 </head>
 <body>
+<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Kinetic — Impact I/O live demo</h1>
 <a class="skip" href="#view">Skip to content</a>
 <div class="shell">
   <div class="top">
@@ -771,9 +772,9 @@ function cvHTML(){var p=S.pf,d=DES[S.cv.d],ch=cvIncl(),jobs=p.jobs.map(function(
  var port=p.port.filter(function(x,i){return ch[i]!==false}).map(function(x){return '<div>• '+esc(x.t)+' <span style="opacity:.6">'+esc(x.u)+'</span></div>'}).join('');
  var contact=esc(p.phone)+' · '+esc(p.email)+'<br>'+esc(p.addr);
  var body='<h4 style="color:'+d.a+'">Profile</h4><div>'+esc(p.about)+'</div><h4 style="color:'+d.a+'">Experience</h4>'+jobs+'<h4 style="color:'+d.a+'">Education</h4><div>'+esc(p.edu)+'</div><h4 style="color:'+d.a+'">Skills</h4><div>'+skills+'</div>'+(port?'<h4 style="color:'+d.a+'">Portfolio</h4>'+port:'');
- if(d.l==='side')return '<div class="paper" style="font-family:'+d.f+';display:grid;grid-template-columns:34% 1fr;min-height:360px"><div style="background:'+d.a+';color:#fff;padding:16px 12px">'+photoImg(p,'margin:0 auto 10px;')+'<div style="font-size:10px;opacity:.9">'+contact+'</div><h4 style="color:#fff;opacity:.8">Skills</h4><div style="font-size:10px">'+p.skills.map(esc).join('<br>')+'</div></div><div style="padding:16px"><h1 style="color:'+d.a+'">'+esc(p.name)+'</h1><div style="opacity:.7">'+esc(p.title)+'</div>'+body.replace(/<h4[^>]*>Skills<\/h4><div>[\s\S]*?<\/div>(?=<h4|$)/,'')+'</div></div>';
- if(d.l==='bold')return '<div class="paper" style="font-family:'+d.f+'"><div style="background:'+d.a+';color:#fff;padding:16px;display:flex;gap:12px;align-items:center">'+photoImg(p)+'<div><h1>'+esc(p.name)+'</h1><div>'+esc(p.title)+'</div><div style="font-size:10px;opacity:.9;margin-top:4px">'+contact+'</div></div></div><div style="padding:14px 16px">'+body+'</div></div>';
- return '<div class="paper" style="font-family:'+d.f+';padding:16px"><div style="display:flex;gap:12px;align-items:center;border-bottom:2px solid '+d.a+';padding-bottom:10px">'+photoImg(p)+'<div><h1 style="color:'+d.a+'">'+esc(p.name)+'</h1><div style="opacity:.75">'+esc(p.title)+'</div><div style="font-size:10px;opacity:.8;margin-top:4px">'+contact+'</div></div></div>'+body+'</div>'}
+ if(d.l==='side')return '<div class="paper" style="font-family:'+d.f+';display:grid;grid-template-columns:34% 1fr;min-height:360px"><div style="background:'+d.a+';color:#fff;padding:16px 12px">'+photoImg(p,'margin:0 auto 10px;')+'<div style="font-size:10px;opacity:.9">'+contact+'</div><h4 style="color:#fff;opacity:.8">Skills</h4><div style="font-size:10px">'+p.skills.map(esc).join('<br>')+'</div></div><div style="padding:16px"><h2 style="color:'+d.a+'">'+esc(p.name)+'</h2><div style="opacity:.7">'+esc(p.title)+'</div>'+body.replace(/<h4[^>]*>Skills<\/h4><div>[\s\S]*?<\/div>(?=<h4|$)/,'')+'</div></div>';
+ if(d.l==='bold')return '<div class="paper" style="font-family:'+d.f+'"><div style="background:'+d.a+';color:#fff;padding:16px;display:flex;gap:12px;align-items:center">'+photoImg(p)+'<div><h2>'+esc(p.name)+'</h2><div>'+esc(p.title)+'</div><div style="font-size:10px;opacity:.9;margin-top:4px">'+contact+'</div></div></div><div style="padding:14px 16px">'+body+'</div></div>';
+ return '<div class="paper" style="font-family:'+d.f+';padding:16px"><div style="display:flex;gap:12px;align-items:center;border-bottom:2px solid '+d.a+';padding-bottom:10px">'+photoImg(p)+'<div><h2 style="color:'+d.a+'">'+esc(p.name)+'</h2><div style="opacity:.75">'+esc(p.title)+'</div><div style="font-size:10px;opacity:.8;margin-top:4px">'+contact+'</div></div></div>'+body+'</div>'}
 function cvIncl(){return S.cv.inc||(S.cv.inc=S.pf.port.map(function(){return true}))}
 window.knInc=function(i){var c=cvIncl();c[i]=c[i]===false?true:false;render()};
 function vCv(){var ch=cvIncl(),p=S.pf;
