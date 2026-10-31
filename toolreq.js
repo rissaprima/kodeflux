@@ -1,5 +1,26 @@
 /* Kodeflux — "Let’s talk about your work" fun flow. Opens from any [data-toolreq]. Netlify form: kodeflux-toolreq */
 (function(){
+var KVD=/(^|\.)(mailinator\.com|guerrillamail\.com|10minutemail\.com|tempmail\.com|temp-mail\.org|yopmail\.com|trashmail\.com|sharklasers\.com|getnada\.com|dispostable\.com|maildrop\.cc|throwawaymail\.com|fakeinbox\.com|mohmal\.com|emailondeck\.com)$/i,
+KVT={'gmial.com':'gmail.com','gmai.com':'gmail.com','gmaill.com':'gmail.com','gnail.com':'gmail.com','gmail.co':'gmail.com','gmail.con':'gmail.com','yaho.com':'yahoo.com','yahooo.com':'yahoo.com','yahoo.con':'yahoo.com','hotmial.com':'hotmail.com','outlok.com':'outlook.com'};
+function KV(f){
+ var n=f.name.value.trim().replace(/\s+/g,' ');
+ if(n.length<2||n.length>60||!/^[\p{L}][\p{L}\p{M}'.\- ]*$/u.test(n)||/(.)\1{3,}/.test(n))return 'Tulis namamu dengan huruf ya, minimal 2 huruf. Nama panggilan juga boleh.';
+ var r=f.role.value.trim();if(r.length<2||r.length>80)return 'Isi peran atau usahamu dulu ya.';
+ var w=f.whatsapp.value.replace(/[\s\-().]/g,'');
+ if(!/^(?:\+62|62|0)8[1-9]\d{7,10}$/.test(w))return 'Nomor WhatsApp belum pas. Pakai nomor Indonesia yang aktif, contohnya 0812 3456 7890.';
+ var wn=w.replace(/^(?:\+62|62|0)/,'');if(/(\d)\1{6,}/.test(wn)||/12345678|87654321/.test(wn))return 'Nomor WhatsApp kelihatan belum benar. Coba cek lagi.';
+ var e=f.email.value.trim().toLowerCase();
+ if(e.length>254||!/^[a-z0-9._%+\-]{1,64}@([a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/.test(e)||/\.\./.test(e))return 'Format email belum benar. Contohnya nama@gmail.com.';
+ var dm=e.split('@')[1];
+ if(KVD.test(dm))return 'Email sekali pakai nggak bisa dipakai. Gunakan email aktifmu.';
+ if(KVT[dm])return 'Maksudmu '+e.split('@')[0]+'@'+KVT[dm]+'? Perbaiki dulu emailnya ya.';
+ f.name.value=n;f.whatsapp.value='+62'+wn;f.email.value=e;return '';
+}
+function KR(){var now=Date.now(),l=[];try{l=JSON.parse(localStorage.getItem('kf:req')||'[]').filter(function(x){return now-x<864e5})}catch(x){}
+ if(l.length&&now-l[l.length-1]<60000)return 'Sebentar ya, coba lagi sekitar satu menit.';
+ if(l.length>=3)return 'Pengiriman dari perangkat ini sudah mencapai batas hari ini. Coba lagi besok, atau mampir ke Discord kami.';
+ return ''}
+function KS(){try{var l=JSON.parse(localStorage.getItem('kf:req')||'[]');l.push(Date.now());localStorage.setItem('kf:req',JSON.stringify(l))}catch(x){}}
 var STEPS=[
  {q:'Who are you building for?',id:'Kamu lagi bikin tool buat siapa?',key:'who',opts:[
   ['🛻','Rentals','Sewa kendaraan, alat, kamera, dll'],['🎉','Events & parties','Acara, vendor, EO'],['🧳','Travel & trips','Tour, open trip, itinerary'],['🎓','Mentoring & classes','Kursus, coaching, bimbel'],['🛍️','Shop & retail','Jualan produk, stok, order'],['🧑‍💻','Services & freelance','Jasa, klien, proyek'],['✨','Something else','Industri lain']],
@@ -42,7 +63,7 @@ STEPS.forEach(function(s,i){
  else{h+='<div class="trq-opts">'+s.opts.map(function(o){return '<button type="button" data-v="'+o[1]+'"><em>'+o[0]+'</em><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span></button>'}).join('')+'</div>';}
  h+='<div class="trq-react"></div><div class="trq-nav"><button class="trq-back" type="button">'+(i?'Back':'')+'</button><button class="trq-go" type="button" disabled>'+(i===STEPS.length-1?'Last one →':'Next →')+'</button></div></div>';
 });
-h+='<div class="trq-lead"><span class="trq-k">Almost there</span><h3>Where do we send the good news?<span>Kemana kami kabari kamu?</span></h3><div class="trq-sum"></div><form name="kodeflux-toolreq" method="POST" data-netlify="true"><input type="hidden" name="form-name" value="kodeflux-toolreq"><input type="hidden" name="who"><input type="hidden" name="messiest"><input type="hidden" name="current_setup"><input type="hidden" name="dream_tool"><input type="hidden" name="urgency"><input type="hidden" name="page"><div class="trq-grid"><div><label>Name</label><input name="name" required autocomplete="name"></div><div><label>Your role / business</label><input name="role" required placeholder="e.g. owner, car rental"></div><div><label>WhatsApp</label><input name="whatsapp" type="tel" autocomplete="tel" placeholder="08xx…"></div><div><label>Email</label><input name="email" type="email" autocomplete="email"></div></div><p style="font-size:.78rem">WhatsApp or email, either one is fine.</p><div class="trq-nav"><button class="trq-back" type="button" data-lb>Back</button><button class="trq-go" type="submit">Send my idea ✨</button></div><div class="trq-st"></div></form></div>';
+h+='<div class="trq-lead"><span class="trq-k">Almost there</span><h3>Where do we send the good news?<span>Kemana kami kabari kamu?</span></h3><div class="trq-sum"></div><form name="kodeflux-toolreq" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="kodeflux-toolreq"><input type="hidden" name="who"><input name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"><input type="hidden" name="messiest"><input type="hidden" name="current_setup"><input type="hidden" name="dream_tool"><input type="hidden" name="urgency"><input type="hidden" name="page"><div class="trq-grid"><div><label>Name</label><input name="name" required autocomplete="name"></div><div><label>Your role / business</label><input name="role" required placeholder="e.g. owner, car rental"></div><div><label>WhatsApp</label><input name="whatsapp" type="tel" inputmode="tel" required autocomplete="tel" placeholder="0812 3456 7890"></div><div><label>Email</label><input name="email" type="email" inputmode="email" required autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com"></div></div><p style="font-size:.78rem">Pakai WhatsApp dan email yang aktif, ya. Kami hanya memakainya untuk menghubungimu soal ini.</p><div class="trq-nav"><button class="trq-back" type="button" data-lb>Back</button><button class="trq-go" type="submit">Send my idea ✨</button></div><div class="trq-st"></div></form></div>';
 h+='<div class="trq-ok"><div class="trq-big">🎉</div><h3>Idea received!<span>Ide kamu sudah masuk.</span></h3><p>Thanks. We read every idea, and the ones many people ask for get built first. We’ll reach out through the contact you shared.</p></div></div>';
 var m=document.createElement('div');m.className='trq';m.innerHTML=h;document.body.appendChild(m);
 
@@ -60,8 +81,8 @@ m.querySelector('[data-lb]').onclick=function(){show(steps.length-1)};
 m.querySelector('.trq-x').onclick=close;m.addEventListener('click',function(e){if(e.target===m)close()});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('on'))close()});
 document.addEventListener('click',function(e){var b=e.target.closest('[data-toolreq]');if(b){e.preventDefault();open(b.getAttribute('data-toolreq'))}});
 form.addEventListener('submit',function(e){e.preventDefault();var stt=m.querySelector('.trq-st');
- if(!form.whatsapp.value.trim()&&!form.email.value.trim()){stt.textContent='Please add a WhatsApp number or an email.';return}
+ var vv=KV(form);if(vv){stt.textContent=vv;return}var rl=KR();if(rl){stt.textContent=rl;return}
  form.who.value=A[0]||'';form.messiest.value=A[1]||'';form.current_setup.value=A[2]||'';form.dream_tool.value=A[3]||'';form.urgency.value=A[4]||'';
- var d={};new FormData(form).forEach(function(v,k){d[k]=v});var btn=form.querySelector('[type=submit]');btn.disabled=true;stt.textContent='Sending…';
- fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(r){if(!r.ok)throw 0;lead.classList.remove('on');ok.classList.add('on');dots.forEach(function(x){x.classList.add('on')})}).catch(function(){stt.textContent='Couldn’t send yet. Please try again.'}).then(function(){btn.disabled=false});});
+ var d={};new FormData(form).forEach(function(v,k){d[k]=v});if(d['bot-field']){return}var btn=form.querySelector('[type=submit]');btn.disabled=true;stt.textContent='Sending…';
+ fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(r){if(!r.ok)throw 0;KS();lead.classList.remove('on');ok.classList.add('on');dots.forEach(function(x){x.classList.add('on')})}).catch(function(){stt.textContent='Couldn’t send yet. Please try again.'}).then(function(){btn.disabled=false});});
 })();

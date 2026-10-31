@@ -1,5 +1,26 @@
 /* Kodeflux — "Let’s talk about your business" fun flow. Opens from any [data-agentreq]. Netlify form: kodeflux-agentreq */
 (function(){
+var KVD=/(^|\.)(mailinator\.com|guerrillamail\.com|10minutemail\.com|tempmail\.com|temp-mail\.org|yopmail\.com|trashmail\.com|sharklasers\.com|getnada\.com|dispostable\.com|maildrop\.cc|throwawaymail\.com|fakeinbox\.com|mohmal\.com|emailondeck\.com)$/i,
+KVT={'gmial.com':'gmail.com','gmai.com':'gmail.com','gmaill.com':'gmail.com','gnail.com':'gmail.com','gmail.co':'gmail.com','gmail.con':'gmail.com','yaho.com':'yahoo.com','yahooo.com':'yahoo.com','yahoo.con':'yahoo.com','hotmial.com':'hotmail.com','outlok.com':'outlook.com'};
+function KV(f){
+ var n=f.name.value.trim().replace(/\s+/g,' ');
+ if(n.length<2||n.length>60||!/^[\p{L}][\p{L}\p{M}'.\- ]*$/u.test(n)||/(.)\1{3,}/.test(n))return 'Tulis namamu dengan huruf ya, minimal 2 huruf. Nama panggilan juga boleh.';
+ var r=f.role.value.trim();if(r.length<2||r.length>80)return 'Isi peran atau usahamu dulu ya.';
+ var w=f.whatsapp.value.replace(/[\s\-().]/g,'');
+ if(!/^(?:\+62|62|0)8[1-9]\d{7,10}$/.test(w))return 'Nomor WhatsApp belum pas. Pakai nomor Indonesia yang aktif, contohnya 0812 3456 7890.';
+ var wn=w.replace(/^(?:\+62|62|0)/,'');if(/(\d)\1{6,}/.test(wn)||/12345678|87654321/.test(wn))return 'Nomor WhatsApp kelihatan belum benar. Coba cek lagi.';
+ var e=f.email.value.trim().toLowerCase();
+ if(e.length>254||!/^[a-z0-9._%+\-]{1,64}@([a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/.test(e)||/\.\./.test(e))return 'Format email belum benar. Contohnya nama@gmail.com.';
+ var dm=e.split('@')[1];
+ if(KVD.test(dm))return 'Email sekali pakai nggak bisa dipakai. Gunakan email aktifmu.';
+ if(KVT[dm])return 'Maksudmu '+e.split('@')[0]+'@'+KVT[dm]+'? Perbaiki dulu emailnya ya.';
+ f.name.value=n;f.whatsapp.value='+62'+wn;f.email.value=e;return '';
+}
+function KR(){var now=Date.now(),l=[];try{l=JSON.parse(localStorage.getItem('kf:req')||'[]').filter(function(x){return now-x<864e5})}catch(x){}
+ if(l.length&&now-l[l.length-1]<60000)return 'Sebentar ya, coba lagi sekitar satu menit.';
+ if(l.length>=3)return 'Pengiriman dari perangkat ini sudah mencapai batas hari ini. Coba lagi besok, atau mampir ke Discord kami.';
+ return ''}
+function KS(){try{var l=JSON.parse(localStorage.getItem('kf:req')||'[]');l.push(Date.now());localStorage.setItem('kf:req',JSON.stringify(l))}catch(x){}}
 var STEPS=[
  {q:'What kind of business do you run?',id:'Bisnismu bergerak di bidang apa?',key:'industry',opts:[
   ['💆','Wellness & clinics','Klinik, salon, spa, studio'],['🍽️','Food & beverage','Kafe, resto, katering'],['🏡','Property & hospitality','Villa, kos, penginapan'],['🏗️','Construction & contractors','Kontraktor, interior, proyek'],['💼','Professional services','Konsultan, hukum, akuntan'],['✨','Something else','Nanti kamu ceritakan di akhir']],
@@ -43,7 +64,7 @@ STEPS.forEach(function(s,i){
  else{h+='<div class="arq-opts">'+s.opts.map(function(o){return '<button type="button" data-v="'+o[1]+'"><em>'+o[0]+'</em><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span></button>'}).join('')+'</div>';}
  h+='<div class="arq-react"></div><div class="arq-nav"><button class="arq-back" type="button">'+(i?'Back':'')+'</button><button class="arq-go" type="button" disabled>'+(i===STEPS.length-1?'Last one →':'Next →')+'</button></div></div>';
 });
-h+='<div class="arq-lead"><span class="arq-k">Almost there</span><h3>Where do we send the update?<span>Kemana kami kabari kamu?</span></h3><div class="arq-sum"></div><form name="kodeflux-agentreq" method="POST" data-netlify="true"><input type="hidden" name="form-name" value="kodeflux-agentreq"><input type="hidden" name="industry"><input type="hidden" name="desk"><input type="hidden" name="inquiry_flow"><input type="hidden" name="agent_tasks"><input type="hidden" name="urgency"><input type="hidden" name="page"><div class="arq-grid"><div><label>Name</label><input name="name" required autocomplete="name"></div><div><label>Your role / business</label><input name="role" required placeholder="e.g. owner, dental clinic"></div><div><label>WhatsApp</label><input name="whatsapp" type="tel" autocomplete="tel" placeholder="08xx…"></div><div><label>Email</label><input name="email" type="email" autocomplete="email"></div></div><p style="font-size:.78rem">WhatsApp or email, either one is fine.</p><div class="arq-nav"><button class="arq-back" type="button" data-lb>Back</button><button class="arq-go" type="submit">Send it over ✨</button></div><div class="arq-st"></div></form></div>';
+h+='<div class="arq-lead"><span class="arq-k">Almost there</span><h3>Where do we send the update?<span>Kemana kami kabari kamu?</span></h3><div class="arq-sum"></div><form name="kodeflux-agentreq" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="kodeflux-agentreq"><input type="hidden" name="industry"><input name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"><input type="hidden" name="desk"><input type="hidden" name="inquiry_flow"><input type="hidden" name="agent_tasks"><input type="hidden" name="urgency"><input type="hidden" name="page"><div class="arq-grid"><div><label>Name</label><input name="name" required autocomplete="name"></div><div><label>Your role / business</label><input name="role" required placeholder="e.g. owner, dental clinic"></div><div><label>WhatsApp</label><input name="whatsapp" type="tel" inputmode="tel" required autocomplete="tel" placeholder="0812 3456 7890"></div><div><label>Email</label><input name="email" type="email" inputmode="email" required autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="nama@email.com"></div></div><p style="font-size:.78rem">Pakai WhatsApp dan email yang aktif, ya. Kami hanya memakainya untuk menghubungimu soal ini.</p><div class="arq-nav"><button class="arq-back" type="button" data-lb>Back</button><button class="arq-go" type="submit">Send it over ✨</button></div><div class="arq-st"></div></form></div>';
 h+='<div class="arq-ok"><div class="arq-big">🎉</div><h3>Got it, thanks!<span>Ceritamu sudah masuk.</span></h3><p>Thanks. We read every message, and industries that many people ask for are added first. We’ll reach out through the contact you shared.</p></div></div>';
 var m=document.createElement('div');m.className='arq';m.innerHTML=h;document.body.appendChild(m);
 
@@ -61,8 +82,8 @@ m.querySelector('[data-lb]').onclick=function(){show(steps.length-1)};
 m.querySelector('.arq-x').onclick=close;m.addEventListener('click',function(e){if(e.target===m)close()});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('on'))close()});
 document.addEventListener('click',function(e){var b=e.target.closest('[data-agentreq]');if(b){e.preventDefault();open(b.getAttribute('data-agentreq'))}});
 form.addEventListener('submit',function(e){e.preventDefault();var stt=m.querySelector('.arq-st');
- if(!form.whatsapp.value.trim()&&!form.email.value.trim()){stt.textContent='Please add a WhatsApp number or an email.';return}
+ var vv=KV(form);if(vv){stt.textContent=vv;return}var rl=KR();if(rl){stt.textContent=rl;return}
  form.industry.value=A[0]||'';form.desk.value=A[1]||'';form.inquiry_flow.value=A[2]||'';form.agent_tasks.value=A[3]||'';form.urgency.value=A[4]||'';
- var d={};new FormData(form).forEach(function(v,k){d[k]=v});var btn=form.querySelector('[type=submit]');btn.disabled=true;stt.textContent='Sending…';
- fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(r){if(!r.ok)throw 0;lead.classList.remove('on');ok.classList.add('on');dots.forEach(function(x){x.classList.add('on')})}).catch(function(){stt.textContent='Couldn’t send yet. Please try again.'}).then(function(){btn.disabled=false});});
+ var d={};new FormData(form).forEach(function(v,k){d[k]=v});if(d['bot-field']){return}var btn=form.querySelector('[type=submit]');btn.disabled=true;stt.textContent='Sending…';
+ fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(d).toString()}).then(function(r){if(!r.ok)throw 0;KS();lead.classList.remove('on');ok.classList.add('on');dots.forEach(function(x){x.classList.add('on')})}).catch(function(){stt.textContent='Couldn’t send yet. Please try again.'}).then(function(){btn.disabled=false});});
 })();

@@ -37,7 +37,7 @@
 <script>try{if(!sessionStorage.getItem('kfseen')&&!location.hash){document.documentElement.classList.add('kfb');sessionStorage.setItem('kfseen','1')}}catch(e){}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://kodeflux.web.id/#organization","name":"Kodeflux","url":"https://kodeflux.web.id/","logo":"https://kodeflux.web.id/og-image.png","sameAs":["https://instagram.com/kodeflux.id","https://www.youtube.com/@kodeflux"]},{"@type":"WebSite","@id":"https://kodeflux.web.id/#website","url":"https://kodeflux.web.id/","name":"Kodeflux","description":"Belajar, coba, dan temukan cara kerja bareng AI yang beneran kepake. Cek levelmu lewat FACT, tumbuh bareng Fluxmates di FUN, dan tetap pegang kendali.","publisher":{"@id":"https://kodeflux.web.id/#organization"},"inLanguage":"id-ID"}]}</script>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"id-ID","mainEntity":[{"@type":"Question","name":"Apa bedanya Flux I/O dan FluxHQ?","acceptedAnswer":{"@type":"Answer","text":"Flux I/O adalah tool per industri yang kamu jalankan sendiri. FluxHQ adalah kantor virtual dengan enam meja dan 18 agent yang membantu operasional bisnis, dengan persetujuan tetap di tanganmu."}},{"@type":"Question","name":"Perlu paham prompting?","acceptedAnswer":{"@type":"Answer","text":"Tidak. Struktur, prompt, dan hasilnya sudah disiapkan. Kamu cukup mengisi data sendiri dan menyetujui hal yang penting."}},{"@type":"Question","name":"AI mana yang dipakai?","acceptedAnswer":{"@type":"Answer","text":"Kamu pasang API key sendiri dan pilih Claude atau GPT (satu per akun). API key ditagih terpisah dari langganan Claude atau ChatGPT. Tutorialnya akan memandumu langkah demi langkah."}},{"@type":"Question","name":"Apa bedanya demo dengan versi lengkap?","acceptedAnswer":{"@type":"Answer","text":"Demo berjalan dengan data contoh. Menyimpan, mengekspor, dan mencetak ada di versi lengkap."}},{"@type":"Question","name":"Bagaimana cara kerja fase harga?","acceptedAnswer":{"@type":"Answer","text":"Tiap bundle punya 50 seat di harga pertama, lalu 30, lalu 20. Harga naik saat satu fase habis terjual. Jumlah seat di kartu bundle adalah angka sebenarnya."}},{"@type":"Question","name":"Bisa beli lebih dari satu industri?","acceptedAnswer":{"@type":"Answer","text":"Bisa. Tiap bundle mencakup satu industri, dan industri lain dijual terpisah karena tool, e-playbook, dan e-mini course-nya berbeda untuk tiap industri."}},{"@type":"Question","name":"Di mana aku bisa bertanya?","acceptedAnswer":{"@type":"Answer","text":"Di Discord Kodeflux. Di sana juga kabar peluncuran dan update komunitas diumumkan lebih dulu."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"id-ID","mainEntity":[{"@type":"Question","name":"Kodeflux itu apa?","acceptedAnswer":{"@type":"Answer","text":"Kodeflux adalah learning lab dan community hub untuk belajar memakai AI sebagai teman kerja. Ada tes FACT untuk mengecek levelmu, komunitas FUN untuk belajar bareng, serta tool dan agent siap pakai di PLAY, CORP, dan FLUX-E."}},{"@type":"Question","name":"Harus bisa coding?","acceptedAnswer":{"@type":"Answer","text":"Tidak. Kodeflux dibuat untuk orang awam, termasuk yang belum pernah memakai AI sama sekali. Mulai saja dari tes FACT, lalu belajar sesuai levelmu."}},{"@type":"Question","name":"FACT itu apa?","acceptedAnswer":{"@type":"Answer","text":"FACT (Flux AI Capability Test) adalah 10 pertanyaan ringan, sekitar 2 menit, gratis dan tanpa akun. Kamu cukup mengisi nama dan email, lalu mendapat peta kemampuan dan langkah berikutnya."}},{"@type":"Question","name":"Apa arti tiap level?","acceptedAnswer":{"@type":"Answer","text":"Lima level itu penanda ritme, bukan ranking. Seed berarti baru kenal AI, Grow mulai coba-coba, Flow sudah jadi kebiasaan, Glow punya cara sendiri, dan Rise sudah bisa dibagikan ke orang lain."}},{"@type":"Question","name":"FUN itu untuk siapa?","acceptedAnswer":{"@type":"Answer","text":"FUN (Flux User Network) adalah komunitas Fluxmates di Discord untuk berbagi prompt, workflow, dan eksperimen, ditambah kelas, e-book, dan mini-course. Cocok untuk solo founder, freelancer, atau siapa pun yang mau belajar AI bareng-bareng."}},{"@type":"Question","name":"Apa beda tiap halaman?","acceptedAnswer":{"@type":"Answer","text":"PLAY berisi tool AI siap pakai yang bisa dicoba dengan data contoh. CORP adalah kantor virtual FluxHQ untuk operasional bisnis. ASK untuk membahas aplikasi custom, dan FLUX-E adalah asisten AI yang menggerakkan agent di belakang layar."}},{"@type":"Question","name":"Mau tanya ke mana?","acceptedAnswer":{"@type":"Answer","text":"Di Discord Kodeflux. Kabar peluncuran dan update komunitas juga diumumkan di sana lebih dulu."}}]}</script>
 <style>
 /* loading */
 #kfboot{position:fixed;inset:0;box-sizing:border-box;z-index:9999;background:rgba(14,12,18,.62);-webkit-backdrop-filter:blur(22px) saturate(1.1);backdrop-filter:blur(22px) saturate(1.1);display:grid;place-items:center;padding:24px;transition:opacity .7s ease,visibility .7s}
@@ -852,6 +852,31 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 .pl-faq summary::after{content:"+";float:right;color:var(--amber)}
 .pl-faq details[open] summary::after{content:"\2212"}
 .pl-faq p{padding:0 0 16px;color:var(--muted);font-size:.95rem}
+
+/* home: paths + level notes */
+.paths-sec .sh{margin-bottom:30px}
+.pl-faq summary{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pl-faq summary::after{float:none;flex:none}
+.paths-sec{padding:clamp(1rem,2vw,1.5rem) 0 clamp(2rem,4vw,3rem)}
+.path-card .tag{margin:0;align-self:flex-start}
+.paths{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.path-card{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:24px;min-height:244px;text-decoration:none;color:inherit}
+.path-code{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;color:var(--amber)}
+.path-card p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.55;flex:1}
+.path-card:hover .gateway-link .ic{transform:translateX(3px)}
+@media(max-width:980px){.paths{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.paths{grid-template-columns:1fr}.path-card{min-height:0}}
+.fact-plain{margin:8px 0 12px;color:var(--amber);font-weight:600;font-size:.98rem}
+.fact-all{margin:14px 0;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.03)}
+.fact-all summary{cursor:pointer;font-size:.88rem;color:var(--fg);list-style:none}
+.fact-all summary::-webkit-details-marker{display:none}
+.fact-all summary::after{content:" +";color:var(--amber)}
+.fact-all[open] summary::after{content:" −"}
+.fact-all ol{margin:10px 0 6px;padding-left:0;list-style:none;display:grid;gap:6px;font-size:.88rem;color:var(--muted)}
+.fact-all li b{color:var(--fg);display:inline-block;min-width:3.4em}
+.fact-all p{margin:4px 0 0;font-size:.8rem;color:var(--dim)}
+.gateway-card p{margin-bottom:22px}
+.gateway-card .gateway-link{padding-top:4px}
 </style>
 </head>
 <body>
@@ -899,28 +924,28 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 <header class="nav" id="nav">
   <div class="wrap nav-in">
     <nav class="links links-l" aria-label="Utama kiri">
-      <a href="#fact">FACT</a>
-      <a href="#fun">FUN</a>
-      <a href="/play">PLAY</a>
+      <a href="/fact" data-fact title="Flux AI Capability Test">FACT</a>
+      <a href="/fun" title="Flux User Network">FUN</a>
+      <a href="/play" title="AI Digital Playground">PLAY</a>
     </nav>
     <a class="logo" href="#top" aria-label="Kodeflux — kembali ke atas" data-text="KOD3FLUX+"><span class="la">KOD3</span><span class="lb">FL</span><span class="lc">UX</span><span class="lb">+</span></a>
     <nav class="links links-r" aria-label="Utama kanan">
-      <a href="/corp" title="FluxHQ & custom build for business">CORP</a>
-      <a href="/discuss">ASK</a>
-      <a href="/flux-e" title="Flux-E, AI assistant">FLUX-E</a>
+      <a href="/corp" title="AI Virtual Office">CORP</a>
+      <a href="/discuss" title="AI Custom App">ASK</a>
+      <a href="/flux-e" title="AI Agents × Assistant">FLUX-E</a>
     </nav>
     <div class="nav-right">
-      <a class="btn btn-glass btn-sm" href="#fact">Take FACT</a>
+      <a class="btn btn-glass btn-sm" href="/fact" data-fact>Take FACT</a>
       <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false" aria-controls="mmenu"><svg class="ic"><use href="#i-menu"/></svg></button>
     </div>
   </div>
   <div class="mobile-menu" id="mmenu">
-    <a href="#fact">FACT · Flux AI Capability Test</a>
-    <a href="#fun">FUN · Flux User Network</a>
-    <a href="/play">PLAY · Playground</a>
-    <a href="/corp">CORP · For Business</a>
-    <a href="/discuss">ASK · Discuss</a>
-    <a href="/flux-e">FLUX-E · AI Assistant</a>
+    <a href="/fact" data-fact>FACT · Flux AI Capability Test</a>
+    <a href="/fun">FUN · Flux User Network</a>
+    <a href="/play">PLAY · AI Digital Playground</a>
+    <a href="/corp">CORP · AI Virtual Office</a>
+    <a href="/discuss">ASK · AI Custom App</a>
+    <a href="/flux-e">FLUX-E · AI Agents × Assistant</a>
   </div>
 </header>
 
@@ -939,8 +964,8 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
         <h1 style="--k:1">Bikin AI Jadi <span class="hero-grad">Teman Kolaborasi.</span><br>Kamu Tetap <span class="hero-grad alt">Pegang Kendali.</span></h1>
         <p class="lead" style="--k:2">Belajar, coba, dan temukan cara kerja bareng AI yang beneran kepake — tanpa harus jadi anak tech. <strong>Mulai dari levelmu, lalu tumbuh bareng.</strong></p>
         <div class="cta" style="--k:3">
-          <a class="btn btn-primary btn-lg" href="#fact">Take the FACT</a>
-          <a class="btn btn-glass btn-lg" href="#fun">Join the FUN</a>
+          <a class="btn btn-primary btn-lg" href="/fact" data-fact>Take the FACT</a>
+          <a class="btn btn-glass btn-lg" href="/fun">Join the FUN</a>
         </div>
       </div>
       <div class="hero-fluxman" aria-label="Fluxman">
@@ -956,7 +981,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
 <section class="gateway" aria-label="Explore Kodeflux">
   <div class="wrap">
     <div class="gateway-grid">
-      <a class="card gateway-card fact-card rv" href="#fact">
+      <a class="card gateway-card fact-card rv" href="/fact" data-fact>
         <div class="gateway-top"><span class="gateway-code">FACT</span><span class="tag live">2 min · free</span></div>
         <h2>Where are you with AI?</h2>
         <p><strong>Flux AI Capability Test</strong> — 10 pertanyaan ringan buat lihat pola kerja, kebiasaan, dan human touch-mu saat pakai AI.</p>
@@ -974,7 +999,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
         <span class="gateway-link">Take the FACT <svg class="ic"><use href="#i-arrow"/></svg></span>
       </a>
 
-      <a class="card gateway-card fun-card rv" href="#fun" style="--d:110ms">
+      <a class="card gateway-card fun-card rv" href="/fun" style="--d:110ms">
         <div class="gateway-top"><span class="gateway-code">FUN</span><span class="tag">Community</span></div>
         <h2>Don’t do it alone.</h2>
         <p><strong>Flux User Network</strong> — tempat Fluxmates sharing prompt, workflow, eksperimen, gagal-coba, dan hal yang ternyata works.</p>
@@ -996,33 +1021,13 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
             <circle class="fun-node" cx="29" cy="87" r="6"/>
           </svg>
         </div>
-        <span class="gateway-link">Meet the Fluxmates <svg class="ic"><use href="#i-arrow"/></svg></span>
+        <span class="gateway-link">Join the FUN <svg class="ic"><use href="#i-arrow"/></svg></span>
       </a>
     </div>
     <p class="gateway-line">FACT tells you where you are. <strong>FUN helps you move forward.</strong></p>
   </div>
 </section>
 
-<!-- FACT -->
-<section id="fact">
-  <div class="wrap">
-    <div class="fact-shell rv">
-      <div class="fact-intro" id="factIntro">
-        <div class="fact-copy">
-          <div class="fact-kicker">FACT · Flux AI Capability Test</div>
-          <h2>What’s your Flux Level?</h2>
-          <p><strong>FACT</strong> adalah self-check ringan buat melihat seberapa natural AI sudah masuk ke cara kamu berpikir, eksplorasi, bekerja, dan tetap menjaga human touch. Bukan ujian teknis, nggak ada jawaban paling pintar.</p>
-          <div class="fact-meta"><span>10 questions</span><span>± 2 min</span><span>No account</span><span>5 dimensions</span></div>
-          <button class="btn btn-primary fact-start" id="factStart" type="button">Start FACT <svg class="ic"><use href="#i-arrow"/></svg></button>
-        </div>
-        <div class="fact-intro-mark" aria-hidden="true">
-          <svg class="fact-concentric fact-intro-radar" id="factIntroSvg" viewBox="0 0 420 420"></svg>
-          <div class="fact-intro-label">10 questions · 5 dimensions</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <div class="fact-modal" id="factStage" aria-hidden="true">
   <div class="fact-modal-card" role="dialog" aria-modal="true" aria-labelledby="factQuestion">
@@ -1056,63 +1061,22 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
         <div class="fact-score"><span id="factScore">0</span><small>/100</small></div>
         <h3 id="factLevel">Seed</h3>
       </div>
+      <div class="fact-plain" id="factLevelPlain"></div>
       <p class="desc" id="factDesc"></p>
       <div class="fact-bars" id="factBars"></div>
+      <details class="fact-all"><summary>Lihat 5 level Flux</summary><ol><li><b>Seed</b> Baru kenal AI</li><li><b>Grow</b> Mulai coba-coba</li><li><b>Flow</b> Sudah jadi kebiasaan</li><li><b>Glow</b> Punya cara sendiri</li><li><b>Rise</b> Siap dibagikan</li></ol><p>Ini penanda ritme belajar, bukan ranking.</p></details>
       <div class="fact-rec" id="factRec"><span>Your next step</span><b id="factRecTitle"></b><p id="factRecText"></p></div>
       <button class="fact-share" id="factShare" type="button" aria-label="Share FACT result"><svg class="ic"><use href="#i-share"/></svg> Share result</button>
       <div class="cta fact-result-actions">
         <button class="btn btn-glass btn-sm" id="factRestart" type="button">Retake FACT</button>
-        <a class="btn btn-primary btn-sm" href="#fun" id="factJoinFun">Join FUN <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-primary btn-sm" href="/fun" id="factJoinFun">Join FUN <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
     </div></div>
   </div>
 </div>
 
-<!-- LEVELS -->
-<section id="levels" class="levels-sec">
-  <div class="wrap">
-    <div class="sh">
-      <div class="section-kicker">YOUR FLUX JOURNEY</div>
-      <h2>No rush. Keep moving.</h2>
-      <p>Lima level ini bukan ranking siapa paling pintar. Cuma penanda ritme adaptasimu bareng AI.</p>
-    </div>
-    <div class="levels-track rv">
-      <div class="level-item"><span class="level-sector"></span><b>Seed</b><p>Mulai tanpa takut.</p><small>01</small></div>
-      <div class="level-item"><span class="level-sector"></span><b>Grow</b><p>Mulai eksplorasi.</p><small>02</small></div>
-      <div class="level-item"><span class="level-sector"></span><b>Flow</b><p>Mulai nyatu di rutinitas.</p><small>03</small></div>
-      <div class="level-item"><span class="level-sector"></span><b>Glow</b><p>Makin pede & punya karakter.</p><small>04</small></div>
-      <div class="level-item"><span class="level-sector"></span><b>Rise</b><p>Skill berubah jadi impact.</p><small>05</small></div>
-    </div>
-  </div>
-</section>
 
-<!-- FUN -->
-<section id="fun">
-  <div class="wrap">
-    <div class="sh">
-      <div class="section-kicker">FUN · FLUX USER NETWORK</div>
-      <h2>Meet the Fluxmates.</h2>
-      <p>Nggak semua jawaban harus datang dari expert. Kadang yang paling kepake justru hasil bongkar proses bareng orang lain yang juga lagi nyoba, belajar, dan bikin sesuatu.</p>
-    </div>
-    <div class="fun-trio">
-      <div class="rv" style="--d:0ms"><div class="card fun-c">
-        <span class="fun-k">Collective Space</span>
-        <h3>Ngobrol, belajar, mencoba.</h3>
-        <p>Komunitas Discord, kelas tatap muka di Yogyakarta dan Jawa Tengah, plus e&#8209;book, mini&#8209;course, dan tools AI.</p>
-      </div></div>
-      <div class="rv" style="--d:110ms"><div class="card fun-c">
-        <span class="fun-k">Flux for Impact</span>
-        <h3>Learn. Make. Share.</h3>
-        <p>Kelas offline gratis dan tools ramah akses untuk teman disabilitas dan komunitas yang sering terlewat.</p>
-      </div></div>
-    </div>
-    <div class="rv fun-act">
-      <a class="btn btn-primary btn-lg" href="/fun" id="funGo">Explore FUN <svg class="ic"><use href="#i-arrow"/></svg></a>
-      <a class="btn btn-glass btn-lg" href="https://www.youtube.com/@kodeflux" target="_blank" rel="noopener">Watch Fluxman <svg class="ic"><use href="#i-arrow"/></svg></a>
-    </div>
-  </div>
-</section>
 
 <div class="fact-capture" id="factCapture" aria-hidden="true">
   <div class="fact-capture-card" role="dialog" aria-modal="true" aria-labelledby="factCaptureTitle">
@@ -1120,7 +1084,7 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
       <div><h3 id="factCaptureTitle">Before we start.</h3><p>Nama + email aja. Nggak bikin account — ini cuma buat ngitung siapa yang ikut FACT.</p></div>
       <button class="fact-close" id="factCaptureClose" type="button" aria-label="Close">×</button>
     </div>
-    <form name="kodeflux-fact" id="factCaptureForm" method="POST" data-netlify="true">
+    <form name="kodeflux-fact" id="factCaptureForm" method="POST" data-netlify="true" novalidate>
       <input type="hidden" name="form-name" value="kodeflux-fact">
       <input type="hidden" name="source" value="FACT">
       <div class="form-grid">
@@ -1133,139 +1097,19 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
   </div>
 </div>
 
-<!-- PLAYGROUNDS -->
-<section id="playgrounds">
+<!-- MORE PATHS -->
+<section id="paths" class="paths-sec">
   <div class="wrap">
     <div class="sh">
-      <h2>Choose your playground.</h2>
-      <p>Rental, travel, event, mentoring — industrinya beda, tapi problemnya sering mirip: workflow berantakan, keputusan tanpa data, dan knowledge yang nggak terdokumentasi. Di situlah kita mulai belajar.</p>
+      <div class="section-kicker">MORE FROM KODEFLUX</div>
+      <h2>Dari belajar ke praktik.</h2>
+      <p>Sudah kenalan sama AI? Lanjut coba alatnya, atau minta dibuatkan yang pas buat kerjaanmu.</p>
     </div>
-
-    <div class="pg">
-
-      <!-- RENTAL I/O -->
-      <div class="rv" style="--d:0ms"><article class="card play">
-        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-car"/></svg></span><h3>Rental I/O</h3><span class="tag live">Demo live</span></div>
-        <p class="for">Buat pemilik rental kendaraan dan peralatan yang mau serah terima lebih aman dan rapi.</p>
-        <div class="pv" aria-hidden="true">
-          <div class="pv-bar"><i></i><i></i><i></i><b>Fleet board</b><em>Preview</em></div>
-          <div class="pv-body">
-            <div class="fleet">
-              <div class="fr"><span></span><div class="dh"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></div>
-              <div class="fr r1"><span class="nm">Brio RS</span><div class="tl"><span class="bk" style="--l:0%;--w:28.57%;--d:0s"></span><span class="bk" style="--l:42.86%;--w:42.86%;--d:2.2s"></span></div></div>
-              <div class="fr r2"><span class="nm">Vario 160</span><div class="tl"><span class="bk" style="--l:14.29%;--w:57.14%;--d:.6s"></span></div></div>
-              <div class="fr r3"><span class="nm">Genset 5K</span><div class="tl"><span class="bk" style="--l:0%;--w:42.86%;--d:1.2s"></span><span class="bk" style="--l:71.43%;--w:28.57%;--d:3s"></span></div></div>
-            </div>
-            <div class="days"><span style="--d:0s">KTP ✓</span><span style="--d:3s">Agreement</span><span style="--d:6s">Handover</span></div>
-          </div>
-        </div>
-        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="/tools/kluster.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
-      </article></div>
-
-      <!-- TRAVEL I/O -->
-      <div class="rv" style="--d:110ms"><article class="card play">
-        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-compass"/></svg></span><h3>Travel I/O</h3><span class="tag live">Demo live</span></div>
-        <p class="for">Buat traveler, guide, dan tour operator yang menyusun trip dan itinerary dengan rapi.</p>
-        <div class="pv" aria-hidden="true">
-          <div class="pv-bar"><i></i><i></i><i></i><b>Trip planner</b><em>Preview</em></div>
-          <div class="pv-body">
-            <svg class="route" viewBox="0 0 300 50" preserveAspectRatio="xMidYMid meet">
-              <defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#4f70de"/><stop offset=".55" stop-color="#7b4fd8"/><stop offset="1" stop-color="#e7b565"/></linearGradient></defs>
-              <path class="base" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
-              <path class="path" d="M24 36 C 70 6, 108 46, 150 24 S 238 4, 276 30"/>
-              <circle class="pin" style="--d:.4s" cx="24" cy="36" r="5" fill="#4f70de"/>
-              <circle class="pin" style="--d:1.9s" cx="150" cy="24" r="5" fill="#7b4fd8"/>
-              <circle class="pin" style="--d:3.4s" cx="276" cy="30" r="5" fill="#e7b565"/>
-            </svg>
-            <div class="days"><span style="--d:0s">Day 1</span><span style="--d:3s">Day 2</span><span style="--d:6s">Day 3</span></div>
-            <div class="cost">
-              <div class="seg"><i style="--d:.2s"></i><i style="--d:.8s"></i><i style="--d:1.4s"></i></div>
-              <div class="lg"><span>Flight</span><span>Stay</span><span>Activities</span><span class="tot">≈ Rp 4,8 jt</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="/tools/kruiser.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
-      </article></div>
-
-      <!-- PARTY I/O -->
-      <div class="rv" style="--d:220ms"><article class="card play">
-        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-spark"/></svg></span><h3>Party I/O</h3><span class="tag live">Demo live</span></div>
-        <p class="for">Buat event organizer yang mengatur vendor, budget, dan rundown acara di satu tempat.</p>
-        <div class="pv" aria-hidden="true">
-          <div class="pv-bar"><i></i><i></i><i></i><b>Run of show</b><em>Preview</em></div>
-          <div class="pv-body">
-            <div class="ros">
-              <div class="rw" style="--d:.2s"><b>17:30</b><span>Registrasi tamu</span></div>
-              <div class="rw" style="--d:2.4s"><b>18:30</b><span>Makan malam &amp; hiburan</span></div>
-              <div class="rw" style="--d:4.6s"><b>20:30</b><span>Acara utama</span></div>
-            </div>
-            <div class="bud">
-              <div class="bar"><i></i></div>
-              <div class="lg"><span>Vendor booked 3/4</span><span class="tot">Budget 64%</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="/tools/konsole.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
-      </article></div>
-
-      <!-- MENTOR I/O -->
-      <div class="rv" style="--d:330ms"><article class="card play">
-        <div class="play-h"><span class="ico"><svg class="ic"><use href="#i-mentor"/></svg></span><h3>Mentor I/O</h3><span class="tag live">Demo live</span></div>
-        <p class="for">Buat coach, trainer, dan mentor yang menjalankan program klien secara terstruktur.</p>
-        <div class="pv" aria-hidden="true">
-          <div class="pv-bar"><i></i><i></i><i></i><b>Program tracker</b><em>Preview</em></div>
-          <div class="pv-body">
-            <div class="mn">
-              <div class="ring">
-                <svg viewBox="0 0 64 64">
-                  <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b4fd8"/><stop offset="1" stop-color="#c8578f"/></linearGradient></defs>
-                  <circle class="bg" cx="32" cy="32" r="26"/><circle class="fg" cx="32" cy="32" r="26"/>
-                </svg>
-                <span>4/6</span>
-              </div>
-              <ul class="chk">
-                <li><i style="--d:.6s"><svg viewBox="0 0 12 12" style="--d:.6s"><path d="m2.500 6.200 2.400 2.400 4.600-5"/></svg></i>Kickoff session</li>
-                <li><i style="--d:1.8s"><svg viewBox="0 0 12 12" style="--d:1.8s"><path d="m2.500 6.200 2.400 2.400 4.600-5"/></svg></i>Set goals</li>
-                <li><i style="--d:3s"><svg viewBox="0 0 12 12" style="--d:3s"><path d="m2.500 6.200 2.400 2.400 4.600-5"/></svg></i>Weekly review</li>
-              </ul>
-            </div>
-            <div class="mm">
-              <div class="rw" style="--pc:#c8578f"><span class="av">A</span><span class="bar"><i style="--w:82%;--d:.4s"></i></span></div>
-              <div class="rw" style="--pc:#3fa6ad"><span class="av">B</span><span class="bar"><i style="--w:56%;--d:1.2s"></i></span></div>
-            </div>
-          </div>
-        </div>
-        <div class="stat"><span class="on"><i></i>Tool</span><span><i></i>E-playbook</span><span><i></i>E-minicourse</span></div>
-        <a class="btn btn-glass btn-sm" href="/tools/kubicle.html">Try the demo <svg class="ic"><use href="#i-arrow"/></svg></a>
-      </article></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- CORP -->
-<section id="corp" class="corp-sec fx-teaser">
-  <div class="wrap">
-    <div class="corp-shell rv">
-      <div class="corp-head">
-        <div class="section-kicker">CORP · FOR BUSINESS</div>
-        <h2>Meet FluxHQ.</h2>
-        <p>A virtual office with six desks: Director, Marketing, Sales, Operation, Production, and Finance. Routine work runs itself, and the important calls still wait for your approval.</p>
-        <p>Your staff that never sleeps: it runs 24/7 and works from your phone, with no server, laptop, n8n or Make setup. Built for owners who are not technical.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="/corp#demo">Try FluxHQ <svg class="ic"><use href="#i-arrow"/></svg></a>
-          <a class="btn btn-glass" href="/corp#custom">Custom build</a>
-        </div>
-      </div>
-      <div class="corp-visual">
-        <div class="fxprev">
-          <iframe id="fxPrev" src="/fluxhq.html?mode=preview&amp;bg=transparent" title="Preview FluxHQ" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-          <a class="fxprev-hit" href="/corp#demo" aria-label="Try the FluxHQ demo"></a>
-        </div>
-      </div>
+    <div class="paths rv">
+      <a class="card path-card" href="/play"><span class="path-code">PLAY</span><span class="tag">AI Digital Playground</span><p>Coba alat AI siap pakai langsung dengan data contoh, tanpa perlu setting apa-apa.</p><span class="gateway-link">Open PLAY <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card path-card" href="/corp"><span class="path-code">CORP</span><span class="tag">AI Virtual Office</span><p>Kantor virtual berisi tim AI yang membantu urusan bisnismu, kamu tinggal setujui.</p><span class="gateway-link">Open CORP <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card path-card" href="/discuss"><span class="path-code">ASK</span><span class="tag">AI Custom App</span><p>Punya ide atau kerjaan manual yang ribet? Ceritakan, kita cari cara bikinnya bareng.</p><span class="gateway-link">Open ASK <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card path-card" href="/flux-e"><span class="path-code">FLUX-E</span><span class="tag">AI Agents × Assistant</span><p>Asisten AI yang bisa diajak ngobrol dan langsung mengerjakan tugas untukmu.</p><span class="gateway-link">Open FLUX-E <svg class="ic"><use href="#i-arrow"/></svg></span></a>
     </div>
   </div>
 </section>
@@ -1276,16 +1120,16 @@ html.js .rv:not(.in){opacity:0;transform:translateY(24px)}
     <div class="sh">
       <div class="section-kicker">FAQ</div>
       <h2>Quick answers.</h2>
-      <p>Pertanyaan yang paling sering muncul sebelum orang mulai.</p>
+      <p>Hal-hal yang paling sering ditanyakan orang sebelum mulai.</p>
     </div>
     <div class="pl-faq rv">
-      <details><summary>Apa bedanya Flux I/O dan FluxHQ?</summary><p>Flux I/O adalah tool per industri yang kamu jalankan sendiri. FluxHQ adalah kantor virtual dengan enam meja dan 18 agent yang membantu operasional bisnis, dengan persetujuan tetap di tanganmu.</p></details>
-      <details><summary>Perlu paham prompting?</summary><p>Tidak. Struktur, prompt, dan hasilnya sudah disiapkan. Kamu cukup mengisi data sendiri dan menyetujui hal yang penting.</p></details>
-      <details><summary>AI mana yang dipakai?</summary><p>Kamu pasang API key sendiri dan pilih Claude atau GPT (satu per akun). API key ditagih terpisah dari langganan Claude atau ChatGPT. Tutorialnya akan memandumu langkah demi langkah.</p></details>
-      <details><summary>Apa bedanya demo dengan versi lengkap?</summary><p>Demo berjalan dengan data contoh. Menyimpan, mengekspor, dan mencetak ada di versi lengkap.</p></details>
-      <details><summary>Bagaimana cara kerja fase harga?</summary><p>Tiap bundle punya 50 seat di harga pertama, lalu 30, lalu 20. Harga naik saat satu fase habis terjual. Jumlah seat di kartu bundle adalah angka sebenarnya.</p></details>
-      <details><summary>Bisa beli lebih dari satu industri?</summary><p>Bisa. Tiap bundle mencakup satu industri, dan industri lain dijual terpisah karena tool, e-playbook, dan e-mini course-nya berbeda untuk tiap industri.</p></details>
-      <details><summary>Di mana aku bisa bertanya?</summary><p>Di Discord Kodeflux. Di sana juga kabar peluncuran dan update komunitas diumumkan lebih dulu.</p></details>
+      <details><summary>Kodeflux itu apa?</summary><p>Kodeflux adalah learning lab dan community hub untuk belajar memakai AI sebagai teman kerja. Ada tes FACT untuk mengecek levelmu, komunitas FUN untuk belajar bareng, serta tool dan agent siap pakai di PLAY, CORP, dan FLUX-E.</p></details>
+      <details><summary>Harus bisa coding?</summary><p>Tidak. Kodeflux dibuat untuk orang awam, termasuk yang belum pernah memakai AI sama sekali. Mulai saja dari tes FACT, lalu belajar sesuai levelmu.</p></details>
+      <details><summary>FACT itu apa?</summary><p>FACT (Flux AI Capability Test) adalah 10 pertanyaan ringan, sekitar 2 menit, gratis dan tanpa akun. Kamu cukup mengisi nama dan email, lalu mendapat peta kemampuan dan langkah berikutnya.</p></details>
+      <details><summary>Apa arti tiap level?</summary><p>Lima level itu penanda ritme, bukan ranking. Seed berarti baru kenal AI, Grow mulai coba-coba, Flow sudah jadi kebiasaan, Glow punya cara sendiri, dan Rise sudah bisa dibagikan ke orang lain.</p></details>
+      <details><summary>FUN itu untuk siapa?</summary><p>FUN (Flux User Network) adalah komunitas Fluxmates di Discord untuk berbagi prompt, workflow, dan eksperimen, ditambah kelas, e-book, dan mini-course. Cocok untuk solo founder, freelancer, atau siapa pun yang mau belajar AI bareng-bareng.</p></details>
+      <details><summary>Apa beda tiap halaman?</summary><p>PLAY berisi tool AI siap pakai yang bisa dicoba dengan data contoh. CORP adalah kantor virtual FluxHQ untuk operasional bisnis. ASK untuk membahas aplikasi custom, dan FLUX-E adalah asisten AI yang menggerakkan agent di belakang layar.</p></details>
+      <details><summary>Mau tanya ke mana?</summary><p>Di Discord Kodeflux. Kabar peluncuran dan update komunitas juga diumumkan di sana lebih dulu.</p></details>
     </div>
   </div>
 </section>
@@ -1373,11 +1217,11 @@ const factQuestions=[
 {pillar:'Good Impact',q:'Saat memilih pakai AI untuk sesuatu, seberapa sering kamu mempertimbangkan efeknya ke orang lain?',opts:[['Jarang.','Aku fokus ke kebutuhanku sendiri.'],['Kadang kalau risikonya kelihatan jelas.','Masih case-by-case.'],['Cukup sering, terutama soal akurasi dan transparansi.','Aku pikirkan konsekuensinya.'],['Selalu bagian dari keputusan.','Manfaat, trust, dan responsibility sama pentingnya dengan efisiensi.']]}
 ];
 const factLevels=[
-{max:20,name:'Seed',copy:'Titik awal. Kamu masih membangun rasa nyaman dan konteks dasar supaya AI terasa relevan, bukan intimidating.'},
-{max:40,name:'Grow',copy:'Fondasinya sudah tumbuh. Kamu mulai paham kapan AI membantu, tapi penggunaannya masih situasional.'},
-{max:60,name:'Flow',copy:'AI mulai nyatu ke rutinitas. Kamu cukup luwes memilih kapan AI membantu dan kapan judgement manusia harus pegang kendali.'},
-{max:80,name:'Glow',copy:'Kamu sudah punya gaya, judgement, dan pola sendiri. Hasilnya lebih konsisten dan tetap terasa punyamu.'},
-{max:100,name:'Rise',copy:'AI sudah jadi leverage, bukan gimmick. Kamu memakai sistem dengan sadar dan mulai mengubah efisiensi menjadi dampak.'}
+{max:20,name:'Seed',plain:'Baru kenal AI',copy:'Kamu baru mulai kenalan dengan AI, dan itu titik awal yang wajar. Belum perlu jago. Cukup coba satu hal kecil dulu sampai terasa akrab.'},
+{max:40,name:'Grow',plain:'Mulai coba-coba',copy:'Kamu sudah pernah mencoba AI dan mulai tahu kapan ia berguna. Pemakaiannya masih kadang-kadang, belum jadi kebiasaan.'},
+{max:60,name:'Flow',plain:'Sudah jadi kebiasaan',copy:'AI sudah masuk ke pekerjaan sehari-harimu. Kamu tahu kapan menyerahkan ke AI dan kapan keputusan tetap kamu yang pegang.'},
+{max:80,name:'Glow',plain:'Punya cara sendiri',copy:'Kamu sudah punya gaya dan pola pakai sendiri. Hasilnya lebih stabil dan tetap terasa seperti karyamu.'},
+{max:100,name:'Rise',plain:'Siap dibagikan',copy:'AI sudah jadi alat andalanmu, dan caramu bekerja bisa diajarkan ke orang lain. Saatnya mengubah kebiasaan itu jadi dampak.'}
 ];
 const factWeights=[2.5,5,7.5,10],factPillars=['Mindset','Curiosity','Daily Habit','Human Touch','Good Impact'];
 let factCurrent=0,factAnswers=Array(factQuestions.length).fill(null);
@@ -1434,9 +1278,9 @@ function factUpdateViz(){
 }
 function factShowRec(level){const i=Math.max(0,factLevels.indexOf(level));factEl('factRecTitle').textContent=FRECS[i][0];factEl('factRecText').textContent=FRECS[i][1];}
 function factRender(){const item=factQuestions[factCurrent];factEl('factCount').textContent=`Question ${factCurrent+1} of ${factQuestions.length}`;factEl('factPct').textContent=`${Math.round((factCurrent+1)/factQuestions.length*100)}%`;factEl('factProgress').style.width=`${(factCurrent+1)/factQuestions.length*100}%`;factEl('factPillar').textContent=item.pillar;factEl('factQuestion').textContent=item.q;const box=factEl('factOptions');box.innerHTML='';item.opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.className='fact-option'+(factAnswers[factCurrent]===i?' selected':'');b.innerHTML=`<b>${o[0]}</b><small>${o[1]}</small>`;b.onclick=()=>{factAnswers[factCurrent]=i;factRender();factUpdateViz();};box.appendChild(b);});factEl('factPrev').disabled=factCurrent===0;factEl('factNext').disabled=factAnswers[factCurrent]===null;factEl('factNext').innerHTML=factCurrent===factQuestions.length-1?'See my result <svg class="ic"><use href="#i-arrow"/></svg>':'Next <svg class="ic"><use href="#i-arrow"/></svg>';factUpdateViz();}
-function factShowResult(){const raw=factAnswers.reduce((s,a)=>s+factWeights[a],0),score=factNormalize(raw,25,100),level=factLevels.find(l=>score<=l.max)||factLevels[4],vals=factDimensionScores();factEl('factQuiz').style.display='none';factEl('factResult').classList.add('active');factEl('factScore').textContent=score;factEl('factLevel').textContent=level.name;factEl('factDesc').textContent=level.copy;factShowRec(level);const bars=factEl('factBars');bars.innerHTML='';factPillars.forEach((p,i)=>{const row=document.createElement('div');row.className='fact-bar';row.innerHTML=`<span>${p}</span><div class="fact-bar-track"><i style="width:${vals[i]}%"></i></div><b>${vals[i]}</b>`;bars.appendChild(row);});}
+function factShowResult(){const raw=factAnswers.reduce((s,a)=>s+factWeights[a],0),score=factNormalize(raw,25,100),level=factLevels.find(l=>score<=l.max)||factLevels[4],vals=factDimensionScores();factEl('factQuiz').style.display='none';factEl('factResult').classList.add('active');factEl('factScore').textContent=score;factEl('factLevel').textContent=level.name;factEl('factLevelPlain').textContent=level.plain;factEl('factDesc').textContent=level.copy;factShowRec(level);const bars=factEl('factBars');bars.innerHTML='';factPillars.forEach((p,i)=>{const row=document.createElement('div');row.className='fact-bar';row.innerHTML=`<span>${p}</span><div class="fact-bar-track"><i style="width:${vals[i]}%"></i></div><b>${vals[i]}</b>`;bars.appendChild(row);});}
 factInitViz();factUpdateViz();
-if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factCapture');cap.classList.add('active');cap.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>factEl('factName')&&factEl('factName').focus(),60);};factEl('factPrev').onclick=()=>{if(factCurrent>0){factCurrent--;factRender();}};factEl('factNext').onclick=()=>{if(factAnswers[factCurrent]===null)return;if(factCurrent<factQuestions.length-1){factCurrent++;factRender();}else factShowResult();};factEl('factRestart').onclick=()=>{factAnswers.fill(null);factCurrent=0;factEl('factResult').classList.remove('active');factEl('factQuiz').style.display='flex';factRender();};const closeFactModal=()=>{const modal=factEl('factStage');modal.classList.remove('active');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';};factEl('factModalClose').onclick=closeFactModal;factEl('factStage').addEventListener('click',e=>{if(e.target===factEl('factStage'))closeFactModal();});factEl('factJoinFun').addEventListener('click',closeFactModal);}
+if(factEl('factNext')){window.kfOpenFact=()=>{const cap=factEl('factCapture');cap.classList.add('active');cap.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';setTimeout(()=>factEl('factName')&&factEl('factName').focus(),60);};factEl('factPrev').onclick=()=>{if(factCurrent>0){factCurrent--;factRender();}};factEl('factNext').onclick=()=>{if(factAnswers[factCurrent]===null)return;if(factCurrent<factQuestions.length-1){factCurrent++;factRender();}else factShowResult();};factEl('factRestart').onclick=()=>{factAnswers.fill(null);factCurrent=0;factEl('factResult').classList.remove('active');factEl('factQuiz').style.display='flex';factRender();};const closeFactModal=()=>{const modal=factEl('factStage');modal.classList.remove('active');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';};factEl('factModalClose').onclick=closeFactModal;factEl('factStage').addEventListener('click',e=>{if(e.target===factEl('factStage'))closeFactModal();});factEl('factJoinFun').addEventListener('click',closeFactModal);}
 
 </script>
 
@@ -1458,8 +1302,16 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
     e.preventDefault();
     var status=document.getElementById('factCaptureStatus');
     var btn=factCaptureForm.querySelector('button[type="submit"]');
+    var vn=document.getElementById('factName').value.trim().replace(/\s+/g,' '),ve=document.getElementById('factEmail').value.trim().toLowerCase();
+    var vd={'gmial.com':'gmail.com','gmai.com':'gmail.com','gmaill.com':'gmail.com','gnail.com':'gmail.com','gmail.co':'gmail.com','gmail.con':'gmail.com','yaho.com':'yahoo.com','yahooo.com':'yahoo.com','yahoo.con':'yahoo.com','hotmial.com':'hotmail.com','outlok.com':'outlook.com'},vx=/(^|\.)(mailinator\.com|guerrillamail\.com|10minutemail\.com|tempmail\.com|temp-mail\.org|yopmail\.com|trashmail\.com|sharklasers\.com|getnada\.com|dispostable\.com|maildrop\.cc|throwawaymail\.com|fakeinbox\.com|mohmal\.com|emailondeck\.com)$/i;
+    var verr='';
+    if(vn.length<2||vn.length>60||!/^[\p{L}][\p{L}\p{M}'.\- ]*$/u.test(vn)||/(.)\1{3,}/.test(vn))verr='Please enter your name using letters, at least 2. A nickname is fine.';
+    else if(ve.length>254||!/^[a-z0-9._%+\-]{1,64}@([a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/.test(ve)||/\.\./.test(ve))verr='That email doesn’t look right. Example: name@gmail.com.';
+    else if(vx.test(ve.split('@')[1]))verr='Disposable emails can’t be used. Please use your active email.';
+    else if(vd[ve.split('@')[1]])verr='Did you mean '+ve.split('@')[0]+'@'+vd[ve.split('@')[1]]+'? Please fix your email first.';
+    if(verr){status.textContent=verr;return}
     btn.disabled=true;status.textContent='Starting FACT…';
-    var data={"form-name":"kodeflux-fact",source:'FACT',name:document.getElementById('factName').value.trim(),email:document.getElementById('factEmail').value.trim()};
+    var data={"form-name":"kodeflux-fact",source:'FACT',name:vn,email:ve};
     try{
       var r=await netlifySubmit(factCaptureForm,data);if(!r.ok)throw new Error('submit failed');
       closeFactCapture();
@@ -1496,14 +1348,21 @@ if(factEl('factStart')){factEl('factStart').onclick=()=>{const cap=factEl('factC
 
 <script>
 (function(){
-  var f=document.getElementById('fxPrev');if(!f)return;
-  window.addEventListener('message',function(e){
-    if(e.origin!==location.origin||!e.data||e.data.type!=='fluxhq:height')return;
-    if(e.source===f.contentWindow)f.style.height=e.data.height+'px';
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('[data-fact],a[href="#fact"]');
+    if(a&&window.kfOpenFact){e.preventDefault();window.kfOpenFact()}
   });
+  function go(){
+    var h=location.hash;
+    if(h==='#fun'){location.replace('/fun');return}
+    if((h==='#fact'||h==='#start-fact')&&window.kfOpenFact){
+      try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+      setTimeout(window.kfOpenFact,350)}
+  }
+  if(document.readyState==='complete')go();else window.addEventListener('load',go);
+  window.addEventListener('hashchange',go);
 })();
 </script>
-<script>window.addEventListener('load',function(){if(location.hash==='#start-fact'){var b=document.getElementById('factStart');if(b){b.scrollIntoView();setTimeout(function(){b.click()},300)}}});</script>
 <script>(function(){
   var el=document.getElementById('kfboot');if(!el)return;
   var cv=document.getElementById('kforb'),bar=document.getElementById('kfbar'),root=document.documentElement;
