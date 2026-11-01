@@ -3,41 +3,42 @@
 (function () {
   var CFG = {
     launch: false,            // false = pre-launch (buttons go to Discord). true = checkout buttons live.
-    discord: 'https://discord.com/invite/rMQnT7xZn',              // paste the Discord invite link here, e.g. 'https://discord.gg/xxxxx'
-    seats: [50, 30, 20],      // seats per price phase (per bundle)
-    // Seats and checkout links are tracked PER BUNDLE PER INDUSTRY.
-    // buy: { rental: ['phase1 url','phase2 url','phase3 url'], party: [...], ... }
+    discord: 'https://discord.com/invite/rMQnT7xZn',
+    seats: 50,                // early-bird seats per bundle (per bidang). After they sell out the price becomes "normal".
     // sold: { rental: 0, party: 0, ... }   (missing = 0)
+    // buy:  { rental: 'checkout url', party: '...', ... }   (Mayar link per bidang)
+    // early = harga early bird, normal = harga normal (dicoret). Mini-course & e-book tidak punya early bird:
+    // harga normal paket = harga normal tool + isi tambahan.
     groups: [
       { id: 'io', kicker: 'FLUX I/O BUNDLES', title: 'Industry tools',
         inds: [['rental', 'Rental', 'Rental I/O'], ['party', 'Party', 'Party I/O'], ['travel', 'Travel', 'Travel I/O'], ['mentor', 'Mentor', 'Mentor I/O']],
-        unit: '1 bidang', fine: 'Harga naik seiring seat terjual. Harga berlaku untuk satu bidang.', label: 'Bidang',
-        sub: 'Pilih bidangmu dulu. Tiap bundle mencakup satu bidang itu.',
+        fine: 'Amankan sekarang sebelum kehabisan.', label: 'Bidang',
+        sub: 'Pilih bidangmu dulu. Paket tambahan: mini-course dan e-book Kerja Bareng AI.',
         bundles: [
           { id: 'core',  name: 'Core',  tag: 'Tool-nya saja.',
             items: ['{tool}: the full tool', 'Full version, no demo limits'],
-            prices: [79000, 99000, 129000],  sold: {}, buy: {} },
-          { id: 'kit',   name: 'Kit',   tag: 'Tool + playbook.',
-            items: ['Everything in Core', 'E-playbook for {ind}'],
-            prices: [99000, 129000, 169000], sold: {}, buy: {} },
+            early: 149000, normal: 745000, sold: {}, buy: {} },
+          { id: 'kit',   name: 'Kit',   tag: 'Tool + mini-course.',
+            items: ['Everything in Core', 'Mini-course Kerja Bareng AI'],
+            early: 169000, normal: 795000, sold: {}, buy: {} },
           { id: 'suite', name: 'Suite', tag: 'Paket lengkap.', feat: 'Most complete',
-            items: ['Everything in Kit', 'E-mini course for {ind}'],
-            prices: [129000, 169000, 219000], sold: {}, buy: {} }
+            items: ['Everything in Kit', 'E-book Kerja Bareng AI'],
+            early: 249000, normal: 875000, sold: {}, buy: {} }
         ] },
       { id: 'hq', kicker: 'FLUXHQ BUNDLES', title: 'Virtual office',
         inds: [['agency', 'Agency', 'Agency'], ['rental', 'Rental', 'Rental'], ['travel', 'Travel', 'Travel'], ['party', 'Party', 'Party'], ['mentor', 'Mentor', 'Mentor'], ['retail', 'Retail', 'Retail']],
-        unit: '1 industri', fine: 'Harga naik seiring seat terjual. Harga berlaku untuk satu industri.', label: 'Industry',
-        sub: 'Pilih industrimu dulu. Enam meja dan 18 agent, berjalan dengan API key Claude atau GPT milikmu.',
+        fine: 'Amankan sekarang sebelum kehabisan.', label: 'Bidang',
+        sub: 'Pilih bidangmu dulu. Enam meja dan 18 agent, berjalan dengan API key Claude atau GPT milikmu. Paket tambahan: mini-course dan e-book Bisnis Bareng AI.',
         bundles: [
-          { id: 'alpha', name: 'Alpha', tag: 'Kantor virtualmu.',
+          { id: 'alpha', name: 'Alpha', tag: 'Virtual office-mu.',
             items: ['FluxHQ for {ind}: 6 desks, 18 agents', 'Runs on your own Claude or GPT key'],
-            prices: [399000, 499000, 599000], sold: {}, buy: {} },
-          { id: 'prime', name: 'Prime', tag: 'Kantor + playbook.',
-            items: ['Everything in Alpha', 'E-playbook for {ind}'],
-            prices: [499000, 599000, 699000], sold: {}, buy: {} },
-          { id: 'elite', name: 'Elite', tag: 'Kantor + panduan lengkap.', feat: 'Best value',
-            items: ['Everything in Prime', 'E-mini course for {ind}'],
-            prices: [599000, 699000, 799000], sold: {}, buy: {} }
+            early: 299000, normal: 1495000, sold: {}, buy: {} },
+          { id: 'prime', name: 'Prime', tag: 'Virtual office + mini-course.',
+            items: ['Everything in Alpha', 'Mini-course Bisnis Bareng AI'],
+            early: 319000, normal: 1545000, sold: {}, buy: {} },
+          { id: 'elite', name: 'Elite', tag: 'Virtual office + paket lengkap.', feat: 'Best value',
+            items: ['Everything in Prime', 'E-book Bisnis Bareng AI'],
+            early: 399000, normal: 1625000, sold: {}, buy: {} }
         ] }
     ]
   };
@@ -54,9 +55,9 @@
   '.bnd-badge{position:absolute;top:-11px;right:18px;padding:3px 10px;border-radius:99px;background:linear-gradient(135deg,#7b4fd8,#c8578f);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.04em}' +
   '.bnd h3{font-size:1.35rem;letter-spacing:-.02em;margin:0}' +
   '.bnd-tag{margin-top:2px;color:var(--muted,#a29eab);font-size:.9rem}' +
-  '.bnd-price{margin-top:16px;display:flex;align-items:baseline;gap:8px}' +
+  '.bnd-price{margin-top:16px;display:flex;align-items:flex-end;gap:10px}' +
   '.bnd-price b{font-size:2rem;letter-spacing:-.03em;line-height:1}' +
-  '.bnd-price span{color:var(--muted,#a29eab);font-size:.84rem}' +
+  '.bnd-price span{color:var(--muted,#a29eab);font-size:.84rem;padding-bottom:3px}' +
   '.bnd ul{list-style:none;margin:16px 0 0;padding:0;flex:1}' +
   '.bnd li{position:relative;padding:0 0 8px 20px;font-size:.92rem;line-height:1.45;color:var(--fg,#f4f1ea)}' +
   '.bnd li::before{content:"";position:absolute;left:2px;top:.5em;width:8px;height:8px;border-radius:50%;background:var(--amber,#e7b565)}' +
@@ -77,58 +78,47 @@
   '.bnd-cta .btn{width:100%}' +
   '.bnd-cta .btn[aria-disabled="true"]{opacity:.5;pointer-events:none}' +
   '.bnd-fine{margin-top:10px;text-align:center;color:var(--dim,#6f6b78);font-size:.76rem}' +
+  '.bnd-old{margin:0 0 4px;color:var(--dim,#6f6b78);font-size:.9rem;text-decoration:line-through;text-decoration-thickness:1.5px}' +
+  '.bnd-seat{margin:14px 0 0;display:flex;align-items:center;justify-content:space-between;gap:10px;height:40px;padding:0 14px;border:1px solid rgba(231,181,101,.55);border-radius:11px;background:rgba(231,181,101,.08);font-size:.8rem;color:var(--fg,#f4f1ea)}' +
+  '.bnd-seat i{font-style:normal;font-family:var(--mono,monospace);font-size:.7rem;letter-spacing:.08em;color:var(--muted,#a29eab)}' +
+  '.bnd-seat em{font-style:normal;color:var(--amber,#e7b565);font-weight:600}' +
+  '.bnd-seat.out{border-color:var(--line,rgba(255,255,255,.09));background:none}.bnd-seat.out em{color:var(--muted,#a29eab)}' +
   '@media(max-width:900px){.bnd-grid{grid-template-columns:1fr}.bnd-badge{right:16px}}';
 
-  function k(n) { return 'Rp' + (n / 1000) + 'K'; }
+  function k(n) { return 'Rp' + String(n / 1000).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'K'; }
 
-  function phaseOf(sold) {
-    var acc = 0;
-    for (var i = 0; i < CFG.seats.length; i++) {
-      acc += CFG.seats[i];
-      if (sold < acc) return { i: i, left: acc - sold };
-    }
-    return { i: -1, left: 0 };
-  }
+  function left(sold) { return Math.max(0, CFG.seats - (sold || 0)); }
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 
-  function cta(b, cur, ind) {
+  function cta(b, lf, ind) {
     var arrow = '<svg class="ic"><use href="#i-arrow"/></svg>';
     if (!CFG.launch) {
       return CFG.discord
         ? '<a class="btn btn-glass" href="' + CFG.discord + '" target="_blank" rel="noopener noreferrer">Join Discord for launch ' + arrow + '</a>'
         : '<span class="btn btn-glass" aria-disabled="true">Launching soon</span>';
     }
-    if (cur.i < 0) {
-      return CFG.discord
-        ? '<a class="btn btn-glass" href="' + CFG.discord + '" target="_blank" rel="noopener noreferrer">Lifetime sold out. Join Discord ' + arrow + '</a>'
-        : '<span class="btn btn-glass" aria-disabled="true">Lifetime sold out</span>';
-    }
-    var link = ((b.buy && b.buy[ind[0]]) || [])[cur.i];
+    var price = lf > 0 ? b.early : b.normal;
+    var link = (b.buy && b.buy[ind[0]]) || '';
     return link
-      ? '<a class="btn btn-primary" href="' + link + '" target="_blank" rel="noopener noreferrer">Get ' + esc(b.name) + ' · ' + esc(ind[1]) + ' for ' + k(b.prices[cur.i]) + ' ' + arrow + '</a>'
+      ? '<a class="btn btn-primary" href="' + link + '" target="_blank" rel="noopener noreferrer">Get ' + esc(b.name) + ' · ' + esc(ind[1]) + ' for ' + k(price) + ' ' + arrow + '</a>'
       : '<span class="btn btn-primary" aria-disabled="true">Checkout opening soon</span>';
   }
 
   function card(b, ind, g) {
-    var cur = phaseOf((b.sold && b.sold[ind[0]]) || 0);
-    var showNow = cur.i < 0 ? CFG.seats.length - 1 : cur.i;
-    var rows = '';
-    for (var i = 0; i < CFG.seats.length; i++) {
-      var st = cur.i < 0 || i < cur.i ? 'done' : (i === cur.i ? 'now' : 'next');
-      var label = st === 'done' ? 'Sold out'
-        : st === 'now' ? (CFG.launch ? cur.left + ' of ' + CFG.seats[i] + ' left' : CFG.seats[i] + ' seats only')
-        : CFG.seats[i] + ' seats only';
-      rows += '<div class="bnd-row ' + st + '"><i>PHASE ' + (i + 1) + '</i><b>' + k(b.prices[i]) + '</b><em>' + label + '</em></div>';
-    }
+    var lf = left((b.sold && b.sold[ind[0]]) || 0);
+    var live = lf > 0;
     var items = b.items.map(function (t) { return '<li>' + esc(t.replace('{tool}', ind[2]).replace('{ind}', ind[1])) + '</li>'; }).join('');
+    var seat = live
+      ? '<div class="bnd-seat"><i>EARLY BIRD</i><em>' + (CFG.launch ? lf + ' of ' + CFG.seats + ' left' : CFG.seats + ' seats only') + '</em></div>'
+      : '<div class="bnd-seat out"><i>EARLY BIRD</i><em>Sold out</em></div>';
     return '<article class="bnd' + (b.feat ? ' feat' : '') + ' rv">' +
       (b.feat ? '<span class="bnd-badge">' + esc(b.feat) + '</span>' : '') +
       '<h3>' + esc(b.name) + '</h3><p class="bnd-tag">' + esc(b.tag) + '</p>' +
-      '<div class="bnd-price"><b>' + k(b.prices[showNow]) + '</b><span>lifetime · ' + esc(g.unit) + '</span></div>' +
-      '<ul>' + items + '</ul>' +
-      '<div class="bnd-lad">' + rows + '</div>' +
-      '<div class="bnd-cta">' + cta(b, cur, ind) + '</div>' +
+      (live ? '<div class="bnd-price"><div><div class="bnd-old">' + k(b.normal) + '</div><b>' + k(b.early) + '</b></div><span>lifetime</span></div>'
+            : '<div class="bnd-price"><div><b>' + k(b.normal) + '</b></div><span>lifetime</span></div>') +
+      '<ul>' + items + '</ul>' + seat +
+      '<div class="bnd-cta">' + cta(b, lf, ind) + '</div>' +
       '<p class="bnd-fine">' + esc(g.fine) + '</p>' +
       '</article>';
   }
